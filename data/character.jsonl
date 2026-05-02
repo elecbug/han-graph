@@ -1,0 +1,22 @@
+{"id": "ga", "sound_ko": "가", "sound_en": "ga"}
+{"id": "ga000", "hanja": "佳", "meaning_ko": ["아름답다", "좋다"], "meaning_en": ["beautiful", "good"]}
+{"id": "ga001", "hanja": "假", "meaning_ko": ["거짓", "가짜"], "meaning_en": ["false", "fake"]}
+{"id": "ga002", "hanja": "價", "meaning_ko": ["값", "가격"], "meaning_en": ["price", "value"]}
+{"id": "ga003", "hanja": "加", "meaning_ko": ["더하다", "증가하다"], "meaning_en": ["to add", "to increase"]}
+{"id": "ga004", "hanja": "可", "meaning_ko": ["가능하다", "허락하다", "옳다"], "meaning_en": ["possible", "to allow", "right"]}
+{"id": "ga005", "hanja": "家", "meaning_ko": ["집", "가족"], "meaning_en": ["house", "family"]}
+{"id": "ga006", "hanja": "歌", "meaning_ko": ["노래하다"], "meaning_en": ["to sing"]}
+{"id": "ga007", "hanja": "街", "meaning_ko": ["거리", "가로"], "meaning_en": ["street", "avenue"]}
+{"id": "ga100", "hanja": "暇", "meaning_ko": ["한가하다", "여유"], "meaning_en": ["leisure", "free time"]}
+{"id": "ga101", "hanja": "架", "meaning_ko": ["틀", "받침대"], "meaning_en": ["frame", "stand"]}
+
+{"id": "gak", "sound_ko": "각", "sound_en": "gak"}
+{"id": "gak000", "hanja": "各", "meaning_ko": ["각각", "각자"], "meaning_en": ["each", "every"]}
+{"id": "gak001", "hanja": "脚", "meaning_ko": ["다리"], "meaning_en": ["leg"]}
+{"id": "gak002", "hanja": "角", "meaning_ko": ["뿔", "모서리"], "meaning_en": ["horn", "corner"]}
+{"id": "gak100", "hanja": "刻", "meaning_ko": ["새기다", "시간의 단위"], "meaning_en": ["to engrave", "unit of time"]}
+{"id": "gak101", "hanja": "却", "meaning_ko": ["물러나다", "거절하다"], "meaning_en": ["to retreat", "to refuse"]}
+{"id": "gak102", "hanja": "覺", "meaning_ko": ["깨닫다", "느끼다"], "meaning_en": ["to realize", "to feel"]}
+{"id": "gak103", "hanja": "閣", "meaning_ko": ["누각", "관청"], "meaning_en": ["pavilion", "government office"]}
+
+각 끝
