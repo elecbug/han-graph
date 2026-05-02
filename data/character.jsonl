@@ -132,7 +132,7 @@
 {"type": "character", "id": "gye100", "hanja": "係", "meaning_ko": ["걸리다", "관계"], "meaning_en": ["to relate", "connection"]}
 {"type": "character", "id": "gye101", "hanja": "啓", "meaning_ko": ["열다"], "meaning_en": ["to open", "to enlighten"]}
 {"type": "character", "id": "gye102", "hanja": "契", "meaning_ko": ["맺다"], "meaning_en": ["to pledge", "contract"]}
-{"type": "character", "id": "gye103", "hanja": "戒", "meaning_ko": ["경계하다"], "meaning_en": ["to warn", "to戒"]}
+{"type": "character", "id": "gye103", "hanja": "戒", "meaning_ko": ["경계하다"], "meaning_en": ["to warn", "to admonish"]}
 {"type": "character", "id": "gye104", "hanja": "桂", "meaning_ko": ["계수나무"], "meaning_en": ["cinnamon tree"]}
 {"type": "character", "id": "gye105", "hanja": "械", "meaning_ko": ["형틀"], "meaning_en": ["machine", "instrument"]}
 {"type": "character", "id": "gye106", "hanja": "系", "meaning_ko": ["잇다"], "meaning_en": ["system", "to connect"]}
@@ -441,7 +441,7 @@
 {"type": "character", "id": "don100", "hanja": "敦", "meaning_ko": ["도탑다"], "meaning_en": ["honest", "sincere"]}
 {"type": "character", "id": "don101", "hanja": "豚", "meaning_ko": ["돼지"], "meaning_en": ["pig"]}
 {"type": "meta", "id": "dol", "sound_ko": "돌", "sound_en": "dol"}
-{"type": "character", "id": "dol100", "hanja": "突", "meaning_ko": ["갑자기"], "meaning_en": ["suddenly", "to突き出る"]}
+{"type": "character", "id": "dol100", "hanja": "突", "meaning_ko": ["갑자기"], "meaning_en": ["suddenly", "to protrude"]}
 {"type": "meta", "id": "dong", "sound_ko": "동", "sound_en": "dong"}
 {"type": "character", "id": "dong000", "hanja": "冬", "meaning_ko": ["겨울"], "meaning_en": ["winter"]}
 {"type": "character", "id": "dong001", "hanja": "動", "meaning_ko": ["움직이다"], "meaning_en": ["to move"]}
@@ -589,7 +589,7 @@
 {"type": "character", "id": "ri002", "hanja": "理", "meaning_ko": ["다스리다"], "meaning_en": ["reason", "to manage"]}
 {"type": "character", "id": "ri003", "hanja": "里", "meaning_ko": ["마을"], "meaning_en": ["village"]}
 {"type": "character", "id": "ri100", "hanja": "吏", "meaning_ko": ["벼슬아치"], "meaning_en": ["government official"]}
-{"type": "character", "id": "ri101", "hanja": "履", "meaning_ko": ["밟다"], "meaning_en": ["to step on", "to履行하다"]}
+{"type": "character", "id": "ri101", "hanja": "履", "meaning_ko": ["밟다"], "meaning_en": ["to step on", "to carry out"]}
 {"type": "character", "id": "ri102", "hanja": "梨", "meaning_ko": ["배나무"], "meaning_en": ["pear tree"]}
 {"type": "character", "id": "ri103", "hanja": "裏", "meaning_ko": ["속"], "meaning_en": ["inside", "interior"]}
 {"type": "character", "id": "ri104", "hanja": "離", "meaning_ko": ["떼어놓다"], "meaning_en": ["to separate", "to leave"]}
@@ -1429,7 +1429,7 @@
 {"type": "character", "id": "eup001", "hanja": "邑", "meaning_ko": ["고을"], "meaning_en": ["town", "village"]}
 {"type": "meta", "id": "eung", "sound_ko": "응", "sound_en": "eung"}
 {"type": "character", "id": "eung000", "hanja": "應", "meaning_ko": ["응하다"], "meaning_en": ["to respond"]}
-{"type": "character", "id": "eung100", "hanja": "凝", "meaning_ko": ["엉기다"], "meaning_en": ["to congeal", "to凝固하다"]}
+{"type": "character", "id": "eung100", "hanja": "凝", "meaning_ko": ["엉기다"], "meaning_en": ["to congeal", "to solidify"]}
 {"type": "meta", "id": "ui", "sound_ko": "의", "sound_en": "ui"}
 {"type": "character", "id": "ui000", "hanja": "依", "meaning_ko": ["의지하다"], "meaning_en": ["to rely on"]}
 {"type": "character", "id": "ui001", "hanja": "意", "meaning_ko": ["뜻"], "meaning_en": ["meaning", "intention"]}
@@ -1891,7 +1891,7 @@
 {"type": "character", "id": "chim103", "hanja": "沈", "meaning_ko": ["가라앉다"], "meaning_en": ["to sink"]}
 {"type": "character", "id": "chim104", "hanja": "浸", "meaning_ko": ["담그다"], "meaning_en": ["to soak", "to immerse"]}
 {"type": "meta", "id": "ching", "sound_ko": "칭", "sound_en": "ching"}
-{"type": "character", "id": "ching100", "hanja": "稱", "meaning_ko": ["일컫다"], "meaning_en": ["to call", "to称하다"]}
+{"type": "character", "id": "ching100", "hanja": "稱", "meaning_ko": ["일컫다"], "meaning_en": ["to call", "to name"]}
 {"type": "meta", "id": "kwae", "sound_ko": "쾌", "sound_en": "kwae"}
 {"type": "character", "id": "kwae000", "hanja": "快", "meaning_ko": ["쾌하다"], "meaning_en": ["pleasant", "fast"]}
 {"type": "meta", "id": "ta", "sound_ko": "타", "sound_en": "ta"}
@@ -1905,7 +1905,7 @@
 {"type": "character", "id": "tak102", "hanja": "濁", "meaning_ko": ["흐리다"], "meaning_en": ["muddy", "impure"]}
 {"type": "character", "id": "tak103", "hanja": "濯", "meaning_ko": ["씻다"], "meaning_en": ["to wash", "to rinse"]}
 {"type": "meta", "id": "tan", "sound_ko": "탄", "sound_en": "tan"}
-{"type": "character", "id": "tan100", "hanja": "彈", "meaning_ko": ["탄알"], "meaning_en": ["bullet", "to弹다"]}
+{"type": "character", "id": "tan100", "hanja": "彈", "meaning_ko": ["탄알"], "meaning_en": ["bullet", "to spring"]}
 {"type": "character", "id": "tan101", "hanja": "歎", "meaning_ko": ["탄식하다"], "meaning_en": ["to sigh", "to lament"]}
 {"type": "character", "id": "tan102", "hanja": "炭", "meaning_ko": ["숯"], "meaning_en": ["charcoal", "coal"]}
 {"type": "character", "id": "tan103", "hanja": "誕", "meaning_ko": ["태어나다"], "meaning_en": ["birth", "to be born"]}
