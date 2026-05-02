@@ -5,15 +5,22 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path"
 )
 
 func main() {
-	characters, err := loadCharacters("data\\character.jsonl")
+	meta, err := loadMeta(path.Join("data", "meta.jsonl"))
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Read %d characters\n", len(characters))
+	characters, err := loadCharacters(path.Join("data", "character.jsonl"))
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Read %d meta entries\n", len(meta))
+	fmt.Printf("Read %d character entries\n", len(characters))
 }
 
 type Character struct {
@@ -22,6 +29,13 @@ type Character struct {
 	Hanja     string   `json:"hanja"`
 	MeaningKo []string `json:"meaning_ko"`
 	MeaningEn []string `json:"meaning_en"`
+}
+
+type Meta struct {
+	Type    string `json:"type"`
+	ID      string `json:"id"`
+	SoundKo string `json:"sound_ko"`
+	SoundEn string `json:"sound_en"`
 }
 
 func loadCharacters(filename string) ([]Character, error) {
@@ -34,11 +48,14 @@ func loadCharacters(filename string) ([]Character, error) {
 	var chars []Character
 	scanner := bufio.NewScanner(fs)
 	for scanner.Scan() {
+		var char Character
 		line := scanner.Text()
-		char, err := parseJSONLine(line)
+
+		err := json.Unmarshal([]byte(line), &char)
 		if err != nil {
 			return nil, err
 		}
+
 		chars = append(chars, char)
 	}
 
@@ -49,8 +66,30 @@ func loadCharacters(filename string) ([]Character, error) {
 	return chars, nil
 }
 
-func parseJSONLine(line string) (Character, error) {
-	var word Character
-	err := json.Unmarshal([]byte(line), &word)
-	return word, err
+func loadMeta(filename string) ([]Meta, error) {
+	fs, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer fs.Close()
+
+	var metas []Meta
+	scanner := bufio.NewScanner(fs)
+	for scanner.Scan() {
+		var meta Meta
+		line := scanner.Text()
+
+		err := json.Unmarshal([]byte(line), &meta)
+		if err != nil {
+			return nil, err
+		}
+
+		metas = append(metas, meta)
+	}
+
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+
+	return metas, nil
 }
