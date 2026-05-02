@@ -1,0 +1,22 @@
+{"level": "normal", "word": "가인","hanja": "佳人","meaning_ko": "아름다운 사람","meaning_en": "beautiful person","components": ["佳", "人"]}
+{"level": "normal", "word": "가경","hanja": "佳景","meaning_ko": "아름다운 경치","meaning_en": "beautiful scenery","components": ["佳", "景"]}
+{"level": "normal", "word": "가명","hanja": "假名","meaning_ko": "가짜 이름","meaning_en": "alias, pseudonym","components": ["假", "名"]}
+{"level": "normal", "word": "가설","hanja": "假設","meaning_ko": "임시로 세운 설명","meaning_en": "hypothesis","components": ["假", "設"]}
+{"level": "normal", "word": "가격","hanja": "價格","meaning_ko": "물건의 값","meaning_en": "price","components": ["價", "格"]}
+{"level": "normal", "word": "가치","hanja": "價値","meaning_ko": "값어치","meaning_en": "value","components": ["價", "値"]}
+{"level": "normal", "word": "가산","hanja": "加算","meaning_ko": "수를 더함","meaning_en": "addition","components": ["加", "算"]}
+{"level": "normal", "word": "가속","hanja": "加速","meaning_ko": "속도를 더 빠르게 함","meaning_en": "acceleration","components": ["加", "速"]}
+{"level": "normal", "word": "가능","hanja": "可能","meaning_ko": "할 수 있음","meaning_en": "possible","components": ["可", "能"]}
+{"level": "normal", "word": "허가","hanja": "許可","meaning_ko": "허락함","meaning_en": "permission","components": ["許", "可"]}
+{"level": "normal", "word": "가정","hanja": "家庭","meaning_ko": "가족이 함께 사는 집","meaning_en": "family, household","components": ["家", "庭"]}
+{"level": "normal", "word": "작가","hanja": "作家","meaning_ko": "글이나 작품을 만드는 사람","meaning_en": "writer, artist","components": ["作", "家"]}
+{"level": "normal", "word": "가곡","hanja": "歌曲","meaning_ko": "노래 곡","meaning_en": "song","components": ["歌", "曲"]}
+{"level": "normal", "word": "국가","hanja": "國歌","meaning_ko": "나라를 대표하는 노래","meaning_en": "national anthem","components": ["國", "歌"]}
+{"level": "normal", "word": "가로","hanja": "街路","meaning_ko": "거리의 길","meaning_en": "street","components": ["街", "路"]}
+{"level": "normal", "word": "번화가","hanja": "繁華街","meaning_ko": "사람과 가게가 많은 거리","meaning_en": "downtown area","components": ["繁", "華", "街"]}
+{"level": "normal", "word": "여가","hanja": "餘暇","meaning_ko": "남는 한가한 시간","meaning_en": "leisure time","components": ["餘", "暇"]}
+{"level": "normal", "word": "한가","hanja": "閑暇","meaning_ko": "일이 없어 여유로움","meaning_en": "free time, leisure","components": ["閑", "暇"]}
+{"level": "normal", "word": "고가","hanja": "高架","meaning_ko": "높이 세운 구조물","meaning_en": "elevated structure","components": ["高", "架"]}
+{"level": "normal", "word": "서가","hanja": "書架","meaning_ko": "책을 올려두는 틀","meaning_en": "bookshelf","components": ["書", "架"]}
+
+// ./character.jsonl의 line:10까지 진행
