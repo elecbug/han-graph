@@ -18,5 +18,3 @@
 {"level": "normal", "word": "한가","hanja": "閑暇","meaning_ko": "일이 없어 여유로움","meaning_en": "free time, leisure","components": ["閑", "暇"]}
 {"level": "normal", "word": "고가","hanja": "高架","meaning_ko": "높이 세운 구조물","meaning_en": "elevated structure","components": ["高", "架"]}
 {"level": "normal", "word": "서가","hanja": "書架","meaning_ko": "책을 올려두는 틀","meaning_en": "bookshelf","components": ["書", "架"]}
-
-// ./character.jsonl의 line:10까지 진행

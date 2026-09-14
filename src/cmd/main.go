@@ -1,95 +1,103 @@
 package main
 
 import (
-	"bufio"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"io"
 	"os"
-	"path"
+	"strings"
+
+	"github.com/elecbug/han-graph/internal/graph"
 )
 
-func main() {
-	meta, err := loadMeta(path.Join("data", "meta.jsonl"))
-	if err != nil {
-		panic(err)
+func main() { os.Exit(run(os.Args[1:], os.Stdout, os.Stderr)) }
+
+func run(args []string, stdout, stderr io.Writer) int {
+	flags := flag.NewFlagSet("han-graph", flag.ContinueOnError)
+	flags.SetOutput(stderr)
+	data := flags.String("data", "../dataset", "dataset directory (relative to the working directory)")
+	jsonOutput := flags.Bool("json", false, "write JSON results")
+	flags.Usage = func() {
+		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] validate|word QUERY|character QUERY")
+		flags.PrintDefaults()
 	}
-
-	characters, err := loadCharacters(path.Join("data", "character.jsonl"))
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Read %d meta entries\n", len(meta))
-	fmt.Printf("Read %d character entries\n", len(characters))
-}
-
-type Character struct {
-	Type      string   `json:"type"`
-	ID        string   `json:"id"`
-	Hanja     string   `json:"hanja"`
-	MeaningKo []string `json:"meaning_ko"`
-	MeaningEn []string `json:"meaning_en"`
-}
-
-type Meta struct {
-	Type    string `json:"type"`
-	ID      string `json:"id"`
-	SoundKo string `json:"sound_ko"`
-	SoundEn string `json:"sound_en"`
-}
-
-func loadCharacters(filename string) ([]Character, error) {
-	fs, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer fs.Close()
-
-	var chars []Character
-	scanner := bufio.NewScanner(fs)
-	for scanner.Scan() {
-		var char Character
-		line := scanner.Text()
-
-		err := json.Unmarshal([]byte(line), &char)
-		if err != nil {
-			return nil, err
+	if err := flags.Parse(args); err != nil {
+		if err == flag.ErrHelp {
+			return 0
 		}
-
-		chars = append(chars, char)
+		return 2
 	}
-
-	if err := scanner.Err(); err != nil {
-		return nil, err
+	command := "validate"
+	if flags.NArg() > 0 {
+		command = flags.Arg(0)
 	}
-
-	return chars, nil
+	if (command == "validate" && flags.NArg() > 1) ||
+		((command == "word" || command == "character") && (flags.NArg() != 2 || strings.TrimSpace(flags.Arg(1)) == "")) ||
+		(command != "validate" && command != "word" && command != "character") {
+		flags.Usage()
+		return 2
+	}
+	g, err := graph.Load(*data)
+	if err != nil {
+		fmt.Fprintln(stderr, "Error:", err)
+		return 1
+	}
+	var result any
+	switch command {
+	case "validate":
+		stats := g.Stats()
+		result = stats
+		if !*jsonOutput {
+			fmt.Fprintf(stdout, "Dataset valid: %d sound groups, %d character readings (%d unique hanja), %d words.\n", stats.Meta, stats.CharacterReadings, stats.Characters, stats.Words)
+			fmt.Fprintf(stdout, "Graph: %d word-character edges, %d connected hanja.\n", stats.Edges, stats.ConnectedCharacters)
+		}
+	case "word":
+		matches := g.FindWords(flags.Arg(1))
+		result = matches
+		if !*jsonOutput {
+			for _, match := range matches {
+				printWord(stdout, match.Word)
+				for _, component := range match.Components {
+					for _, reading := range component.Readings {
+						fmt.Fprintf(stdout, "  %s (%s / %s): %s / %s\n", component.Hanja, reading.SoundKo, reading.SoundEn, strings.Join(reading.MeaningKo, ", "), strings.Join(reading.MeaningEn, ", "))
+					}
+				}
+				if match.Word.SemanticHint != "" {
+					fmt.Fprintln(stdout, "  Hint:", match.Word.SemanticHint)
+				}
+			}
+			if len(matches) == 0 {
+				fmt.Fprintln(stdout, "No matching words.")
+			}
+		}
+	case "character":
+		matches := g.FindCharacters(flags.Arg(1))
+		result = matches
+		if !*jsonOutput {
+			for _, match := range matches {
+				fmt.Fprintf(stdout, "%s (%s / %s) [%s]: %s / %s\n", match.Hanja, match.SoundKo, match.SoundEn, match.ID, strings.Join(match.MeaningKo, ", "), strings.Join(match.MeaningEn, ", "))
+				fmt.Fprintf(stdout, "  Connected words: %d\n", len(match.Words))
+				for _, word := range match.Words {
+					printWord(stdout, word)
+				}
+			}
+			if len(matches) == 0 {
+				fmt.Fprintln(stdout, "No matching characters.")
+			}
+		}
+	}
+	if *jsonOutput {
+		encoder := json.NewEncoder(stdout)
+		encoder.SetIndent("", "  ")
+		if err := encoder.Encode(result); err != nil {
+			fmt.Fprintln(stderr, "Error:", err)
+			return 1
+		}
+	}
+	return 0
 }
 
-func loadMeta(filename string) ([]Meta, error) {
-	fs, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer fs.Close()
-
-	var metas []Meta
-	scanner := bufio.NewScanner(fs)
-	for scanner.Scan() {
-		var meta Meta
-		line := scanner.Text()
-
-		err := json.Unmarshal([]byte(line), &meta)
-		if err != nil {
-			return nil, err
-		}
-
-		metas = append(metas, meta)
-	}
-
-	if err := scanner.Err(); err != nil {
-		return nil, err
-	}
-
-	return metas, nil
+func printWord(out io.Writer, word graph.Word) {
+	fmt.Fprintf(out, "%s (%s): %s / %s\n", word.Word, word.Hanja, word.MeaningKo, word.MeaningEn)
 }
