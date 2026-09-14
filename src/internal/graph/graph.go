@@ -91,3 +91,45 @@ func (g *Graph) FindCharacters(query string) []CharacterResult {
 	}
 	return results
 }
+
+type SearchResult struct {
+	Words          []Word    `json:"words"`
+	Characters     []Reading `json:"characters"`
+	WordCount      int       `json:"word_count"`
+	CharacterCount int       `json:"character_count"`
+}
+
+// Search matches written forms and meanings. Counts include results beyond limit.
+func (g *Graph) Search(query string, limit int) SearchResult {
+	result := SearchResult{Words: []Word{}, Characters: []Reading{}}
+	query = strings.ToLower(strings.TrimSpace(query))
+	if limit < 1 {
+		limit = 60
+	}
+	matches := func(values ...string) bool {
+		for _, value := range values {
+			if strings.Contains(strings.ToLower(value), query) {
+				return true
+			}
+		}
+		return false
+	}
+	for _, word := range g.words {
+		if matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
+			result.WordCount++
+			if len(result.Words) < limit {
+				result.Words = append(result.Words, word)
+			}
+		}
+	}
+	for _, character := range g.characterOrder {
+		reading := g.reading(character)
+		if matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " ")) {
+			result.CharacterCount++
+			if len(result.Characters) < limit {
+				result.Characters = append(result.Characters, reading)
+			}
+		}
+	}
+	return result
+}

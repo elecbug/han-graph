@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "source": "HAN-GRAPH original practice examples; based on the existing seed vocabulary",
+  "review_status": "draft",
+  "questions": [
+    {
+      "id": "alias",
+      "prompt_ko": "그 작가는 본명을 밝히지 않고 다른 이름으로 책을 냈어요. 작가가 사용한 이름은 무엇일까요?",
+      "prompt_en": "The writer published a book under another name without revealing their real name. What kind of name did the writer use?",
+      "answer": {
+        "word": "가명",
+        "hanja": "假名"
+      },
+      "options": [
+        {
+          "word": "가설",
+          "hanja": "假設"
+        },
+        {
+          "word": "가명",
+          "hanja": "假名"
+        },
+        {
+          "word": "가인",
+          "hanja": "佳人"
+        }
+      ],
+      "explanation_ko": "假는 ‘거짓·가짜’, 名은 ‘이름’과 관련돼요. 본명 대신 쓰는 다른 이름을 가명이라고 해요. ‘본명을 밝히지 않고’가 문맥의 단서예요.",
+      "explanation_en": "假 relates to something false or assumed; 名 means name. 가명 is an assumed name, or pseudonym. The clue is that the writer did not reveal their real name."
+    },
+    {
+      "id": "price",
+      "prompt_ko": "가게에서 셔츠를 보고 ‘이 옷은 얼마예요?’라고 물었어요. 무엇을 알고 싶은 걸까요?",
+      "prompt_en": "At a shop, someone points to a shirt and asks how much it costs. What do they want to know?",
+      "answer": {
+        "word": "가격",
+        "hanja": "價格"
+      },
+      "options": [
+        {
+          "word": "가치",
+          "hanja": "價値"
+        },
+        {
+          "word": "가곡",
+          "hanja": "歌曲"
+        },
+        {
+          "word": "가격",
+          "hanja": "價格"
+        }
+      ],
+      "explanation_ko": "價는 ‘값’과 관련돼요. 가격은 물건을 사는 데 내는 돈을, 가치는 물건 등의 값어치나 중요성을 가리켜요. ‘얼마예요?’가 가격을 묻는 단서예요.",
+      "explanation_en": "價 relates to value or price. 가격 is the amount paid for an item, while 가치 refers to its worth or importance. Asking how much something costs points to 가격."
+    },
+    {
+      "id": "permission",
+      "prompt_ko": "교실을 사용해도 되는지 선생님께 물었어요. 선생님이 사용해도 좋다고 하셨어요. 무엇을 받은 걸까요?",
+      "prompt_en": "You asked your teacher whether you could use a classroom. The teacher said yes. What did you receive?",
+      "answer": {
+        "word": "허가",
+        "hanja": "許可"
+      },
+      "options": [
+        {
+          "word": "허가",
+          "hanja": "許可"
+        },
+        {
+          "word": "가능",
+          "hanja": "可能"
+        },
+        {
+          "word": "가정",
+          "hanja": "家庭"
+        }
+      ],
+      "explanation_ko": "許와 可에는 허락한다는 뜻이 있어요. 허가는 어떤 일을 해도 좋다고 허락하는 것이에요. 가능은 할 수 있음을 뜻하므로, 허락을 받았다는 문맥에서는 허가가 맞아요.",
+      "explanation_en": "許 and 可 carry meanings related to allowing something. 허가 means permission. 가능 is about possibility or being able to do something; this context is about receiving permission."
+    },
+    {
+      "id": "acceleration",
+      "prompt_ko": "차가 출발한 뒤 속도를 점점 높이고 있어요. 차의 속도가 변하는 모습을 나타내는 단어는 무엇일까요?",
+      "prompt_en": "After setting off, a car is moving faster and faster. Which word describes this change in speed?",
+      "answer": {
+        "word": "가속",
+        "hanja": "加速"
+      },
+      "options": [
+        {
+          "word": "가산",
+          "hanja": "加算"
+        },
+        {
+          "word": "가속",
+          "hanja": "加速"
+        },
+        {
+          "word": "가로",
+          "hanja": "街路"
+        }
+      ],
+      "explanation_ko": "加는 ‘더하다’, 速은 ‘빠르다’와 관련돼요. 속도를 더 높이는 것이 가속이에요. 가산에도 加가 들어가지만, 算은 계산과 관련된 글자예요.",
+      "explanation_en": "加 means to add or increase, and 速 relates to speed. 가속 is an increase in speed. 가산 also uses 加, but 算 relates to calculation."
+    },
+    {
+      "id": "writer",
+      "prompt_ko": "이 사람은 소설을 쓰는 일을 해요. 이 사람을 부르는 단어는 무엇일까요?",
+      "prompt_en": "This person writes novels. Which word describes the person?",
+      "answer": {
+        "word": "작가",
+        "hanja": "作家"
+      },
+      "options": [
+        {
+          "word": "가정",
+          "hanja": "家庭"
+        },
+        {
+          "word": "서가",
+          "hanja": "書架"
+        },
+        {
+          "word": "작가",
+          "hanja": "作家"
+        }
+      ],
+      "explanation_ko": "作은 ‘짓다’와 관련돼요. 家는 집을 뜻하기도 하지만, 작가처럼 어떤 분야에서 활동하는 사람을 가리키는 데에도 쓰여요. 한자의 뜻은 단어 안에서 달라질 수 있어요.",
+      "explanation_en": "作 relates to making or creating. 家 can mean a house, but in words such as 작가 it also refers to a person working in a field. A character’s role depends on the word it appears in."
+    },
+    {
+      "id": "bookshelf",
+      "prompt_ko": "도서관에서 읽은 책을 원래 있던 선반에 돌려놓았어요. 이렇게 책을 꽂아 두는 선반을 무엇이라고 할까요?",
+      "prompt_en": "At the library, you returned a book to the shelves where books are kept. What are these shelves called?",
+      "answer": {
+        "word": "서가",
+        "hanja": "書架"
+      },
+      "options": [
+        {
+          "word": "서가",
+          "hanja": "書架"
+        },
+        {
+          "word": "고가",
+          "hanja": "高架"
+        },
+        {
+          "word": "작가",
+          "hanja": "作家"
+        }
+      ],
+      "explanation_ko": "書는 ‘책·글’, 架는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 소리가 같은 家와 架를 구분해 보세요.",
+      "explanation_en": "書 relates to books or writing; 架 relates to a frame or rack. 서가 is a bookshelf. Notice that 家 and 架 share the sound 가 but contribute different meanings."
+    }
+  ]
+}

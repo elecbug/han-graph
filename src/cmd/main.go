@@ -18,8 +18,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	flags.SetOutput(stderr)
 	data := flags.String("data", "../dataset", "dataset directory (relative to the working directory)")
 	jsonOutput := flags.Bool("json", false, "write JSON results")
+	addr := flags.String("addr", "127.0.0.1:8080", "web server listening address")
 	flags.Usage = func() {
-		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] validate|word QUERY|character QUERY")
+		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] [-addr HOST:PORT] validate|word QUERY|character QUERY|serve")
 		flags.PrintDefaults()
 	}
 	if err := flags.Parse(args); err != nil {
@@ -32,9 +33,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 	if flags.NArg() > 0 {
 		command = flags.Arg(0)
 	}
-	if (command == "validate" && flags.NArg() > 1) ||
+	if ((command == "validate" || command == "serve") && flags.NArg() > 1) ||
+		(command == "serve" && *jsonOutput) ||
 		((command == "word" || command == "character") && (flags.NArg() != 2 || strings.TrimSpace(flags.Arg(1)) == "")) ||
-		(command != "validate" && command != "word" && command != "character") {
+		(command != "validate" && command != "word" && command != "character" && command != "serve") {
 		flags.Usage()
 		return 2
 	}
@@ -45,6 +47,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 	var result any
 	switch command {
+	case "serve":
+		return serve(g, *data, *addr, stdout, stderr)
 	case "validate":
 		stats := g.Stats()
 		result = stats
