@@ -15,18 +15,20 @@ function neighborhood(selected) {
 test('all direct neighbors are laid out once, with a clickable edge per word', () => {
   const selected=words.find(word=>word.hanja==='感覺');
   const network=neighborhood(selected), layout=layoutNetwork(network,selected);
-  assert.equal(layout.nodes.length,14);
-  assert.equal(layout.edges.length,12);
+  assert.equal(layout.nodes.length,15);
+  assert.equal(layout.edges.length,13);
   assert.deepEqual(layout.nodes.filter(node=>node.root).map(node=>node.hanja),['感','覺']);
   assert.deepEqual(layout.edges.filter(edge=>edge.current).map(edge=>edge.word.hanja),['感覺']);
   assert(!layout.nodes.some(node=>node.hanja==='監'), 'do not expand the neighbors a second time');
   assert(layout.nodes.some(node=>node.hanja==='激'), 'include the newly connected 감격');
   assert(!layout.nodes.some(node=>node.hanja==='勵'), 'do not expand from 激 to 격려');
+  assert(layout.nodes.some(node=>node.hanja==='愧'), 'include the newly connected 자괴감');
+  assert(!layout.nodes.some(node=>node.hanja==='羞'), 'do not expand from 愧 to 수괴');
   assert.deepEqual(layout,layoutNetwork(network,selected), 'layout must be deterministic');
 });
 
 test('long compounds, duplicate readings, homographs and repeated glyphs retain identity', () => {
-  for(const hanja of ['勇敢無雙','降伏','各各','康健']) {
+  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節']) {
     const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
     assert.equal(new Set(layout.nodes.map(node=>node.hanja)).size,layout.nodes.length);
     const edge=layout.edges.find(edge=>edge.current);
@@ -40,6 +42,11 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
       assert.notEqual(paths[0],paths[1], 'a repeated glyph needs a visible loop');
     }
     if(hanja==='康健')assert.equal(layout.edges.filter(edge=>edge.word.word==='강건').length,2);
+    if(hanja==='句句節節') {
+      assert.deepEqual(edge.glyphs,['句','節']);
+      assert.deepEqual(edge.word.components,['句','句','節','節']);
+      assert.equal(layout.edges.filter(item=>item.word.hanja===hanja).length,1);
+    }
   }
 });
 

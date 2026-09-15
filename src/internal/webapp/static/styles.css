@@ -127,7 +127,12 @@ small {
   font-family:var(--serif);
   font-size:30px;
   font-weight:400;
+  line-height:1;
+  letter-spacing:0;
   color:#e5ddbe
+}
+.brand-glyph {
+  transform:translateY(-2px)
 }
 .brand-light {
   color:#bdc6ac
@@ -406,8 +411,8 @@ main:focus {
   color:#8a937e
 }
 .catalog-list {
-  max-height:592px;
-  min-height:250px;
+  max-height:clamp(760px,calc(100vh - 120px),1040px);
+  min-height:360px;
   overflow-y:auto;
   padding:8px;
   scrollbar-width:thin;
@@ -701,14 +706,20 @@ main:focus {
   text-align:center
 }
 .network-viewport {
+  position:relative;
   max-width:100%;
-  overflow:auto;
-  overscroll-behavior:contain;
-  scrollbar-width:thin
+  overflow:clip;
+  cursor:grab;
+  user-select:none;
+  touch-action:pan-y pinch-zoom
+}
+.network-viewport.is-dragging,.network-viewport.is-dragging * {
+  cursor:grabbing
 }
 .network-canvas {
-  position:relative;
-  margin:0 auto
+  position:absolute;
+  left:0;
+  top:0
 }
 .network-canvas svg {
   display:block;
@@ -1426,8 +1437,8 @@ main:focus {
     padding:12px 0
   }
   .catalog-list {
-    max-height:176px;
-    min-height:100px;
+    max-height:320px;
+    min-height:160px;
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
     align-content:start;

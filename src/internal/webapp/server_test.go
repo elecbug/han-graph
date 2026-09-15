@@ -39,6 +39,7 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/learning.mjs", 200, "javascript"},
 		{"GET", "/data-client.mjs", 200, "javascript"},
 		{"GET", "/network.mjs", 200, "javascript"},
+		{"GET", "/network-view.mjs", 200, "javascript"},
 		{"GET", "/styles.css", 200, "text/css"},
 		{"GET", "/favicon.svg", 200, "image/svg+xml"},
 		{"GET", "/api/stats", 200, "application/json"},
@@ -117,7 +118,7 @@ func TestBootstrapAndRevalidation(t *testing.T) {
 			t.Fatalf("bootstrap does not match API: %s", path)
 		}
 	}
-	for _, path := range []string{"/", "/app.js", "/styles.css", "/learning.mjs", "/data-client.mjs", "/network.mjs", "/favicon.svg"} {
+	for _, path := range []string{"/", "/app.js", "/styles.css", "/learning.mjs", "/data-client.mjs", "/network.mjs", "/network-view.mjs", "/favicon.svg"} {
 		first := httptest.NewRecorder()
 		app.ServeHTTP(first, httptest.NewRequest("GET", path, nil))
 		etag := first.Header().Get("ETag")
@@ -156,7 +157,7 @@ func TestNeighborhoodAPI(t *testing.T) {
 	if err := json.Unmarshal(response.Body.Bytes(), &network); err != nil {
 		t.Fatal(err)
 	}
-	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 12 || len(network.Characters) != 14 {
+	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 13 || len(network.Characters) != 15 {
 		t.Fatalf("incorrect network response: %+v", network)
 	}
 	response = httptest.NewRecorder()

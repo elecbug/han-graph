@@ -176,6 +176,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gon-001", "gol-000", "gong-000", "gong-001", "gong-002", "gong-003", "gong-004", "gong-100", "gong-101", "gong-102",
 		"gong-103", "gong-104", "gong-105", "gwa-000", "gwa-001", "gwa-002", "gwa-003", "gwa-100", "gwa-101", "gwak-100",
 		"gwan-000", "gwan-001", "gwan-002", "gwan-100", "gwan-101", "gwan-102", "gwan-103", "gwan-104", "gwan-105", "gwang-000",
+		"gwang-001", "gwang-100", "gwang-101", "gwae-100", "goe-100", "goe-101", "goe-102", "goe-103", "gyo-000", "gyo-001",
+		"gyo-002", "gyo-003", "gyo-100", "gyo-101", "gyo-102", "gyo-103", "gu-000", "gu-001", "gu-002", "gu-003",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -195,6 +197,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"가공": {"架空", "加工"},
 		"과실": {"果實", "過失"}, "과장": {"課長", "誇張"},
 		"관리": {"官吏", "管理"}, "관용": {"寬容", "慣用"},
+		"괴수": {"怪獸", "愧羞"}, "교정": {"校庭", "校正", "矯正"}, "교외": {"校外", "郊外"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -345,6 +348,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"車", map[string]string{"geo-004": "거", "cha-200": "차"}, map[string]string{"거마": "車[거]", "자동차": "車[차]"}},
 		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔"}, map[string]string{"경솔": "率[솔]"}},
 		{"不", map[string]string{"bul-000": "불", "bu-201": "부"}, map[string]string{"중과부적": "不[부]"}},
+		{"令", map[string]string{"ryeong-000": "령", "yeong-200": "영"}, map[string]string{"교언영색": "令[영]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
