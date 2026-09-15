@@ -149,24 +149,24 @@
 {"type": "character", "id": "gong-101", "hanja": "孔", "meaning_ko": ["구멍", "성씨"], "meaning_en": ["hole", "the surname Kong"]}
 {"type": "character", "id": "gong-102", "hanja": "恐", "meaning_ko": ["두렵다"], "meaning_en": ["fearful", "to fear"]}
 {"type": "character", "id": "gong-103", "hanja": "恭", "meaning_ko": ["공손하다"], "meaning_en": ["respectful", "polite"]}
-{"type": "character", "id": "gong-104", "hanja": "攻", "meaning_ko": ["치다", "공격하다"], "meaning_en": ["to attack"]}
+{"type": "character", "id": "gong-104", "hanja": "攻", "meaning_ko": ["치다", "공격하다", "학문을 깊이 익히다"], "meaning_en": ["to attack", "to study intensively"]}
 {"type": "character", "id": "gong-105", "hanja": "貢", "meaning_ko": ["바치다"], "meaning_en": ["to offer tribute"]}
 {"type": "character", "id": "gwa-000", "hanja": "果", "meaning_ko": ["과실", "결과"], "meaning_en": ["fruit", "result"]}
-{"type": "character", "id": "gwa-001", "hanja": "科", "meaning_ko": ["과정", "분과"], "meaning_en": ["subject", "department"]}
-{"type": "character", "id": "gwa-002", "hanja": "課", "meaning_ko": ["매기다"], "meaning_en": ["to assign", "lesson"]}
-{"type": "character", "id": "gwa-003", "hanja": "過", "meaning_ko": ["지나다"], "meaning_en": ["to pass", "excess"]}
-{"type": "character", "id": "gwa-100", "hanja": "寡", "meaning_ko": ["적다"], "meaning_en": ["few", "widowed"]}
-{"type": "character", "id": "gwa-101", "hanja": "誇", "meaning_ko": ["자랑하다"], "meaning_en": ["to boast"]}
-{"type": "character", "id": "gwak-100", "hanja": "郭", "meaning_ko": ["성곽"], "meaning_en": ["city wall", "outer castle"]}
-{"type": "character", "id": "gwan-000", "hanja": "官", "meaning_ko": ["벼슬"], "meaning_en": ["government office", "official post"]}
+{"type": "character", "id": "gwa-001", "hanja": "科", "meaning_ko": ["분과", "학과", "분야"], "meaning_en": ["subject", "department"]}
+{"type": "character", "id": "gwa-002", "hanja": "課", "meaning_ko": ["매기다", "과업", "수업", "부서 단위인 과"], "meaning_en": ["to assign", "lesson", "assignment", "organizational section"]}
+{"type": "character", "id": "gwa-003", "hanja": "過", "meaning_ko": ["지나다", "지나치다", "잘못"], "meaning_en": ["to pass", "excess", "fault", "error"]}
+{"type": "character", "id": "gwa-100", "hanja": "寡", "meaning_ko": ["적다", "배우자를 잃다"], "meaning_en": ["few", "widowed"]}
+{"type": "character", "id": "gwa-101", "hanja": "誇", "meaning_ko": ["자랑하다", "과장하다"], "meaning_en": ["to boast", "to exaggerate"]}
+{"type": "character", "id": "gwak-100", "hanja": "郭", "meaning_ko": ["성곽", "테두리"], "meaning_en": ["city wall", "outer castle", "boundary"]}
+{"type": "character", "id": "gwan-000", "hanja": "官", "meaning_ko": ["벼슬", "관리", "관청"], "meaning_en": ["government office", "official post", "government official"]}
 {"type": "character", "id": "gwan-001", "hanja": "觀", "meaning_ko": ["보다"], "meaning_en": ["to observe", "view"]}
 {"type": "character", "id": "gwan-002", "hanja": "關", "meaning_ko": ["빗장", "관계하다"], "meaning_en": ["barrier", "to concern"]}
-{"type": "character", "id": "gwan-100", "hanja": "冠", "meaning_ko": ["갓"], "meaning_en": ["hat", "crown"]}
+{"type": "character", "id": "gwan-100", "hanja": "冠", "meaning_ko": ["갓", "관", "머리에 쓰다"], "meaning_en": ["hat", "crown", "to put on headwear"]}
 {"type": "character", "id": "gwan-101", "hanja": "寬", "meaning_ko": ["너그럽다"], "meaning_en": ["generous", "broad"]}
 {"type": "character", "id": "gwan-102", "hanja": "慣", "meaning_ko": ["버릇"], "meaning_en": ["habit", "custom"]}
-{"type": "character", "id": "gwan-103", "hanja": "管", "meaning_ko": ["피리", "관리하다"], "meaning_en": ["pipe", "to manage"]}
-{"type": "character", "id": "gwan-104", "hanja": "貫", "meaning_ko": ["꿰다"], "meaning_en": ["to pierce", "to pass through"]}
-{"type": "character", "id": "gwan-105", "hanja": "館", "meaning_ko": ["객사"], "meaning_en": ["guest house", "building"]}
+{"type": "character", "id": "gwan-103", "hanja": "管", "meaning_ko": ["피리", "관리하다", "관", "대롱"], "meaning_en": ["pipe", "to manage"]}
+{"type": "character", "id": "gwan-104", "hanja": "貫", "meaning_ko": ["꿰다", "본관"], "meaning_en": ["to pierce", "to pass through", "ancestral place of a clan"]}
+{"type": "character", "id": "gwan-105", "hanja": "館", "meaning_ko": ["객사", "숙박 시설", "문화·교육 시설의 건물"], "meaning_en": ["guest house", "building", "inn", "cultural or educational facility"]}
 {"type": "character", "id": "gwang-000", "hanja": "光", "meaning_ko": ["빛"], "meaning_en": ["light"]}
 {"type": "character", "id": "gwang-001", "hanja": "廣", "meaning_ko": ["넓다"], "meaning_en": ["wide", "broad"]}
 {"type": "character", "id": "gwang-100", "hanja": "狂", "meaning_ko": ["미치다"], "meaning_en": ["mad", "crazy"]}
@@ -448,7 +448,7 @@
 {"type": "character", "id": "roe-101", "hanja": "雷", "meaning_ko": ["우레"], "meaning_en": ["thunder"]}
 {"type": "character", "id": "ryo-000", "hanja": "料", "meaning_ko": ["헤아리다", "재료", "요금"], "meaning_en": ["to estimate", "material", "fee"]}
 {"type": "character", "id": "ryo-100", "hanja": "了", "meaning_ko": ["마치다"], "meaning_en": ["to finish", "complete"]}
-{"type": "character", "id": "ryo-101", "hanja": "僚", "meaning_ko": ["동료"], "meaning_en": ["colleague", "official companion"]}
+{"type": "character", "id": "ryo-101", "hanja": "僚", "meaning_ko": ["동료", "관리"], "meaning_en": ["colleague", "official companion", "government official"]}
 {"type": "character", "id": "ryong-100", "hanja": "龍", "meaning_ko": ["용"], "meaning_en": ["dragon"]}
 {"type": "character", "id": "ru-100", "hanja": "屢", "meaning_ko": ["자주"], "meaning_en": ["frequently", "repeatedly"]}
 {"type": "character", "id": "ru-101", "hanja": "樓", "meaning_ko": ["다락"], "meaning_en": ["tower", "upper floor"]}
@@ -1853,3 +1853,6 @@
 {"type": "character", "id": "hwang-200", "hanja": "慌", "meaning_ko": ["당황하다"], "meaning_en": ["to be alarmed", "to be flustered"]}
 {"type": "character", "id": "gal-200", "hanja": "喝", "meaning_ko": ["큰 소리로 꾸짖다"], "meaning_en": ["to shout", "to scold"]}
 {"type": "character", "id": "hwang-201", "hanja": "惶", "meaning_ko": ["두려워하다"], "meaning_en": ["to be apprehensive", "to fear"]}
+{"type": "character", "id": "mo-200", "hanja": "帽", "meaning_ko": ["모자"], "meaning_en": ["hat", "cap"]}
+{"type": "character", "id": "hal-200", "hanja": "轄", "meaning_ko": ["비녀장", "다스리다"], "meaning_en": ["linchpin", "to administer"]}
+{"type": "character", "id": "bu-201", "hanja": "不", "meaning_ko": ["아니다"], "meaning_en": ["not", "no"]}

@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
+	"unicode"
 )
 
 // The repeated-glyph word is synthetic and exercises graph structure only.
@@ -172,6 +174,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gye-109", "go-000", "go-001", "go-002", "go-003", "go-004", "go-005", "go-006", "go-100", "go-101",
 		"go-102", "go-103", "go-104", "go-105", "go-106", "gok-000", "gok-001", "gok-002", "gok-100", "gon-000",
 		"gon-001", "gol-000", "gong-000", "gong-001", "gong-002", "gong-003", "gong-004", "gong-100", "gong-101", "gong-102",
+		"gong-103", "gong-104", "gong-105", "gwa-000", "gwa-001", "gwa-002", "gwa-003", "gwa-100", "gwa-101", "gwak-100",
+		"gwan-000", "gwan-001", "gwan-002", "gwan-100", "gwan-101", "gwan-102", "gwan-103", "gwan-104", "gwan-105", "gwang-000",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -189,6 +193,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"계수": {"溪水", "係數"}, "계류": {"溪流", "繫留"}, "계승": {"繼承", "階乘"},
 		"고전": {"古典", "苦戰"}, "사고": {"事故", "思考"},
 		"가공": {"架空", "加工"},
+		"과실": {"果實", "過失"}, "과장": {"課長", "誇張"},
+		"관리": {"官吏", "管理"}, "관용": {"寬容", "慣用"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -199,6 +205,13 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 				t.Errorf("missing homograph %s (%s)", query, form)
 			}
 		}
+	}
+	contribution := g.FindWords("공헌")
+	if len(contribution) != 1 || contribution[0].Word.Hanja != "貢獻" {
+		t.Fatalf("공헌 needs its modern 貢獻 spelling: %+v", contribution)
+	}
+	if len(g.FindWords("功獻")) != 0 {
+		t.Fatal("superseded spelling of 공헌 must not remain as a separate word")
 	}
 	gray := g.FindCharacters("灰")
 	if len(gray) != 1 || gray[0].ID != "hoe-200" || gray[0].SoundKo != "회" {
@@ -237,6 +250,40 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 	}
 	if !strings.Contains(all[0].Word.SemanticHint, "切[체]") {
 		t.Fatal("일체개고 must explain the 체 reading")
+	}
+}
+
+func TestRepositoryHintReadings(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotation := regexp.MustCompile(`^\[([가-힣]+)\]`)
+	for _, word := range g.words {
+		for offset, glyph := range word.SemanticHint {
+			if !unicode.Is(unicode.Han, glyph) {
+				continue
+			}
+			match := annotation.FindStringSubmatch(word.SemanticHint[offset+len(string(glyph)):])
+			if match == nil {
+				t.Errorf("%s (%s): hint needs a reading immediately after %c", word.Word, word.Hanja, glyph)
+				continue
+			}
+			readings := g.FindCharacters(string(glyph))
+			// Hints may compare spellings whose characters are outside the current collection.
+			if len(readings) == 0 {
+				continue
+			}
+			found := false
+			for _, reading := range readings {
+				if reading.SoundKo == match[1] {
+					found = true
+				}
+			}
+			if !found {
+				t.Errorf("%s (%s): unregistered hint reading %c[%s]", word.Word, word.Hanja, glyph, match[1])
+			}
+		}
 	}
 }
 
@@ -297,6 +344,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"更", map[string]string{"gaeng-000": "갱", "gyeong-200": "경"}, map[string]string{"갱신": "更[갱]", "경신": "更[경]"}},
 		{"車", map[string]string{"geo-004": "거", "cha-200": "차"}, map[string]string{"거마": "車[거]", "자동차": "車[차]"}},
 		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔"}, map[string]string{"경솔": "率[솔]"}},
+		{"不", map[string]string{"bul-000": "불", "bu-201": "부"}, map[string]string{"중과부적": "不[부]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
