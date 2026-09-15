@@ -608,25 +608,25 @@
 {"type": "character", "id": "bae-000", "hanja": "拜", "meaning_ko": ["절하다"], "meaning_en": ["to bow", "to worship"]}
 {"type": "character", "id": "bae-001", "hanja": "杯", "meaning_ko": ["잔"], "meaning_en": ["cup", "glass"]}
 {"type": "character", "id": "bae-100", "hanja": "倍", "meaning_ko": ["곱", "갑절"], "meaning_en": ["times", "double"]}
-{"type": "character", "id": "bae-101", "hanja": "培", "meaning_ko": ["북돋우다"], "meaning_en": ["to cultivate", "to foster"]}
-{"type": "character", "id": "bae-102", "hanja": "排", "meaning_ko": ["밀치다"], "meaning_en": ["to push away"]}
-{"type": "character", "id": "bae-103", "hanja": "背", "meaning_ko": ["등"], "meaning_en": ["back"]}
-{"type": "character", "id": "bae-104", "hanja": "輩", "meaning_ko": ["무리"], "meaning_en": ["group", "companions"]}
-{"type": "character", "id": "bae-105", "hanja": "配", "meaning_ko": ["아내", "짝"], "meaning_en": ["spouse", "to distribute"]}
+{"type": "character", "id": "bae-101", "hanja": "培", "meaning_ko": ["북돋우다", "기르다"], "meaning_en": ["to cultivate", "to nurture"]}
+{"type": "character", "id": "bae-102", "hanja": "排", "meaning_ko": ["밀어내다", "늘어놓다"], "meaning_en": ["to push out", "to arrange"]}
+{"type": "character", "id": "bae-103", "hanja": "背", "meaning_ko": ["등", "뒤", "등을 돌리다"], "meaning_en": ["back", "rear", "to turn away"]}
+{"type": "character", "id": "bae-104", "hanja": "輩", "meaning_ko": ["무리", "또래"], "meaning_en": ["group of people", "peers"]}
+{"type": "character", "id": "bae-105", "hanja": "配", "meaning_ko": ["짝", "나누다", "알맞게 두다"], "meaning_en": ["spouse or partner", "to distribute", "to arrange"]}
 {"type": "character", "id": "baek-000", "hanja": "白", "meaning_ko": ["희다"], "meaning_en": ["white"]}
-{"type": "character", "id": "baek-001", "hanja": "百", "meaning_ko": ["일백"], "meaning_en": ["hundred"]}
-{"type": "character", "id": "baek-100", "hanja": "伯", "meaning_ko": ["맏"], "meaning_en": ["eldest", "uncle"]}
+{"type": "character", "id": "baek-001", "hanja": "百", "meaning_ko": ["일백", "온갖"], "meaning_en": ["one hundred", "all kinds of"]}
+{"type": "character", "id": "baek-100", "hanja": "伯", "meaning_ko": ["맏", "백부", "존칭", "작위"], "meaning_en": ["eldest", "father’s older brother", "an honorific", "an aristocratic title"]}
 {"type": "character", "id": "beon-000", "hanja": "番", "meaning_ko": ["차례"], "meaning_en": ["turn", "number"]}
-{"type": "character", "id": "beon-100", "hanja": "煩", "meaning_ko": ["괴로워하다"], "meaning_en": ["troubled", "annoyed"]}
-{"type": "character", "id": "beon-101", "hanja": "繁", "meaning_ko": ["많다", "우거지다"], "meaning_en": ["numerous", "complex", "luxuriant"]}
-{"type": "character", "id": "beon-102", "hanja": "飜", "meaning_ko": ["펄럭이다", "번역하다"], "meaning_en": ["to flutter", "to translate"]}
+{"type": "character", "id": "beon-100", "hanja": "煩", "meaning_ko": ["괴로워하다", "번거롭다"], "meaning_en": ["to be troubled", "to be troublesome"]}
+{"type": "character", "id": "beon-101", "hanja": "繁", "meaning_ko": ["많다", "우거지다", "번성하다"], "meaning_en": ["numerous", "lush", "to flourish"]}
+{"type": "character", "id": "beon-102", "hanja": "飜", "meaning_ko": ["펄럭이다", "뒤집다", "번역하다"], "meaning_en": ["to flutter", "to reverse", "to translate"]}
 {"type": "character", "id": "beol-000", "hanja": "伐", "meaning_ko": ["치다"], "meaning_en": ["to strike", "to cut down"]}
-{"type": "character", "id": "beol-100", "hanja": "罰", "meaning_ko": ["죄", "벌"], "meaning_en": ["punishment", "penalty"]}
-{"type": "character", "id": "beom-000", "hanja": "凡", "meaning_ko": ["무릇"], "meaning_en": ["all", "ordinary"]}
-{"type": "character", "id": "beom-100", "hanja": "犯", "meaning_ko": ["범하다"], "meaning_en": ["to commit", "to violate"]}
-{"type": "character", "id": "beom-101", "hanja": "範", "meaning_ko": ["법"], "meaning_en": ["model", "standard"]}
+{"type": "character", "id": "beol-100", "hanja": "罰", "meaning_ko": ["벌", "벌주다"], "meaning_en": ["punishment", "to punish"]}
+{"type": "character", "id": "beom-000", "hanja": "凡", "meaning_ko": ["무릇", "보통", "대강"], "meaning_en": ["in general", "ordinary", "outline"]}
+{"type": "character", "id": "beom-100", "hanja": "犯", "meaning_ko": ["범하다", "죄짓다", "침범하다"], "meaning_en": ["to violate", "to commit a crime", "to intrude"]}
+{"type": "character", "id": "beom-101", "hanja": "範", "meaning_ko": ["본보기", "틀", "법"], "meaning_en": ["model", "mold or frame", "rule"]}
 {"type": "character", "id": "beop-000", "hanja": "法", "meaning_ko": ["법"], "meaning_en": ["law", "method"]}
-{"type": "character", "id": "byeok-100", "hanja": "壁", "meaning_ko": ["벽"], "meaning_en": ["wall", "cliff"]}
+{"type": "character", "id": "byeok-100", "hanja": "壁", "meaning_ko": ["벽", "절벽"], "meaning_en": ["wall", "cliff"]}
 {"type": "character", "id": "byeok-101", "hanja": "碧", "meaning_ko": ["푸르다"], "meaning_en": ["jade green", "blue-green"]}
 {"type": "character", "id": "byeon-000", "hanja": "變", "meaning_ko": ["변하다"], "meaning_en": ["to change"]}
 {"type": "character", "id": "byeon-100", "hanja": "辨", "meaning_ko": ["분별하다"], "meaning_en": ["to distinguish"]}
@@ -1391,7 +1391,7 @@
 {"type": "character", "id": "jung-000", "hanja": "中", "meaning_ko": ["가운데"], "meaning_en": ["middle", "center"]}
 {"type": "character", "id": "jung-001", "hanja": "衆", "meaning_ko": ["무리"], "meaning_en": ["crowd", "many"]}
 {"type": "character", "id": "jung-002", "hanja": "重", "meaning_ko": ["무겁다", "겹치다"], "meaning_en": ["heavy", "important", "to layer"]}
-{"type": "character", "id": "jung-100", "hanja": "仲", "meaning_ko": ["버금"], "meaning_en": ["second", "middle"]}
+{"type": "character", "id": "jung-100", "hanja": "仲", "meaning_ko": ["버금", "둘째"], "meaning_en": ["next in rank", "second eldest"]}
 {"type": "character", "id": "jeuk-000", "hanja": "卽", "meaning_ko": ["곧"], "meaning_en": ["namely", "immediately"]}
 {"type": "character", "id": "jeung-000", "hanja": "增", "meaning_ko": ["더하다"], "meaning_en": ["to increase"]}
 {"type": "character", "id": "jeung-001", "hanja": "曾", "meaning_ko": ["일찍"], "meaning_en": ["formerly", "once"]}
@@ -2060,3 +2060,5 @@
 {"type": "character", "id": "eo-200", "hanja": "禦", "meaning_ko": ["막다", "방어하다"], "meaning_en": ["to ward off", "to defend"]}
 {"type": "character", "id": "je-200", "hanja": "劑", "meaning_ko": ["조제하다", "조제한 물질"], "meaning_en": ["to compound a preparation", "a prepared substance"]}
 {"type": "character", "id": "i-209", "hanja": "理", "meaning_ko": ["다스리다", "이치"], "meaning_en": ["to manage", "reason", "principle"]}
+{"type": "character", "id": "min-200", "hanja": "悶", "meaning_ko": ["답답하다", "번민하다"], "meaning_en": ["to feel distressed", "to worry in anguish"]}
+{"type": "character", "id": "sik-201", "hanja": "殖", "meaning_ko": ["불어나다", "불리다"], "meaning_en": ["to multiply", "to increase"]}

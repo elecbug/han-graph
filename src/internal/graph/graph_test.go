@@ -220,6 +220,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"bak-100", "bak-101", "bak-102", "bak-103", "bak-104", "ban-000", "ban-001", "ban-002", "ban-100", "ban-101",
 		"ban-102", "ban-103", "ban-104", "ban-105", "bal-000", "bal-100", "bal-101", "bang-000", "bang-001", "bang-002",
 		"bang-003", "bang-004", "bang-100", "bang-101", "bang-102", "bang-103", "bang-104", "bae-000", "bae-001", "bae-100",
+		"bae-101", "bae-102", "bae-103", "bae-104", "bae-105", "baek-000", "baek-001", "baek-100", "beon-000", "beon-100",
+		"beon-101", "beon-102", "beol-000", "beol-100", "beom-000", "beom-100", "beom-101", "beop-000", "byeok-100", "byeok-101",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -267,6 +269,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"백미": {"白米", "白眉"}, "반주": {"飯酒", "伴奏"},
 		"반려": {"伴侶", "返戾"}, "공방": {"攻防", "工房"}, "방향": {"方向", "芳香"},
 		"예방": {"禮訪", "豫防"}, "이방": {"吏房", "異邦"},
+		"배출": {"排出", "輩出"}, "배수": {"倍數", "排水"}, "범인": {"凡人", "犯人"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -432,7 +435,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"娘", map[string]string{"nang-100": "낭", "rang-201": "랑"}, map[string]string{"낭자": "娘[낭]", "영랑": "娘[랑]", "낭랑": "娘[랑]"}},
 		{"奈", map[string]string{"nae-100": "내", "na-200": "나"}, map[string]string{"막무가내": "奈[내]", "나락": "奈[나]"}},
 		{"女", map[string]string{"nyeo-000": "녀", "yeo-201": "여"}, map[string]string{"자녀": "女[녀]", "여자": "女[여]"}},
-		{"年", map[string]string{"nyeon-000": "년", "yeon-200": "연"}, map[string]string{"학년": "年[년]", "연도": "年[연]", "연말": "年[연]", "매년": "年[년]"}},
+		{"年", map[string]string{"nyeon-000": "년", "yeon-200": "연"}, map[string]string{"학년": "年[년]", "연도": "年[연]", "연말": "年[연]", "매년": "年[년]", "백년": "年[년]", "연배": "年[연]"}},
 		{"寧", map[string]string{"nyeong-100": "녕", "yeong-201": "영"}, map[string]string{"안녕": "寧[녕]", "영일": "寧[영]"}},
 		{"怒", map[string]string{"no-000": "노", "ro-200": "로"}, map[string]string{"분노": "怒[노]", "희로애락": "怒[로]"}},
 		{"殺", map[string]string{"sal-000": "살", "swae-200": "쇄"}, map[string]string{"뇌쇄": "殺[쇄]", "뇌쇄적": "殺[쇄]", "쇄도": "殺[쇄]"}},
@@ -442,7 +445,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"冷", map[string]string{"raeng-000": "랭", "naeng-200": "냉"}, map[string]string{"냉담": "冷[냉]"}},
 		{"糖", map[string]string{"dang-101": "당", "tang-200": "탕"}, map[string]string{"설탕": "糖[탕]", "사탕": "糖[탕]", "당분": "糖[당]"}},
 		{"連", map[string]string{"ryeon-001": "련", "yeon-201": "연"}, map[string]string{"연대": "連[연]", "연락": "連[연]"}},
-		{"列", map[string]string{"ryeol-000": "렬", "yeol-201": "열"}, map[string]string{"열도": "列[열]"}},
+		{"列", map[string]string{"ryeol-000": "렬", "yeol-201": "열"}, map[string]string{"열도": "列[열]", "배열": "列[열]"}},
 		{"狀", map[string]string{"sang-105": "상", "jang-201": "장"}, map[string]string{"도전장": "狀[장]", "독촉장": "狀[장]"}},
 		{"朗", map[string]string{"rang-200": "랑", "nang-200": "낭"}, map[string]string{"낭독": "朗[낭]"}},
 		{"洞", map[string]string{"dong-004": "동", "tong-200": "통"}, map[string]string{"동굴": "洞[동]", "통찰": "洞[통]"}},
@@ -484,7 +487,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"嶺", map[string]string{"ryeong-100": "령", "yeong-203": "영"}, map[string]string{"영동": "嶺[영]", "분수령": "嶺[령]"}},
 		{"零", map[string]string{"ryeong-101": "령", "yeong-204": "영"}, map[string]string{"영점": "零[영]", "영세": "零[영]"}},
 		{"靈", map[string]string{"ryeong-102": "령", "yeong-205": "영"}, map[string]string{"영혼": "靈[영]", "영령": "靈[령]"}},
-		{"例", map[string]string{"rye-000": "례", "ye-201": "예"}, map[string]string{"예외": "例[예]", "관례": "例[례]"}},
+		{"例", map[string]string{"rye-000": "례", "ye-201": "예"}, map[string]string{"예외": "例[예]", "관례": "例[례]", "범례": "例[례]"}},
 		{"禮", map[string]string{"rye-001": "례", "ye-202": "예"}, map[string]string{"예절": "禮[예]", "실례": "禮[례]"}},
 		{"隷", map[string]string{"rye-100": "례", "ye-203": "예"}, map[string]string{"예속": "隷[예]", "예서": "隷[예]"}},
 		{"勞", map[string]string{"ro-000": "로", "no-201": "노"}, map[string]string{"노동": "勞[노]", "근로": "勞[로]"}},
