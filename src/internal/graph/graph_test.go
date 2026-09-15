@@ -168,6 +168,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gyeol-000", "gyeol-001", "gyeol-002", "gyeol-100", "gyeom-100", "gyeom-101", "gyeong-000", "gyeong-001", "gyeong-002", "gyeong-003",
 		"gyeong-004", "gyeong-005", "gyeong-006", "gyeong-007", "gyeong-008", "gyeong-009", "gyeong-100", "gyeong-101", "gyeong-102", "gyeong-103",
 		"gyeong-104", "gyeong-105", "gyeong-106", "gyeong-107", "gyeong-108", "gye-000", "gye-001", "gye-002", "gye-003", "gye-004",
+		"gye-005", "gye-100", "gye-101", "gye-102", "gye-103", "gye-104", "gye-105", "gye-106", "gye-107", "gye-108",
+		"gye-109", "go-000", "go-001", "go-002", "go-003", "go-004", "go-005", "go-006", "go-100", "go-101",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -182,6 +184,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"강요": {"強要", "綱要"}, "검사": {"劍士", "檢査"}, "경신": {"更新", "庚申"},
 		"경향": {"京鄕", "傾向"}, "경사": {"慶事", "傾斜"}, "공경": {"恭敬", "公卿"}, "경로": {"敬老", "徑路"},
 		"경도": {"傾倒", "硬度"}, "경계": {"境界", "警戒"}, "구경": {"九卿", "口徑", "究竟"}, "계간": {"季刊", "溪澗"},
+		"계수": {"溪水", "係數"}, "계류": {"溪流", "繫留"}, "계승": {"繼承", "階乘"},
+		"고전": {"古典", "苦戰"}, "사고": {"事故", "思考"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
