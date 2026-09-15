@@ -348,7 +348,7 @@
 {"type": "character", "id": "do-102", "hanja": "導", "meaning_ko": ["이끌다"], "meaning_en": ["to guide", "to lead"]}
 {"type": "character", "id": "do-103", "hanja": "挑", "meaning_ko": ["돋우다", "도전하다"], "meaning_en": ["to provoke", "to challenge"]}
 {"type": "character", "id": "do-104", "hanja": "桃", "meaning_ko": ["복숭아나무", "복숭아"], "meaning_en": ["peach tree", "peach"]}
-{"type": "character", "id": "do-105", "hanja": "渡", "meaning_ko": ["건너다"], "meaning_en": ["to cross"]}
+{"type": "character", "id": "do-105", "hanja": "渡", "meaning_ko": ["건너다", "건네다"], "meaning_en": ["to cross", "to hand over"]}
 {"type": "character", "id": "do-106", "hanja": "盜", "meaning_ko": ["훔치다"], "meaning_en": ["to steal"]}
 {"type": "character", "id": "do-107", "hanja": "稻", "meaning_ko": ["벼"], "meaning_en": ["rice plant"]}
 {"type": "character", "id": "do-108", "hanja": "跳", "meaning_ko": ["뛰다"], "meaning_en": ["to jump"]}
@@ -358,16 +358,16 @@
 {"type": "character", "id": "dok-000", "hanja": "獨", "meaning_ko": ["홀로"], "meaning_en": ["alone", "single"]}
 {"type": "character", "id": "dok-001", "hanja": "讀", "meaning_ko": ["읽다"], "meaning_en": ["to read"]}
 {"type": "character", "id": "dok-100", "hanja": "毒", "meaning_ko": ["독"], "meaning_en": ["poison"]}
-{"type": "character", "id": "dok-101", "hanja": "督", "meaning_ko": ["살펴보다", "감독하다"], "meaning_en": ["to supervise"]}
-{"type": "character", "id": "dok-102", "hanja": "篤", "meaning_ko": ["도탑다"], "meaning_en": ["sincere", "thick"]}
-{"type": "character", "id": "don-100", "hanja": "敦", "meaning_ko": ["도탑다"], "meaning_en": ["honest", "sincere"]}
+{"type": "character", "id": "dok-101", "hanja": "督", "meaning_ko": ["살펴보다", "감독하다", "재촉하다"], "meaning_en": ["to supervise", "to urge"]}
+{"type": "character", "id": "dok-102", "hanja": "篤", "meaning_ko": ["도탑다", "성실하다", "병이 위중하다"], "meaning_en": ["sincere", "devoted", "critically ill"]}
+{"type": "character", "id": "don-100", "hanja": "敦", "meaning_ko": ["정이 두텁다", "정성스럽다"], "meaning_en": ["warm-hearted", "sincere"]}
 {"type": "character", "id": "don-101", "hanja": "豚", "meaning_ko": ["돼지"], "meaning_en": ["pig"]}
-{"type": "character", "id": "dol-100", "hanja": "突", "meaning_ko": ["갑자기"], "meaning_en": ["suddenly", "to protrude"]}
+{"type": "character", "id": "dol-100", "hanja": "突", "meaning_ko": ["갑자기", "부딪치다", "뚫고 나아가다"], "meaning_en": ["suddenly", "to collide", "to thrust forward", "to protrude"]}
 {"type": "character", "id": "dong-000", "hanja": "冬", "meaning_ko": ["겨울"], "meaning_en": ["winter"]}
 {"type": "character", "id": "dong-001", "hanja": "動", "meaning_ko": ["움직이다"], "meaning_en": ["to move"]}
 {"type": "character", "id": "dong-002", "hanja": "同", "meaning_ko": ["한가지", "같다"], "meaning_en": ["same", "together"]}
 {"type": "character", "id": "dong-003", "hanja": "東", "meaning_ko": ["동녘"], "meaning_en": ["east"]}
-{"type": "character", "id": "dong-004", "hanja": "洞", "meaning_ko": ["골짜기"], "meaning_en": ["cave", "valley"]}
+{"type": "character", "id": "dong-004", "hanja": "洞", "meaning_ko": ["골짜기", "굴", "구멍", "마을"], "meaning_en": ["valley", "cave", "hole", "village"]}
 {"type": "character", "id": "dong-005", "hanja": "童", "meaning_ko": ["아이"], "meaning_en": ["child"]}
 {"type": "character", "id": "dong-100", "hanja": "凍", "meaning_ko": ["얼다"], "meaning_en": ["to freeze"]}
 {"type": "character", "id": "dong-101", "hanja": "銅", "meaning_ko": ["구리"], "meaning_en": ["copper"]}
@@ -493,7 +493,7 @@
 {"type": "character", "id": "man-100", "hanja": "慢", "meaning_ko": ["게으르다"], "meaning_en": ["slow", "lazy"]}
 {"type": "character", "id": "man-101", "hanja": "漫", "meaning_ko": ["질펀하다"], "meaning_en": ["overflowing", "spread out"]}
 {"type": "character", "id": "mal-000", "hanja": "末", "meaning_ko": ["끝"], "meaning_en": ["end", "tip"]}
-{"type": "character", "id": "mang-000", "hanja": "亡", "meaning_ko": ["망하다"], "meaning_en": ["to perish"]}
+{"type": "character", "id": "mang-000", "hanja": "亡", "meaning_ko": ["망하다", "달아나다"], "meaning_en": ["to perish", "to flee"]}
 {"type": "character", "id": "mang-001", "hanja": "忙", "meaning_ko": ["바쁘다"], "meaning_en": ["busy"]}
 {"type": "character", "id": "mang-002", "hanja": "忘", "meaning_ko": ["잊다"], "meaning_en": ["to forget"]}
 {"type": "character", "id": "mang-003", "hanja": "望", "meaning_ko": ["바라다"], "meaning_en": ["to hope", "to wish"]}
@@ -1801,7 +1801,7 @@
 {"type": "character", "id": "gyeol-200", "hanja": "訣", "meaning_ko": ["이별하다", "비결"], "meaning_en": ["farewell", "secret"]}
 {"type": "character", "id": "geun-200", "hanja": "筋", "meaning_ko": ["힘줄"], "meaning_en": ["muscle", "tendon"]}
 {"type": "character", "id": "gi-200", "hanja": "汽", "meaning_ko": ["물끓는김"], "meaning_en": ["steam", "vapor"]}
-{"type": "character", "id": "rang-200", "hanja": "朗", "meaning_ko": ["밝다"], "meaning_en": ["bright", "clear"]}
+{"type": "character", "id": "rang-200", "hanja": "朗", "meaning_ko": ["밝다", "소리가 또렷하다"], "meaning_en": ["bright", "clear in sound"]}
 {"type": "character", "id": "mun-200", "hanja": "紋", "meaning_ko": ["무늬"], "meaning_en": ["pattern", "design"]}
 {"type": "character", "id": "sam-200", "hanja": "森", "meaning_ko": ["수풀"], "meaning_en": ["forest", "woods"]}
 {"type": "character", "id": "a-200", "hanja": "阿", "meaning_ko": ["언덕"], "meaning_en": ["hill", "corner"]}
@@ -1918,3 +1918,10 @@
 {"type": "character", "id": "yeol-201", "hanja": "列", "meaning_ko": ["벌이다", "줄지어 늘어서다"], "meaning_en": ["to arrange", "to line up", "row"]}
 {"type": "character", "id": "jeon-200", "hanja": "顚", "meaning_ko": ["엎어지다", "뒤집히다"], "meaning_en": ["to fall over", "to be overturned"]}
 {"type": "character", "id": "jang-201", "hanja": "狀", "meaning_ko": ["문서", "편지"], "meaning_en": ["document", "letter"]}
+{"type": "character", "id": "ja-200", "hanja": "瓷", "meaning_ko": ["자기"], "meaning_en": ["porcelain"]}
+{"type": "character", "id": "nang-200", "hanja": "朗", "meaning_ko": ["밝다", "소리가 또렷하다"], "meaning_en": ["bright", "clear in sound"]}
+{"type": "character", "id": "gu-200", "hanja": "購", "meaning_ko": ["사다"], "meaning_en": ["to buy", "to purchase"]}
+{"type": "character", "id": "yu-200", "hanja": "諭", "meaning_ko": ["깨우쳐 타이르다"], "meaning_en": ["to instruct", "to exhort"]}
+{"type": "character", "id": "ja-201", "hanja": "仔", "meaning_ko": ["새끼"], "meaning_en": ["young animal"]}
+{"type": "character", "id": "gul-200", "hanja": "窟", "meaning_ko": ["굴"], "meaning_en": ["cave", "cavern"]}
+{"type": "character", "id": "tong-200", "hanja": "洞", "meaning_ko": ["꿰뚫다", "밝게 알다"], "meaning_en": ["to see through", "to understand clearly"]}
