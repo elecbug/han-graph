@@ -25,8 +25,8 @@
           "hanja": "佳人"
         }
       ],
-      "explanation_ko": "假는 ‘거짓·가짜’, 名은 ‘이름’과 관련돼요. 본명 대신 쓰는 다른 이름을 가명이라고 해요. ‘본명을 밝히지 않고’가 문맥의 단서예요.",
-      "explanation_en": "假 relates to something false or assumed; 名 means name. 가명 is an assumed name, or pseudonym. The clue is that the writer did not reveal their real name."
+      "explanation_ko": "假[가]는 ‘거짓·가짜’, 名[명]은 ‘이름’과 관련돼요. 본명 대신 쓰는 다른 이름을 가명이라고 해요. ‘본명을 밝히지 않고’가 문맥의 단서예요.",
+      "explanation_en": "假[가] relates to something false or assumed; 名[명] means name. 가명 is an assumed name, or pseudonym. The clue is that the writer did not reveal their real name."
     },
     {
       "id": "price",
@@ -50,8 +50,8 @@
           "hanja": "價格"
         }
       ],
-      "explanation_ko": "價는 ‘값’과 관련돼요. 가격은 물건을 사는 데 내는 돈을, 가치는 물건 등의 값어치나 중요성을 가리켜요. ‘얼마예요?’가 가격을 묻는 단서예요.",
-      "explanation_en": "價 relates to value or price. 가격 is the amount paid for an item, while 가치 refers to its worth or importance. Asking how much something costs points to 가격."
+      "explanation_ko": "價[가]는 ‘값’과 관련돼요. 가격은 물건을 사는 데 내는 돈을, 가치는 물건 등의 값어치나 중요성을 가리켜요. ‘얼마예요?’가 가격을 묻는 단서예요.",
+      "explanation_en": "價[가] relates to value or price. 가격 is the amount paid for an item, while 가치 refers to its worth or importance. Asking how much something costs points to 가격."
     },
     {
       "id": "permission",
@@ -75,8 +75,8 @@
           "hanja": "家庭"
         }
       ],
-      "explanation_ko": "許와 可에는 허락한다는 뜻이 있어요. 허가는 어떤 일을 해도 좋다고 허락하는 것이에요. 가능은 할 수 있음을 뜻하므로, 허락을 받았다는 문맥에서는 허가가 맞아요.",
-      "explanation_en": "許 and 可 carry meanings related to allowing something. 허가 means permission. 가능 is about possibility or being able to do something; this context is about receiving permission."
+      "explanation_ko": "許[허]와 可[가]에는 허락한다는 뜻이 있어요. 허가는 어떤 일을 해도 좋다고 허락하는 것이에요. 가능은 할 수 있음을 뜻하므로, 허락을 받았다는 문맥에서는 허가가 맞아요.",
+      "explanation_en": "許[허] and 可[가] carry meanings related to allowing something. 허가 means permission. 가능 is about possibility or being able to do something; this context is about receiving permission."
     },
     {
       "id": "acceleration",
@@ -100,8 +100,8 @@
           "hanja": "街路"
         }
       ],
-      "explanation_ko": "加는 ‘더하다’, 速은 ‘빠르다’와 관련돼요. 속도를 더 높이는 것이 가속이에요. 가산에도 加가 들어가지만, 算은 계산과 관련된 글자예요.",
-      "explanation_en": "加 means to add or increase, and 速 relates to speed. 가속 is an increase in speed. 가산 also uses 加, but 算 relates to calculation."
+      "explanation_ko": "加[가]는 ‘더하다’, 速[속]은 ‘빠르다’와 관련돼요. 속도를 더 높이는 것이 가속이에요. 가산에도 加[가]가 들어가지만, 算[산]은 계산과 관련된 글자예요.",
+      "explanation_en": "加[가] means to add or increase, and 速[속] relates to speed. 가속 is an increase in speed. 가산 also uses 加[가], but 算[산] relates to calculation."
     },
     {
       "id": "writer",
@@ -125,8 +125,8 @@
           "hanja": "作家"
         }
       ],
-      "explanation_ko": "作은 ‘짓다’와 관련돼요. 家는 집을 뜻하기도 하지만, 작가처럼 어떤 분야에서 활동하는 사람을 가리키는 데에도 쓰여요. 한자의 뜻은 단어 안에서 달라질 수 있어요.",
-      "explanation_en": "作 relates to making or creating. 家 can mean a house, but in words such as 작가 it also refers to a person working in a field. A character’s role depends on the word it appears in."
+      "explanation_ko": "作[작]은 ‘짓다’와 관련돼요. 家[가]는 집을 뜻하기도 하지만, 작가처럼 어떤 분야에서 활동하는 사람을 가리키는 데에도 쓰여요. 한자의 뜻은 단어 안에서 달라질 수 있어요.",
+      "explanation_en": "作[작] relates to making or creating. 家[가] can mean a house, but in words such as 작가 it also refers to a person working in a field. A character’s role depends on the word it appears in."
     },
     {
       "id": "bookshelf",
@@ -150,8 +150,8 @@
           "hanja": "作家"
         }
       ],
-      "explanation_ko": "書는 ‘책·글’, 架는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 소리가 같은 家와 架를 구분해 보세요.",
-      "explanation_en": "書 relates to books or writing; 架 relates to a frame or rack. 서가 is a bookshelf. Notice that 家 and 架 share the sound 가 but contribute different meanings."
+      "explanation_ko": "書[서]는 ‘책·글’, 架[가]는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 소리가 같은 家[가]와 架[가]를 구분해 보세요.",
+      "explanation_en": "書[서] relates to books or writing; 架[가] relates to a frame or rack. 서가 is a bookshelf. Notice that 家[가] and 架[가] share the sound 가 but contribute different meanings."
     }
   ]
 }

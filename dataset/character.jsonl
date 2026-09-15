@@ -1,22 +1,22 @@
 {"type": "character", "id": "ga-000", "hanja": "佳", "meaning_ko": ["아름답다", "좋다"], "meaning_en": ["beautiful", "good"]}
-{"type":"character","id":"ga-001","hanja":"假","meaning_ko":["거짓","임시","가정하다"],"meaning_en":["false","temporary","to suppose"]}
+{"type": "character", "id": "ga-001", "hanja": "假", "meaning_ko": ["거짓", "임시", "가정하다"], "meaning_en": ["false", "temporary", "to suppose"]}
 {"type": "character", "id": "ga-002", "hanja": "價", "meaning_ko": ["값", "가격"], "meaning_en": ["price", "value"]}
 {"type": "character", "id": "ga-003", "hanja": "加", "meaning_ko": ["더하다", "증가하다"], "meaning_en": ["to add", "to increase"]}
 {"type": "character", "id": "ga-004", "hanja": "可", "meaning_ko": ["가능하다", "허락하다", "옳다"], "meaning_en": ["possible", "to allow", "right"]}
-{"type":"character","id":"ga-005","hanja":"家","meaning_ko":["집","가족","전문가"],"meaning_en":["house","family","specialist"]}
-{"type":"character","id":"ga-006","hanja":"歌","meaning_ko":["노래","노래하다"],"meaning_en":["song","to sing"]}
+{"type": "character", "id": "ga-005", "hanja": "家", "meaning_ko": ["집", "가족", "전문가"], "meaning_en": ["house", "family", "specialist"]}
+{"type": "character", "id": "ga-006", "hanja": "歌", "meaning_ko": ["노래", "노래하다"], "meaning_en": ["song", "to sing"]}
 {"type": "character", "id": "ga-007", "hanja": "街", "meaning_ko": ["거리", "가로"], "meaning_en": ["street", "avenue"]}
 {"type": "character", "id": "ga-100", "hanja": "暇", "meaning_ko": ["한가하다", "여유"], "meaning_en": ["leisure", "free time"]}
-{"type":"character","id":"ga-101","hanja":"架","meaning_ko":["틀","받침대","걸쳐 놓다"],"meaning_en":["frame","stand","to erect"]}
+{"type": "character", "id": "ga-101", "hanja": "架", "meaning_ko": ["틀", "받침대", "걸쳐 놓다"], "meaning_en": ["frame", "stand", "to erect"]}
 {"type": "character", "id": "gak-000", "hanja": "各", "meaning_ko": ["각각", "각자"], "meaning_en": ["each", "every"]}
 {"type": "character", "id": "gak-001", "hanja": "脚", "meaning_ko": ["다리"], "meaning_en": ["leg"]}
-{"type":"character","id":"gak-002","hanja":"角","meaning_ko":["뿔","모서리","각"],"meaning_en":["horn","corner","angle"]}
+{"type": "character", "id": "gak-002", "hanja": "角", "meaning_ko": ["뿔", "모서리", "각"], "meaning_en": ["horn", "corner", "angle"]}
 {"type": "character", "id": "gak-100", "hanja": "刻", "meaning_ko": ["새기다", "시간의 단위"], "meaning_en": ["to engrave", "unit of time"]}
 {"type": "character", "id": "gak-101", "hanja": "却", "meaning_ko": ["물러나다", "거절하다"], "meaning_en": ["to retreat", "to refuse"]}
 {"type": "character", "id": "gak-102", "hanja": "覺", "meaning_ko": ["깨닫다", "느끼다"], "meaning_en": ["to realize", "to feel"]}
 {"type": "character", "id": "gak-103", "hanja": "閣", "meaning_ko": ["누각", "관청"], "meaning_en": ["pavilion", "government office"]}
-{"type":"character","id":"gan-000","hanja":"干","meaning_ko":["방패","간섭하다","마르다","천간"],"meaning_en":["shield","to interfere","to dry","heavenly stem"]}
-{"type":"character","id":"gan-001","hanja":"看","meaning_ko":["보다","돌보다"],"meaning_en":["to see","to look after"]}
+{"type": "character", "id": "gan-000", "hanja": "干", "meaning_ko": ["방패", "간섭하다", "마르다", "천간"], "meaning_en": ["shield", "to interfere", "to dry", "heavenly stem"]}
+{"type": "character", "id": "gan-001", "hanja": "看", "meaning_ko": ["보다", "돌보다"], "meaning_en": ["to see", "to look after"]}
 {"type": "character", "id": "gan-002", "hanja": "間", "meaning_ko": ["사이"], "meaning_en": ["between", "space"]}
 {"type": "character", "id": "gan-100", "hanja": "刊", "meaning_ko": ["책을 펴내다"], "meaning_en": ["to publish"]}
 {"type": "character", "id": "gan-101", "hanja": "姦", "meaning_ko": ["간사하다"], "meaning_en": ["crafty", "wicked"]}
@@ -1814,5 +1814,5 @@
 {"type": "character", "id": "to-200", "hanja": "兔", "meaning_ko": ["토끼"], "meaning_en": ["rabbit", "hare"]}
 {"type": "character", "id": "po-200", "hanja": "砲", "meaning_ko": ["대포"], "meaning_en": ["cannon", "gun"]}
 {"type": "character", "id": "pung-200", "hanja": "楓", "meaning_ko": ["단풍"], "meaning_en": ["maple"]}
-{"type":"character","id":"hoe-200","hanja":"灰","meaning_ko":["재"],"meaning_en":["ash"]}
-{"type":"character","id":"jo-200","hanja":"彫","meaning_ko":["새기다","조각하다"],"meaning_en":["to carve","to engrave"]}
+{"type": "character", "id": "hoe-200", "hanja": "灰", "meaning_ko": ["재"], "meaning_en": ["ash"]}
+{"type": "character", "id": "jo-200", "hanja": "彫", "meaning_ko": ["새기다", "조각하다"], "meaning_en": ["to carve", "to engrave"]}

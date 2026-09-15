@@ -1,100 +1,100 @@
-{"level": "normal", "word": "가인","hanja": "佳人","meaning_ko": "아름다운 사람","meaning_en": "beautiful person","components": ["佳", "人"]}
-{"level": "normal", "word": "가경","hanja": "佳景","meaning_ko": "아름다운 경치","meaning_en": "beautiful scenery","components": ["佳", "景"]}
-{"level": "normal", "word": "가명","hanja": "假名","meaning_ko": "본명 대신 쓰는 이름","meaning_en": "alias, pseudonym","components": ["假", "名"]}
-{"level": "normal", "word": "가설","hanja": "假設","meaning_ko": "임시로 세운 설명","meaning_en": "hypothesis","components": ["假", "設"]}
-{"level": "normal", "word": "가격","hanja": "價格","meaning_ko": "물건의 값","meaning_en": "price","components": ["價", "格"]}
-{"level": "normal", "word": "가치","hanja": "價値","meaning_ko": "값어치","meaning_en": "value","components": ["價", "値"]}
-{"level": "normal", "word": "가산","hanja": "加算","meaning_ko": "수를 더함","meaning_en": "addition","components": ["加", "算"]}
-{"level": "normal", "word": "가속","hanja": "加速","meaning_ko": "속도를 더 빠르게 함","meaning_en": "acceleration","components": ["加", "速"]}
-{"level": "normal", "word": "가능","hanja": "可能","meaning_ko": "할 수 있거나 이루어질 수 있음","meaning_en": "possibility, feasibility","components": ["可", "能"]}
-{"level": "normal", "word": "허가","hanja": "許可","meaning_ko": "허락함","meaning_en": "permission","components": ["許", "可"]}
-{"level": "normal", "word": "가정","hanja": "家庭","meaning_ko": "가족이 함께 생활하는 공동체나 생활 공간","meaning_en": "home, household","components": ["家", "庭"],"semantic_hint": "가정(家庭)은 집안, 가정(假定)은 어떤 조건을 사실로 봄. / 家庭 means a household; 假定 means an assumption."}
-{"level": "normal", "word": "작가","hanja": "作家","meaning_ko": "글이나 예술 작품을 창작하는 사람","meaning_en": "writer, artist","components": ["作", "家"],"semantic_hint": "家는 여기서 집이 아니라 그 일을 전문으로 하는 사람을 뜻해요. / Here 家 refers to a practitioner or specialist."}
-{"level": "normal", "word": "가곡","hanja": "歌曲","meaning_ko": "시조를 관현악 반주에 맞추어 부르는 전통 성악곡; 시에 곡을 붙인 서양식 예술 가곡","meaning_en": "gagok (traditional Korean vocal music); art song","components": ["歌", "曲"]}
-{"level": "normal", "word": "국가","hanja": "國歌","meaning_ko": "나라를 대표하는 노래","meaning_en": "national anthem","components": ["國", "歌"]}
-{"level": "normal", "word": "가로","hanja": "街路","meaning_ko": "도시나 마을의 거리","meaning_en": "street, urban road","components": ["街", "路"],"semantic_hint": "가로(街路)는 길을 뜻하며, 방향을 나타내는 고유어 가로와 달라요. / 街路 means a street, not the native Korean word for horizontal direction."}
-{"level": "normal", "word": "번화가","hanja": "繁華街","meaning_ko": "사람과 가게가 많은 거리","meaning_en": "downtown area","components": ["繁", "華", "街"]}
-{"level": "normal", "word": "여가","hanja": "餘暇","meaning_ko": "남는 한가한 시간","meaning_en": "leisure time","components": ["餘", "暇"]}
-{"level": "normal", "word": "한가","hanja": "閑暇","meaning_ko": "일이 없어 여유로움","meaning_en": "free time, leisure","components": ["閑", "暇"]}
-{"level": "normal", "word": "고가","hanja": "高架","meaning_ko": "높이 세운 구조물","meaning_en": "elevated structure","components": ["高", "架"]}
-{"level": "normal", "word": "서가","hanja": "書架","meaning_ko": "책을 올려두는 틀","meaning_en": "bookshelf","components": ["書", "架"]}
-{"level":"normal","word":"가작","hanja":"佳作","meaning_ko":"잘 만든 작품; 공모전 등에서 상위 수상작에 버금가는 작품","meaning_en":"fine work; honorable mention","components":["佳","作"]}
-{"level":"normal","word":"가약","hanja":"佳約","meaning_ko":"혼인하기로 한 약속","meaning_en":"promise of marriage","components":["佳","約"],"semantic_hint":"주로 '백년가약을 맺다'처럼 쓰는 격식 있는 표현이에요. / A formal expression often used in 백년가약을 맺다, to unite in marriage."}
-{"level":"normal","word":"가경","hanja":"佳境","meaning_ko":"경치가 좋은 곳; 이야기가 한창 재미있어지는 대목","meaning_en":"scenic place; engrossing part of a story","components":["佳","境"],"semantic_hint":"가경(佳景)은 아름다운 경치이고, 佳境은 좋은 곳이나 흥미로운 대목이에요. / Compare 佳景 (beautiful scenery) with 佳境 (a scenic place or an engrossing stage)."}
-{"level":"normal","word":"가정","hanja":"假定","meaning_ko":"확인하지 않은 조건을 사실이라고 보고 생각함","meaning_en":"assumption, supposition","components":["假","定"]}
-{"level":"normal","word":"가상","hanja":"假想","meaning_ko":"실제로 없는 상황을 있다고 생각함","meaning_en":"imagining a hypothetical situation","components":["假","想"]}
-{"level":"normal","word":"가면","hanja":"假面","meaning_ko":"얼굴을 가리거나 다른 모습으로 보이게 하는 탈","meaning_en":"mask; false appearance","components":["假","面"]}
-{"level":"normal","word":"물가","hanja":"物價","meaning_ko":"여러 상품과 서비스의 전반적인 가격 수준","meaning_en":"general price level, cost of living","components":["物","價"]}
-{"level":"normal","word":"정가","hanja":"定價","meaning_ko":"상품에 정해 놓은 판매 가격","meaning_en":"fixed price, list price","components":["定","價"]}
-{"level":"normal","word":"고가","hanja":"高價","meaning_ko":"비싼 값","meaning_en":"high price","components":["高","價"],"semantic_hint":"고가(高價)는 비싼 값, 고가(高架)는 높이 세운 구조를 뜻해요. / 高價 means a high price; 高架 refers to an elevated structure."}
-{"level":"normal","word":"추가","hanja":"追加","meaning_ko":"이미 있는 것에 더 보탬","meaning_en":"addition, supplement","components":["追","加"]}
-{"level":"normal","word":"증가","hanja":"增加","meaning_ko":"수나 양이 늘어남","meaning_en":"increase, growth","components":["增","加"]}
-{"level":"normal","word":"가입","hanja":"加入","meaning_ko":"단체나 조직에 들어가 구성원이 됨","meaning_en":"joining, enrollment","components":["加","入"]}
-{"level":"normal","word":"불가","hanja":"不可","meaning_ko":"할 수 없거나 허용되지 않음","meaning_en":"impossibility; prohibition","components":["不","可"]}
-{"level":"normal","word":"가결","hanja":"可決","meaning_ko":"회의에서 안건을 받아들이기로 결정함","meaning_en":"passage or approval of a proposal","components":["可","決"]}
-{"level":"normal","word":"가부","hanja":"可否","meaning_ko":"옳고 그름 또는 찬성과 반대","meaning_en":"right or wrong; approval or disapproval","components":["可","否"]}
-{"level":"normal","word":"가족","hanja":"家族","meaning_ko":"부모, 자녀, 배우자 등으로 이루어진 가까운 관계의 사람들","meaning_en":"family, family members","components":["家","族"]}
-{"level":"normal","word":"국가","hanja":"國家","meaning_ko":"국민, 영토, 주권을 갖춘 정치 공동체","meaning_en":"country, state, nation","components":["國","家"],"semantic_hint":"국가(國家)는 나라이고, 국가(國歌)는 나라를 대표하는 노래예요. / 國家 means a country; 國歌 means its national anthem."}
-{"level":"normal","word":"전문가","hanja":"專門家","meaning_ko":"특정 분야에 깊은 지식이나 능력을 가진 사람","meaning_en":"expert, specialist","components":["專","門","家"]}
-{"level":"normal","word":"가수","hanja":"歌手","meaning_ko":"노래하는 일을 직업으로 삼는 사람","meaning_en":"singer","components":["歌","手"]}
-{"level":"normal","word":"가사","hanja":"歌詞","meaning_ko":"노래에 붙여 부르는 말","meaning_en":"song lyrics","components":["歌","詞"]}
-{"level":"normal","word":"교가","hanja":"校歌","meaning_ko":"학교를 상징하여 부르는 노래","meaning_en":"school song","components":["校","歌"]}
-{"level":"normal","word":"상가","hanja":"商街","meaning_ko":"상점들이 모여 있는 거리나 구역","meaning_en":"shopping district, shopping street","components":["商","街"]}
-{"level":"normal","word":"가로수","hanja":"街路樹","meaning_ko":"길을 따라 심은 나무","meaning_en":"street tree, roadside tree","components":["街","路","樹"]}
-{"level":"normal","word":"시가","hanja":"市街","meaning_ko":"집과 가게가 밀집한 도시의 거리나 구역","meaning_en":"urban streets, built-up area","components":["市","街"]}
-{"level":"normal","word":"휴가","hanja":"休暇","meaning_ko":"직장이나 군대 등에서 일정 기간 일을 쉬도록 허락받은 때","meaning_en":"leave, vacation","components":["休","暇"]}
-{"level":"normal","word":"병가","hanja":"病暇","meaning_ko":"병 때문에 일을 쉬도록 허락받은 휴가","meaning_en":"sick leave","components":["病","暇"]}
-{"level":"normal","word":"연가","hanja":"年暇","meaning_ko":"한 해를 기준으로 정해진 휴가","meaning_en":"annual leave","components":["年","暇"]}
-{"level":"normal","word":"가교","hanja":"架橋","meaning_ko":"다리를 놓음; 서로 떨어진 것을 이어 주는 역할","meaning_en":"bridge building; a connecting link","components":["架","橋"]}
-{"level":"normal","word":"가공","hanja":"架空","meaning_ko":"사실에 바탕을 두지 않고 상상으로 만들어 냄","meaning_en":"fiction, fabrication","components":["架","空"],"semantic_hint":"가공(架空)의 인물처럼 쓰며, 재료를 처리하는 가공(加工)과 달라요. / Used for an invented character or situation; compare 加工, processing materials."}
-{"level":"normal","word":"가설","hanja":"架設","meaning_ko":"건물이나 다리, 전선 등의 시설을 설치함","meaning_en":"erection or installation of a structure or facility","components":["架","設"],"semantic_hint":"가설(假設)은 검증할 설명, 가설(架設)은 시설을 세우는 일이에요. / 假設 is a hypothesis; 架設 is erection or installation."}
-{"level":"normal","word":"각자","hanja":"各自","meaning_ko":"여러 사람 가운데 저마다의 사람; 저마다 따로","meaning_en":"each person; individually","components":["各","自"]}
-{"level":"normal","word":"각각","hanja":"各各","meaning_ko":"여럿을 하나씩 따로 구별한 것; 하나하나 따로","meaning_en":"each; separately, respectively","components":["各","各"]}
-{"level":"normal","word":"각국","hanja":"各國","meaning_ko":"여러 나라 하나하나","meaning_en":"each country, various countries","components":["各","國"]}
-{"level":"normal","word":"각지","hanja":"各地","meaning_ko":"여러 지역이나 장소 각각","meaning_en":"various places, different regions","components":["各","地"]}
-{"level":"normal","word":"각종","hanja":"各種","meaning_ko":"여러 가지 종류","meaning_en":"various kinds, all sorts","components":["各","種"]}
-{"level":"normal","word":"각본","hanja":"脚本","meaning_ko":"영화나 연극 등의 대사와 장면을 적은 글","meaning_en":"script, screenplay","components":["脚","本"]}
-{"level":"normal","word":"각색","hanja":"脚色","meaning_ko":"소설 등의 내용을 공연이나 영상에 맞게 고쳐 씀","meaning_en":"adaptation for stage or screen","components":["脚","色"]}
-{"level":"normal","word":"삼각대","hanja":"三脚臺","meaning_ko":"사진기 등을 받치는 세 다리의 기구","meaning_en":"tripod","components":["三","脚","臺"]}
-{"level":"normal","word":"각광","hanja":"脚光","meaning_ko":"무대 앞 아래쪽에서 비추는 빛; 많은 사람의 관심","meaning_en":"footlights; public attention","components":["脚","光"],"semantic_hint":"'각광을 받다'는 사람들의 관심을 끈다는 뜻이에요. / 각광을 받다 means to attract public attention."}
-{"level":"normal","word":"실각","hanja":"失脚","meaning_ko":"정치적 지위나 권력을 잃음","meaning_en":"fall from power, loss of position","components":["失","脚"]}
-{"level":"normal","word":"각도","hanja":"角度","meaning_ko":"두 선이 만나 벌어진 정도; 사물을 보는 관점","meaning_en":"angle; perspective","components":["角","度"]}
-{"level":"normal","word":"삼각","hanja":"三角","meaning_ko":"세 개의 각이나 세모꼴","meaning_en":"three angles; triangular shape","components":["三","角"]}
-{"level":"normal","word":"사각","hanja":"四角","meaning_ko":"네 개의 각이나 네모꼴","meaning_en":"four angles; quadrilateral shape","components":["四","角"]}
-{"level":"normal","word":"직각","hanja":"直角","meaning_ko":"90도를 이루는 각","meaning_en":"right angle","components":["直","角"]}
-{"level":"normal","word":"다각형","hanja":"多角形","meaning_ko":"세 개 이상의 선분으로 둘러싸인 평면 도형","meaning_en":"polygon","components":["多","角","形"]}
-{"level":"normal","word":"시각","hanja":"時刻","meaning_ko":"시간의 흐름에서 어느 한 순간이나 시점","meaning_en":"a point in time, time of day","components":["時","刻"]}
-{"level":"normal","word":"각인","hanja":"刻印","meaning_ko":"도장을 새김; 머릿속에 깊이 남도록 함","meaning_en":"engraving a seal; imprinting in memory","components":["刻","印"]}
-{"level":"normal","word":"조각","hanja":"彫刻","meaning_ko":"나무나 돌 등을 깎아 형상을 만듦; 그렇게 만든 작품","meaning_en":"carving, sculpture","components":["彫","刻"]}
-{"level":"normal","word":"심각","hanja":"深刻","meaning_ko":"문제나 상황의 정도가 매우 깊고 중대함","meaning_en":"seriousness, severity","components":["深","刻"]}
-{"level":"normal","word":"각박","hanja":"刻薄","meaning_ko":"인정이나 여유가 없이 매정함","meaning_en":"harshness, cold-heartedness","components":["刻","薄"]}
-{"level":"normal","word":"기각","hanja":"棄却","meaning_ko":"소송이나 신청 등을 심리한 뒤 받아들이지 않음","meaning_en":"rejection of a claim or application after examination","components":["棄","却"]}
-{"level":"normal","word":"각하","hanja":"却下","meaning_ko":"절차나 요건을 갖추지 못한 신청 등을 본안 판단 없이 물리침","meaning_en":"dismissal on procedural grounds","components":["却","下"],"semantic_hint":"각하(却下)는 절차상 물리침, 각하(閣下)는 높임말이에요. / 却下 is procedural dismissal; 閣下 is an honorific."}
-{"level":"normal","word":"퇴각","hanja":"退却","meaning_ko":"뒤로 물러남, 특히 군대가 전투 중 물러남","meaning_en":"retreat, withdrawal","components":["退","却"]}
-{"level":"normal","word":"망각","hanja":"忘却","meaning_ko":"알고 있던 사실이나 기억을 잊어버림","meaning_en":"forgetting, oblivion","components":["忘","却"]}
-{"level":"normal","word":"냉각","hanja":"冷却","meaning_ko":"온도를 낮추어 차게 함","meaning_en":"cooling","components":["冷","却"]}
-{"level":"normal","word":"감각","hanja":"感覺","meaning_ko":"눈, 귀 등의 감각 기관으로 자극을 느낌; 사물을 알아차리는 능력","meaning_en":"sensation, sense, perception","components":["感","覺"]}
-{"level":"normal","word":"시각","hanja":"視覺","meaning_ko":"눈으로 빛이나 모양을 느끼는 감각","meaning_en":"sight, vision","components":["視","覺"],"semantic_hint":"시각(視覺)은 보는 감각이고, 시각(時刻)은 시간의 한 지점이에요. / 視覺 means vision; 時刻 means a point in time."}
-{"level":"normal","word":"청각","hanja":"聽覺","meaning_ko":"귀로 소리를 느끼는 감각","meaning_en":"hearing, auditory sense","components":["聽","覺"]}
-{"level":"normal","word":"자각","hanja":"自覺","meaning_ko":"자신의 상태나 처지를 스스로 깨달음","meaning_en":"self-awareness, realization","components":["自","覺"]}
-{"level":"normal","word":"각오","hanja":"覺悟","meaning_ko":"앞으로 겪을 일을 받아들일 마음의 준비나 결심","meaning_en":"resolve, mental readiness","components":["覺","悟"]}
-{"level":"normal","word":"내각","hanja":"內閣","meaning_ko":"총리와 장관 등으로 이루어진 정부의 행정 지도부","meaning_en":"cabinet of a government","components":["內","閣"]}
-{"level":"normal","word":"각의","hanja":"閣議","meaning_ko":"내각의 구성원들이 모여 하는 회의","meaning_en":"cabinet meeting","components":["閣","議"]}
-{"level":"normal","word":"각하","hanja":"閣下","meaning_ko":"매우 높은 지위의 사람을 높여 부르는 말","meaning_en":"Your Excellency (honorific address)","components":["閣","下"]}
-{"level":"normal","word":"누각","hanja":"樓閣","meaning_ko":"높게 지어 사방을 바라볼 수 있게 한 전통 건물","meaning_en":"pavilion, raised traditional building","components":["樓","閣"]}
-{"level":"normal","word":"전각","hanja":"殿閣","meaning_ko":"궁궐이나 사찰의 주요 건물","meaning_en":"palace or temple hall","components":["殿","閣"]}
-{"level":"normal","word":"간섭","hanja":"干涉","meaning_ko":"남의 일에 끼어들어 영향을 주거나 참견함","meaning_en":"interference, meddling","components":["干","涉"]}
-{"level":"normal","word":"간만","hanja":"干滿","meaning_ko":"바닷물이 빠지고 들어 수위가 낮아지고 높아지는 현상","meaning_en":"ebb and flow of the tide","components":["干","滿"]}
-{"level":"normal","word":"약간","hanja":"若干","meaning_ko":"수나 양이 조금인 정도; 조금","meaning_en":"a small amount; slightly, somewhat","components":["若","干"],"semantic_hint":"若干은 전체가 '조금'을 뜻하는 말이므로 각 글자의 대표 뜻만 합쳐 해석하지 않아요. / Learn 若干 as a whole expression meaning a little or somewhat."}
-{"level":"normal","word":"간조","hanja":"干潮","meaning_ko":"밀물과 썰물의 주기에서 바닷물의 높이가 가장 낮아진 상태","meaning_en":"low tide","components":["干","潮"]}
-{"level":"normal","word":"간지","hanja":"干支","meaning_ko":"날짜나 해를 나타내는 천간과 지지를 합쳐 부르는 말","meaning_en":"heavenly stems and earthly branches of the traditional calendar","components":["干","支"],"semantic_hint":"干支는 전통 달력 용어이며, 멋을 뜻하는 속어 간지와 다른 말이에요. / 干支 is a calendar term, distinct from the slang word for style."}
-{"level":"normal","word":"간판","hanja":"看板","meaning_ko":"가게나 기관의 이름 등을 써서 밖에 붙이는 표지","meaning_en":"signboard, shop sign","components":["看","板"]}
-{"level":"normal","word":"간호","hanja":"看護","meaning_ko":"아프거나 다친 사람을 돌봄","meaning_en":"nursing, care for the sick","components":["看","護"]}
-{"level":"normal","word":"간병","hanja":"看病","meaning_ko":"환자 곁에서 생활과 회복을 도움","meaning_en":"attending to a patient, caregiving","components":["看","病"]}
-{"level":"normal","word":"간과","hanja":"看過","meaning_ko":"중요한 사실을 주의하지 않고 지나침","meaning_en":"overlooking, failing to notice","components":["看","過"]}
-{"level":"normal","word":"간파","hanja":"看破","meaning_ko":"겉으로 드러나지 않은 속뜻이나 사실을 알아챔","meaning_en":"seeing through, detecting","components":["看","破"]}
-{"level":"normal","word":"시간","hanja":"時間","meaning_ko":"어떤 때부터 다른 때까지의 동안; 시각의 흐름","meaning_en":"time, duration","components":["時","間"]}
-{"level":"normal","word":"공간","hanja":"空間","meaning_ko":"물체가 자리하거나 활동이 이루어지는 넓이와 범위","meaning_en":"space, area","components":["空","間"]}
-{"level":"normal","word":"인간","hanja":"人間","meaning_ko":"사람; 사람들이 살아가는 세상","meaning_en":"human being; human society","components":["人","間"]}
-{"level":"normal","word":"중간","hanja":"中間","meaning_ko":"두 끝이나 두 시점 사이의 가운데","meaning_en":"middle, midpoint","components":["中","間"]}
-{"level":"normal","word":"순간","hanja":"瞬間","meaning_ko":"아주 짧은 시간","meaning_en":"moment, instant","components":["瞬","間"]}
+{"level": "normal", "word": "가인", "hanja": "佳人", "meaning_ko": "아름다운 사람", "meaning_en": "beautiful person", "components": ["佳", "人"]}
+{"level": "normal", "word": "가경", "hanja": "佳景", "meaning_ko": "아름다운 경치", "meaning_en": "beautiful scenery", "components": ["佳", "景"]}
+{"level": "normal", "word": "가명", "hanja": "假名", "meaning_ko": "본명 대신 쓰는 이름", "meaning_en": "alias, pseudonym", "components": ["假", "名"]}
+{"level": "normal", "word": "가설", "hanja": "假設", "meaning_ko": "임시로 세운 설명", "meaning_en": "hypothesis", "components": ["假", "設"]}
+{"level": "normal", "word": "가격", "hanja": "價格", "meaning_ko": "물건의 값", "meaning_en": "price", "components": ["價", "格"]}
+{"level": "normal", "word": "가치", "hanja": "價値", "meaning_ko": "값어치", "meaning_en": "value", "components": ["價", "値"]}
+{"level": "normal", "word": "가산", "hanja": "加算", "meaning_ko": "수를 더함", "meaning_en": "addition", "components": ["加", "算"]}
+{"level": "normal", "word": "가속", "hanja": "加速", "meaning_ko": "속도를 더 빠르게 함", "meaning_en": "acceleration", "components": ["加", "速"]}
+{"level": "normal", "word": "가능", "hanja": "可能", "meaning_ko": "할 수 있거나 이루어질 수 있음", "meaning_en": "possibility, feasibility", "components": ["可", "能"]}
+{"level": "normal", "word": "허가", "hanja": "許可", "meaning_ko": "허락함", "meaning_en": "permission", "components": ["許", "可"]}
+{"level": "normal", "word": "가정", "hanja": "家庭", "meaning_ko": "가족이 함께 생활하는 공동체나 생활 공간", "meaning_en": "home, household", "components": ["家", "庭"], "semantic_hint": "가정(家庭)은 집안, 가정(假定)은 어떤 조건을 사실로 봄. / 家庭 means a household; 假定 means an assumption."}
+{"level": "normal", "word": "작가", "hanja": "作家", "meaning_ko": "글이나 예술 작품을 창작하는 사람", "meaning_en": "writer, artist", "components": ["作", "家"], "semantic_hint": "家는 여기서 집이 아니라 그 일을 전문으로 하는 사람을 뜻해요. / Here 家 refers to a practitioner or specialist."}
+{"level": "normal", "word": "가곡", "hanja": "歌曲", "meaning_ko": "시조를 관현악 반주에 맞추어 부르는 전통 성악곡; 시에 곡을 붙인 서양식 예술 가곡", "meaning_en": "gagok (traditional Korean vocal music); art song", "components": ["歌", "曲"]}
+{"level": "normal", "word": "국가", "hanja": "國歌", "meaning_ko": "나라를 대표하는 노래", "meaning_en": "national anthem", "components": ["國", "歌"]}
+{"level": "normal", "word": "가로", "hanja": "街路", "meaning_ko": "도시나 마을의 거리", "meaning_en": "street, urban road", "components": ["街", "路"], "semantic_hint": "가로(街路)는 길을 뜻하며, 방향을 나타내는 고유어 가로와 달라요. / 街路 means a street, not the native Korean word for horizontal direction."}
+{"level": "normal", "word": "번화가", "hanja": "繁華街", "meaning_ko": "사람과 가게가 많은 거리", "meaning_en": "downtown area", "components": ["繁", "華", "街"]}
+{"level": "normal", "word": "여가", "hanja": "餘暇", "meaning_ko": "남는 한가한 시간", "meaning_en": "leisure time", "components": ["餘", "暇"]}
+{"level": "normal", "word": "한가", "hanja": "閑暇", "meaning_ko": "일이 없어 여유로움", "meaning_en": "free time, leisure", "components": ["閑", "暇"]}
+{"level": "normal", "word": "고가", "hanja": "高架", "meaning_ko": "높이 세운 구조물", "meaning_en": "elevated structure", "components": ["高", "架"]}
+{"level": "normal", "word": "서가", "hanja": "書架", "meaning_ko": "책을 올려두는 틀", "meaning_en": "bookshelf", "components": ["書", "架"]}
+{"level": "normal", "word": "가작", "hanja": "佳作", "meaning_ko": "잘 만든 작품; 공모전 등에서 상위 수상작에 버금가는 작품", "meaning_en": "fine work; honorable mention", "components": ["佳", "作"]}
+{"level": "normal", "word": "가약", "hanja": "佳約", "meaning_ko": "혼인하기로 한 약속", "meaning_en": "promise of marriage", "components": ["佳", "約"], "semantic_hint": "주로 '백년가약을 맺다'처럼 쓰는 격식 있는 표현이에요. / A formal expression often used in 백년가약을 맺다, to unite in marriage."}
+{"level": "normal", "word": "가경", "hanja": "佳境", "meaning_ko": "경치가 좋은 곳; 이야기가 한창 재미있어지는 대목", "meaning_en": "scenic place; engrossing part of a story", "components": ["佳", "境"], "semantic_hint": "가경(佳景)은 아름다운 경치이고, 佳境은 좋은 곳이나 흥미로운 대목이에요. / Compare 佳景 (beautiful scenery) with 佳境 (a scenic place or an engrossing stage)."}
+{"level": "normal", "word": "가정", "hanja": "假定", "meaning_ko": "확인하지 않은 조건을 사실이라고 보고 생각함", "meaning_en": "assumption, supposition", "components": ["假", "定"]}
+{"level": "normal", "word": "가상", "hanja": "假想", "meaning_ko": "실제로 없는 상황을 있다고 생각함", "meaning_en": "imagining a hypothetical situation", "components": ["假", "想"]}
+{"level": "normal", "word": "가면", "hanja": "假面", "meaning_ko": "얼굴을 가리거나 다른 모습으로 보이게 하는 탈", "meaning_en": "mask; false appearance", "components": ["假", "面"]}
+{"level": "normal", "word": "물가", "hanja": "物價", "meaning_ko": "여러 상품과 서비스의 전반적인 가격 수준", "meaning_en": "general price level, cost of living", "components": ["物", "價"]}
+{"level": "normal", "word": "정가", "hanja": "定價", "meaning_ko": "상품에 정해 놓은 판매 가격", "meaning_en": "fixed price, list price", "components": ["定", "價"]}
+{"level": "normal", "word": "고가", "hanja": "高價", "meaning_ko": "비싼 값", "meaning_en": "high price", "components": ["高", "價"], "semantic_hint": "고가(高價)는 비싼 값, 고가(高架)는 높이 세운 구조를 뜻해요. / 高價 means a high price; 高架 refers to an elevated structure."}
+{"level": "normal", "word": "추가", "hanja": "追加", "meaning_ko": "이미 있는 것에 더 보탬", "meaning_en": "addition, supplement", "components": ["追", "加"]}
+{"level": "normal", "word": "증가", "hanja": "增加", "meaning_ko": "수나 양이 늘어남", "meaning_en": "increase, growth", "components": ["增", "加"]}
+{"level": "normal", "word": "가입", "hanja": "加入", "meaning_ko": "단체나 조직에 들어가 구성원이 됨", "meaning_en": "joining, enrollment", "components": ["加", "入"]}
+{"level": "normal", "word": "불가", "hanja": "不可", "meaning_ko": "할 수 없거나 허용되지 않음", "meaning_en": "impossibility; prohibition", "components": ["不", "可"]}
+{"level": "normal", "word": "가결", "hanja": "可決", "meaning_ko": "회의에서 안건을 받아들이기로 결정함", "meaning_en": "passage or approval of a proposal", "components": ["可", "決"]}
+{"level": "normal", "word": "가부", "hanja": "可否", "meaning_ko": "옳고 그름 또는 찬성과 반대", "meaning_en": "right or wrong; approval or disapproval", "components": ["可", "否"]}
+{"level": "normal", "word": "가족", "hanja": "家族", "meaning_ko": "부모, 자녀, 배우자 등으로 이루어진 가까운 관계의 사람들", "meaning_en": "family, family members", "components": ["家", "族"]}
+{"level": "normal", "word": "국가", "hanja": "國家", "meaning_ko": "국민, 영토, 주권을 갖춘 정치 공동체", "meaning_en": "country, state, nation", "components": ["國", "家"], "semantic_hint": "국가(國家)는 나라이고, 국가(國歌)는 나라를 대표하는 노래예요. / 國家 means a country; 國歌 means its national anthem."}
+{"level": "normal", "word": "전문가", "hanja": "專門家", "meaning_ko": "특정 분야에 깊은 지식이나 능력을 가진 사람", "meaning_en": "expert, specialist", "components": ["專", "門", "家"]}
+{"level": "normal", "word": "가수", "hanja": "歌手", "meaning_ko": "노래하는 일을 직업으로 삼는 사람", "meaning_en": "singer", "components": ["歌", "手"]}
+{"level": "normal", "word": "가사", "hanja": "歌詞", "meaning_ko": "노래에 붙여 부르는 말", "meaning_en": "song lyrics", "components": ["歌", "詞"]}
+{"level": "normal", "word": "교가", "hanja": "校歌", "meaning_ko": "학교를 상징하여 부르는 노래", "meaning_en": "school song", "components": ["校", "歌"]}
+{"level": "normal", "word": "상가", "hanja": "商街", "meaning_ko": "상점들이 모여 있는 거리나 구역", "meaning_en": "shopping district, shopping street", "components": ["商", "街"]}
+{"level": "normal", "word": "가로수", "hanja": "街路樹", "meaning_ko": "길을 따라 심은 나무", "meaning_en": "street tree, roadside tree", "components": ["街", "路", "樹"]}
+{"level": "normal", "word": "시가", "hanja": "市街", "meaning_ko": "집과 가게가 밀집한 도시의 거리나 구역", "meaning_en": "urban streets, built-up area", "components": ["市", "街"]}
+{"level": "normal", "word": "휴가", "hanja": "休暇", "meaning_ko": "직장이나 군대 등에서 일정 기간 일을 쉬도록 허락받은 때", "meaning_en": "leave, vacation", "components": ["休", "暇"]}
+{"level": "normal", "word": "병가", "hanja": "病暇", "meaning_ko": "병 때문에 일을 쉬도록 허락받은 휴가", "meaning_en": "sick leave", "components": ["病", "暇"]}
+{"level": "normal", "word": "연가", "hanja": "年暇", "meaning_ko": "한 해를 기준으로 정해진 휴가", "meaning_en": "annual leave", "components": ["年", "暇"]}
+{"level": "normal", "word": "가교", "hanja": "架橋", "meaning_ko": "다리를 놓음; 서로 떨어진 것을 이어 주는 역할", "meaning_en": "bridge building; a connecting link", "components": ["架", "橋"]}
+{"level": "normal", "word": "가공", "hanja": "架空", "meaning_ko": "사실에 바탕을 두지 않고 상상으로 만들어 냄", "meaning_en": "fiction, fabrication", "components": ["架", "空"], "semantic_hint": "가공(架空)의 인물처럼 쓰며, 재료를 처리하는 가공(加工)과 달라요. / Used for an invented character or situation; compare 加工, processing materials."}
+{"level": "normal", "word": "가설", "hanja": "架設", "meaning_ko": "건물이나 다리, 전선 등의 시설을 설치함", "meaning_en": "erection or installation of a structure or facility", "components": ["架", "設"], "semantic_hint": "가설(假設)은 검증할 설명, 가설(架設)은 시설을 세우는 일이에요. / 假設 is a hypothesis; 架設 is erection or installation."}
+{"level": "normal", "word": "각자", "hanja": "各自", "meaning_ko": "여러 사람 가운데 저마다의 사람; 저마다 따로", "meaning_en": "each person; individually", "components": ["各", "自"]}
+{"level": "normal", "word": "각각", "hanja": "各各", "meaning_ko": "여럿을 하나씩 따로 구별한 것; 하나하나 따로", "meaning_en": "each; separately, respectively", "components": ["各", "各"]}
+{"level": "normal", "word": "각국", "hanja": "各國", "meaning_ko": "여러 나라 하나하나", "meaning_en": "each country, various countries", "components": ["各", "國"]}
+{"level": "normal", "word": "각지", "hanja": "各地", "meaning_ko": "여러 지역이나 장소 각각", "meaning_en": "various places, different regions", "components": ["各", "地"]}
+{"level": "normal", "word": "각종", "hanja": "各種", "meaning_ko": "여러 가지 종류", "meaning_en": "various kinds, all sorts", "components": ["各", "種"]}
+{"level": "normal", "word": "각본", "hanja": "脚本", "meaning_ko": "영화나 연극 등의 대사와 장면을 적은 글", "meaning_en": "script, screenplay", "components": ["脚", "本"]}
+{"level": "normal", "word": "각색", "hanja": "脚色", "meaning_ko": "소설 등의 내용을 공연이나 영상에 맞게 고쳐 씀", "meaning_en": "adaptation for stage or screen", "components": ["脚", "色"]}
+{"level": "normal", "word": "삼각대", "hanja": "三脚臺", "meaning_ko": "사진기 등을 받치는 세 다리의 기구", "meaning_en": "tripod", "components": ["三", "脚", "臺"]}
+{"level": "normal", "word": "각광", "hanja": "脚光", "meaning_ko": "무대 앞 아래쪽에서 비추는 빛; 많은 사람의 관심", "meaning_en": "footlights; public attention", "components": ["脚", "光"], "semantic_hint": "'각광을 받다'는 사람들의 관심을 끈다는 뜻이에요. / 각광을 받다 means to attract public attention."}
+{"level": "normal", "word": "실각", "hanja": "失脚", "meaning_ko": "정치적 지위나 권력을 잃음", "meaning_en": "fall from power, loss of position", "components": ["失", "脚"]}
+{"level": "normal", "word": "각도", "hanja": "角度", "meaning_ko": "두 선이 만나 벌어진 정도; 사물을 보는 관점", "meaning_en": "angle; perspective", "components": ["角", "度"]}
+{"level": "normal", "word": "삼각", "hanja": "三角", "meaning_ko": "세 개의 각이나 세모꼴", "meaning_en": "three angles; triangular shape", "components": ["三", "角"]}
+{"level": "normal", "word": "사각", "hanja": "四角", "meaning_ko": "네 개의 각이나 네모꼴", "meaning_en": "four angles; quadrilateral shape", "components": ["四", "角"]}
+{"level": "normal", "word": "직각", "hanja": "直角", "meaning_ko": "90도를 이루는 각", "meaning_en": "right angle", "components": ["直", "角"]}
+{"level": "normal", "word": "다각형", "hanja": "多角形", "meaning_ko": "세 개 이상의 선분으로 둘러싸인 평면 도형", "meaning_en": "polygon", "components": ["多", "角", "形"]}
+{"level": "normal", "word": "시각", "hanja": "時刻", "meaning_ko": "시간의 흐름에서 어느 한 순간이나 시점", "meaning_en": "a point in time, time of day", "components": ["時", "刻"]}
+{"level": "normal", "word": "각인", "hanja": "刻印", "meaning_ko": "도장을 새김; 머릿속에 깊이 남도록 함", "meaning_en": "engraving a seal; imprinting in memory", "components": ["刻", "印"]}
+{"level": "normal", "word": "조각", "hanja": "彫刻", "meaning_ko": "나무나 돌 등을 깎아 형상을 만듦; 그렇게 만든 작품", "meaning_en": "carving, sculpture", "components": ["彫", "刻"]}
+{"level": "normal", "word": "심각", "hanja": "深刻", "meaning_ko": "문제나 상황의 정도가 매우 깊고 중대함", "meaning_en": "seriousness, severity", "components": ["深", "刻"]}
+{"level": "normal", "word": "각박", "hanja": "刻薄", "meaning_ko": "인정이나 여유가 없이 매정함", "meaning_en": "harshness, cold-heartedness", "components": ["刻", "薄"]}
+{"level": "normal", "word": "기각", "hanja": "棄却", "meaning_ko": "소송이나 신청 등을 심리한 뒤 받아들이지 않음", "meaning_en": "rejection of a claim or application after examination", "components": ["棄", "却"]}
+{"level": "normal", "word": "각하", "hanja": "却下", "meaning_ko": "절차나 요건을 갖추지 못한 신청 등을 본안 판단 없이 물리침", "meaning_en": "dismissal on procedural grounds", "components": ["却", "下"], "semantic_hint": "각하(却下)는 절차상 물리침, 각하(閣下)는 높임말이에요. / 却下 is procedural dismissal; 閣下 is an honorific."}
+{"level": "normal", "word": "퇴각", "hanja": "退却", "meaning_ko": "뒤로 물러남, 특히 군대가 전투 중 물러남", "meaning_en": "retreat, withdrawal", "components": ["退", "却"]}
+{"level": "normal", "word": "망각", "hanja": "忘却", "meaning_ko": "알고 있던 사실이나 기억을 잊어버림", "meaning_en": "forgetting, oblivion", "components": ["忘", "却"]}
+{"level": "normal", "word": "냉각", "hanja": "冷却", "meaning_ko": "온도를 낮추어 차게 함", "meaning_en": "cooling", "components": ["冷", "却"]}
+{"level": "normal", "word": "감각", "hanja": "感覺", "meaning_ko": "눈, 귀 등의 감각 기관으로 자극을 느낌; 사물을 알아차리는 능력", "meaning_en": "sensation, sense, perception", "components": ["感", "覺"]}
+{"level": "normal", "word": "시각", "hanja": "視覺", "meaning_ko": "눈으로 빛이나 모양을 느끼는 감각", "meaning_en": "sight, vision", "components": ["視", "覺"], "semantic_hint": "시각(視覺)은 보는 감각이고, 시각(時刻)은 시간의 한 지점이에요. / 視覺 means vision; 時刻 means a point in time."}
+{"level": "normal", "word": "청각", "hanja": "聽覺", "meaning_ko": "귀로 소리를 느끼는 감각", "meaning_en": "hearing, auditory sense", "components": ["聽", "覺"]}
+{"level": "normal", "word": "자각", "hanja": "自覺", "meaning_ko": "자신의 상태나 처지를 스스로 깨달음", "meaning_en": "self-awareness, realization", "components": ["自", "覺"]}
+{"level": "normal", "word": "각오", "hanja": "覺悟", "meaning_ko": "앞으로 겪을 일을 받아들일 마음의 준비나 결심", "meaning_en": "resolve, mental readiness", "components": ["覺", "悟"]}
+{"level": "normal", "word": "내각", "hanja": "內閣", "meaning_ko": "총리와 장관 등으로 이루어진 정부의 행정 지도부", "meaning_en": "cabinet of a government", "components": ["內", "閣"]}
+{"level": "normal", "word": "각의", "hanja": "閣議", "meaning_ko": "내각의 구성원들이 모여 하는 회의", "meaning_en": "cabinet meeting", "components": ["閣", "議"]}
+{"level": "normal", "word": "각하", "hanja": "閣下", "meaning_ko": "매우 높은 지위의 사람을 높여 부르는 말", "meaning_en": "Your Excellency (honorific address)", "components": ["閣", "下"]}
+{"level": "normal", "word": "누각", "hanja": "樓閣", "meaning_ko": "높게 지어 사방을 바라볼 수 있게 한 전통 건물", "meaning_en": "pavilion, raised traditional building", "components": ["樓", "閣"]}
+{"level": "normal", "word": "전각", "hanja": "殿閣", "meaning_ko": "궁궐이나 사찰의 주요 건물", "meaning_en": "palace or temple hall", "components": ["殿", "閣"]}
+{"level": "normal", "word": "간섭", "hanja": "干涉", "meaning_ko": "남의 일에 끼어들어 영향을 주거나 참견함", "meaning_en": "interference, meddling", "components": ["干", "涉"]}
+{"level": "normal", "word": "간만", "hanja": "干滿", "meaning_ko": "바닷물이 빠지고 들어 수위가 낮아지고 높아지는 현상", "meaning_en": "ebb and flow of the tide", "components": ["干", "滿"]}
+{"level": "normal", "word": "약간", "hanja": "若干", "meaning_ko": "수나 양이 조금인 정도; 조금", "meaning_en": "a small amount; slightly, somewhat", "components": ["若", "干"], "semantic_hint": "若干은 전체가 '조금'을 뜻하는 말이므로 각 글자의 대표 뜻만 합쳐 해석하지 않아요. / Learn 若干 as a whole expression meaning a little or somewhat."}
+{"level": "normal", "word": "간조", "hanja": "干潮", "meaning_ko": "밀물과 썰물의 주기에서 바닷물의 높이가 가장 낮아진 상태", "meaning_en": "low tide", "components": ["干", "潮"]}
+{"level": "normal", "word": "간지", "hanja": "干支", "meaning_ko": "날짜나 해를 나타내는 천간과 지지를 합쳐 부르는 말", "meaning_en": "heavenly stems and earthly branches of the traditional calendar", "components": ["干", "支"], "semantic_hint": "干支는 전통 달력 용어이며, 멋을 뜻하는 속어 간지와 다른 말이에요. / 干支 is a calendar term, distinct from the slang word for style."}
+{"level": "normal", "word": "간판", "hanja": "看板", "meaning_ko": "가게나 기관의 이름 등을 써서 밖에 붙이는 표지", "meaning_en": "signboard, shop sign", "components": ["看", "板"]}
+{"level": "normal", "word": "간호", "hanja": "看護", "meaning_ko": "아프거나 다친 사람을 돌봄", "meaning_en": "nursing, care for the sick", "components": ["看", "護"]}
+{"level": "normal", "word": "간병", "hanja": "看病", "meaning_ko": "환자 곁에서 생활과 회복을 도움", "meaning_en": "attending to a patient, caregiving", "components": ["看", "病"]}
+{"level": "normal", "word": "간과", "hanja": "看過", "meaning_ko": "중요한 사실을 주의하지 않고 지나침", "meaning_en": "overlooking, failing to notice", "components": ["看", "過"]}
+{"level": "normal", "word": "간파", "hanja": "看破", "meaning_ko": "겉으로 드러나지 않은 속뜻이나 사실을 알아챔", "meaning_en": "seeing through, detecting", "components": ["看", "破"]}
+{"level": "normal", "word": "시간", "hanja": "時間", "meaning_ko": "어떤 때부터 다른 때까지의 동안; 시각의 흐름", "meaning_en": "time, duration", "components": ["時", "間"]}
+{"level": "normal", "word": "공간", "hanja": "空間", "meaning_ko": "물체가 자리하거나 활동이 이루어지는 넓이와 범위", "meaning_en": "space, area", "components": ["空", "間"]}
+{"level": "normal", "word": "인간", "hanja": "人間", "meaning_ko": "사람; 사람들이 살아가는 세상", "meaning_en": "human being; human society", "components": ["人", "間"]}
+{"level": "normal", "word": "중간", "hanja": "中間", "meaning_ko": "두 끝이나 두 시점 사이의 가운데", "meaning_en": "middle, midpoint", "components": ["中", "間"]}
+{"level": "normal", "word": "순간", "hanja": "瞬間", "meaning_ko": "아주 짧은 시간", "meaning_en": "moment, instant", "components": ["瞬", "間"]}

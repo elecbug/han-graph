@@ -1,11 +1,11 @@
 # 데이터 모델 v0
 
-현재 구현과 기존 JSONL을 연결하는 규칙이다. 모든 파일은 UTF-8이며, 한 줄에 JSON 객체 하나를 기록한다. 빈 줄은 허용하지만 주석, 알 수 없는 필드, 한 줄에 여러 객체는 오류다. 한 줄 크기 제한은 1 MiB다. 세 파일은 모두 존재하고 최소 하나의 레코드를 포함해야 한다.
+현재 구현과 기존 JSONL을 연결하는 규칙이다. 모든 데이터 파일은 BOM 없는 UTF-8과 LF 줄바꿈을 사용하고 마지막에 줄바꿈을 둔다. 세 JSONL 파일은 한 줄에 JSON 객체 하나를 기록하며, 콜론과 쉼표 뒤에 공백 하나를 둔다. 빈 줄은 허용하지만 주석, 알 수 없는 필드, 한 줄에 여러 객체는 오류다. 한 줄 크기 제한은 1 MiB다. 세 파일은 모두 존재하고 최소 하나의 레코드를 포함해야 한다. `practice.json`은 공백 두 칸 들여쓰기로 정리한다.
 
 ## 음 그룹 — `meta.jsonl`
 
 ```json
-{"type":"meta","id":"ga","sound_ko":"가","sound_en":"ga"}
+{"type": "meta", "id": "ga", "sound_ko": "가", "sound_en": "ga"}
 ```
 
 - `type`은 `meta`, `id`는 소문자 영문으로 된 고유 키다.
@@ -15,7 +15,7 @@
 ## 한자 독음 — `character.jsonl`
 
 ```json
-{"type":"character","id":"ga-005","hanja":"家","meaning_ko":["집","가족"],"meaning_en":["house","family"]}
+{"type": "character", "id": "ga-005", "hanja": "家", "meaning_ko": ["집", "가족"], "meaning_en": ["house", "family"]}
 ```
 
 - `type`은 `character`, `id`는 `<meta ID>-<3자리 이상 숫자>` 형식의 고유 키다.
@@ -28,7 +28,7 @@
 ## 단어 — `normal_word.jsonl`
 
 ```json
-{"level":"normal","word":"가격","hanja":"價格","meaning_ko":"물건의 값","meaning_en":"price","components":["價","格"]}
+{"level": "normal", "word": "가격", "hanja": "價格", "meaning_ko": "물건의 값", "meaning_en": "price", "components": ["價", "格"]}
 ```
 
 - `level`, `word`, `hanja`, `meaning_ko`, `meaning_en`은 필수 문자열이다. `level`의 허용 값 목록이나 TOPIK 등급 매핑은 아직 정하지 않았다.
@@ -56,6 +56,7 @@
 
 - `version: 1`, `source`, `review_status: "draft"`, 비어 있지 않은 `questions` 배열을 기록한다. 현재 작성 예문은 검수 전 초안이다.
 - 문항은 고유 `id`, `prompt_ko`, `prompt_en`, `explanation_ko`, `explanation_en`, `answer`, `options`를 가진다.
+- 한국어·영어 해설에서 한자를 직접 쓰면 매번 글자 바로 뒤에 한글 독음을 대괄호로 병기한다. 예: `假[가]는 ‘거짓·가짜’, 名[명]은 ‘이름’과 관련돼요.` 같은 글자가 반복되어도 생략하지 않으며, 여러 독음이 있는 글자는 해당 문맥의 독음을 확인한다. 정답·선택지의 `hanja`는 조회용 원문 표기를 유지한다.
 - `answer`와 `options`의 각 항목은 `{ "word": "가명", "hanja": "假名" }` 형태로 기존 단어를 참조한다. 선택지는 서로 다른 2~4개이며 정답이 그중 하나여야 한다.
 - 출처·문항 텍스트·중복 ID·단어 참조·선택지·정답을 서버 시작 시 검사한다. 언어적 정확성은 별도 검수가 필요하다.
 - 예문은 프로젝트에서 직접 작성했다. 웹 API는 정답과 해설도 제공하며 브라우저에서 학습용으로 채점한다.
