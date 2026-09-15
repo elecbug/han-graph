@@ -251,43 +251,43 @@
 {"type": "character", "id": "geup-100", "hanja": "級", "meaning_ko": ["등급"], "meaning_en": ["class", "grade"]}
 {"type": "character", "id": "geung-100", "hanja": "肯", "meaning_ko": ["긍정하다"], "meaning_en": ["to consent", "affirmative"]}
 {"type": "character", "id": "gi-000", "hanja": "其", "meaning_ko": ["그"], "meaning_en": ["that", "its"]}
-{"type": "character", "id": "gi-001", "hanja": "基", "meaning_ko": ["터"], "meaning_en": ["foundation", "base"]}
+{"type": "character", "id": "gi-001", "hanja": "基", "meaning_ko": ["터", "바탕"], "meaning_en": ["foundation", "base"]}
 {"type": "character", "id": "gi-002", "hanja": "己", "meaning_ko": ["몸", "자기"], "meaning_en": ["self"]}
-{"type": "character", "id": "gi-003", "hanja": "幾", "meaning_ko": ["기미"], "meaning_en": ["sign", "how many"]}
+{"type": "character", "id": "gi-003", "hanja": "幾", "meaning_ko": ["기미", "몇", "얼마"], "meaning_en": ["a subtle sign", "how many", "how much"]}
 {"type": "character", "id": "gi-004", "hanja": "技", "meaning_ko": ["재주"], "meaning_en": ["skill", "technique"]}
 {"type": "character", "id": "gi-005", "hanja": "旣", "meaning_ko": ["이미"], "meaning_en": ["already"]}
-{"type": "character", "id": "gi-006", "hanja": "期", "meaning_ko": ["기약하다"], "meaning_en": ["period", "to expect"]}
-{"type": "character", "id": "gi-007", "hanja": "氣", "meaning_ko": ["기운"], "meaning_en": ["energy", "spirit"]}
-{"type": "character", "id": "gi-008", "hanja": "記", "meaning_ko": ["기록하다"], "meaning_en": ["to record"]}
-{"type": "character", "id": "gi-009", "hanja": "起", "meaning_ko": ["일어나다"], "meaning_en": ["to rise", "to occur"]}
+{"type": "character", "id": "gi-006", "hanja": "期", "meaning_ko": ["기약하다", "때", "기간"], "meaning_en": ["period", "a set time", "to expect"]}
+{"type": "character", "id": "gi-007", "hanja": "氣", "meaning_ko": ["기운", "공기", "기체"], "meaning_en": ["energy", "spirit", "air", "gas"]}
+{"type": "character", "id": "gi-008", "hanja": "記", "meaning_ko": ["기록하다", "기억하다"], "meaning_en": ["to record", "to remember"]}
+{"type": "character", "id": "gi-009", "hanja": "起", "meaning_ko": ["일어나다", "시작하다"], "meaning_en": ["to rise", "to occur", "to start"]}
 {"type": "character", "id": "gi-100", "hanja": "企", "meaning_ko": ["꾀하다"], "meaning_en": ["to plan", "to scheme"]}
-{"type": "character", "id": "gi-101", "hanja": "器", "meaning_ko": ["그릇"], "meaning_en": ["container", "instrument"]}
+{"type": "character", "id": "gi-101", "hanja": "器", "meaning_ko": ["그릇", "도구", "기구"], "meaning_en": ["container", "instrument", "utensil"]}
 {"type": "character", "id": "gi-102", "hanja": "奇", "meaning_ko": ["기이하다"], "meaning_en": ["strange", "unusual"]}
-{"type": "character", "id": "gi-103", "hanja": "寄", "meaning_ko": ["부치다"], "meaning_en": ["to send", "to entrust"]}
+{"type": "character", "id": "gi-103", "hanja": "寄", "meaning_ko": ["부치다", "맡기다", "의지하다"], "meaning_en": ["to send", "to entrust", "to depend on", "to lodge"]}
 {"type": "character", "id": "gi-104", "hanja": "忌", "meaning_ko": ["꺼리다"], "meaning_en": ["to avoid", "to dislike"]}
-{"type": "character", "id": "gi-105", "hanja": "旗", "meaning_ko": ["기"], "meaning_en": ["flag"]}
+{"type": "character", "id": "gi-105", "hanja": "旗", "meaning_ko": ["깃발"], "meaning_en": ["flag", "banner"]}
 {"type": "character", "id": "gi-106", "hanja": "棄", "meaning_ko": ["버리다"], "meaning_en": ["to abandon"]}
-{"type": "character", "id": "gi-107", "hanja": "機", "meaning_ko": ["틀", "기계"], "meaning_en": ["machine", "opportunity"]}
+{"type": "character", "id": "gi-107", "hanja": "機", "meaning_ko": ["틀", "기계", "기회", "계기"], "meaning_en": ["machine", "mechanism", "opportunity", "occasion"]}
 {"type": "character", "id": "gi-108", "hanja": "欺", "meaning_ko": ["속이다"], "meaning_en": ["to deceive"]}
-{"type": "character", "id": "gi-109", "hanja": "畿", "meaning_ko": ["경기"], "meaning_en": ["capital region"]}
+{"type": "character", "id": "gi-109", "hanja": "畿", "meaning_ko": ["수도 주변 지역"], "meaning_en": ["capital region"]}
 {"type": "character", "id": "gi-110", "hanja": "祈", "meaning_ko": ["빌다"], "meaning_en": ["to pray"]}
-{"type": "character", "id": "gi-111", "hanja": "紀", "meaning_ko": ["벼리"], "meaning_en": ["chronicle", "discipline"]}
+{"type": "character", "id": "gi-111", "hanja": "紀", "meaning_ko": ["벼리", "기강", "기록하다", "연대를 세다"], "meaning_en": ["organizing principle", "discipline", "to record", "to reckon years"]}
 {"type": "character", "id": "gi-112", "hanja": "豈", "meaning_ko": ["어찌"], "meaning_en": ["how", "why"]}
 {"type": "character", "id": "gi-113", "hanja": "飢", "meaning_ko": ["주리다"], "meaning_en": ["to starve", "hungry"]}
 {"type": "character", "id": "gi-114", "hanja": "騎", "meaning_ko": ["말타다"], "meaning_en": ["to ride a horse"]}
-{"type": "character", "id": "gin-100", "hanja": "緊", "meaning_ko": ["긴요하다"], "meaning_en": ["important", "tight"]}
+{"type": "character", "id": "gin-100", "hanja": "緊", "meaning_ko": ["긴요하다", "팽팽하다", "단단히 조이다"], "meaning_en": ["important", "tight", "tense"]}
 {"type": "character", "id": "gil-000", "hanja": "吉", "meaning_ko": ["길하다"], "meaning_en": ["fortunate", "lucky"]}
-{"type": "character", "id": "na-100", "hanja": "那", "meaning_ko": ["어찌"], "meaning_en": ["how", "why"]}
+{"type": "character", "id": "na-100", "hanja": "那", "meaning_ko": ["어찌", "어느", "음역에 쓰이는 글자"], "meaning_en": ["how", "which", "a character used in transliterations"]}
 {"type": "character", "id": "nak-100", "hanja": "諾", "meaning_ko": ["대답하다", "허락하다"], "meaning_en": ["to consent", "answer"]}
 {"type": "character", "id": "nan-000", "hanja": "暖", "meaning_ko": ["따뜻하다"], "meaning_en": ["warm"]}
 {"type": "character", "id": "nan-001", "hanja": "難", "meaning_ko": ["어렵다"], "meaning_en": ["difficult", "hard"]}
 {"type": "character", "id": "nam-000", "hanja": "南", "meaning_ko": ["남녘"], "meaning_en": ["south"]}
-{"type": "character", "id": "nam-001", "hanja": "男", "meaning_ko": ["사내"], "meaning_en": ["man", "male"]}
-{"type": "character", "id": "nap-100", "hanja": "納", "meaning_ko": ["바치다", "들이다"], "meaning_en": ["to offer", "to accept"]}
-{"type": "character", "id": "nang-100", "hanja": "娘", "meaning_ko": ["아가씨"], "meaning_en": ["young lady", "daughter"]}
-{"type": "character", "id": "nae-000", "hanja": "乃", "meaning_ko": ["이에"], "meaning_en": ["thus", "thereupon"]}
+{"type": "character", "id": "nam-001", "hanja": "男", "meaning_ko": ["남자", "아들"], "meaning_en": ["man", "male", "son"]}
+{"type": "character", "id": "nap-100", "hanja": "納", "meaning_ko": ["바치다", "들이다", "받아들이다"], "meaning_en": ["to offer", "to pay in", "to accept", "to store"]}
+{"type": "character", "id": "nang-100", "hanja": "娘", "meaning_ko": ["여성", "딸", "어머니", "옛 여성 호칭에 쓰이는 글자"], "meaning_en": ["woman", "daughter", "mother", "a character used in historical titles for women"]}
+{"type": "character", "id": "nae-000", "hanja": "乃", "meaning_ko": ["이에", "곧", "너", "사람을 가리키는 말"], "meaning_en": ["thus", "thereupon", "you", "a pronoun referring to a person"]}
 {"type": "character", "id": "nae-001", "hanja": "內", "meaning_ko": ["안"], "meaning_en": ["inside", "inner"]}
-{"type": "character", "id": "nae-100", "hanja": "奈", "meaning_ko": ["어찌"], "meaning_en": ["how", "what can one do"]}
+{"type": "character", "id": "nae-100", "hanja": "奈", "meaning_ko": ["어찌", "음역에 쓰이는 글자"], "meaning_en": ["how", "what can one do", "a character used in transliterations"]}
 {"type": "character", "id": "nae-101", "hanja": "耐", "meaning_ko": ["견디다"], "meaning_en": ["to endure", "to tolerate"]}
 {"type": "character", "id": "nyeo-000", "hanja": "女", "meaning_ko": ["계집", "여자"], "meaning_en": ["woman", "female"]}
 {"type": "character", "id": "nyeon-000", "hanja": "年", "meaning_ko": ["해"], "meaning_en": ["year"]}
@@ -589,11 +589,11 @@
 {"type": "character", "id": "ban-100", "hanja": "伴", "meaning_ko": ["짝"], "meaning_en": ["companion", "partner"]}
 {"type": "character", "id": "ban-101", "hanja": "叛", "meaning_ko": ["배반하다"], "meaning_en": ["to betray", "rebel"]}
 {"type": "character", "id": "ban-102", "hanja": "班", "meaning_ko": ["나누다"], "meaning_en": ["group", "class"]}
-{"type": "character", "id": "ban-103", "hanja": "盤", "meaning_ko": ["소반"], "meaning_en": ["tray", "plate"]}
+{"type": "character", "id": "ban-103", "hanja": "盤", "meaning_ko": ["소반", "받침", "바탕"], "meaning_en": ["tray", "plate", "base"]}
 {"type": "character", "id": "ban-104", "hanja": "般", "meaning_ko": ["돌다", "일반"], "meaning_en": ["sort", "general"]}
 {"type": "character", "id": "ban-105", "hanja": "返", "meaning_ko": ["돌아오다"], "meaning_en": ["to return"]}
 {"type": "character", "id": "bal-000", "hanja": "發", "meaning_ko": ["쏘다", "펴다"], "meaning_en": ["to shoot", "to emit"]}
-{"type": "character", "id": "bal-100", "hanja": "拔", "meaning_ko": ["빼다"], "meaning_en": ["to pull out"]}
+{"type": "character", "id": "bal-100", "hanja": "拔", "meaning_ko": ["빼다", "뛰어나다"], "meaning_en": ["to pull out", "to excel"]}
 {"type": "character", "id": "bal-101", "hanja": "髮", "meaning_ko": ["터럭"], "meaning_en": ["hair"]}
 {"type": "character", "id": "bang-000", "hanja": "房", "meaning_ko": ["방"], "meaning_en": ["room"]}
 {"type": "character", "id": "bang-001", "hanja": "放", "meaning_ko": ["놓다"], "meaning_en": ["to release", "to let go"]}
@@ -1014,7 +1014,7 @@
 {"type": "character", "id": "yeo-100", "hanja": "予", "meaning_ko": ["나"], "meaning_en": ["I", "me"]}
 {"type": "character", "id": "yeo-101", "hanja": "輿", "meaning_ko": ["수레"], "meaning_en": ["cart", "carriage"]}
 {"type": "character", "id": "yeok-000", "hanja": "亦", "meaning_ko": ["또"], "meaning_en": ["also", "too"]}
-{"type": "character", "id": "yeok-001", "hanja": "易", "meaning_ko": ["바꾸다", "쉽다"], "meaning_en": ["to change", "easy"]}
+{"type": "character", "id": "yeok-001", "hanja": "易", "meaning_ko": ["바꾸다"], "meaning_en": ["to change"]}
 {"type": "character", "id": "yeok-002", "hanja": "逆", "meaning_ko": ["거스르다"], "meaning_en": ["to oppose", "reverse"]}
 {"type": "character", "id": "yeok-100", "hanja": "域", "meaning_ko": ["지경"], "meaning_en": ["region", "area"]}
 {"type": "character", "id": "yeok-101", "hanja": "役", "meaning_ko": ["부리다"], "meaning_en": ["service", "labor"]}
@@ -1568,7 +1568,7 @@
 {"type": "character", "id": "tak-101", "hanja": "托", "meaning_ko": ["밀다", "맡기다"], "meaning_en": ["to entrust", "to rely on"]}
 {"type": "character", "id": "tak-102", "hanja": "濁", "meaning_ko": ["흐리다"], "meaning_en": ["muddy", "impure"]}
 {"type": "character", "id": "tak-103", "hanja": "濯", "meaning_ko": ["씻다"], "meaning_en": ["to wash", "to rinse"]}
-{"type": "character", "id": "tan-100", "hanja": "彈", "meaning_ko": ["탄알"], "meaning_en": ["bullet", "to spring"]}
+{"type": "character", "id": "tan-100", "hanja": "彈", "meaning_ko": ["탄알", "튀기다", "현을 타다"], "meaning_en": ["bullet", "to spring", "to pluck a stringed instrument"]}
 {"type": "character", "id": "tan-101", "hanja": "歎", "meaning_ko": ["탄식하다", "감탄하다"], "meaning_en": ["to sigh", "to lament", "to admire"]}
 {"type": "character", "id": "tan-102", "hanja": "炭", "meaning_ko": ["숯"], "meaning_en": ["charcoal", "coal"]}
 {"type": "character", "id": "tan-103", "hanja": "誕", "meaning_ko": ["태어나다"], "meaning_en": ["birth", "to be born"]}
@@ -1878,3 +1878,19 @@
 {"type": "character", "id": "seul-201", "hanja": "瑟", "meaning_ko": ["슬", "중국의 옛 현악기"], "meaning_en": ["se, an ancient Chinese zither"]}
 {"type": "character", "id": "su-201", "hanja": "繡", "meaning_ko": ["수놓다", "수놓은 천"], "meaning_en": ["to embroider", "embroidery"]}
 {"type": "character", "id": "so-201", "hanja": "遡", "meaning_ko": ["거슬러 올라가다"], "meaning_en": ["to go upstream", "to trace back"]}
+{"type": "character", "id": "i-200", "hanja": "利", "meaning_ko": ["이롭다", "이익"], "meaning_en": ["beneficial", "profit"]}
+{"type": "character", "id": "ak-201", "hanja": "樂", "meaning_ko": ["음악"], "meaning_en": ["music"]}
+{"type": "character", "id": "tak-200", "hanja": "託", "meaning_ko": ["맡기다", "부탁하다"], "meaning_en": ["to entrust", "to request"]}
+{"type": "character", "id": "tan-200", "hanja": "憚", "meaning_ko": ["꺼리다", "두려워하다"], "meaning_en": ["to be reluctant", "to fear"]}
+{"type": "character", "id": "si-201", "hanja": "猜", "meaning_ko": ["시기하다", "의심하다"], "meaning_en": ["to envy", "to suspect"]}
+{"type": "character", "id": "chi-201", "hanja": "幟", "meaning_ko": ["깃발"], "meaning_en": ["flag", "banner"]}
+{"type": "character", "id": "po-202", "hanja": "抛", "meaning_ko": ["던지다", "버리다"], "meaning_en": ["to throw", "to abandon"]}
+{"type": "character", "id": "man-200", "hanja": "瞞", "meaning_ko": ["속이다"], "meaning_en": ["to deceive", "to conceal the truth"]}
+{"type": "character", "id": "do-200", "hanja": "禱", "meaning_ko": ["빌다", "기도하다"], "meaning_en": ["to pray"]}
+{"type": "character", "id": "gae-200", "hanja": "豈", "meaning_ko": ["즐겁다", "온화하다"], "meaning_en": ["pleasant", "amiable"]}
+{"type": "character", "id": "geun-201", "hanja": "饉", "meaning_ko": ["흉년", "굶주리다"], "meaning_en": ["famine", "to go hungry"]}
+{"type": "character", "id": "chal-200", "hanja": "刹", "meaning_ko": ["절", "음역에 쓰이는 글자"], "meaning_en": ["a Buddhist temple", "a character used in transliterations"]}
+{"type": "character", "id": "rak-200", "hanja": "諾", "meaning_ko": ["허락하다", "대답하다"], "meaning_en": ["to consent", "to answer"]}
+{"type": "character", "id": "i-201", "hanja": "易", "meaning_ko": ["쉽다"], "meaning_en": ["easy"]}
+{"type": "character", "id": "rang-201", "hanja": "娘", "meaning_ko": ["여성", "딸", "옛 여성 호칭에 쓰이는 글자"], "meaning_en": ["woman", "daughter", "a character used in historical titles for women"]}
+{"type": "character", "id": "na-200", "hanja": "奈", "meaning_ko": ["어찌", "음역에 쓰이는 글자"], "meaning_en": ["how", "a character used in transliterations"]}
