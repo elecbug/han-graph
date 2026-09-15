@@ -38,6 +38,7 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/app.js", 200, "javascript"},
 		{"GET", "/learning.mjs", 200, "javascript"},
 		{"GET", "/data-client.mjs", 200, "javascript"},
+		{"GET", "/network.mjs", 200, "javascript"},
 		{"GET", "/styles.css", 200, "text/css"},
 		{"GET", "/favicon.svg", 200, "image/svg+xml"},
 		{"GET", "/api/stats", 200, "application/json"},
@@ -46,6 +47,8 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/api/words?q=" + url.QueryEscape("가정"), 200, "application/json"},
 		{"GET", "/api/characters?q=" + url.QueryEscape("家"), 200, "application/json"},
 		{"GET", "/api/practice", 200, "application/json"},
+		{"GET", "/api/neighborhood?q=" + url.QueryEscape("感覺"), 200, "application/json"},
+		{"GET", "/api/neighborhood", 400, "application/json"},
 		{"GET", "/api/words", 400, "application/json"},
 		{"GET", "/api/characters?q=%20", 400, "application/json"},
 		{"GET", "/api/search?q=" + strings.Repeat("a", 101), 400, "application/json"},
@@ -107,14 +110,14 @@ func TestBootstrapAndRevalidation(t *testing.T) {
 	if err := json.Unmarshal([]byte(data), &seed); err != nil {
 		t.Fatal(err)
 	}
-	for _, path := range []string{"/api/stats", "/api/search", "/api/practice", "/api/words?q=가정", "/api/characters?q=家", "/api/characters?q=庭"} {
+	for _, path := range []string{"/api/stats", "/api/search", "/api/practice", "/api/words?q=가정", "/api/characters?q=家", "/api/characters?q=庭", "/api/neighborhood?q=家庭"} {
 		api := httptest.NewRecorder()
 		app.ServeHTTP(api, httptest.NewRequest("GET", path, nil))
 		if string(seed[path]) != strings.TrimSpace(api.Body.String()) {
 			t.Fatalf("bootstrap does not match API: %s", path)
 		}
 	}
-	for _, path := range []string{"/", "/app.js", "/styles.css", "/learning.mjs", "/data-client.mjs", "/favicon.svg"} {
+	for _, path := range []string{"/", "/app.js", "/styles.css", "/learning.mjs", "/data-client.mjs", "/network.mjs", "/favicon.svg"} {
 		first := httptest.NewRecorder()
 		app.ServeHTTP(first, httptest.NewRequest("GET", path, nil))
 		etag := first.Header().Get("ETag")
@@ -142,6 +145,24 @@ func TestBootstrapAndRevalidation(t *testing.T) {
 	New(g, practice).ServeHTTP(updated, httptest.NewRequest("GET", "/", nil))
 	if updated.Header().Get("ETag") == response.Header().Get("ETag") {
 		t.Fatal("dataset change did not invalidate HTML")
+	}
+}
+
+func TestNeighborhoodAPI(t *testing.T) {
+	_, _, app := testApp(t)
+	response := httptest.NewRecorder()
+	app.ServeHTTP(response, httptest.NewRequest("GET", "/api/neighborhood?q="+url.QueryEscape("感覺"), nil))
+	var network graph.Neighborhood
+	if err := json.Unmarshal(response.Body.Bytes(), &network); err != nil {
+		t.Fatal(err)
+	}
+	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 9 || len(network.Characters) != 10 {
+		t.Fatalf("incorrect network response: %+v", network)
+	}
+	response = httptest.NewRecorder()
+	app.ServeHTTP(response, httptest.NewRequest("GET", "/api/neighborhood?q=missing", nil))
+	if strings.TrimSpace(response.Body.String()) != `{"roots":[],"characters":[],"words":[]}` {
+		t.Fatalf("unexpected empty network: %s", response.Body.String())
 	}
 }
 

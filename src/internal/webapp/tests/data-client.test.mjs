@@ -11,6 +11,7 @@ test('initial view uses HTML data without making API requests', async () => {
     '/api/search': {words:[{word:'가정',hanja:'家庭'}]},
     '/api/words?q=가정': [{word:{hanja:'家庭',components:['家','庭']}}],
     '/api/characters?q=家': [{hanja:'家'}],
+    '/api/neighborhood?q=家庭': {roots:['家','庭'],characters:[],words:[]},
   };
   const get = createDataClient({origin,seed,fetcher:() => assert.fail('unexpected network request')});
   const [stats,practice,search] = await Promise.all([get('/api/stats'),get('/api/practice'),get('/api/search','')]);
@@ -18,6 +19,7 @@ test('initial view uses HTML data without making API requests', async () => {
   assert.deepEqual(practice.questions,[]);
   const words = await get('/api/words',search.words[0].word);
   assert.equal((await get('/api/characters',words[0].word.components[0]))[0].hanja,'家');
+  assert.deepEqual((await get('/api/neighborhood',words[0].word.hanja)).roots,['家','庭']);
 });
 
 test('simultaneous and repeated requests share one fetch; failed requests can retry', async () => {

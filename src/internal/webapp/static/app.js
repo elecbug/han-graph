@@ -1,5 +1,6 @@
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
+import {layoutNetwork, renderNetworkSVG} from './network.mjs';
 
 let seed = {};
 try { seed = JSON.parse(document.getElementById('bootstrap-data')?.textContent ?? '{}'); } catch { /* Fall back to the API. */ }
@@ -16,7 +17,7 @@ const copy = {
     workspace:'나의 학습 공간', explore:'단어 탐색', practice:'문맥 연습', saved:'내 단어장', sidebarQuote:'한 글자를 이해하면,<br>더 많은 단어가 보여요.', sidebarSub:'작은 연결에서 시작하는 한국어', local:'나만의 한국어 학습 공간', footer:'하나의 단어에서 시작되는 새로운 이해.',
     exploreTitle:'뜻을 따라, 단어를 연결해요.', exploreSub:'하나의 한자를 이해하면, 새로운 단어가 보입니다.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'탐색할 단어', search:'단어, 한자, 뜻을 찾아보세요', clear:'검색 지우기', browseLabel:'작은 연결에서 시작해 보세요', words:'단어', characters:'한자', entries:'개', searchResults:'검색 결과', limited:'일부 결과를 표시하고 있어요. 검색어를 더 구체적으로 입력해 주세요.',
     noResults:'일치하는 항목이 없어요.', searchHint:'다른 단어, 한자 또는 영어 뜻으로 찾아보세요.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'저장하기', savedButton:'저장됨', removed:'단어장에서 삭제했어요.', added:'내 단어장에 저장했어요.', maxSaved:'단어장에 최대 500개까지 저장할 수 있어요.', storageFailed:'이 브라우저에서는 저장할 수 없어 이번 방문 동안만 유지됩니다.',
-    breakDown:'단어를 이루는 한자', tapCharacter:'한자를 누르면 연결 단어가 보여요', readingNote:'한자의 뜻은 단어와 문맥에 따라 달라질 수 있어요.', connections:'같은 한자, 다른 단어', graphHint:'단어를 눌러 연결을 이어 가세요', currentWord:'선택한 단어', noConnections:'아직 연결된 단어가 없어요.', noConnectionsSub:'이 한자의 단어는 앞으로 채워 갈 예정이에요.', readings:'독음과 뜻', notFound:'이 항목을 찾을 수 없어요.', notFoundSub:'검색 목록에서 다른 항목을 선택해 주세요.',
+    breakDown:'단어를 이루는 한자', tapCharacter:'한자를 누르면 그래프에서 강조해요', readingNote:'한자의 뜻은 단어와 문맥에 따라 달라질 수 있어요.', connections:'같은 한자, 다른 단어', graphHint:'한자는 원으로, 단어는 선 위에 표시해요. 각각 눌러서 탐색해 보세요.', graphScope:'선택한 한자에서 한 번 연결되는 모든 단어', zoomIn:'확대', zoomOut:'축소', fitGraph:'전체 보기', graphPan:'그래프 안을 스크롤하여 이동할 수 있어요.', graphRegion:'한자와 단어 연결 그래프', graphSelected:'선택 단어의 구성 한자', currentWord:'선택한 단어', noConnections:'아직 연결된 단어가 없어요.', noConnectionsSub:'이 한자의 단어는 앞으로 채워 갈 예정이에요.', readings:'독음과 뜻', notFound:'이 항목을 찾을 수 없어요.', notFoundSub:'검색 목록에서 다른 항목을 선택해 주세요.',
     savedTitle:'기억하고 싶은 단어들.', savedSub:'다시 만나고 싶은 단어를 한곳에 모아 보세요.', savedEye:'YOUR WORD COLLECTION', storageNote:'단어장은 이 브라우저에 저장됩니다. 다른 기기와는 동기화되지 않아요.', savedEmpty:'아직 모아 둔 단어가 없어요.', savedEmptySub:'탐색 중 마음에 남는 단어를 저장해 보세요.', startExplore:'단어 탐색하기', openWord:'단어 살펴보기', remove:'저장 취소', missingSaved:'현재 데이터에서 찾을 수 없는 저장 항목',
     practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'한자의 뜻과 문장의 단서를 함께 살펴보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 어울리는 단어를 골라 보세요. 한자 구성과 해설을 통해 선택의 이유를 확인할 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceDraft:'기존 어휘로 만든 기초 연습 · 예문 검수 전', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
@@ -24,7 +25,7 @@ const copy = {
     workspace:'YOUR LEARNING SPACE', explore:'Explore', practice:'Practice', saved:'My words', sidebarQuote:'Understand one character.<br>Discover a world of words.', sidebarSub:'Korean, one connection at a time', local:'Your Korean learning space', footer:'A new understanding starts with one word.',
     exploreTitle:'Follow the meaning. Find a connection.', exploreSub:'Understand a character, and see Korean words in a new way.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'words to explore', search:'Search a word, character, or meaning', clear:'Clear search', browseLabel:'Start with a small connection', words:'Words', characters:'Characters', entries:'', searchResults:'Search results', limited:'Showing a selection. Refine your search to find more.',
     noResults:'No matches yet.', searchHint:'Try another Korean word, character, or English meaning.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'Save word', savedButton:'Saved', removed:'Removed from your words.', added:'Added to your words.', maxSaved:'You can save up to 500 words.', storageFailed:'Storage is unavailable. Your changes will last for this visit only.',
-    breakDown:'The characters inside', tapCharacter:'Select a character to find related words', readingNote:'A character’s meaning can change with the word and context.', connections:'One character. More connections.', graphHint:'Choose a word to keep exploring', currentWord:'Selected word', noConnections:'No connected words yet.', noConnectionsSub:'Vocabulary for this character will be added over time.', readings:'Readings and meanings', notFound:'This entry could not be found.', notFoundSub:'Choose another entry from the search results.',
+    breakDown:'The characters inside', tapCharacter:'Select a character to highlight it in the graph', readingNote:'A character’s meaning can change with the word and context.', connections:'One character. More connections.', graphHint:'Circles are characters; words label the lines. Select either to explore.', graphScope:'All words one connection from the selected characters', zoomIn:'Zoom in', zoomOut:'Zoom out', fitGraph:'Fit all', graphPan:'Scroll inside the graph to move around.', graphRegion:'Character and word connection graph', graphSelected:'Characters in the selected word', currentWord:'Selected word', noConnections:'No connected words yet.', noConnectionsSub:'Vocabulary for this character will be added over time.', readings:'Readings and meanings', notFound:'This entry could not be found.', notFoundSub:'Choose another entry from the search results.',
     savedTitle:'Words worth coming back to.', savedSub:'Keep the connections you want to remember.', savedEye:'YOUR WORD COLLECTION', storageNote:'Your collection is saved in this browser. It does not sync to other devices.', savedEmpty:'Your collection starts here.', savedEmptySub:'Save a word as you explore to find it here later.', startExplore:'Explore words', openWord:'Explore this word', remove:'Remove saved word', missingSaved:'Saved entries no longer in the current dataset',
     practiceTitle:'Find meaning in context.', practiceSub:'Bring the character meanings and sentence clues together.', practiceEye:'A LITTLE PRACTICE', introTitle:'Read. Infer. Understand.', introSub:'Read a short situation and choose the word that fits. Then discover why through character meanings and a short explanation.', step1:'Read the context', step2:'Choose a word', step3:'See why', startPractice:'Start practicing', questions:'questions', practiceDraft:'Introductory practice with seed vocabulary · Draft examples', chooseWord:'Which word fits this situation?', pickOnce:'Choose an answer to reveal the explanation.', showTranslation:'Show English translation', hideTranslation:'Hide English translation', correct:'You’ve got it!', incorrect:'Let’s take a closer look.', yourChoice:'Your choice', answer:'Answer', next:'Next question', finish:'See results', exitPractice:'Back to exploring', practiceNote:'An unfinished practice session resets when you reload the page.', summaryTitle:'One step closer to understanding.', summarySub:'More than a score, it’s about knowing why a word means what it does.', restart:'Practice again', review:'Words to revisit', allCorrect:'You got every question right. Keep exploring new connections with these words.', latest:'Last practice', loading:'Loading your word connections…', errorTitle:'We couldn’t load the connections.', errorSub:'Check that the server is running, then try again.', retry:'Try again', looking:'Searching…',
   },
@@ -136,11 +137,14 @@ async function loadDetail(selection) {
       if(!wordResult)throw new RangeError('missing');
       glyph=wordResult.word.components.includes(state.glyph)?state.glyph:wordResult.word.components[0];
     }
-    const characters=await getJSON('/api/characters',glyph);
+    const [characters,network]=await Promise.all([
+      getJSON('/api/characters',glyph),
+      getJSON('/api/neighborhood',wordResult?.word.hanja ?? glyph),
+    ]);
     if(!characters.length)throw new RangeError('missing');
     if(epoch!==detailEpoch || state.page!=='explore')return;
     state.glyph=characters[0].hanja;
-    state.detail={wordResult,characters};
+    state.detail={wordResult,characters,network,layout:layoutNetwork(network,wordResult?.word),zoom:null};
     renderDetail();
   } catch(error) {
     if(epoch!==detailEpoch || !$('#detail'))return;
@@ -149,6 +153,8 @@ async function loadDetail(selection) {
 }
 function renderDetail() {
   if(!$('#detail') || !state.detail)return;
+  const viewport=$('.network-viewport');
+  const position=viewport&&state.detail.zoom?{x:(viewport.scrollLeft+viewport.clientWidth/2)/state.detail.zoom,y:(viewport.scrollTop+viewport.clientHeight/2)/state.detail.zoom}:null;
   const {wordResult,characters}=state.detail;
   const character=characters[0];
   let card;
@@ -159,22 +165,42 @@ function renderDetail() {
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span></div><div class="word-title-row"><div><h2 class="word-title">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</p><p class="word-meaning-en">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_en':'meaning_ko'].join(', ')).join(' / '))}</p></div><span class="word-hanja">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(c.meaning_ko.join(', '))} / ${esc(c.meaning_en.join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
-  $('#detail').innerHTML=`<article class="word-card">${card}</article>${renderNetwork(character,wordResult?.word)}`;
+  $('#detail').innerHTML=`<article class="word-card">${card}</article>${renderNetwork()}`;
+  sizeNetwork(undefined,position);
 }
-function renderNetwork(character,selected) {
-  const words=character.words.slice(0,4), rest=character.words.slice(4);
-  const point=index=>words.length===1?50:20+index*60/(words.length-1);
-  const paths=words.map((_,index)=>`<path class="network-path" d="M 134 120 C 280 120, 285 ${point(index)*2.4}, 460 ${point(index)*2.4}"/>`).join('');
-  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${character.words.length} ${t('words')}</span></div><div class="network-card">${words.length?`<div class="network-canvas"><svg viewBox="0 0 640 240" preserveAspectRatio="none" aria-hidden="true">${paths}</svg><div class="network-center"><strong>${esc(character.hanja)}</strong><small>${esc(character.sound_ko)} · ${esc(character.sound_en)}</small></div>${words.map((word,index)=>`<button class="network-node ${selected&&wordKey(selected)===wordKey(word)?'current':''}" style="top:${point(index)}%" data-action="open-word" ${wordAttrs(word)} aria-label="${esc(word.word)} ${esc(word.hanja)}"><strong>${esc(word.word)}</strong><small>${esc(word.hanja)}</small></button>`).join('')}</div>`:`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t('noConnectionsSub')}</p></div>`}${rest.length?`<div class="related-overflow">${rest.map(word=>`<button data-action="open-word" ${wordAttrs(word)}>${esc(word.word)} · ${esc(word.hanja)}</button>`).join('')}</div>`:''}<div class="network-caption"><span class="legend-dot"></span>${t('graphHint')}</div></div></section>`;
+function renderNetwork() {
+  const {network,layout}=state.detail;
+  const svg=renderNetworkSVG(layout,{lang:state.lang,highlighted:state.glyph,wordLabel:t('openWord'),characterLabel:t('characters'),label:t('graphRegion')});
+  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${t(state.detail.wordResult?'graphSelected':'characters')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t('noConnectionsSub')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
 }
-async function changeComponent(glyph) {
-  const epoch=++detailEpoch;
-  try {
-    const characters=await getJSON('/api/characters',glyph);
-    if(epoch!==detailEpoch || state.page!=='explore' || !characters.length)return;
-    state.glyph=glyph;state.detail.characters=characters;renderDetail();
-    $(`.component-card[data-glyph="${CSS.escape(glyph)}"]`)?.focus({preventScroll:true});
-  } catch {if(epoch===detailEpoch)toast(t('errorTitle'));}
+function sizeNetwork(action,position) {
+  const viewport=$('.network-viewport'), canvas=$('.network-canvas');
+  if(!viewport||!canvas||!state.detail)return;
+  const {layout}=state.detail, oldZoom=state.detail.zoom;
+  const centerX=position?position.x:oldZoom?(viewport.scrollLeft+viewport.clientWidth/2)/oldZoom:layout.width/2;
+  const centerY=position?position.y:oldZoom?(viewport.scrollTop+viewport.clientHeight/2)/oldZoom:layout.height/2;
+  let zoom=oldZoom??Math.min(1,viewport.clientWidth/layout.width,520/layout.height);
+  if(action==='network-in')zoom=Math.min(2,zoom*1.25);
+  if(action==='network-out')zoom=Math.max(0.1,zoom/1.25);
+  if(action==='network-fit')zoom=Math.min(1,viewport.clientWidth/layout.width,520/layout.height);
+  if(oldZoom===null||action==='network-fit')state.detail.fit=true;
+  else if(action==='network-in'||action==='network-out')state.detail.fit=false;
+  state.detail.zoom=zoom;
+  canvas.style.width=`${layout.width*zoom}px`;
+  canvas.style.height=`${layout.height*zoom}px`;
+  viewport.style.height=`${Math.min(560,Math.max(320,layout.height*zoom))}px`;
+  $('#network-scale').textContent=`${Math.round(zoom*100)}%`;
+  viewport.scrollLeft=action==='network-fit'?0:centerX*zoom-viewport.clientWidth/2;
+  viewport.scrollTop=action==='network-fit'?0:centerY*zoom-viewport.clientHeight/2;
+}
+function changeComponent(glyph) {
+  if(!state.detail)return;
+  const component=state.detail.network.characters.find(character=>character.hanja===glyph);
+  if(!component)return;
+  state.glyph=glyph;
+  state.detail.characters=component.readings.map(reading=>({...reading,words:state.detail.network.words.filter(word=>word.components.includes(glyph))}));
+  renderDetail();
+  $(`.component-card[data-glyph="${CSS.escape(glyph)}"]`)?.focus({preventScroll:true});
 }
 function toggleSaved(ref) {
   const exists=isSaved(ref);
@@ -237,6 +263,7 @@ $('#main').addEventListener('click',event=>{
   if(action==='open-word')routeWord({word,hanja});
   else if(action==='open-character')routeCharacter(glyph);
   else if(action==='component')changeComponent(glyph);
+  else if(action.startsWith('network-'))sizeNetwork(action);
   else if(action==='save')toggleSaved({word,hanja});
   else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog();$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
   else if(action==='clear-search'){state.query='';$('#search').value='';$('#search').focus();clearTimeout(searchTimer);performSearch();}
@@ -251,6 +278,7 @@ $('#main').addEventListener('click',event=>{
   else if(action==='next-question'&&state.session?.answers.has(state.session.questions[state.index]?.id)){state.index++;state.translation=false;renderPractice();$('.question-prompt, .result-number')?.scrollIntoView({block:'nearest'});}
 });
 window.addEventListener('hashchange',()=>renderPage({revealSelection:true}));
+window.addEventListener('resize',()=>{if(state.page==='explore'&&state.detail?.fit)sizeNetwork('network-fit');});
 $('.skip-link').addEventListener('click',event=>{event.preventDefault();$('#main').focus();$('#main').scrollIntoView({block:'start'});});
 window.addEventListener('storage',event=>{if(event.key==='han-graph.words.v1'){state.saved=normalizeSaved(readStorage(event.key,[]));updateShell();if(state.page==='saved')renderSaved(++pageEpoch);else if(state.page==='explore')renderDetail();}});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)&&$('#search')){event.preventDefault();$('#search').focus();}});

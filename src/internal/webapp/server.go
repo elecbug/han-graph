@@ -52,6 +52,11 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		}
 	})
 	mux.HandleFunc("GET /api/practice", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, practice) })
+	mux.HandleFunc("GET /api/neighborhood", func(w http.ResponseWriter, r *http.Request) {
+		if q, ok := query(w, r, true); ok {
+			jsonReply(w, g.Neighborhood(q))
+		}
+	})
 	// The graph is immutable until restart. Prepare the initial view once so
 	// opening the app does not require a chain of data requests.
 	search := g.Search("", 60)
@@ -69,6 +74,7 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 			}
 		}
 		seed["/api/words?q="+initial.Word] = g.FindWords(initial.Word)
+		seed["/api/neighborhood?q="+initial.Hanja] = g.Neighborhood(initial.Hanja)
 		for _, glyph := range initial.Components {
 			seed["/api/characters?q="+glyph] = g.FindCharacters(glyph)
 		}
@@ -79,6 +85,7 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		"/app.js":          "text/javascript; charset=utf-8",
 		"/learning.mjs":    "text/javascript; charset=utf-8",
 		"/data-client.mjs": "text/javascript; charset=utf-8",
+		"/network.mjs":     "text/javascript; charset=utf-8",
 		"/styles.css":      "text/css; charset=utf-8",
 		"/favicon.svg":     "image/svg+xml",
 	} {
