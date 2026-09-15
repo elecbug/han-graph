@@ -178,6 +178,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gwan-000", "gwan-001", "gwan-002", "gwan-100", "gwan-101", "gwan-102", "gwan-103", "gwan-104", "gwan-105", "gwang-000",
 		"gwang-001", "gwang-100", "gwang-101", "gwae-100", "goe-100", "goe-101", "goe-102", "goe-103", "gyo-000", "gyo-001",
 		"gyo-002", "gyo-003", "gyo-100", "gyo-101", "gyo-102", "gyo-103", "gu-000", "gu-001", "gu-002", "gu-003",
+		"gu-004", "gu-005", "gu-006", "gu-007", "gu-100", "gu-101", "gu-102", "gu-103", "gu-104", "gu-105",
+		"gu-106", "gu-107", "gu-108", "gu-109", "gu-110", "gu-111", "guk-000", "guk-100", "guk-101", "gun-000",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -198,6 +200,9 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"과실": {"果實", "過失"}, "과장": {"課長", "誇張"},
 		"관리": {"官吏", "管理"}, "관용": {"寬容", "慣用"},
 		"괴수": {"怪獸", "愧羞"}, "교정": {"校庭", "校正", "矯正"}, "교외": {"校外", "郊外"},
+		"구조": {"救助", "構造"}, "구명": {"救命", "究明"}, "구형": {"舊型", "球形"},
+		"구생": {"俱生", "苟生"}, "구기": {"俱起", "球技"}, "기구": {"器具", "機構"},
+		"문구": {"文句", "文具"}, "지구": {"地區", "地球"}, "경구": {"警句", "驚懼"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -349,6 +354,9 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔"}, map[string]string{"경솔": "率[솔]"}},
 		{"不", map[string]string{"bul-000": "불", "bu-201": "부"}, map[string]string{"중과부적": "不[부]"}},
 		{"令", map[string]string{"ryeong-000": "령", "yeong-200": "영"}, map[string]string{"교언영색": "令[영]"}},
+		{"龜", map[string]string{"gu-111": "구", "gwi-200": "귀", "gyun-200": "균"}, map[string]string{"구미": "龜[구]", "귀감": "龜[귀]", "균열": "龜[균]"}},
+		{"裂", map[string]string{"ryeol-101": "렬", "yeol-200": "열"}, map[string]string{"균열": "裂[열]"}},
+		{"茶", map[string]string{"da-100": "다", "cha-201": "차"}, map[string]string{"국화차": "茶[차]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {

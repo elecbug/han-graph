@@ -28,13 +28,15 @@ test('all direct neighbors are laid out once, with a clickable edge per word', (
 });
 
 test('long compounds, duplicate readings, homographs and repeated glyphs retain identity', () => {
-  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節']) {
+  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶']) {
     const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
     assert.equal(new Set(layout.nodes.map(node=>node.hanja)).size,layout.nodes.length);
     const edge=layout.edges.find(edge=>edge.current);
     assert.deepEqual(edge.word.components,selected.components);
     if(hanja==='勇敢無雙')assert.equal(edge.glyphs.length,4);
     if(hanja==='降伏')assert.equal(layout.nodes.find(node=>node.hanja==='降').readings.length,2);
+    if(hanja==='龜裂')assert.equal(layout.nodes.find(node=>node.hanja==='龜').readings.length,3);
+    if(hanja==='菊花茶')assert.equal(layout.nodes.find(node=>node.hanja==='茶').readings.length,2);
     if(hanja==='各各') {
       assert.deepEqual(edge.glyphs,['各']);
       const paths=edgePaths(edge,layout.nodes);
