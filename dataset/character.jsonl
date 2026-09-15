@@ -38,16 +38,16 @@
 {"type": "character", "id": "gang-003", "hanja": "降", "meaning_ko": ["내리다"], "meaning_en": ["to descend"]}
 {"type": "character", "id": "gang-100", "hanja": "剛", "meaning_ko": ["굳세다"], "meaning_en": ["firm", "strong"]}
 {"type": "character", "id": "gang-101", "hanja": "康", "meaning_ko": ["편안하다", "건강하다"], "meaning_en": ["peaceful", "healthy"]}
-{"type": "character", "id": "gang-102", "hanja": "綱", "meaning_ko": ["벼리"], "meaning_en": ["main rope", "principle"]}
+{"type": "character", "id": "gang-102", "hanja": "綱", "meaning_ko": ["벼리", "큰 줄기", "기준"], "meaning_en": ["main rope", "outline", "guiding principle"]}
 {"type": "character", "id": "gang-103", "hanja": "鋼", "meaning_ko": ["강철"], "meaning_en": ["steel"]}
 {"type": "character", "id": "gae-000", "hanja": "個", "meaning_ko": ["낱"], "meaning_en": ["individual unit"]}
 {"type": "character", "id": "gae-001", "hanja": "改", "meaning_ko": ["고치다"], "meaning_en": ["to correct", "to revise"]}
 {"type": "character", "id": "gae-002", "hanja": "皆", "meaning_ko": ["다"], "meaning_en": ["all", "everyone"]}
 {"type": "character", "id": "gae-003", "hanja": "開", "meaning_ko": ["열다"], "meaning_en": ["to open"]}
-{"type": "character", "id": "gae-100", "hanja": "介", "meaning_ko": ["끼이다"], "meaning_en": ["to mediate", "to be between"]}
-{"type": "character", "id": "gae-101", "hanja": "慨", "meaning_ko": ["분개하다"], "meaning_en": ["to lament", "to resent"]}
-{"type": "character", "id": "gae-102", "hanja": "槪", "meaning_ko": ["대개"], "meaning_en": ["generally", "outline"]}
-{"type": "character", "id": "gae-103", "hanja": "蓋", "meaning_ko": ["덮다"], "meaning_en": ["to cover", "lid"]}
+{"type": "character", "id": "gae-100", "hanja": "介", "meaning_ko": ["끼이다", "사이에 들다", "마음에 두다"], "meaning_en": ["to be between", "to mediate", "to mind"]}
+{"type": "character", "id": "gae-101", "hanja": "慨", "meaning_ko": ["분개하다", "탄식하다", "깊이 느끼다"], "meaning_en": ["to resent", "to lament", "to feel deeply"]}
+{"type": "character", "id": "gae-102", "hanja": "槪", "meaning_ko": ["대개", "대강", "개요"], "meaning_en": ["generally", "roughly", "outline"]}
+{"type": "character", "id": "gae-103", "hanja": "蓋", "meaning_ko": ["덮다", "덮개", "대개"], "meaning_en": ["to cover", "lid", "probably"]}
 {"type": "character", "id": "gaek-000", "hanja": "客", "meaning_ko": ["손님"], "meaning_en": ["guest", "visitor"]}
 {"type": "character", "id": "gaeng-000", "hanja": "更", "meaning_ko": ["다시"], "meaning_en": ["again", "further"]}
 {"type": "character", "id": "geo-000", "hanja": "去", "meaning_ko": ["가다"], "meaning_en": ["to go"]}
@@ -652,7 +652,7 @@
 {"type": "character", "id": "bok-100", "hanja": "卜", "meaning_ko": ["점"], "meaning_en": ["divination"]}
 {"type": "character", "id": "bok-101", "hanja": "腹", "meaning_ko": ["배"], "meaning_en": ["belly", "abdomen"]}
 {"type": "character", "id": "bok-102", "hanja": "複", "meaning_ko": ["겹치다"], "meaning_en": ["double", "duplicate"]}
-{"type": "character", "id": "bok-103", "hanja": "覆", "meaning_ko": ["뒤집히다"], "meaning_en": ["to overturn", "to cover"]}
+{"type": "character", "id": "bok-103", "hanja": "覆", "meaning_ko": ["뒤집히다", "덮다"], "meaning_en": ["to overturn", "to cover"]}
 {"type": "character", "id": "bon-000", "hanja": "本", "meaning_ko": ["밑"], "meaning_en": ["root", "origin"]}
 {"type": "character", "id": "bong-000", "hanja": "奉", "meaning_ko": ["받들다"], "meaning_en": ["to serve", "to offer"]}
 {"type": "character", "id": "bong-001", "hanja": "逢", "meaning_ko": ["만나다"], "meaning_en": ["to meet"]}
@@ -1820,3 +1820,9 @@
 {"type": "character", "id": "dam-200", "hanja": "膽", "meaning_ko": ["쓸개", "담력"], "meaning_en": ["gallbladder", "courage"]}
 {"type": "character", "id": "gak-200", "hanja": "殼", "meaning_ko": ["껍질"], "meaning_en": ["shell"]}
 {"type": "character", "id": "hang-200", "hanja": "降", "meaning_ko": ["항복하다"], "meaning_en": ["to surrender"]}
+{"type": "character", "id": "sik-200", "hanja": "蝕", "meaning_ko": ["좀먹다", "일식·월식"], "meaning_en": ["to eat away", "eclipse"]}
+{"type": "character", "id": "so-200", "hanja": "紹", "meaning_ko": ["잇다"], "meaning_en": ["to connect", "to introduce"]}
+{"type": "character", "id": "gang-200", "hanja": "慷", "meaning_ko": ["분개하다", "슬퍼하다"], "meaning_en": ["to feel indignation", "to grieve"]}
+{"type": "character", "id": "gwal-200", "hanja": "括", "meaning_ko": ["묶다", "아우르다"], "meaning_en": ["to bind", "to bring together"]}
+{"type": "character", "id": "seul-200", "hanja": "膝", "meaning_ko": ["무릎"], "meaning_en": ["knee"]}
+{"type": "character", "id": "che-200", "hanja": "切", "meaning_ko": ["모두", "온통"], "meaning_en": ["all", "entirely"]}

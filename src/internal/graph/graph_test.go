@@ -161,6 +161,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gak-000", "gak-001", "gak-002", "gak-100", "gak-101", "gak-102", "gak-103", "gan-000", "gan-001", "gan-002",
 		"gan-100", "gan-101", "gan-102", "gan-103", "gan-104", "gan-105", "gal-000", "gam-000", "gam-001", "gam-002",
 		"gam-003", "gam-100", "gam-101", "gap-000", "gang-000", "gang-001", "gang-002", "gang-003", "gang-100", "gang-101",
+		"gang-102", "gang-103", "gae-000", "gae-001", "gae-002", "gae-003", "gae-100", "gae-101", "gae-102", "gae-103",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -172,6 +173,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
 		"간사": {"姦邪", "幹事"},
 		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
+		"강요": {"強要", "綱要"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -206,6 +208,20 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 	}
 	if count != 1 {
 		t.Fatal("repeated character must have exactly one reverse edge")
+	}
+	all := g.FindWords("일체개고")
+	if len(all) != 1 || len(all[0].Components) != 4 || all[0].Components[1].Hanja != "切" {
+		t.Fatalf("incorrect 일체개고 breakdown: %+v", all)
+	}
+	cutReadings := map[string]string{}
+	for _, reading := range all[0].Components[1].Readings {
+		cutReadings[reading.ID] = reading.SoundKo
+	}
+	if len(cutReadings) != 2 || cutReadings["jeol-100"] != "절" || cutReadings["che-200"] != "체" {
+		t.Fatalf("missing contextual 切 reading: %+v", cutReadings)
+	}
+	if !strings.Contains(all[0].Word.SemanticHint, "切[체]") {
+		t.Fatal("일체개고 must explain the 체 reading")
 	}
 }
 

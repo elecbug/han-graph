@@ -405,3 +405,5 @@
 {"type": "meta", "id": "heup", "sound_ko": "흡", "sound_en": "heup"}
 {"type": "meta", "id": "heung", "sound_ko": "흥", "sound_en": "heung"}
 {"type": "meta", "id": "hui", "sound_ko": "희", "sound_en": "hui"}
+{"type": "meta", "id": "gwal", "sound_ko": "괄", "sound_en": "gwal"}
+{"type": "meta", "id": "seul", "sound_ko": "슬", "sound_en": "seul"}

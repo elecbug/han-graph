@@ -15,8 +15,8 @@ function neighborhood(selected) {
 test('all direct neighbors are laid out once, with a clickable edge per word', () => {
   const selected=words.find(word=>word.hanja==='感覺');
   const network=neighborhood(selected), layout=layoutNetwork(network,selected);
-  assert.equal(layout.nodes.length,10);
-  assert.equal(layout.edges.length,9);
+  assert.equal(layout.nodes.length,13);
+  assert.equal(layout.edges.length,11);
   assert.deepEqual(layout.nodes.filter(node=>node.root).map(node=>node.hanja),['感','覺']);
   assert.deepEqual(layout.edges.filter(edge=>edge.current).map(edge=>edge.word.hanja),['感覺']);
   assert(!layout.nodes.some(node=>node.hanja==='監'), 'do not expand the neighbors a second time');
