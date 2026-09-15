@@ -162,6 +162,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gan-100", "gan-101", "gan-102", "gan-103", "gan-104", "gan-105", "gal-000", "gam-000", "gam-001", "gam-002",
 		"gam-003", "gam-100", "gam-101", "gap-000", "gang-000", "gang-001", "gang-002", "gang-003", "gang-100", "gang-101",
 		"gang-102", "gang-103", "gae-000", "gae-001", "gae-002", "gae-003", "gae-100", "gae-101", "gae-102", "gae-103",
+		"gaek-000", "gaeng-000", "geo-000", "geo-001", "geo-002", "geo-003", "geo-004", "geo-100", "geo-101", "geo-102",
+		"geon-000", "geon-001", "geon-100", "geon-101", "geol-100", "geol-101", "geom-100", "geom-101", "geom-102", "gyeok-100",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -173,7 +175,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
 		"간사": {"姦邪", "幹事"},
 		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
-		"강요": {"強要", "綱要"},
+		"강요": {"強要", "綱要"}, "검사": {"劍士", "檢査"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -266,5 +268,89 @@ func TestRepositoryAlternateReading(t *testing.T) {
 		if !strings.Contains(words[0].Word.SemanticHint, annotation) {
 			t.Errorf("%s needs its contextual reading %s in the hint", query, annotation)
 		}
+	}
+}
+
+func TestRepositoryRenewalAndVehicleReadings(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, tc := range []struct {
+		glyph    string
+		readings map[string]string
+		words    map[string]string
+	}{
+		{"更", map[string]string{"gaeng-000": "갱", "gyeong-200": "경"}, map[string]string{"갱신": "更[갱]", "경신": "更[경]"}},
+		{"車", map[string]string{"geo-004": "거", "cha-200": "차"}, map[string]string{"거마": "車[거]", "자동차": "車[차]"}},
+	} {
+		t.Run(tc.glyph, func(t *testing.T) {
+			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
+				t.Fatalf("missing readings: %+v", matches)
+			}
+			for id, sound := range tc.readings {
+				matches := g.FindCharacters(id)
+				if len(matches) != 1 || matches[0].Hanja != tc.glyph || matches[0].SoundKo != sound {
+					t.Fatalf("incorrect reading for %s: %+v", id, matches)
+				}
+				found := map[string]bool{}
+				for _, word := range matches[0].Words {
+					found[word.Word] = true
+				}
+				for word := range tc.words {
+					if !found[word] {
+						t.Errorf("%s lost shared word %s", id, word)
+					}
+				}
+			}
+			for query, annotation := range tc.words {
+				words := g.FindWords(query)
+				if len(words) != 1 || !strings.Contains(words[0].Word.SemanticHint, annotation) {
+					t.Fatalf("%s needs contextual reading %s: %+v", query, annotation, words)
+				}
+				found := map[string]string{}
+				for _, part := range words[0].Components {
+					if part.Hanja == tc.glyph {
+						for _, reading := range part.Readings {
+							found[reading.ID] = reading.SoundKo
+						}
+					}
+				}
+				if len(found) != len(tc.readings) {
+					t.Fatalf("%s lost component readings: %+v", query, found)
+				}
+				for id, sound := range tc.readings {
+					if found[id] != sound {
+						t.Errorf("%s has incorrect reading %s: %+v", query, id, found)
+					}
+				}
+			}
+		})
+	}
+	words := g.FindWords("更新")
+	if len(words) != 2 || words[0].Word.Word != "갱신" || words[1].Word.Word != "경신" {
+		t.Fatalf("shared Hanja spelling must retain both words: %+v", words)
+	}
+	found := map[string]int{}
+	for _, word := range g.Neighborhood("更新").Words {
+		if word.Hanja == "更新" {
+			found[word.Word]++
+		}
+	}
+	if found["갱신"] != 1 || found["경신"] != 1 {
+		t.Fatalf("neighborhood lost or duplicated shared spelling: %+v", found)
+	}
+	pleading := g.FindWords("애걸복걸")
+	if len(pleading) != 1 || len(pleading[0].Components) != 4 || pleading[0].Components[1].Hanja != "乞" || pleading[0].Components[3].Hanja != "乞" {
+		t.Fatalf("repeated component positions were lost: %+v", pleading)
+	}
+	count := 0
+	for _, word := range g.FindCharacters("乞")[0].Words {
+		if word.Word == "애걸복걸" {
+			count++
+		}
+	}
+	if count != 1 {
+		t.Fatalf("애걸복걸 needs exactly one reverse edge per glyph, got %d", count)
 	}
 }

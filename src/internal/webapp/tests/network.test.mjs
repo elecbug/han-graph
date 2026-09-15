@@ -59,6 +59,22 @@ test('every dataset word has finite, unclipped positions without overlapping lab
   }
 });
 
+test('words sharing Hanja retain separate selection and detail links', () => {
+  for (const name of ['갱신','경신']) {
+    const selected=words.find(word=>word.word===name && word.hanja==='更新');
+    const layout=layoutNetwork(neighborhood(selected),selected);
+    const shared=layout.edges.filter(edge=>edge.word.hanja==='更新');
+    assert.deepEqual(shared.map(edge=>edge.word.word),['갱신','경신']);
+    assert.deepEqual(layout.edges.filter(edge=>edge.current).map(edge=>edge.word.word),[name]);
+    assert.equal(layout.nodes.find(node=>node.hanja==='更').readings.length,2);
+    const svg=renderNetworkSVG(layout);
+    for (const edge of shared) {
+      const href=`#explore?${new URLSearchParams({word:edge.word.word,hanja:edge.word.hanja})}`.replaceAll('&','&amp;');
+      assert.equal(svg.split(`href="${href}"`).length-1,2, 'edge line and label must preserve both word and Hanja');
+    }
+  }
+});
+
 test('an isolated character still appears, without invented edges', () => {
   const layout=layoutNetwork({roots:['綱'],characters:[{hanja:'綱',readings:[]}],words:[]});
   assert.equal(layout.nodes.length,1);
