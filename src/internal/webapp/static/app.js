@@ -1,4 +1,9 @@
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult} from './learning.mjs';
+import {createDataClient} from './data-client.mjs';
+
+let seed = {};
+try { seed = JSON.parse(document.getElementById('bootstrap-data')?.textContent ?? '{}'); } catch { /* Fall back to the API. */ }
+const getJSON = createDataClient({origin: location.origin, seed});
 
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
@@ -37,13 +42,6 @@ const t = key => copy[state.lang][key] ?? key;
 const meaning = word => word[state.lang === 'ko' ? 'meaning_ko' : 'meaning_en'];
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
-async function getJSON(path, query) {
-  const url = new URL(path, location.origin);
-  if (query !== undefined) url.searchParams.set('q', query);
-  const response = await fetch(url, {signal: AbortSignal.timeout(10000)});
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  return response.json();
-}
 function updateShell() {
   document.documentElement.lang=state.lang;
   document.title=`漢-Graph · ${t(state.page)}`;

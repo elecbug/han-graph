@@ -2,11 +2,14 @@
 package webapp
 
 import (
+	"bytes"
+	"crypto/sha256"
 	"embed"
 	"encoding/json"
-	"io/fs"
+	"fmt"
 	"net/http"
 	"strings"
+	"time"
 	"unicode/utf8"
 
 	"github.com/elecbug/han-graph/internal/graph"
@@ -49,14 +52,61 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		}
 	})
 	mux.HandleFunc("GET /api/practice", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, practice) })
-	static, _ := fs.Sub(assets, "static")
-	files := http.FileServer(http.FS(static))
+	// The graph is immutable until restart. Prepare the initial view once so
+	// opening the app does not require a chain of data requests.
+	search := g.Search("", 60)
+	seed := map[string]any{
+		"/api/stats":    g.Stats(),
+		"/api/search":   search,
+		"/api/practice": practice,
+	}
+	if len(search.Words) > 0 {
+		initial := search.Words[0]
+		for _, word := range search.Words {
+			if word.Word == "가정" {
+				initial = word
+				break
+			}
+		}
+		seed["/api/words?q="+initial.Word] = g.FindWords(initial.Word)
+		for _, glyph := range initial.Components {
+			seed["/api/characters?q="+glyph] = g.FindCharacters(glyph)
+		}
+	}
+	files := make(map[string]staticAsset)
+	for path, contentType := range map[string]string{
+		"/":                "text/html; charset=utf-8",
+		"/app.js":          "text/javascript; charset=utf-8",
+		"/learning.mjs":    "text/javascript; charset=utf-8",
+		"/data-client.mjs": "text/javascript; charset=utf-8",
+		"/styles.css":      "text/css; charset=utf-8",
+		"/favicon.svg":     "image/svg+xml",
+	} {
+		name := path
+		if name == "/" {
+			name = "/index.html"
+		}
+		body, err := assets.ReadFile("static" + name)
+		if err != nil {
+			panic(err)
+		}
+		if path == "/" {
+			body = withBootstrap(body, seed)
+		}
+		files[path] = staticAsset{body, contentType, fmt.Sprintf(`"%x"`, sha256.Sum256(body))}
+	}
 	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path != "/" && r.URL.Path != "/app.js" && r.URL.Path != "/styles.css" && r.URL.Path != "/learning.mjs" && r.URL.Path != "/favicon.svg" {
+		file, ok := files[r.URL.Path]
+		if !ok {
 			http.NotFound(w, r)
 			return
 		}
-		files.ServeHTTP(w, r)
+		// An explicit MIME type also avoids Windows registry enumeration on
+		// the first request. Revalidate hashes so restarts never serve stale data.
+		w.Header().Set("Content-Type", file.contentType)
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("ETag", file.etag)
+		http.ServeContent(w, r, r.URL.Path, time.Time{}, bytes.NewReader(file.body))
 	})
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
@@ -65,4 +115,19 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
 		mux.ServeHTTP(w, r)
 	})
+}
+
+type staticAsset struct {
+	body              []byte
+	contentType, etag string
+}
+
+func withBootstrap(html []byte, seed map[string]any) []byte {
+	// Marshal escapes HTML delimiters, including </script> in dataset text.
+	data, err := json.Marshal(seed)
+	if err != nil {
+		panic(err)
+	}
+	return bytes.Replace(html, []byte("<!-- bootstrap-data -->"),
+		append(append([]byte(`<script type="application/json" id="bootstrap-data">`), data...), []byte("</script>")...), 1)
 }

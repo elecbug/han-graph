@@ -37,6 +37,7 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/", 200, "text/html"},
 		{"GET", "/app.js", 200, "javascript"},
 		{"GET", "/learning.mjs", 200, "javascript"},
+		{"GET", "/data-client.mjs", 200, "javascript"},
 		{"GET", "/styles.css", 200, "text/css"},
 		{"GET", "/favicon.svg", 200, "image/svg+xml"},
 		{"GET", "/api/stats", 200, "application/json"},
@@ -77,7 +78,7 @@ func TestAPIResults(t *testing.T) {
 	if err := json.Unmarshal(response.Body.Bytes(), &words); err != nil {
 		t.Fatal(err)
 	}
-	if len(words) != 1 || words[0].Word.Hanja != "家庭" || len(words[0].Components) != 2 {
+	if len(words) != 2 || words[0].Word.Hanja != "家庭" || words[1].Word.Hanja != "假定" || len(words[0].Components) != 2 {
 		t.Fatalf("unexpected breakdown: %+v", words)
 	}
 	response = httptest.NewRecorder()
@@ -87,6 +88,74 @@ func TestAPIResults(t *testing.T) {
 	}
 	if len(practice.Questions) < 3 {
 		t.Fatal("expected a usable seed practice set")
+	}
+}
+
+func TestBootstrapAndRevalidation(t *testing.T) {
+	g, _, app := testApp(t)
+	response := httptest.NewRecorder()
+	app.ServeHTTP(response, httptest.NewRequest("GET", "/", nil))
+	_, data, ok := strings.Cut(response.Body.String(), `<script type="application/json" id="bootstrap-data">`)
+	if !ok {
+		t.Fatal("missing initial data")
+	}
+	data, _, ok = strings.Cut(data, "</script>")
+	if !ok {
+		t.Fatal("unclosed initial data")
+	}
+	var seed map[string]json.RawMessage
+	if err := json.Unmarshal([]byte(data), &seed); err != nil {
+		t.Fatal(err)
+	}
+	for _, path := range []string{"/api/stats", "/api/search", "/api/practice", "/api/words?q=가정", "/api/characters?q=家", "/api/characters?q=庭"} {
+		api := httptest.NewRecorder()
+		app.ServeHTTP(api, httptest.NewRequest("GET", path, nil))
+		if string(seed[path]) != strings.TrimSpace(api.Body.String()) {
+			t.Fatalf("bootstrap does not match API: %s", path)
+		}
+	}
+	for _, path := range []string{"/", "/app.js", "/styles.css", "/learning.mjs", "/data-client.mjs", "/favicon.svg"} {
+		first := httptest.NewRecorder()
+		app.ServeHTTP(first, httptest.NewRequest("GET", path, nil))
+		etag := first.Header().Get("ETag")
+		if etag == "" || first.Header().Get("Cache-Control") != "no-cache" {
+			t.Fatalf("missing revalidation: %s", path)
+		}
+		request := httptest.NewRequest("GET", path, nil)
+		request.Header.Set("If-None-Match", etag)
+		again := httptest.NewRecorder()
+		app.ServeHTTP(again, request)
+		if again.Code != http.StatusNotModified || again.Body.Len() != 0 {
+			t.Fatalf("%s not revalidated: %d", path, again.Code)
+		}
+		request.Header.Set("If-None-Match", `"old-build"`)
+		fresh := httptest.NewRecorder()
+		app.ServeHTTP(fresh, request)
+		if fresh.Code != 200 || fresh.Body.Len() == 0 {
+			t.Fatalf("%s stale hash accepted", path)
+		}
+	}
+	// A changed dataset (here the practice text) must invalidate the HTML hash.
+	_, practice, _ := testApp(t)
+	practice.Source += " updated"
+	updated := httptest.NewRecorder()
+	New(g, practice).ServeHTTP(updated, httptest.NewRequest("GET", "/", nil))
+	if updated.Header().Get("ETag") == response.Header().Get("ETag") {
+		t.Fatal("dataset change did not invalidate HTML")
+	}
+}
+
+func TestBootstrapEscapesHTML(t *testing.T) {
+	value := `</script><script>alert("dataset")</script>&`
+	html := withBootstrap([]byte("<!-- bootstrap-data -->"), map[string]any{"example": value})
+	if strings.Count(string(html), "</script>") != 1 || strings.Contains(string(html), value) {
+		t.Fatal("unsafe embedded JSON")
+	}
+	_, raw, _ := strings.Cut(string(html), `id="bootstrap-data">`)
+	raw = strings.TrimSuffix(raw, "</script>")
+	var decoded map[string]string
+	if err := json.Unmarshal([]byte(raw), &decoded); err != nil || decoded["example"] != value {
+		t.Fatal("escaped data did not round-trip")
 	}
 }
 
