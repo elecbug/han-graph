@@ -15,8 +15,8 @@ function neighborhood(selected) {
 test('all direct neighbors are laid out once, with a clickable edge per word', () => {
   const selected=words.find(word=>word.hanja==='感覺');
   const network=neighborhood(selected), layout=layoutNetwork(network,selected);
-  assert.equal(layout.nodes.length,15);
-  assert.equal(layout.edges.length,13);
+  assert.equal(layout.nodes.length,16);
+  assert.equal(layout.edges.length,14);
   assert.deepEqual(layout.nodes.filter(node=>node.root).map(node=>node.hanja),['感','覺']);
   assert.deepEqual(layout.edges.filter(edge=>edge.current).map(edge=>edge.word.hanja),['感覺']);
   assert(!layout.nodes.some(node=>node.hanja==='監'), 'do not expand the neighbors a second time');
@@ -24,11 +24,13 @@ test('all direct neighbors are laid out once, with a clickable edge per word', (
   assert(!layout.nodes.some(node=>node.hanja==='勵'), 'do not expand from 激 to 격려');
   assert(layout.nodes.some(node=>node.hanja==='愧'), 'include the newly connected 자괴감');
   assert(!layout.nodes.some(node=>node.hanja==='羞'), 'do not expand from 愧 to 수괴');
+  assert(layout.nodes.some(node=>node.hanja==='鈍'), 'include the newly connected 둔감');
+  assert(!layout.nodes.some(node=>node.hanja==='愚'), 'do not expand from 鈍 to 우둔');
   assert.deepEqual(layout,layoutNetwork(network,selected), 'layout must be deterministic');
 });
 
 test('long compounds, duplicate readings, homographs and repeated glyphs retain identity', () => {
-  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶','陸軍','旅券','阿鼻叫喚','跆拳道','糾正','規定','僅僅','僅僅扶持','千斤萬斤','極端','劇團','勤勉','僅免','禽獸','錦繡','利己','樂器','其間','期間','猜忌','時期','幾何級數','豈弟','許諾','難易度','娘娘','那落','奈落','女子','年度','寧日','喜怒哀樂','惱殺','泥土','綠茶','茶道','怒發大發','但書','端緖','但書條項','但願桑麻成','剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代','冷淡','雪糖','砂糖','淡淡','堂堂','檀君神話','檀君朝鮮','荒唐無稽','地圖','指導','圖章','塗裝','矯導','敎徒','連帶','列島','挑戰狀','殺到','單刀直入','周到綿密','武陵桃源','待接','接待','首都','水稻','顚倒','前途','獨自','讀者','冬至','同志','共同','空洞','朗讀','洞察','洞窟','陸稻','督促狀','水稻作','稻熱病','陶瓷器','養豚場']) {
+  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶','陸軍','旅券','阿鼻叫喚','跆拳道','糾正','規定','僅僅','僅僅扶持','千斤萬斤','極端','劇團','勤勉','僅免','禽獸','錦繡','利己','樂器','其間','期間','猜忌','時期','幾何級數','豈弟','許諾','難易度','娘娘','那落','奈落','女子','年度','寧日','喜怒哀樂','惱殺','泥土','綠茶','茶道','怒發大發','但書','端緖','但書條項','但願桑麻成','剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代','冷淡','雪糖','砂糖','淡淡','堂堂','檀君神話','檀君朝鮮','荒唐無稽','地圖','指導','圖章','塗裝','矯導','敎徒','連帶','列島','挑戰狀','殺到','單刀直入','周到綿密','武陵桃源','待接','接待','首都','水稻','顚倒','前途','獨自','讀者','冬至','同志','共同','空洞','朗讀','洞察','洞窟','陸稻','督促狀','水稻作','稻熱病','陶瓷器','養豚場','同時','童詩','凍傷','銅像','段落','短絡','産卵','散亂','漏斗','羅列','網羅','娛樂','樂園','樂觀','落下','下落','卵子','亂離','欄干','空欄','鈍感','北斗七星','森羅萬象','冷凍庫','連絡處','廣告欄']) {
     const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
     assert.equal(new Set(layout.nodes.map(node=>node.hanja)).size,layout.nodes.length);
     const edge=layout.edges.find(edge=>edge.current);
@@ -40,8 +42,8 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
     if(hanja==='陸軍')assert.equal(layout.nodes.find(node=>node.hanja==='陸').readings.length,2);
     if(hanja==='旅券')assert.equal(layout.nodes.find(node=>node.hanja==='旅').readings.length,2);
     if(hanja==='利己')assert.equal(layout.nodes.find(node=>node.hanja==='利').readings.length,2);
-    if(hanja==='樂器')assert.equal(layout.nodes.find(node=>node.hanja==='樂').readings.length,2);
-    for(const [word,glyph] of [['豈弟','豈'],['許諾','諾'],['難易度','易'],['娘娘','娘'],['奈落','奈'],['女子','女'],['年度','年'],['寧日','寧'],['喜怒哀樂','怒'],['惱殺','殺'],['泥土','泥'],['綠茶','綠'],['茶道','茶'],['弄談','弄'],['冷淡','冷'],['雪糖','糖'],['砂糖','糖'],['連帶','連'],['列島','列'],['挑戰狀','狀'],['殺到','殺'],['朗讀','朗'],['洞察','洞'],['洞窟','洞'],['陸稻','陸'],['督促狀','狀']]) {
+    if(['樂器','娛樂','樂園','樂觀'].includes(hanja))assert.equal(layout.nodes.find(node=>node.hanja==='樂').readings.length,3);
+    for(const [word,glyph] of [['豈弟','豈'],['許諾','諾'],['難易度','易'],['娘娘','娘'],['奈落','奈'],['女子','女'],['年度','年'],['寧日','寧'],['喜怒哀樂','怒'],['惱殺','殺'],['泥土','泥'],['綠茶','綠'],['茶道','茶'],['弄談','弄'],['冷淡','冷'],['雪糖','糖'],['砂糖','糖'],['連帶','連'],['列島','列'],['挑戰狀','狀'],['殺到','殺'],['朗讀','朗'],['洞察','洞'],['洞窟','洞'],['陸稻','陸'],['督促狀','狀'],['漏斗','漏'],['羅列','羅'],['網羅','羅'],['落下','落'],['下落','落'],['卵子','卵'],['産卵','卵'],['亂離','亂'],['散亂','亂'],['欄干','欄'],['空欄','欄']]) {
       if(hanja===word)assert.equal(layout.nodes.find(node=>node.hanja===glyph).readings.length,2);
     }
     if(hanja==='那落'||hanja==='奈落') {
@@ -76,7 +78,7 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
       assert.equal(edge.word.hanja,hanja);
       assert.equal(layout.edges.filter(item=>item.current).length,1);
     }
-    if(['剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代','地圖','指導','圖章','塗裝','矯導','敎徒','首都','水稻','顚倒','前途','獨自','讀者','冬至','同志','共同','空洞'].includes(hanja)) {
+    if(['剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代','地圖','指導','圖章','塗裝','矯導','敎徒','首都','水稻','顚倒','前途','獨自','讀者','冬至','同志','共同','空洞','同時','童詩','凍傷','銅像','段落','短絡','産卵','散亂'].includes(hanja)) {
       assert.equal(edge.word.hanja,hanja);
       assert.equal(layout.edges.filter(item=>item.current).length,1);
     }
@@ -84,14 +86,20 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
       assert.equal(edge.word.word,'단서 조항');
       assert.equal(edge.glyphs.length,4);
     }
-    if(['單刀直入','周到綿密','武陵桃源'].includes(hanja))assert.equal(edge.glyphs.length,4);
+    if(['單刀直入','周到綿密','武陵桃源','北斗七星','森羅萬象'].includes(hanja))assert.equal(edge.glyphs.length,4);
     if(hanja==='待接'||hanja==='接待') {
       assert(layout.edges.some(item=>item.word.hanja==='待接'));
       assert(layout.edges.some(item=>item.word.hanja==='接待'));
       assert.equal(edge.word.hanja,hanja);
       assert.equal(layout.edges.filter(item=>item.current).length,1);
     }
-    if(['水稻作','稻熱病','陶瓷器','養豚場','督促狀'].includes(hanja))assert.equal(edge.glyphs.length,3);
+    if(hanja==='落下'||hanja==='下落') {
+      assert(layout.edges.some(item=>item.word.hanja==='落下'));
+      assert(layout.edges.some(item=>item.word.hanja==='下落'));
+      assert.equal(edge.word.hanja,hanja);
+      assert.equal(layout.edges.filter(item=>item.current).length,1);
+    }
+    if(['水稻作','稻熱病','陶瓷器','養豚場','督促狀','冷凍庫','連絡處','廣告欄'].includes(hanja))assert.equal(edge.glyphs.length,3);
     if(hanja==='但願桑麻成')assert.equal(edge.glyphs.length,5);
   }
 });

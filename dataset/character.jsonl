@@ -371,23 +371,23 @@
 {"type": "character", "id": "dong-005", "hanja": "童", "meaning_ko": ["아이"], "meaning_en": ["child"]}
 {"type": "character", "id": "dong-100", "hanja": "凍", "meaning_ko": ["얼다"], "meaning_en": ["to freeze"]}
 {"type": "character", "id": "dong-101", "hanja": "銅", "meaning_ko": ["구리"], "meaning_en": ["copper"]}
-{"type": "character", "id": "du-000", "hanja": "斗", "meaning_ko": ["말"], "meaning_en": ["measuring container"]}
+{"type": "character", "id": "du-000", "hanja": "斗", "meaning_ko": ["곡식의 부피를 재는 말", "부피 단위", "별무리 이름"], "meaning_en": ["grain measure", "unit of volume", "name of a star pattern"]}
 {"type": "character", "id": "du-001", "hanja": "豆", "meaning_ko": ["콩"], "meaning_en": ["bean"]}
 {"type": "character", "id": "du-002", "hanja": "頭", "meaning_ko": ["머리"], "meaning_en": ["head"]}
 {"type": "character", "id": "dun-100", "hanja": "屯", "meaning_ko": ["진치다"], "meaning_en": ["to station troops"]}
-{"type": "character", "id": "dun-101", "hanja": "鈍", "meaning_ko": ["무디다"], "meaning_en": ["dull", "blunt"]}
+{"type": "character", "id": "dun-101", "hanja": "鈍", "meaning_ko": ["무디다", "느리다", "둔하다"], "meaning_en": ["dull", "blunt", "slow"]}
 {"type": "character", "id": "deuk-000", "hanja": "得", "meaning_ko": ["얻다"], "meaning_en": ["to obtain", "to gain"]}
-{"type": "character", "id": "deung-000", "hanja": "燈", "meaning_ko": ["등잔"], "meaning_en": ["lamp"]}
-{"type": "character", "id": "deung-001", "hanja": "登", "meaning_ko": ["오르다"], "meaning_en": ["to climb"]}
-{"type": "character", "id": "deung-002", "hanja": "等", "meaning_ko": ["가지런하다", "등급"], "meaning_en": ["equal", "class"]}
+{"type": "character", "id": "deung-000", "hanja": "燈", "meaning_ko": ["등잔", "등불"], "meaning_en": ["lamp", "light"]}
+{"type": "character", "id": "deung-001", "hanja": "登", "meaning_ko": ["오르다", "올리다", "기록하다"], "meaning_en": ["to climb", "to raise", "to register"]}
+{"type": "character", "id": "deung-002", "hanja": "等", "meaning_ko": ["가지런하다", "같다", "등급"], "meaning_en": ["equal", "class", "rank"]}
 {"type": "character", "id": "deung-100", "hanja": "騰", "meaning_ko": ["오르다"], "meaning_en": ["to rise", "to soar"]}
-{"type": "character", "id": "ra-100", "hanja": "羅", "meaning_ko": ["벌리다"], "meaning_en": ["to spread", "net"]}
-{"type": "character", "id": "rak-000", "hanja": "樂", "meaning_ko": ["즐기다"], "meaning_en": ["pleasure", "to enjoy"]}
+{"type": "character", "id": "ra-100", "hanja": "羅", "meaning_ko": ["벌여 놓다", "그물"], "meaning_en": ["to arrange", "to spread", "net"]}
+{"type": "character", "id": "rak-000", "hanja": "樂", "meaning_ko": ["즐기다", "즐겁다"], "meaning_en": ["pleasure", "to enjoy", "joyful"]}
 {"type": "character", "id": "rak-001", "hanja": "落", "meaning_ko": ["떨어지다"], "meaning_en": ["to fall"]}
-{"type": "character", "id": "rak-100", "hanja": "絡", "meaning_ko": ["헌솜", "얽다"], "meaning_en": ["cotton floss", "to connect"]}
+{"type": "character", "id": "rak-100", "hanja": "絡", "meaning_ko": ["헌솜", "얽다", "연결하다"], "meaning_en": ["cotton floss", "to intertwine", "to connect"]}
 {"type": "character", "id": "ran-000", "hanja": "卵", "meaning_ko": ["알"], "meaning_en": ["egg"]}
 {"type": "character", "id": "ran-100", "hanja": "亂", "meaning_ko": ["어지럽다"], "meaning_en": ["chaotic", "disordered"]}
-{"type": "character", "id": "ran-101", "hanja": "欄", "meaning_ko": ["난간"], "meaning_en": ["railing", "column"]}
+{"type": "character", "id": "ran-101", "hanja": "欄", "meaning_ko": ["난간", "기입하는 칸", "글을 싣는 지면"], "meaning_en": ["railing", "entry field", "column"]}
 {"type": "character", "id": "ran-102", "hanja": "蘭", "meaning_ko": ["난초"], "meaning_en": ["orchid"]}
 {"type": "character", "id": "ram-100", "hanja": "濫", "meaning_ko": ["퍼지다", "넘치다"], "meaning_en": ["overflow", "excessive"]}
 {"type": "character", "id": "ram-101", "hanja": "覽", "meaning_ko": ["보다"], "meaning_en": ["to view", "to inspect"]}
@@ -1925,3 +1925,15 @@
 {"type": "character", "id": "ja-201", "hanja": "仔", "meaning_ko": ["새끼"], "meaning_en": ["young animal"]}
 {"type": "character", "id": "gul-200", "hanja": "窟", "meaning_ko": ["굴"], "meaning_en": ["cave", "cavern"]}
 {"type": "character", "id": "tong-200", "hanja": "洞", "meaning_ko": ["꿰뚫다", "밝게 알다"], "meaning_en": ["to see through", "to understand clearly"]}
+{"type": "character", "id": "wan-200", "hanja": "豌", "meaning_ko": ["완두"], "meaning_en": ["pea"]}
+{"type": "character", "id": "jan-200", "hanja": "盞", "meaning_ko": ["잔", "작은 그릇"], "meaning_en": ["cup", "small vessel"]}
+{"type": "character", "id": "bi-200", "hanja": "沸", "meaning_ko": ["끓다"], "meaning_en": ["to boil"]}
+{"type": "character", "id": "ang-200", "hanja": "昂", "meaning_ko": ["높이 오르다"], "meaning_en": ["to rise", "to lift"]}
+{"type": "character", "id": "mang-200", "hanja": "網", "meaning_ko": ["그물"], "meaning_en": ["net", "network"]}
+{"type": "character", "id": "nu-200", "hanja": "漏", "meaning_ko": ["새다"], "meaning_en": ["to leak"]}
+{"type": "character", "id": "na-201", "hanja": "羅", "meaning_ko": ["벌여 놓다", "그물"], "meaning_en": ["to arrange", "to spread", "net"]}
+{"type": "character", "id": "nak-200", "hanja": "樂", "meaning_ko": ["즐기다", "즐겁다"], "meaning_en": ["pleasure", "to enjoy", "joyful"]}
+{"type": "character", "id": "nak-201", "hanja": "落", "meaning_ko": ["떨어지다"], "meaning_en": ["to fall"]}
+{"type": "character", "id": "nan-200", "hanja": "卵", "meaning_ko": ["알"], "meaning_en": ["egg"]}
+{"type": "character", "id": "nan-201", "hanja": "亂", "meaning_ko": ["어지럽다"], "meaning_en": ["chaotic", "disordered"]}
+{"type": "character", "id": "nan-202", "hanja": "欄", "meaning_ko": ["난간", "기입하는 칸", "글을 싣는 지면"], "meaning_en": ["railing", "entry field", "column"]}
