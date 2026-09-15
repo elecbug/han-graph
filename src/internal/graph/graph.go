@@ -1,6 +1,9 @@
 package graph
 
-import "strings"
+import (
+	"math/rand/v2"
+	"strings"
+)
 
 // Graph is a bipartite graph of hanja glyphs and (word, hanja) entries.
 // Reading records remain separate metadata, so a glyph can have several sounds.
@@ -49,6 +52,30 @@ func (g *Graph) Stats() Stats {
 		edges += len(words)
 	}
 	return Stats{len(g.meta), len(g.characterOrder), len(g.characters), len(g.words), edges, len(g.wordsByCharacter)}
+}
+
+// RandomWord samples the entire dataset, excluding the exact current entry when
+// another word is available. Words with the same Hangul remain distinct choices.
+func (g *Graph) RandomWord(excludeWord, excludeHanja string) (Word, bool) {
+	count := len(g.words)
+	if count == 0 {
+		return Word{}, false
+	}
+	excluded := -1
+	if count > 1 {
+		for _, index := range g.wordsByQuery[excludeWord] {
+			if g.words[index].Word == excludeWord && g.words[index].Hanja == excludeHanja {
+				excluded = index
+				count--
+				break
+			}
+		}
+	}
+	index := rand.IntN(count)
+	if excluded >= 0 && index >= excluded {
+		index++
+	}
+	return g.words[index], true
 }
 
 func (g *Graph) reading(c Character) Reading {

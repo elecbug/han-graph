@@ -12,9 +12,11 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp
 const icons = {
   search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>',
   bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>',
+  shuffle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3.5-2 5-5m2-2c1.5-3 3-5 5-5h3m-4-4 4 4-4 4"/></svg>',
 };
 const copy = {
   ko: {
+    randomWord:'랜덤 단어', randomHint:'전체 단어에서 무작위로 선택', randomLoading:'고르는 중…', randomError:'랜덤 단어를 불러오지 못했어요. 다시 눌러 주세요.',
     workspace:'나의 학습 공간', explore:'단어 탐색', practice:'문맥 연습', saved:'내 단어장', sidebarQuote:'한 글자를 이해하면,<br>더 많은 단어가 보여요.', sidebarSub:'작은 연결에서 시작하는 한국어', local:'나만의 한국어 학습 공간', footer:'하나의 단어에서 시작되는 새로운 이해.',
     exploreTitle:'뜻을 따라, 단어를 연결해요.', exploreSub:'하나의 한자를 이해하면, 새로운 단어가 보입니다.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'탐색할 단어', search:'단어, 한자, 뜻을 찾아보세요', clear:'검색 지우기', browseLabel:'작은 연결에서 시작해 보세요', words:'단어', characters:'한자', entries:'개', searchResults:'검색 결과', limited:'일부 결과를 표시하고 있어요. 검색어를 더 구체적으로 입력해 주세요.',
     noResults:'일치하는 항목이 없어요.', searchHint:'다른 단어, 한자 또는 영어 뜻으로 찾아보세요.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'저장하기', savedButton:'저장됨', removed:'단어장에서 삭제했어요.', added:'내 단어장에 저장했어요.', maxSaved:'단어장에 최대 500개까지 저장할 수 있어요.', storageFailed:'이 브라우저에서는 저장할 수 없어 이번 방문 동안만 유지됩니다.',
@@ -23,6 +25,7 @@ const copy = {
     practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'한자의 뜻과 문장의 단서를 함께 살펴보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 어울리는 단어를 골라 보세요. 한자 구성과 해설을 통해 선택의 이유를 확인할 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceDraft:'기존 어휘로 만든 기초 연습 · 예문 검수 전', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
   en: {
+    randomWord:'Random word', randomHint:'Choose from all words', randomLoading:'Choosing…', randomError:'Could not load a random word. Please try again.',
     workspace:'YOUR LEARNING SPACE', explore:'Explore', practice:'Practice', saved:'My words', sidebarQuote:'Understand one character.<br>Discover a world of words.', sidebarSub:'Korean, one connection at a time', local:'Your Korean learning space', footer:'A new understanding starts with one word.',
     exploreTitle:'Follow the meaning. Find a connection.', exploreSub:'Understand a character, and see Korean words in a new way.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'words to explore', search:'Search a word, character, or meaning', clear:'Clear search', browseLabel:'Start with a small connection', words:'Words', characters:'Characters', entries:'', searchResults:'Search results', limited:'Showing a selection. Refine your search to find more.',
     noResults:'No matches yet.', searchHint:'Try another Korean word, character, or English meaning.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'Save word', savedButton:'Saved', removed:'Removed from your words.', added:'Added to your words.', maxSaved:'You can save up to 500 words.', storageFailed:'Storage is unavailable. Your changes will last for this visit only.',
@@ -81,9 +84,9 @@ async function renderPage({revealSelection=false} = {}) {
   else if(params.get('character')) state.selection={kind:'character',glyph:params.get('character')};
   else if(!state.selection) { const word=state.search.words.find(word=>word.word==='가정')??state.search.words[0]; if(word)state.selection={kind:'word',...word}; }
   $('#main').innerHTML=`${hero('exploreEye','exploreTitle','exploreSub',`<div class="hero-counter"><strong>${state.stats.words}</strong><span>${t('wordsReady')}</span></div>`)}
-    <form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t('search')}" aria-label="${t('search')}" autocomplete="off"><button class="search-clear" type="button" data-action="clear-search" aria-label="${t('clear')}">×</button><kbd class="search-shortcut">/</kbd></form>
+    <div class="explore-tools"><form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t('search')}" aria-label="${t('search')}" autocomplete="off"><button class="search-clear" type="button" data-action="clear-search" aria-label="${t('clear')}">×</button><kbd class="search-shortcut">/</kbd></form><button class="random-button" type="button" data-action="random-word" title="${t('randomHint')}">${icons.shuffle}<span>${t('randomWord')}</span></button></div>
     <div class="section-bar"><span>${t('browseLabel')}</span><span>${state.stats.characters.toLocaleString(state.lang)} ${t('characters')} · ${state.stats.words} ${t('words')}</span></div>
-    <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section></div>`;
+    <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section><div class="network-panel" id="network"></div></div>`;
   $('#search-form').addEventListener('submit', event=>{event.preventDefault();clearTimeout(searchTimer);performSearch();});
   $('#search').addEventListener('input', event=>{state.query=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(performSearch,180);});
   renderCatalog();
@@ -91,7 +94,7 @@ async function renderPage({revealSelection=false} = {}) {
   if(revealSelection && query && epoch===pageEpoch && state.page==='explore') {
     const heading=$('#detail .word-title');
     if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
-    $('#detail').scrollIntoView({block:'start'});
+    $('#detail').scrollIntoView({block:'nearest'});
   }
 }
 
@@ -108,6 +111,32 @@ function renderCatalog() {
     return `<button class="catalog-item ${selected?'selected':''}" data-action="${word?'open-word':'open-character'}" ${word?wordAttrs(item):`data-glyph="${esc(item.hanja)}"`} ${selected?'aria-current="true"':''}><span class="item-main"><span class="item-title">${esc(title)}</span><span class="item-sub">${esc(sub)}</span></span>${word?`<span class="item-hanja">${esc(item.hanja)}</span>`:''}${selected?'<span class="item-arrow">↗</span>':''}</button>`;
   }).join('');
   $('#catalog').innerHTML=`<div class="catalog-tabs" role="group" aria-label="${t('searchResults')}"><button data-action="tab" data-tab="words" class="${state.tab==='words'?'active':''}" aria-pressed="${state.tab==='words'}">${t('words')}<span class="tab-count">${result.word_count}</span></button><button data-action="tab" data-tab="characters" class="${state.tab==='characters'?'active':''}" aria-pressed="${state.tab==='characters'}">${t('characters')}<span class="tab-count">${result.character_count}</span></button></div><div class="catalog-list">${items||`<div class="empty-state"><p>${t('noResults')}</p><p>${t('searchHint')}</p></div>`}</div><div class="list-footnote" aria-live="polite">${count>list.length?t('limited'):`${t('searchResults')} · ${count} ${t('entries')}`}</div>`;
+}
+async function showRandomWord(button) {
+  if(button.disabled)return;
+  const epoch=pageEpoch;
+  const params=new URLSearchParams();
+  if(state.selection?.kind==='word') {
+    params.set('exclude_word',state.selection.word);
+    params.set('exclude_hanja',state.selection.hanja??state.detail?.wordResult?.word.hanja??'');
+  }
+  button.disabled=true;
+  button.setAttribute('aria-busy','true');
+  button.querySelector('span').textContent=t('randomLoading');
+  try {
+    // Random choices must bypass the reusable lookup cache.
+    const response=await fetch(`/api/random-word?${params}`,{cache:'no-store'});
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const word=await response.json();
+    if(epoch!==pageEpoch || state.page!=='explore')return;
+    routeWord(word);
+  } catch {
+    if(epoch===pageEpoch)toast(t('randomError'));
+  } finally {
+    button.disabled=false;
+    button.removeAttribute('aria-busy');
+    button.querySelector('span').textContent=t('randomWord');
+  }
 }
 async function performSearch() {
   const epoch=++searchEpoch;
@@ -128,8 +157,10 @@ async function performSearch() {
 async function loadDetail(selection) {
   const epoch=++detailEpoch;
   state.selection=selection;
+  state.detail=null;
   renderCatalog();
   $('#detail').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
+  $('#network').innerHTML='';
   try {
     let wordResult=null, glyph=selection.glyph;
     if(selection.kind==='word') {
@@ -166,7 +197,8 @@ function renderDetail() {
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span></div><div class="word-title-row"><div><h2 class="word-title">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</p><p class="word-meaning-en">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_en':'meaning_ko'].join(', ')).join(' / '))}</p></div><span class="word-hanja">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(c.meaning_ko.join(', '))} / ${esc(c.meaning_en.join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
-  $('#detail').innerHTML=`<article class="word-card">${card}</article>${renderNetwork()}`;
+  $('#detail').innerHTML=`<article class="word-card">${card}</article>`;
+  $('#network').innerHTML=renderNetwork();
   sizeNetwork(undefined,position);
   bindNetworkDrag($('.network-viewport'), {
     getPosition:()=>state.detail.pan,
@@ -273,6 +305,7 @@ $('#main').addEventListener('click',event=>{
   const button=event.target.closest('[data-action]');if(!button)return;
   const {action,word,hanja,glyph,index}=button.dataset;
   if(action==='open-word')routeWord({word,hanja});
+  else if(action==='random-word')showRandomWord(button);
   else if(action==='open-character')routeCharacter(glyph);
   else if(action==='component')changeComponent(glyph);
   else if(action.startsWith('network-'))sizeNetwork(action);

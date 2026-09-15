@@ -45,6 +45,9 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/api/stats", 200, "application/json"},
 		{"GET", "/api/search?q=" + url.QueryEscape("家"), 200, "application/json"},
 		{"GET", "/api/search", 200, "application/json"},
+		{"GET", "/api/random-word", 200, "application/json"},
+		{"GET", "/api/random-word?exclude_word=" + strings.Repeat("a", 101), 400, "application/json"},
+		{"GET", "/api/random-word?exclude_hanja=" + url.QueryEscape(strings.Repeat("家", 101)), 400, "application/json"},
 		{"GET", "/api/words?q=" + url.QueryEscape("가정"), 200, "application/json"},
 		{"GET", "/api/characters?q=" + url.QueryEscape("家"), 200, "application/json"},
 		{"GET", "/api/practice", 200, "application/json"},
@@ -71,6 +74,39 @@ func TestRoutes(t *testing.T) {
 				t.Fatal("missing response headers")
 			}
 		})
+	}
+}
+
+func TestRandomWordAPI(t *testing.T) {
+	g, _, app := testApp(t)
+	excluded := g.FindWords("가정")[0].Word
+	for range 20 {
+		params := url.Values{"exclude_word": {excluded.Word}, "exclude_hanja": {excluded.Hanja}}
+		response := httptest.NewRecorder()
+		app.ServeHTTP(response, httptest.NewRequest("GET", "/api/random-word?"+params.Encode(), nil))
+		var word graph.Word
+		if err := json.Unmarshal(response.Body.Bytes(), &word); err != nil {
+			t.Fatal(err)
+		}
+		if response.Code != 200 || response.Header().Get("Cache-Control") != "no-store" {
+			t.Fatalf("random response must not be cached: %+v", response.Result())
+		}
+		if word.Word == excluded.Word && word.Hanja == excluded.Hanja {
+			t.Fatal("repeated the currently selected entry")
+		}
+		found := false
+		for _, match := range g.FindWords(word.Word) {
+			found = found || match.Word.Hanja == word.Hanja
+		}
+		if !found {
+			t.Fatalf("random word is not in the dataset: %+v", word)
+		}
+		excluded = word
+	}
+	response := httptest.NewRecorder()
+	New(&graph.Graph{}, Practice{}).ServeHTTP(response, httptest.NewRequest("GET", "/api/random-word", nil))
+	if response.Code != 404 || !json.Valid(response.Body.Bytes()) {
+		t.Fatalf("unexpected empty dataset response: %d %s", response.Code, response.Body.String())
 	}
 }
 

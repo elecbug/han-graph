@@ -46,6 +46,24 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 			jsonReply(w, g.FindWords(q))
 		}
 	})
+	mux.HandleFunc("GET /api/random-word", func(w http.ResponseWriter, r *http.Request) {
+		word := strings.TrimSpace(r.URL.Query().Get("exclude_word"))
+		hanja := strings.TrimSpace(r.URL.Query().Get("exclude_hanja"))
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.Header().Set("Cache-Control", "no-store")
+		if utf8.RuneCountInString(word) > 100 || utf8.RuneCountInString(hanja) > 100 {
+			w.WriteHeader(http.StatusBadRequest)
+			jsonReply(w, map[string]string{"error": "excluded word and hanja must be at most 100 characters"})
+			return
+		}
+		selected, ok := g.RandomWord(word, hanja)
+		if !ok {
+			w.WriteHeader(http.StatusNotFound)
+			jsonReply(w, map[string]string{"error": "no words available"})
+			return
+		}
+		jsonReply(w, selected)
+	})
 	mux.HandleFunc("GET /api/characters", func(w http.ResponseWriter, r *http.Request) {
 		if q, ok := query(w, r, true); ok {
 			jsonReply(w, g.FindCharacters(q))
