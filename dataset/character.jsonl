@@ -389,24 +389,24 @@
 {"type": "character", "id": "ran-100", "hanja": "亂", "meaning_ko": ["어지럽다"], "meaning_en": ["chaotic", "disordered"]}
 {"type": "character", "id": "ran-101", "hanja": "欄", "meaning_ko": ["난간", "기입하는 칸", "글을 싣는 지면"], "meaning_en": ["railing", "entry field", "column"]}
 {"type": "character", "id": "ran-102", "hanja": "蘭", "meaning_ko": ["난초"], "meaning_en": ["orchid"]}
-{"type": "character", "id": "ram-100", "hanja": "濫", "meaning_ko": ["퍼지다", "넘치다"], "meaning_en": ["overflow", "excessive"]}
+{"type": "character", "id": "ram-100", "hanja": "濫", "meaning_ko": ["퍼지다", "넘치다", "함부로 하다"], "meaning_en": ["to spread", "to overflow", "to use excessively"]}
 {"type": "character", "id": "ram-101", "hanja": "覽", "meaning_ko": ["보다"], "meaning_en": ["to view", "to inspect"]}
-{"type": "character", "id": "rang-000", "hanja": "浪", "meaning_ko": ["물결"], "meaning_en": ["wave"]}
-{"type": "character", "id": "rang-001", "hanja": "郞", "meaning_ko": ["사내"], "meaning_en": ["young man"]}
-{"type": "character", "id": "rang-100", "hanja": "廊", "meaning_ko": ["복도"], "meaning_en": ["corridor", "hallway"]}
+{"type": "character", "id": "rang-000", "hanja": "浪", "meaning_ko": ["물결", "떠돌다", "함부로 하다"], "meaning_en": ["wave", "to wander", "to act recklessly"]}
+{"type": "character", "id": "rang-001", "hanja": "郞", "meaning_ko": ["사내", "관리"], "meaning_en": ["young man", "official"]}
+{"type": "character", "id": "rang-100", "hanja": "廊", "meaning_ko": ["복도", "곁채"], "meaning_en": ["corridor", "hallway", "side building"]}
 {"type": "character", "id": "rae-000", "hanja": "來", "meaning_ko": ["오다"], "meaning_en": ["to come"]}
 {"type": "character", "id": "raeng-000", "hanja": "冷", "meaning_ko": ["차갑다"], "meaning_en": ["cold", "cool"]}
 {"type": "character", "id": "ryak-100", "hanja": "掠", "meaning_ko": ["노략질하다"], "meaning_en": ["to plunder", "to raid"]}
-{"type": "character", "id": "ryak-101", "hanja": "略", "meaning_ko": ["다스리다", "간략하다"], "meaning_en": ["strategy", "brief"]}
+{"type": "character", "id": "ryak-101", "hanja": "略", "meaning_ko": ["다스리다", "간략하다", "줄이다"], "meaning_en": ["strategy", "brief", "to omit"]}
 {"type": "character", "id": "ryang-000", "hanja": "兩", "meaning_ko": ["둘"], "meaning_en": ["two", "both"]}
 {"type": "character", "id": "ryang-001", "hanja": "涼", "meaning_ko": ["서늘하다"], "meaning_en": ["cool", "refreshing"]}
-{"type": "character", "id": "ryang-002", "hanja": "良", "meaning_ko": ["어질다"], "meaning_en": ["good", "virtuous"]}
-{"type": "character", "id": "ryang-003", "hanja": "量", "meaning_ko": ["헤아리다"], "meaning_en": ["quantity", "to measure"]}
+{"type": "character", "id": "ryang-002", "hanja": "良", "meaning_ko": ["어질다", "좋다"], "meaning_en": ["good", "virtuous"]}
+{"type": "character", "id": "ryang-003", "hanja": "量", "meaning_ko": ["헤아리다", "분량"], "meaning_en": ["quantity", "to measure"]}
 {"type": "character", "id": "ryang-100", "hanja": "梁", "meaning_ko": ["들보", "다리"], "meaning_en": ["beam", "bridge"]}
 {"type": "character", "id": "ryang-101", "hanja": "糧", "meaning_ko": ["양식"], "meaning_en": ["provisions", "food supply"]}
-{"type": "character", "id": "ryang-102", "hanja": "諒", "meaning_ko": ["믿다"], "meaning_en": ["to understand", "to trust"]}
+{"type": "character", "id": "ryang-102", "hanja": "諒", "meaning_ko": ["믿다", "헤아리다", "이해하다"], "meaning_en": ["to understand", "to trust", "to consider"]}
 {"type": "character", "id": "ryeo-000", "hanja": "旅", "meaning_ko": ["군사", "여행"], "meaning_en": ["troops", "travel"]}
-{"type": "character", "id": "ryeo-100", "hanja": "勵", "meaning_ko": ["힘쓰다"], "meaning_en": ["to encourage", "to strive"]}
+{"type": "character", "id": "ryeo-100", "hanja": "勵", "meaning_ko": ["힘쓰다", "북돋우다"], "meaning_en": ["to encourage", "to strive"]}
 {"type": "character", "id": "ryeo-101", "hanja": "慮", "meaning_ko": ["생각하다", "염려하다"], "meaning_en": ["to consider", "to worry"]}
 {"type": "character", "id": "ryeo-102", "hanja": "麗", "meaning_ko": ["곱다"], "meaning_en": ["beautiful", "splendid"]}
 {"type": "character", "id": "ryeok-000", "hanja": "力", "meaning_ko": ["힘"], "meaning_en": ["strength", "power"]}
@@ -1035,7 +1035,7 @@
 {"type": "character", "id": "yeon-108", "hanja": "鉛", "meaning_ko": ["납"], "meaning_en": ["lead"]}
 {"type": "character", "id": "yeol-000", "hanja": "悅", "meaning_ko": ["기쁘다"], "meaning_en": ["pleased", "delighted"]}
 {"type": "character", "id": "yeol-001", "hanja": "熱", "meaning_ko": ["덥다", "뜨겁다"], "meaning_en": ["hot", "heat"]}
-{"type": "character", "id": "yeol-100", "hanja": "閱", "meaning_ko": ["검열하다"], "meaning_en": ["to inspect", "to review"]}
+{"type": "character", "id": "yeol-100", "hanja": "閱", "meaning_ko": ["살펴보다", "읽다", "검열하다"], "meaning_en": ["to inspect", "to read", "to review"]}
 {"type": "character", "id": "yeom-000", "hanja": "炎", "meaning_ko": ["불타다"], "meaning_en": ["flame", "blaze"]}
 {"type": "character", "id": "yeom-100", "hanja": "染", "meaning_ko": ["물들이다"], "meaning_en": ["to dye", "to stain"]}
 {"type": "character", "id": "yeom-101", "hanja": "鹽", "meaning_ko": ["소금"], "meaning_en": ["salt"]}
@@ -1937,3 +1937,22 @@
 {"type": "character", "id": "nan-200", "hanja": "卵", "meaning_ko": ["알"], "meaning_en": ["egg"]}
 {"type": "character", "id": "nan-201", "hanja": "亂", "meaning_ko": ["어지럽다"], "meaning_en": ["chaotic", "disordered"]}
 {"type": "character", "id": "nan-202", "hanja": "欄", "meaning_ko": ["난간", "기입하는 칸", "글을 싣는 지면"], "meaning_en": ["railing", "entry field", "column"]}
+{"type": "character", "id": "beom-200", "hanja": "氾", "meaning_ko": ["넘치다"], "meaning_en": ["to overflow"]}
+{"type": "character", "id": "no-200", "hanja": "擄", "meaning_ko": ["사로잡다"], "meaning_en": ["to capture"]}
+{"type": "character", "id": "dong-201", "hanja": "棟", "meaning_ko": ["마룻대"], "meaning_en": ["ridgepole"]}
+{"type": "character", "id": "nan-203", "hanja": "蘭", "meaning_ko": ["난초"], "meaning_en": ["orchid"]}
+{"type": "character", "id": "nam-200", "hanja": "濫", "meaning_ko": ["퍼지다", "넘치다", "함부로 하다"], "meaning_en": ["to spread", "to overflow", "to use excessively"]}
+{"type": "character", "id": "nang-201", "hanja": "浪", "meaning_ko": ["물결", "떠돌다", "함부로 하다"], "meaning_en": ["wave", "to wander", "to act recklessly"]}
+{"type": "character", "id": "nang-202", "hanja": "郞", "meaning_ko": ["사내", "관리"], "meaning_en": ["young man", "official"]}
+{"type": "character", "id": "nang-203", "hanja": "廊", "meaning_ko": ["복도", "곁채"], "meaning_en": ["corridor", "hallway", "side building"]}
+{"type": "character", "id": "nae-200", "hanja": "來", "meaning_ko": ["오다"], "meaning_en": ["to come"]}
+{"type": "character", "id": "yak-200", "hanja": "掠", "meaning_ko": ["노략질하다"], "meaning_en": ["to plunder", "to raid"]}
+{"type": "character", "id": "saeng-200", "hanja": "省", "meaning_ko": ["덜다", "줄이다", "생략하다"], "meaning_en": ["to reduce", "to omit"]}
+{"type": "character", "id": "yak-201", "hanja": "略", "meaning_ko": ["다스리다", "간략하다", "줄이다"], "meaning_en": ["strategy", "brief", "to omit"]}
+{"type": "character", "id": "yang-200", "hanja": "兩", "meaning_ko": ["둘"], "meaning_en": ["two", "both"]}
+{"type": "character", "id": "yang-201", "hanja": "涼", "meaning_ko": ["서늘하다"], "meaning_en": ["cool", "refreshing"]}
+{"type": "character", "id": "yang-202", "hanja": "良", "meaning_ko": ["어질다", "좋다"], "meaning_en": ["good", "virtuous"]}
+{"type": "character", "id": "yang-203", "hanja": "梁", "meaning_ko": ["들보", "다리"], "meaning_en": ["beam", "bridge"]}
+{"type": "character", "id": "yang-204", "hanja": "糧", "meaning_ko": ["양식"], "meaning_en": ["provisions", "food supply"]}
+{"type": "character", "id": "yang-205", "hanja": "諒", "meaning_ko": ["믿다", "헤아리다", "이해하다"], "meaning_en": ["to understand", "to trust", "to consider"]}
+{"type": "character", "id": "yeom-200", "hanja": "念", "meaning_ko": ["생각하다", "생각", "기억하다"], "meaning_en": ["to think", "idea", "to remember"]}

@@ -193,7 +193,7 @@ func TestNeighborhoodAPI(t *testing.T) {
 	if err := json.Unmarshal(response.Body.Bytes(), &network); err != nil {
 		t.Fatal(err)
 	}
-	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 14 || len(network.Characters) != 16 {
+	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 16 || len(network.Characters) != 21 {
 		t.Fatalf("incorrect network response: %+v", network)
 	}
 	response = httptest.NewRecorder()
