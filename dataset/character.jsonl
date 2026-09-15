@@ -451,10 +451,10 @@
 {"type": "character", "id": "ryo-101", "hanja": "僚", "meaning_ko": ["동료", "관리"], "meaning_en": ["colleague", "official companion", "government official"]}
 {"type": "character", "id": "ryong-100", "hanja": "龍", "meaning_ko": ["용"], "meaning_en": ["dragon"]}
 {"type": "character", "id": "ru-100", "hanja": "屢", "meaning_ko": ["자주"], "meaning_en": ["frequently", "repeatedly"]}
-{"type": "character", "id": "ru-101", "hanja": "樓", "meaning_ko": ["다락"], "meaning_en": ["tower", "upper floor"]}
+{"type": "character", "id": "ru-101", "hanja": "樓", "meaning_ko": ["다락", "누각"], "meaning_en": ["upper floor", "pavilion", "tower"]}
 {"type": "character", "id": "ru-102", "hanja": "淚", "meaning_ko": ["눈물"], "meaning_en": ["tear"]}
-{"type": "character", "id": "ru-103", "hanja": "漏", "meaning_ko": ["새다"], "meaning_en": ["to leak"]}
-{"type": "character", "id": "ru-104", "hanja": "累", "meaning_ko": ["묶다", "누적되다"], "meaning_en": ["to bind", "accumulate"]}
+{"type": "character", "id": "ru-103", "hanja": "漏", "meaning_ko": ["새다", "빠뜨리다"], "meaning_en": ["to leak", "to omit"]}
+{"type": "character", "id": "ru-104", "hanja": "累", "meaning_ko": ["묶다", "쌓이다", "얽히다"], "meaning_en": ["to bind", "to accumulate", "to become entangled"]}
 {"type": "character", "id": "ryu-000", "hanja": "柳", "meaning_ko": ["버들"], "meaning_en": ["willow"]}
 {"type": "character", "id": "ryu-001", "hanja": "流", "meaning_ko": ["흐르다"], "meaning_en": ["to flow"]}
 {"type": "character", "id": "ryu-002", "hanja": "留", "meaning_ko": ["머무르다"], "meaning_en": ["to stay", "to remain"]}
@@ -462,12 +462,12 @@
 {"type": "character", "id": "ryuk-000", "hanja": "六", "meaning_ko": ["여섯"], "meaning_en": ["six"]}
 {"type": "character", "id": "ryuk-001", "hanja": "陸", "meaning_ko": ["뭍"], "meaning_en": ["land", "continent"]}
 {"type": "character", "id": "ryun-000", "hanja": "倫", "meaning_ko": ["인륜"], "meaning_en": ["ethics", "human relations"]}
-{"type": "character", "id": "ryun-100", "hanja": "輪", "meaning_ko": ["바퀴"], "meaning_en": ["wheel"]}
-{"type": "character", "id": "ryul-000", "hanja": "律", "meaning_ko": ["법"], "meaning_en": ["law", "rule"]}
-{"type": "character", "id": "ryul-100", "hanja": "栗", "meaning_ko": ["밤나무"], "meaning_en": ["chestnut tree"]}
+{"type": "character", "id": "ryun-100", "hanja": "輪", "meaning_ko": ["바퀴", "테두리", "돌다"], "meaning_en": ["wheel", "rim", "to revolve"]}
+{"type": "character", "id": "ryul-000", "hanja": "律", "meaning_ko": ["법", "규범", "음률"], "meaning_en": ["law", "rule", "musical rhythm"]}
+{"type": "character", "id": "ryul-100", "hanja": "栗", "meaning_ko": ["밤나무", "밤"], "meaning_en": ["chestnut tree", "chestnut"]}
 {"type": "character", "id": "ryul-101", "hanja": "率", "meaning_ko": ["헤아리다", "비율"], "meaning_en": ["rate", "proportion"]}
-{"type": "character", "id": "ryung-100", "hanja": "隆", "meaning_ko": ["크다", "높다"], "meaning_en": ["prosperous", "grand"]}
-{"type": "character", "id": "reung-100", "hanja": "陵", "meaning_ko": ["큰 언덕"], "meaning_en": ["hill", "mausoleum"]}
+{"type": "character", "id": "ryung-100", "hanja": "隆", "meaning_ko": ["크다", "높다", "성하다", "두텁다"], "meaning_en": ["grand", "high", "prosperous", "generous"]}
+{"type": "character", "id": "reung-100", "hanja": "陵", "meaning_ko": ["큰 언덕", "왕릉"], "meaning_en": ["hill", "royal tomb"]}
 {"type": "character", "id": "ri-000", "hanja": "利", "meaning_ko": ["이롭다"], "meaning_en": ["beneficial", "profit"]}
 {"type": "character", "id": "ri-001", "hanja": "李", "meaning_ko": ["오얏"], "meaning_en": ["plum tree"]}
 {"type": "character", "id": "ri-002", "hanja": "理", "meaning_ko": ["다스리다"], "meaning_en": ["reason", "to manage"]}
@@ -1930,7 +1930,7 @@
 {"type": "character", "id": "bi-200", "hanja": "沸", "meaning_ko": ["끓다"], "meaning_en": ["to boil"]}
 {"type": "character", "id": "ang-200", "hanja": "昂", "meaning_ko": ["높이 오르다"], "meaning_en": ["to rise", "to lift"]}
 {"type": "character", "id": "mang-200", "hanja": "網", "meaning_ko": ["그물"], "meaning_en": ["net", "network"]}
-{"type": "character", "id": "nu-200", "hanja": "漏", "meaning_ko": ["새다"], "meaning_en": ["to leak"]}
+{"type": "character", "id": "nu-200", "hanja": "漏", "meaning_ko": ["새다", "빠뜨리다"], "meaning_en": ["to leak", "to omit"]}
 {"type": "character", "id": "na-201", "hanja": "羅", "meaning_ko": ["벌여 놓다", "그물"], "meaning_en": ["to arrange", "to spread", "net"]}
 {"type": "character", "id": "nak-200", "hanja": "樂", "meaning_ko": ["즐기다", "즐겁다"], "meaning_en": ["pleasure", "to enjoy", "joyful"]}
 {"type": "character", "id": "nak-201", "hanja": "落", "meaning_ko": ["떨어지다"], "meaning_en": ["to fall"]}
@@ -1993,3 +1993,22 @@
 {"type": "character", "id": "non-200", "hanja": "論", "meaning_ko": ["말하다", "논하다"], "meaning_en": ["to discuss", "theory"]}
 {"type": "character", "id": "noe-200", "hanja": "雷", "meaning_ko": ["우레"], "meaning_en": ["thunder"]}
 {"type": "character", "id": "yo-201", "hanja": "料", "meaning_ko": ["헤아리다", "재료", "요금"], "meaning_en": ["to estimate", "material", "fee"]}
+{"type": "character", "id": "seon-200", "hanja": "腺", "meaning_ko": ["분비샘"], "meaning_en": ["gland"]}
+{"type": "character", "id": "seol-200", "hanja": "泄", "meaning_ko": ["새다", "새어 나가다"], "meaning_en": ["to leak", "to escape"]}
+{"type": "character", "id": "po-204", "hanja": "蒲", "meaning_ko": ["부들"], "meaning_en": ["cattail", "bulrush"]}
+{"type": "character", "id": "gwak-200", "hanja": "廓", "meaning_ko": ["둘레", "넓다"], "meaning_en": ["outer boundary", "broad"]}
+{"type": "character", "id": "hoe-201", "hanja": "廻", "meaning_ko": ["돌다"], "meaning_en": ["to turn", "to revolve"]}
+{"type": "character", "id": "yong-202", "hanja": "龍", "meaning_ko": ["용"], "meaning_en": ["dragon"]}
+{"type": "character", "id": "nu-201", "hanja": "屢", "meaning_ko": ["자주"], "meaning_en": ["frequently", "repeatedly"]}
+{"type": "character", "id": "nu-202", "hanja": "樓", "meaning_ko": ["다락", "누각"], "meaning_en": ["upper floor", "pavilion", "tower"]}
+{"type": "character", "id": "nu-203", "hanja": "淚", "meaning_ko": ["눈물"], "meaning_en": ["tear"]}
+{"type": "character", "id": "nu-204", "hanja": "累", "meaning_ko": ["묶다", "쌓이다", "얽히다"], "meaning_en": ["to bind", "to accumulate", "to become entangled"]}
+{"type": "character", "id": "yu-201", "hanja": "柳", "meaning_ko": ["버들"], "meaning_en": ["willow"]}
+{"type": "character", "id": "yu-202", "hanja": "留", "meaning_ko": ["머무르다"], "meaning_en": ["to stay", "to remain"]}
+{"type": "character", "id": "yuk-201", "hanja": "六", "meaning_ko": ["여섯"], "meaning_en": ["six"]}
+{"type": "character", "id": "yun-200", "hanja": "倫", "meaning_ko": ["인륜"], "meaning_en": ["ethics", "human relations"]}
+{"type": "character", "id": "yun-201", "hanja": "輪", "meaning_ko": ["바퀴", "테두리", "돌다"], "meaning_en": ["wheel", "rim", "to revolve"]}
+{"type": "character", "id": "yul-200", "hanja": "律", "meaning_ko": ["법", "규범", "음률"], "meaning_en": ["law", "rule", "musical rhythm"]}
+{"type": "character", "id": "yul-201", "hanja": "栗", "meaning_ko": ["밤나무", "밤"], "meaning_en": ["chestnut tree", "chestnut"]}
+{"type": "character", "id": "yul-202", "hanja": "率", "meaning_ko": ["헤아리다", "비율"], "meaning_en": ["rate", "proportion"]}
+{"type": "character", "id": "yung-200", "hanja": "隆", "meaning_ko": ["크다", "높다", "성하다", "두텁다"], "meaning_en": ["grand", "high", "prosperous", "generous"]}

@@ -204,6 +204,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"ryeon-104", "ryeol-000", "ryeol-001", "ryeol-100", "ryeol-101", "ryeom-100", "ryeop-100", "ryeong-000", "ryeong-001", "ryeong-100",
 		"ryeong-101", "ryeong-102", "rye-000", "rye-001", "rye-100", "ro-000", "ro-001", "ro-002", "ro-003", "ro-100",
 		"rok-000", "rok-100", "rok-101", "rok-102", "ron-000", "rong-100", "roe-100", "roe-101", "ryo-000", "ryo-100",
+		"ryo-101", "ryong-100", "ru-100", "ru-101", "ru-102", "ru-103", "ru-104", "ryu-000", "ryu-001", "ryu-002",
+		"ryu-100", "ryuk-000", "ryuk-001", "ryun-000", "ryun-100", "ryul-000", "ryul-100", "ryul-101", "ryung-100", "reung-100",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -241,6 +243,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"화랑": {"花郞", "畫廊"},
 		"장려": {"奬勵", "壯麗"}, "고려": {"考慮", "高麗"}, "연대": {"連帶", "聯隊"},
 		"관례": {"冠禮", "慣例"}, "노력": {"努力", "勞力"},
+		"누대": {"屢代", "樓臺"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -390,7 +393,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 	}{
 		{"更", map[string]string{"gaeng-000": "갱", "gyeong-200": "경"}, map[string]string{"갱신": "更[갱]", "경신": "更[경]"}},
 		{"車", map[string]string{"geo-004": "거", "cha-200": "차"}, map[string]string{"거마": "車[거]", "자동차": "車[차]"}},
-		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔"}, map[string]string{"경솔": "率[솔]"}},
+		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔", "yul-202": "율"}, map[string]string{"경솔": "率[솔]", "통솔": "率[솔]", "확률": "率[률]", "비율": "率[율]"}},
 		{"不", map[string]string{"bul-000": "불", "bu-201": "부"}, map[string]string{"중과부적": "不[부]"}},
 		{"令", map[string]string{"ryeong-000": "령", "yeong-200": "영"}, map[string]string{"교언영색": "令[영]"}},
 		{"龜", map[string]string{"gu-111": "구", "gwi-200": "귀", "gyun-200": "균"}, map[string]string{"구미": "龜[구]", "귀감": "龜[귀]", "균열": "龜[균]"}},
@@ -471,6 +474,19 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"論", map[string]string{"ron-000": "론", "non-200": "논"}, map[string]string{"논리": "論[논]", "토론": "論[론]"}},
 		{"雷", map[string]string{"roe-101": "뢰", "noe-200": "뇌"}, map[string]string{"뇌우": "雷[뇌]", "낙뢰": "雷[뢰]"}},
 		{"料", map[string]string{"ryo-000": "료", "yo-201": "요"}, map[string]string{"요금": "料[요]", "재료": "料[료]"}},
+		{"龍", map[string]string{"ryong-100": "룡", "yong-202": "용"}, map[string]string{"용궁": "龍[용]", "등용문": "龍[용]", "청룡": "龍[룡]"}},
+		{"屢", map[string]string{"ru-100": "루", "nu-201": "누"}, map[string]string{"누차": "屢[누]", "누누": "屢[누]"}},
+		{"樓", map[string]string{"ru-101": "루", "nu-202": "누"}, map[string]string{"누정": "樓[누]", "망루": "樓[루]"}},
+		{"淚", map[string]string{"ru-102": "루", "nu-203": "누"}, map[string]string{"누선": "淚[누]", "낙루": "淚[루]"}},
+		{"累", map[string]string{"ru-104": "루", "nu-204": "누"}, map[string]string{"누적": "累[누]", "연루": "累[루]"}},
+		{"柳", map[string]string{"ryu-000": "류", "yu-201": "유"}, map[string]string{"유암화명": "柳[유]", "양류": "柳[류]"}},
+		{"留", map[string]string{"ryu-002": "류", "yu-202": "유"}, map[string]string{"유학": "留[유]", "계류": "留[류]"}},
+		{"六", map[string]string{"ryuk-000": "륙", "yuk-201": "육"}, map[string]string{"육하원칙": "六[육]", "육각": "六[육]"}},
+		{"倫", map[string]string{"ryun-000": "륜", "yun-200": "윤"}, map[string]string{"윤리": "倫[윤]", "인륜": "倫[륜]"}},
+		{"輪", map[string]string{"ryun-100": "륜", "yun-201": "윤"}, map[string]string{"윤곽": "輪[윤]", "연륜": "輪[륜]"}},
+		{"律", map[string]string{"ryul-000": "률", "yul-200": "율"}, map[string]string{"계율": "律[율]", "법률": "律[률]", "운율": "律[율]"}},
+		{"栗", map[string]string{"ryul-100": "률", "yul-201": "율"}, map[string]string{"율란": "栗[율]", "생률": "栗[률]", "건율": "栗[율]"}},
+		{"隆", map[string]string{"ryung-100": "륭", "yung-200": "융"}, map[string]string{"융성": "隆[융]", "흥륭": "隆[륭]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
