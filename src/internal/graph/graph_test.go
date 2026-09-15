@@ -210,6 +210,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"rim-000", "rim-100", "rip-000", "ma-000", "ma-100", "ma-101", "mak-000", "mak-100", "mak-101", "man-000",
 		"man-001", "man-002", "man-100", "man-101", "mal-000", "mang-000", "mang-001", "mang-002", "mang-003", "mang-100",
 		"mang-101", "mang-102", "mae-000", "mae-001", "mae-002", "mae-003", "mae-100", "mae-101", "mae-102", "maek-000",
+		"maek-100", "maeng-100", "maeng-101", "maeng-102", "maeng-103", "myeon-000", "myeon-001", "myeon-002", "myeon-003", "myeon-100",
+		"myeol-100", "myeong-000", "myeong-001", "myeong-002", "myeong-003", "myeong-100", "myeong-101", "mo-000", "mo-001", "mo-002",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -250,6 +252,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"누대": {"屢代", "樓臺"},
 		"이화": {"李花", "梨花"}, "향리": {"鄕里", "鄕吏"},
 		"매점": {"買占", "賣店"}, "매장": {"埋藏", "埋葬"},
+		"비명": {"悲鳴", "碑銘"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -502,6 +505,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"林", map[string]string{"rim-000": "림", "im-200": "임"}, map[string]string{"임업": "林[임]", "삼림": "林[림]"}},
 		{"臨", map[string]string{"rim-100": "림", "im-201": "임"}, map[string]string{"임박": "臨[임]", "군림": "臨[림]"}},
 		{"爛", map[string]string{"ran-200": "란", "nan-204": "난"}, map[string]string{"천진난만": "爛[난]"}},
+		{"誓", map[string]string{"seo-106": "서", "se-200": "세"}, map[string]string{"맹세": "誓[세]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {

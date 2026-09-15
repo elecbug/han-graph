@@ -508,25 +508,25 @@
 {"type": "character", "id": "mae-101", "hanja": "媒", "meaning_ko": ["중매", "매개하다"], "meaning_en": ["matchmaker", "medium", "to mediate"]}
 {"type": "character", "id": "mae-102", "hanja": "梅", "meaning_ko": ["매화나무", "매화", "매실"], "meaning_en": ["Japanese apricot tree (Prunus mume)", "plum blossom", "Japanese apricot fruit"]}
 {"type": "character", "id": "maek-000", "hanja": "麥", "meaning_ko": ["보리", "밀"], "meaning_en": ["barley", "wheat"]}
-{"type": "character", "id": "maek-100", "hanja": "脈", "meaning_ko": ["맥"], "meaning_en": ["pulse", "vein"]}
-{"type": "character", "id": "maeng-100", "hanja": "孟", "meaning_ko": ["맏"], "meaning_en": ["eldest"]}
+{"type": "character", "id": "maek-100", "hanja": "脈", "meaning_ko": ["맥박", "혈관", "이어진 줄기"], "meaning_en": ["pulse", "blood vessel", "a connected chain"]}
+{"type": "character", "id": "maeng-100", "hanja": "孟", "meaning_ko": ["맏", "처음", "성씨"], "meaning_en": ["eldest", "first", "the surname Meng"]}
 {"type": "character", "id": "maeng-101", "hanja": "猛", "meaning_ko": ["사납다"], "meaning_en": ["fierce", "violent"]}
-{"type": "character", "id": "maeng-102", "hanja": "盟", "meaning_ko": ["맹세하다"], "meaning_en": ["alliance", "oath"]}
-{"type": "character", "id": "maeng-103", "hanja": "盲", "meaning_ko": ["소경"], "meaning_en": ["blind"]}
-{"type": "character", "id": "myeon-000", "hanja": "免", "meaning_ko": ["면하다"], "meaning_en": ["to avoid", "to excuse"]}
+{"type": "character", "id": "maeng-102", "hanja": "盟", "meaning_ko": ["맹세하다", "동맹"], "meaning_en": ["to swear", "alliance", "oath"]}
+{"type": "character", "id": "maeng-103", "hanja": "盲", "meaning_ko": ["앞을 보지 못하다"], "meaning_en": ["blind", "unable to see"]}
+{"type": "character", "id": "myeon-000", "hanja": "免", "meaning_ko": ["면하다", "면제하다"], "meaning_en": ["to avoid", "to exempt"]}
 {"type": "character", "id": "myeon-001", "hanja": "勉", "meaning_ko": ["힘쓰다"], "meaning_en": ["to endeavor"]}
 {"type": "character", "id": "myeon-002", "hanja": "眠", "meaning_ko": ["잠자다"], "meaning_en": ["to sleep"]}
-{"type": "character", "id": "myeon-003", "hanja": "面", "meaning_ko": ["낯"], "meaning_en": ["face", "surface"]}
-{"type": "character", "id": "myeon-100", "hanja": "綿", "meaning_ko": ["이어지다"], "meaning_en": ["continuous", "cotton"]}
-{"type": "character", "id": "myeol-100", "hanja": "滅", "meaning_ko": ["멸망하다"], "meaning_en": ["to perish", "to extinguish"]}
+{"type": "character", "id": "myeon-003", "hanja": "面", "meaning_ko": ["낯", "표면"], "meaning_en": ["face", "surface"]}
+{"type": "character", "id": "myeon-100", "hanja": "綿", "meaning_ko": ["이어지다", "솜"], "meaning_en": ["continuous", "cotton"]}
+{"type": "character", "id": "myeol-100", "hanja": "滅", "meaning_ko": ["멸망하다", "없어지다", "끄다"], "meaning_en": ["to perish", "to disappear", "to extinguish"]}
 {"type": "character", "id": "myeong-000", "hanja": "名", "meaning_ko": ["이름"], "meaning_en": ["name"]}
-{"type": "character", "id": "myeong-001", "hanja": "命", "meaning_ko": ["목숨", "명령"], "meaning_en": ["life", "command"]}
+{"type": "character", "id": "myeong-001", "hanja": "命", "meaning_ko": ["목숨", "명령", "운명"], "meaning_en": ["life", "command", "destiny"]}
 {"type": "character", "id": "myeong-002", "hanja": "明", "meaning_ko": ["밝다"], "meaning_en": ["bright", "clear"]}
 {"type": "character", "id": "myeong-003", "hanja": "鳴", "meaning_ko": ["울다"], "meaning_en": ["to cry", "to sound"]}
-{"type": "character", "id": "myeong-100", "hanja": "冥", "meaning_ko": ["어둡다"], "meaning_en": ["dark", "gloomy"]}
-{"type": "character", "id": "myeong-101", "hanja": "銘", "meaning_ko": ["새기다"], "meaning_en": ["to engrave", "inscription"]}
-{"type": "character", "id": "mo-000", "hanja": "暮", "meaning_ko": ["저물다"], "meaning_en": ["to grow dark", "evening"]}
-{"type": "character", "id": "mo-001", "hanja": "母", "meaning_ko": ["어미"], "meaning_en": ["mother"]}
+{"type": "character", "id": "myeong-100", "hanja": "冥", "meaning_ko": ["어둡다", "깊다", "저승"], "meaning_en": ["dark", "deep", "the underworld"]}
+{"type": "character", "id": "myeong-101", "hanja": "銘", "meaning_ko": ["새기다", "새긴 글"], "meaning_en": ["to engrave", "inscription"]}
+{"type": "character", "id": "mo-000", "hanja": "暮", "meaning_ko": ["저물다", "저녁"], "meaning_en": ["to grow dark", "evening"]}
+{"type": "character", "id": "mo-001", "hanja": "母", "meaning_ko": ["어머니"], "meaning_en": ["mother"]}
 {"type": "character", "id": "mo-002", "hanja": "毛", "meaning_ko": ["털"], "meaning_en": ["hair", "fur"]}
 {"type": "character", "id": "mo-100", "hanja": "侮", "meaning_ko": ["업신여기다"], "meaning_en": ["to despise"]}
 {"type": "character", "id": "mo-101", "hanja": "冒", "meaning_ko": ["무릅쓰다"], "meaning_en": ["to brave", "to risk"]}
@@ -2030,3 +2030,5 @@
 {"type": "character", "id": "geo-200", "hanja": "倨", "meaning_ko": ["거만하다"], "meaning_en": ["haughty", "arrogant"]}
 {"type": "character", "id": "ran-200", "hanja": "爛", "meaning_ko": ["빛나다", "문드러지다"], "meaning_en": ["brilliant", "to become mushy"]}
 {"type": "character", "id": "nan-204", "hanja": "爛", "meaning_ko": ["빛나다", "문드러지다"], "meaning_en": ["brilliant", "to become mushy"]}
+{"type": "character", "id": "bak-200", "hanja": "搏", "meaning_ko": ["치다", "뛰다"], "meaning_en": ["to strike", "to beat"]}
+{"type": "character", "id": "se-200", "hanja": "誓", "meaning_ko": ["맹세하다"], "meaning_en": ["to swear"]}
