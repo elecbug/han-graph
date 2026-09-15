@@ -61,7 +61,7 @@
 {"type": "character", "id": "geon-000", "hanja": "乾", "meaning_ko": ["하늘", "마르다"], "meaning_en": ["heaven", "sky", "dry"]}
 {"type": "character", "id": "geon-001", "hanja": "建", "meaning_ko": ["세우다"], "meaning_en": ["to build", "to establish"]}
 {"type": "character", "id": "geon-100", "hanja": "件", "meaning_ko": ["사건", "일", "물건"], "meaning_en": ["case", "matter", "item"]}
-{"type": "character", "id": "geon-101", "hanja": "健", "meaning_ko": ["굳세다", "건강하다"], "meaning_en": ["healthy", "strong"]}
+{"type": "character", "id": "geon-101", "hanja": "健", "meaning_ko": ["굳세다", "건강하다", "잘하다"], "meaning_en": ["healthy", "strong", "to do readily"]}
 {"type": "character", "id": "geol-100", "hanja": "乞", "meaning_ko": ["빌다"], "meaning_en": ["to beg"]}
 {"type": "character", "id": "geol-101", "hanja": "傑", "meaning_ko": ["뛰어나다"], "meaning_en": ["outstanding", "great"]}
 {"type": "character", "id": "geom-100", "hanja": "儉", "meaning_ko": ["검소하다"], "meaning_en": ["frugal", "thrifty"]}
@@ -489,25 +489,25 @@
 {"type": "character", "id": "mak-101", "hanja": "漠", "meaning_ko": ["사막", "아득하다", "희미하다"], "meaning_en": ["desert", "vast", "indistinct"]}
 {"type": "character", "id": "man-000", "hanja": "晚", "meaning_ko": ["늦다", "저녁"], "meaning_en": ["late", "evening"]}
 {"type": "character", "id": "man-001", "hanja": "滿", "meaning_ko": ["차다"], "meaning_en": ["full", "to fill"]}
-{"type": "character", "id": "man-002", "hanja": "萬", "meaning_ko": ["일만"], "meaning_en": ["ten thousand"]}
-{"type": "character", "id": "man-100", "hanja": "慢", "meaning_ko": ["게으르다"], "meaning_en": ["slow", "lazy"]}
-{"type": "character", "id": "man-101", "hanja": "漫", "meaning_ko": ["질펀하다"], "meaning_en": ["overflowing", "spread out"]}
+{"type": "character", "id": "man-002", "hanja": "萬", "meaning_ko": ["일만", "모든", "매우 많다"], "meaning_en": ["ten thousand", "all", "countless"]}
+{"type": "character", "id": "man-100", "hanja": "慢", "meaning_ko": ["게으르다", "느리다", "거만하다"], "meaning_en": ["lazy", "slow", "arrogant"]}
+{"type": "character", "id": "man-101", "hanja": "漫", "meaning_ko": ["질펀하다", "흩어지다", "얽매이지 않다"], "meaning_en": ["spread out", "overflowing", "unconstrained"]}
 {"type": "character", "id": "mal-000", "hanja": "末", "meaning_ko": ["끝"], "meaning_en": ["end", "tip"]}
-{"type": "character", "id": "mang-000", "hanja": "亡", "meaning_ko": ["망하다", "달아나다"], "meaning_en": ["to perish", "to flee"]}
+{"type": "character", "id": "mang-000", "hanja": "亡", "meaning_ko": ["망하다", "달아나다", "죽다"], "meaning_en": ["to perish", "to flee", "to die"]}
 {"type": "character", "id": "mang-001", "hanja": "忙", "meaning_ko": ["바쁘다"], "meaning_en": ["busy"]}
 {"type": "character", "id": "mang-002", "hanja": "忘", "meaning_ko": ["잊다"], "meaning_en": ["to forget"]}
-{"type": "character", "id": "mang-003", "hanja": "望", "meaning_ko": ["바라다"], "meaning_en": ["to hope", "to wish"]}
+{"type": "character", "id": "mang-003", "hanja": "望", "meaning_ko": ["바라다", "바라보다", "명망"], "meaning_en": ["to hope", "to wish", "to look into the distance", "reputation"]}
 {"type": "character", "id": "mang-100", "hanja": "妄", "meaning_ko": ["망령되다"], "meaning_en": ["reckless", "absurd"]}
-{"type": "character", "id": "mang-101", "hanja": "罔", "meaning_ko": ["그물"], "meaning_en": ["net"]}
+{"type": "character", "id": "mang-101", "hanja": "罔", "meaning_ko": ["그물", "없다", "속이다"], "meaning_en": ["net", "not", "to deceive"]}
 {"type": "character", "id": "mang-102", "hanja": "茫", "meaning_ko": ["아득하다"], "meaning_en": ["vast", "boundless"]}
-{"type": "character", "id": "mae-000", "hanja": "妹", "meaning_ko": ["누이"], "meaning_en": ["younger sister"]}
+{"type": "character", "id": "mae-000", "hanja": "妹", "meaning_ko": ["손아랫누이", "누이"], "meaning_en": ["younger sister", "sister"]}
 {"type": "character", "id": "mae-001", "hanja": "每", "meaning_ko": ["매양"], "meaning_en": ["every", "each time"]}
 {"type": "character", "id": "mae-002", "hanja": "買", "meaning_ko": ["사다"], "meaning_en": ["to buy"]}
 {"type": "character", "id": "mae-003", "hanja": "賣", "meaning_ko": ["팔다"], "meaning_en": ["to sell"]}
-{"type": "character", "id": "mae-100", "hanja": "埋", "meaning_ko": ["묻다"], "meaning_en": ["to bury"]}
-{"type": "character", "id": "mae-101", "hanja": "媒", "meaning_ko": ["중매"], "meaning_en": ["matchmaker", "medium"]}
-{"type": "character", "id": "mae-102", "hanja": "梅", "meaning_ko": ["매화나무"], "meaning_en": ["plum tree"]}
-{"type": "character", "id": "maek-000", "hanja": "麥", "meaning_ko": ["보리"], "meaning_en": ["barley", "wheat"]}
+{"type": "character", "id": "mae-100", "hanja": "埋", "meaning_ko": ["묻다", "메우다"], "meaning_en": ["to bury", "to fill in"]}
+{"type": "character", "id": "mae-101", "hanja": "媒", "meaning_ko": ["중매", "매개하다"], "meaning_en": ["matchmaker", "medium", "to mediate"]}
+{"type": "character", "id": "mae-102", "hanja": "梅", "meaning_ko": ["매화나무", "매화", "매실"], "meaning_en": ["Japanese apricot tree (Prunus mume)", "plum blossom", "Japanese apricot fruit"]}
+{"type": "character", "id": "maek-000", "hanja": "麥", "meaning_ko": ["보리", "밀"], "meaning_en": ["barley", "wheat"]}
 {"type": "character", "id": "maek-100", "hanja": "脈", "meaning_ko": ["맥"], "meaning_en": ["pulse", "vein"]}
 {"type": "character", "id": "maeng-100", "hanja": "孟", "meaning_ko": ["맏"], "meaning_en": ["eldest"]}
 {"type": "character", "id": "maeng-101", "hanja": "猛", "meaning_ko": ["사납다"], "meaning_en": ["fierce", "violent"]}
@@ -2027,3 +2027,6 @@
 {"type": "character", "id": "tak-201", "hanja": "琢", "meaning_ko": ["쪼다", "다듬다"], "meaning_en": ["to carve", "to polish"]}
 {"type": "character", "id": "bi-201", "hanja": "痺", "meaning_ko": ["저리다", "마비되다"], "meaning_en": ["to be numb", "to be paralyzed"]}
 {"type": "character", "id": "chan-200", "hanja": "餐", "meaning_ko": ["먹다", "식사"], "meaning_en": ["to eat", "a meal"]}
+{"type": "character", "id": "geo-200", "hanja": "倨", "meaning_ko": ["거만하다"], "meaning_en": ["haughty", "arrogant"]}
+{"type": "character", "id": "ran-200", "hanja": "爛", "meaning_ko": ["빛나다", "문드러지다"], "meaning_en": ["brilliant", "to become mushy"]}
+{"type": "character", "id": "nan-204", "hanja": "爛", "meaning_ko": ["빛나다", "문드러지다"], "meaning_en": ["brilliant", "to become mushy"]}
