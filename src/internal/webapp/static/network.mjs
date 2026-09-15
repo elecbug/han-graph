@@ -84,6 +84,22 @@ export function layoutNetwork(network, selected) {
     }
     if(!moved)break;
   }
+  // A label can oscillate in a gap narrower than itself between fixed items.
+  // Settle any remaining collisions vertically, preserving all fixed anchors.
+  const settled=particles.filter(p=>p.fixed);
+  for(const p of particles.filter(p=>!p.fixed)) {
+    const blockers=settled.filter(other=>Math.abs(p.x-other.x)<(p.width+other.width)/2+12);
+    const clear=y=>blockers.every(other=>Math.abs(y-other.y)>=(p.height+other.height)/2+12);
+    if(!clear(p.y)) {
+      const candidates=blockers.flatMap(other=>{
+        const offset=(p.height+other.height)/2+12.2;
+        return [other.y-offset,other.y+offset];
+      });
+      candidates.sort((a,b)=>Math.abs(a-p.y)-Math.abs(b-p.y)||a-b);
+      p.y=candidates.find(clear);
+    }
+    settled.push(p);
+  }
   const minX=Math.min(0,...particles.map(p=>p.x-p.width/2))-55;
   const minY=Math.min(0,...particles.map(p=>p.y-p.height/2))-65;
   const width=Math.max(320,Math.max(0,...particles.map(p=>p.x+p.width/2))-minX+55);

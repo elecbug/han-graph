@@ -166,6 +166,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"geon-000", "geon-001", "geon-100", "geon-101", "geol-100", "geol-101", "geom-100", "geom-101", "geom-102", "gyeok-100",
 		"gyeok-101", "gyeok-102", "gyeok-103", "gyeon-000", "gyeon-001", "gyeon-002", "gyeon-100", "gyeon-101", "gyeon-102", "gyeon-103",
 		"gyeol-000", "gyeol-001", "gyeol-002", "gyeol-100", "gyeom-100", "gyeom-101", "gyeong-000", "gyeong-001", "gyeong-002", "gyeong-003",
+		"gyeong-004", "gyeong-005", "gyeong-006", "gyeong-007", "gyeong-008", "gyeong-009", "gyeong-100", "gyeong-101", "gyeong-102", "gyeong-103",
+		"gyeong-104", "gyeong-105", "gyeong-106", "gyeong-107", "gyeong-108", "gye-000", "gye-001", "gye-002", "gye-003", "gye-004",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -178,6 +180,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"간사": {"姦邪", "幹事"},
 		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
 		"강요": {"強要", "綱要"}, "검사": {"劍士", "檢査"}, "경신": {"更新", "庚申"},
+		"경향": {"京鄕", "傾向"}, "경사": {"慶事", "傾斜"}, "공경": {"恭敬", "公卿"}, "경로": {"敬老", "徑路"},
+		"경도": {"傾倒", "硬度"}, "경계": {"境界", "警戒"}, "구경": {"九卿", "口徑", "究竟"}, "계간": {"季刊", "溪澗"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -273,7 +277,7 @@ func TestRepositoryAlternateReading(t *testing.T) {
 	}
 }
 
-func TestRepositoryRenewalAndVehicleReadings(t *testing.T) {
+func TestRepositoryContextualReadings(t *testing.T) {
 	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
 	if err != nil {
 		t.Fatal(err)
@@ -285,6 +289,7 @@ func TestRepositoryRenewalAndVehicleReadings(t *testing.T) {
 	}{
 		{"更", map[string]string{"gaeng-000": "갱", "gyeong-200": "경"}, map[string]string{"갱신": "更[갱]", "경신": "更[경]"}},
 		{"車", map[string]string{"geo-004": "거", "cha-200": "차"}, map[string]string{"거마": "車[거]", "자동차": "車[차]"}},
+		{"率", map[string]string{"ryul-101": "률", "sol-200": "솔"}, map[string]string{"경솔": "率[솔]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
