@@ -228,6 +228,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"bong-102", "bong-103", "bu-000", "bu-001", "bu-002", "bu-003", "bu-004", "bu-005", "bu-006", "bu-007",
 		"bu-100", "bu-101", "bu-102", "bu-103", "bu-104", "bu-105", "bu-106", "bu-107", "bu-108", "bu-109",
 		"buk-000", "bun-000", "bun-100", "bun-101", "bun-102", "bun-103", "bun-104", "bun-105", "bul-000", "bul-001",
+		"bul-100", "bung-000", "bung-100", "bi-000", "bi-001", "bi-002", "bi-003", "bi-004", "bi-005", "bi-100",
+		"bi-101", "bi-102", "bi-103", "bi-104", "bi-105", "bi-106", "bi-107", "bin-000", "bin-100", "bin-101",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -280,6 +282,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"보급": {"普及", "補給"}, "기복": {"祈福", "起伏"},
 		"부자": {"富者", "父子"}, "부유": {"富裕", "浮游"},
 		"명부": {"冥府", "名簿"},
+		"시비": {"是非", "侍婢"}, "비상": {"非常", "飛上"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -461,7 +464,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"洞", map[string]string{"dong-004": "동", "tong-200": "통"}, map[string]string{"동굴": "洞[동]", "통찰": "洞[통]"}},
 		{"漏", map[string]string{"ru-103": "루", "nu-200": "누"}, map[string]string{"누두": "漏[누]"}},
 		{"羅", map[string]string{"ra-100": "라", "na-201": "나"}, map[string]string{"나열": "羅[나]", "망라": "羅[라]"}},
-		{"落", map[string]string{"rak-001": "락", "nak-201": "낙"}, map[string]string{"낙하": "落[낙]", "하락": "落[락]"}},
+		{"落", map[string]string{"rak-001": "락", "nak-201": "낙"}, map[string]string{"낙하": "落[낙]", "하락": "落[락]", "붕락": "落[락]"}},
 		{"卵", map[string]string{"ran-000": "란", "nan-200": "난"}, map[string]string{"산란": "卵[란]", "난자": "卵[난]"}},
 		{"亂", map[string]string{"ran-100": "란", "nan-201": "난"}, map[string]string{"혼란": "亂[란]", "난리": "亂[난]", "분란": "亂[란]"}},
 		{"欄", map[string]string{"ran-101": "란", "nan-202": "난"}, map[string]string{"공란": "欄[란]", "난간": "欄[난]"}},
@@ -470,7 +473,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"浪", map[string]string{"rang-000": "랑", "nang-201": "낭"}, map[string]string{"낭비": "浪[낭]", "풍랑": "浪[랑]"}},
 		{"郞", map[string]string{"rang-001": "랑", "nang-202": "낭"}, map[string]string{"낭군": "郞[낭]", "신랑": "郞[랑]"}},
 		{"廊", map[string]string{"rang-100": "랑", "nang-203": "낭"}, map[string]string{"낭하": "廊[낭]", "회랑": "廊[랑]"}},
-		{"來", map[string]string{"rae-000": "래", "nae-200": "내"}, map[string]string{"내일": "來[내]", "미래": "來[래]"}},
+		{"來", map[string]string{"rae-000": "래", "nae-200": "내"}, map[string]string{"내일": "來[내]", "미래": "來[래]", "내빈": "來[내]"}},
 		{"掠", map[string]string{"ryak-100": "략", "yak-200": "약"}, map[string]string{"약탈": "掠[약]", "노략": "掠[략]"}},
 		{"省", map[string]string{"seong-006": "성", "saeng-200": "생"}, map[string]string{"생략": "省[생]"}},
 		{"略", map[string]string{"ryak-101": "략", "yak-201": "약"}, map[string]string{"약도": "略[약]", "생략": "略[략]"}},
@@ -480,7 +483,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"梁", map[string]string{"ryang-100": "량", "yang-203": "양"}, map[string]string{"양목": "梁[양]", "동량": "梁[량]"}},
 		{"糧", map[string]string{"ryang-101": "량", "yang-204": "양"}, map[string]string{"양식": "糧[양]", "식량": "糧[량]"}},
 		{"諒", map[string]string{"ryang-102": "량", "yang-205": "양"}, map[string]string{"양해": "諒[양]", "해량": "諒[량]"}},
-		{"念", map[string]string{"nyeom-000": "념", "yeom-200": "염"}, map[string]string{"염려": "念[염]", "염불": "念[염]"}},
+		{"念", map[string]string{"nyeom-000": "념", "yeom-200": "염"}, map[string]string{"염려": "念[염]", "염불": "念[염]", "기념비": "念[념]"}},
 		{"歷", map[string]string{"ryeok-001": "력", "yeok-200": "역"}, map[string]string{"역사": "歷[역]", "경력": "歷[력]"}},
 		{"履", map[string]string{"ri-101": "리", "i-203": "이"}, map[string]string{"이력": "履[이]", "이행": "履[이]", "여리박빙": "履[리]"}},
 		{"曆", map[string]string{"ryeok-100": "력", "yeok-201": "역"}, map[string]string{"역법": "曆[역]", "양력": "曆[력]"}},
@@ -509,7 +512,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"錄", map[string]string{"rok-101": "록", "nok-203": "녹"}, map[string]string{"목록": "錄[록]", "부록": "錄[록]"}},
 		{"論", map[string]string{"ron-000": "론", "non-200": "논"}, map[string]string{"논리": "論[논]", "토론": "論[론]"}},
 		{"雷", map[string]string{"roe-101": "뢰", "noe-200": "뇌"}, map[string]string{"뇌우": "雷[뇌]", "낙뢰": "雷[뢰]"}},
-		{"料", map[string]string{"ryo-000": "료", "yo-201": "요"}, map[string]string{"요금": "料[요]", "재료": "料[료]"}},
+		{"料", map[string]string{"ryo-000": "료", "yo-201": "요"}, map[string]string{"요금": "料[요]", "재료": "料[료]", "비료": "料[료]"}},
 		{"龍", map[string]string{"ryong-100": "룡", "yong-202": "용"}, map[string]string{"용궁": "龍[용]", "등용문": "龍[용]", "청룡": "龍[룡]", "용봉": "龍[용]"}},
 		{"屢", map[string]string{"ru-100": "루", "nu-201": "누"}, map[string]string{"누차": "屢[누]", "누누": "屢[누]"}},
 		{"樓", map[string]string{"ru-101": "루", "nu-202": "누"}, map[string]string{"누정": "樓[누]", "망루": "樓[루]"}},
@@ -535,6 +538,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"誓", map[string]string{"seo-106": "서", "se-200": "세"}, map[string]string{"맹세": "誓[세]"}},
 		{"陵", map[string]string{"reung-100": "릉", "neung-200": "능"}, map[string]string{"능묘": "陵[능]", "왕릉": "陵[릉]"}},
 		{"理", map[string]string{"ri-002": "리", "i-209": "이"}, map[string]string{"이발": "理[이]", "논리": "理[리]"}},
+		{"怯", map[string]string{"geop-200": "겁"}, map[string]string{"비겁": "怯[겁]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
