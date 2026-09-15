@@ -170,6 +170,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gyeong-104", "gyeong-105", "gyeong-106", "gyeong-107", "gyeong-108", "gye-000", "gye-001", "gye-002", "gye-003", "gye-004",
 		"gye-005", "gye-100", "gye-101", "gye-102", "gye-103", "gye-104", "gye-105", "gye-106", "gye-107", "gye-108",
 		"gye-109", "go-000", "go-001", "go-002", "go-003", "go-004", "go-005", "go-006", "go-100", "go-101",
+		"go-102", "go-103", "go-104", "go-105", "go-106", "gok-000", "gok-001", "gok-002", "gok-100", "gon-000",
+		"gon-001", "gol-000", "gong-000", "gong-001", "gong-002", "gong-003", "gong-004", "gong-100", "gong-101", "gong-102",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -186,6 +188,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"경도": {"傾倒", "硬度"}, "경계": {"境界", "警戒"}, "구경": {"九卿", "口徑", "究竟"}, "계간": {"季刊", "溪澗"},
 		"계수": {"溪水", "係數"}, "계류": {"溪流", "繫留"}, "계승": {"繼承", "階乘"},
 		"고전": {"古典", "苦戰"}, "사고": {"事故", "思考"},
+		"가공": {"架空", "加工"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
