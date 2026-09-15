@@ -28,16 +28,16 @@
 {"type": "character", "id": "gam-000", "hanja": "感", "meaning_ko": ["느끼다"], "meaning_en": ["to feel"]}
 {"type": "character", "id": "gam-001", "hanja": "敢", "meaning_ko": ["감히"], "meaning_en": ["dare"]}
 {"type": "character", "id": "gam-002", "hanja": "減", "meaning_ko": ["덜다"], "meaning_en": ["to reduce"]}
-{"type": "character", "id": "gam-003", "hanja": "甘", "meaning_ko": ["달다"], "meaning_en": ["sweet"]}
+{"type": "character", "id": "gam-003", "hanja": "甘", "meaning_ko": ["달다", "달게 여기다"], "meaning_en": ["sweet", "to accept willingly"]}
 {"type": "character", "id": "gam-100", "hanja": "監", "meaning_ko": ["보다", "감독하다"], "meaning_en": ["to oversee", "to supervise"]}
-{"type": "character", "id": "gam-101", "hanja": "鑑", "meaning_ko": ["거울"], "meaning_en": ["mirror"]}
-{"type": "character", "id": "gap-000", "hanja": "甲", "meaning_ko": ["갑옷"], "meaning_en": ["armor"]}
+{"type": "character", "id": "gam-101", "hanja": "鑑", "meaning_ko": ["거울", "살펴보다", "분별하다"], "meaning_en": ["mirror", "to examine", "to discern"]}
+{"type": "character", "id": "gap-000", "hanja": "甲", "meaning_ko": ["갑옷", "껍데기", "천간의 첫째"], "meaning_en": ["armor", "shell", "first heavenly stem"]}
 {"type": "character", "id": "gang-000", "hanja": "強", "meaning_ko": ["강하다"], "meaning_en": ["strong"]}
 {"type": "character", "id": "gang-001", "hanja": "江", "meaning_ko": ["강"], "meaning_en": ["river"]}
 {"type": "character", "id": "gang-002", "hanja": "講", "meaning_ko": ["익히다", "강론하다"], "meaning_en": ["to lecture", "to study"]}
 {"type": "character", "id": "gang-003", "hanja": "降", "meaning_ko": ["내리다"], "meaning_en": ["to descend"]}
 {"type": "character", "id": "gang-100", "hanja": "剛", "meaning_ko": ["굳세다"], "meaning_en": ["firm", "strong"]}
-{"type": "character", "id": "gang-101", "hanja": "康", "meaning_ko": ["편안하다"], "meaning_en": ["peaceful", "healthy"]}
+{"type": "character", "id": "gang-101", "hanja": "康", "meaning_ko": ["편안하다", "건강하다"], "meaning_en": ["peaceful", "healthy"]}
 {"type": "character", "id": "gang-102", "hanja": "綱", "meaning_ko": ["벼리"], "meaning_en": ["main rope", "principle"]}
 {"type": "character", "id": "gang-103", "hanja": "鋼", "meaning_ko": ["강철"], "meaning_en": ["steel"]}
 {"type": "character", "id": "gae-000", "hanja": "個", "meaning_ko": ["낱"], "meaning_en": ["individual unit"]}
@@ -1818,3 +1818,5 @@
 {"type": "character", "id": "jo-200", "hanja": "彫", "meaning_ko": ["새기다", "조각하다"], "meaning_en": ["to carve", "to engrave"]}
 {"type": "character", "id": "am-200", "hanja": "癌", "meaning_ko": ["암"], "meaning_en": ["cancer"]}
 {"type": "character", "id": "dam-200", "hanja": "膽", "meaning_ko": ["쓸개", "담력"], "meaning_en": ["gallbladder", "courage"]}
+{"type": "character", "id": "gak-200", "hanja": "殼", "meaning_ko": ["껍질"], "meaning_en": ["shell"]}
+{"type": "character", "id": "hang-200", "hanja": "降", "meaning_ko": ["항복하다"], "meaning_en": ["to surrender"]}

@@ -160,6 +160,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"ga-000", "ga-001", "ga-002", "ga-003", "ga-004", "ga-005", "ga-006", "ga-007", "ga-100", "ga-101",
 		"gak-000", "gak-001", "gak-002", "gak-100", "gak-101", "gak-102", "gak-103", "gan-000", "gan-001", "gan-002",
 		"gan-100", "gan-101", "gan-102", "gan-103", "gan-104", "gan-105", "gal-000", "gam-000", "gam-001", "gam-002",
+		"gam-003", "gam-100", "gam-101", "gap-000", "gang-000", "gang-001", "gang-002", "gang-003", "gang-100", "gang-101",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -170,6 +171,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"가경": {"佳景", "佳境"}, "가정": {"家庭", "假定"}, "가설": {"假設", "架設"},
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
 		"간사": {"姦邪", "幹事"},
+		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -204,5 +206,49 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 	}
 	if count != 1 {
 		t.Fatal("repeated character must have exactly one reverse edge")
+	}
+}
+
+func TestRepositoryAlternateReading(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantReadings := map[string]string{"gang-003": "강", "hang-200": "항"}
+	readings := g.FindCharacters("降")
+	if len(readings) != len(wantReadings) {
+		t.Fatalf("降 must retain both readings: %+v", readings)
+	}
+	for id, sound := range wantReadings {
+		matches := g.FindCharacters(id)
+		if len(matches) != 1 || matches[0].Hanja != "降" || matches[0].SoundKo != sound {
+			t.Fatalf("incorrect reading for %s: %+v", id, matches)
+		}
+		// Reading IDs share glyph edges, including words that use the other sound.
+		found := map[string]bool{}
+		for _, word := range matches[0].Words {
+			found[word.Hanja] = true
+		}
+		if !found["降水"] || !found["降伏"] {
+			t.Errorf("%s lost shared glyph connections: %+v", id, found)
+		}
+	}
+	for query, annotation := range map[string]string{"강수": "降[강]", "항복": "降[항]"} {
+		words := g.FindWords(query)
+		if len(words) != 1 || len(words[0].Components) != 2 || words[0].Components[0].Hanja != "降" {
+			t.Fatalf("incorrect breakdown of %s: %+v", query, words)
+		}
+		candidates := words[0].Components[0].Readings
+		if len(candidates) != len(wantReadings) {
+			t.Fatalf("%s lost reading candidates: %+v", query, candidates)
+		}
+		for _, candidate := range candidates {
+			if wantReadings[candidate.ID] != candidate.SoundKo {
+				t.Errorf("unexpected reading for %s: %+v", query, candidate)
+			}
+		}
+		if !strings.Contains(words[0].Word.SemanticHint, annotation) {
+			t.Errorf("%s needs its contextual reading %s in the hint", query, annotation)
+		}
 	}
 }
