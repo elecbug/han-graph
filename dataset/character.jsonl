@@ -289,44 +289,44 @@
 {"type": "character", "id": "nae-001", "hanja": "內", "meaning_ko": ["안"], "meaning_en": ["inside", "inner"]}
 {"type": "character", "id": "nae-100", "hanja": "奈", "meaning_ko": ["어찌", "음역에 쓰이는 글자"], "meaning_en": ["how", "what can one do", "a character used in transliterations"]}
 {"type": "character", "id": "nae-101", "hanja": "耐", "meaning_ko": ["견디다"], "meaning_en": ["to endure", "to tolerate"]}
-{"type": "character", "id": "nyeo-000", "hanja": "女", "meaning_ko": ["계집", "여자"], "meaning_en": ["woman", "female"]}
+{"type": "character", "id": "nyeo-000", "hanja": "女", "meaning_ko": ["여자", "딸"], "meaning_en": ["woman", "daughter"]}
 {"type": "character", "id": "nyeon-000", "hanja": "年", "meaning_ko": ["해"], "meaning_en": ["year"]}
-{"type": "character", "id": "nyeom-000", "hanja": "念", "meaning_ko": ["생각하다"], "meaning_en": ["to think", "idea"]}
-{"type": "character", "id": "nyeong-100", "hanja": "寧", "meaning_ko": ["편안하다"], "meaning_en": ["peaceful", "calm"]}
+{"type": "character", "id": "nyeom-000", "hanja": "念", "meaning_ko": ["생각하다", "생각", "기억하다"], "meaning_en": ["to think", "idea", "to remember"]}
+{"type": "character", "id": "nyeong-100", "hanja": "寧", "meaning_ko": ["편안하다", "문안하다"], "meaning_en": ["peaceful", "calm", "to ask after someone's well-being"]}
 {"type": "character", "id": "no-000", "hanja": "怒", "meaning_ko": ["성내다"], "meaning_en": ["to be angry"]}
 {"type": "character", "id": "no-100", "hanja": "努", "meaning_ko": ["힘쓰다"], "meaning_en": ["to strive", "to exert"]}
 {"type": "character", "id": "no-101", "hanja": "奴", "meaning_ko": ["종"], "meaning_en": ["slave", "servant"]}
 {"type": "character", "id": "nong-000", "hanja": "農", "meaning_ko": ["농사"], "meaning_en": ["farming", "agriculture"]}
 {"type": "character", "id": "noe-100", "hanja": "惱", "meaning_ko": ["괴로워하다"], "meaning_en": ["to worry", "to suffer"]}
 {"type": "character", "id": "noe-101", "hanja": "腦", "meaning_ko": ["뇌"], "meaning_en": ["brain"]}
-{"type": "character", "id": "neung-000", "hanja": "能", "meaning_ko": ["능하다"], "meaning_en": ["able", "capable"]}
+{"type": "character", "id": "neung-000", "hanja": "能", "meaning_ko": ["능하다", "능력", "기능"], "meaning_en": ["able", "ability", "function"]}
 {"type": "character", "id": "ni-100", "hanja": "泥", "meaning_ko": ["진흙"], "meaning_en": ["mud", "clay"]}
 {"type": "character", "id": "da-000", "hanja": "多", "meaning_ko": ["많다"], "meaning_en": ["many", "much"]}
 {"type": "character", "id": "da-100", "hanja": "茶", "meaning_ko": ["차"], "meaning_en": ["tea"]}
-{"type": "character", "id": "dan-000", "hanja": "丹", "meaning_ko": ["붉다"], "meaning_en": ["red", "cinnabar"]}
+{"type": "character", "id": "dan-000", "hanja": "丹", "meaning_ko": ["붉다", "정성", "진사"], "meaning_en": ["red", "sincerity", "cinnabar"]}
 {"type": "character", "id": "dan-001", "hanja": "但", "meaning_ko": ["다만"], "meaning_en": ["however", "only"]}
-{"type": "character", "id": "dan-002", "hanja": "單", "meaning_ko": ["홑"], "meaning_en": ["single", "simple"]}
-{"type": "character", "id": "dan-003", "hanja": "短", "meaning_ko": ["짧다"], "meaning_en": ["short"]}
-{"type": "character", "id": "dan-004", "hanja": "端", "meaning_ko": ["바르다"], "meaning_en": ["correct", "edge"]}
+{"type": "character", "id": "dan-002", "hanja": "單", "meaning_ko": ["홑", "하나", "목록"], "meaning_en": ["single", "one", "list"]}
+{"type": "character", "id": "dan-003", "hanja": "短", "meaning_ko": ["짧다", "부족하다"], "meaning_en": ["short", "deficient"]}
+{"type": "character", "id": "dan-004", "hanja": "端", "meaning_ko": ["바르다", "끝", "실마리"], "meaning_en": ["upright", "end", "clue"]}
 {"type": "character", "id": "dan-100", "hanja": "團", "meaning_ko": ["둥글다", "무리"], "meaning_en": ["group", "round"]}
-{"type": "character", "id": "dan-101", "hanja": "壇", "meaning_ko": ["단"], "meaning_en": ["altar", "platform"]}
-{"type": "character", "id": "dan-102", "hanja": "斷", "meaning_ko": ["끊다"], "meaning_en": ["to cut off", "to decide"]}
-{"type": "character", "id": "dan-103", "hanja": "旦", "meaning_ko": ["아침"], "meaning_en": ["morning", "dawn"]}
-{"type": "character", "id": "dan-104", "hanja": "檀", "meaning_ko": ["박달나무"], "meaning_en": ["sandalwood", "birch"]}
-{"type": "character", "id": "dan-105", "hanja": "段", "meaning_ko": ["구분"], "meaning_en": ["section", "step"]}
-{"type": "character", "id": "dal-000", "hanja": "達", "meaning_ko": ["통달하다"], "meaning_en": ["to attain", "to reach"]}
+{"type": "character", "id": "dan-101", "hanja": "壇", "meaning_ko": ["높이 만든 자리", "활동 분야"], "meaning_en": ["raised platform", "altar", "field of activity"]}
+{"type": "character", "id": "dan-102", "hanja": "斷", "meaning_ko": ["끊다", "결정하다"], "meaning_en": ["to cut off", "to decide"]}
+{"type": "character", "id": "dan-103", "hanja": "旦", "meaning_ko": ["아침", "첫날"], "meaning_en": ["morning", "dawn", "first day"]}
+{"type": "character", "id": "dan-104", "hanja": "檀", "meaning_ko": ["박달나무", "단향나무"], "meaning_en": ["a kind of birch", "sandalwood"]}
+{"type": "character", "id": "dan-105", "hanja": "段", "meaning_ko": ["층계", "단계", "구분"], "meaning_en": ["step", "stage", "section"]}
+{"type": "character", "id": "dal-000", "hanja": "達", "meaning_ko": ["이르다", "통달하다"], "meaning_en": ["to reach", "to attain", "to master"]}
 {"type": "character", "id": "dam-000", "hanja": "談", "meaning_ko": ["말씀하다"], "meaning_en": ["to talk", "speech"]}
-{"type": "character", "id": "dam-100", "hanja": "擔", "meaning_ko": ["메다"], "meaning_en": ["to carry on the shoulder"]}
-{"type": "character", "id": "dam-101", "hanja": "淡", "meaning_ko": ["묽다"], "meaning_en": ["light", "thin"]}
+{"type": "character", "id": "dam-100", "hanja": "擔", "meaning_ko": ["메다", "맡다"], "meaning_en": ["to carry on the shoulder", "to take charge of"]}
+{"type": "character", "id": "dam-101", "hanja": "淡", "meaning_ko": ["묽다", "싱겁다", "담담하다"], "meaning_en": ["dilute", "mild", "calm"]}
 {"type": "character", "id": "dap-000", "hanja": "答", "meaning_ko": ["대답하다"], "meaning_en": ["to answer"]}
 {"type": "character", "id": "dap-100", "hanja": "畓", "meaning_ko": ["논"], "meaning_en": ["rice paddy"]}
 {"type": "character", "id": "dap-101", "hanja": "踏", "meaning_ko": ["밟다"], "meaning_en": ["to step on", "to tread"]}
 {"type": "character", "id": "dang-000", "hanja": "堂", "meaning_ko": ["집"], "meaning_en": ["hall", "building"]}
-{"type": "character", "id": "dang-001", "hanja": "當", "meaning_ko": ["당하다"], "meaning_en": ["to face", "appropriate"]}
-{"type": "character", "id": "dang-100", "hanja": "唐", "meaning_ko": ["당나라"], "meaning_en": ["Tang dynasty"]}
-{"type": "character", "id": "dang-101", "hanja": "糖", "meaning_ko": ["사탕"], "meaning_en": ["sugar"]}
+{"type": "character", "id": "dang-001", "hanja": "當", "meaning_ko": ["당하다", "해당하다", "마땅하다", "맡다", "그때"], "meaning_en": ["to face", "to correspond to", "appropriate", "to take charge of", "the time in question"]}
+{"type": "character", "id": "dang-100", "hanja": "唐", "meaning_ko": ["당나라", "허황하다"], "meaning_en": ["Tang dynasty", "absurd"]}
+{"type": "character", "id": "dang-101", "hanja": "糖", "meaning_ko": ["당류", "설탕", "엿"], "meaning_en": ["sugar", "candy"]}
 {"type": "character", "id": "dang-102", "hanja": "黨", "meaning_ko": ["무리"], "meaning_en": ["group", "party"]}
-{"type": "character", "id": "dae-000", "hanja": "代", "meaning_ko": ["대신하다"], "meaning_en": ["to replace", "generation"]}
+{"type": "character", "id": "dae-000", "hanja": "代", "meaning_ko": ["대신하다", "시대", "세대"], "meaning_en": ["to replace", "era", "generation"]}
 {"type": "character", "id": "dae-001", "hanja": "大", "meaning_ko": ["크다"], "meaning_en": ["big", "great"]}
 {"type": "character", "id": "dae-002", "hanja": "對", "meaning_ko": ["대답하다", "대하다"], "meaning_en": ["to answer", "against"]}
 {"type": "character", "id": "dae-003", "hanja": "待", "meaning_ko": ["기다리다"], "meaning_en": ["to wait"]}
@@ -1894,3 +1894,22 @@
 {"type": "character", "id": "i-201", "hanja": "易", "meaning_ko": ["쉽다"], "meaning_en": ["easy"]}
 {"type": "character", "id": "rang-201", "hanja": "娘", "meaning_ko": ["여성", "딸", "옛 여성 호칭에 쓰이는 글자"], "meaning_en": ["woman", "daughter", "a character used in historical titles for women"]}
 {"type": "character", "id": "na-200", "hanja": "奈", "meaning_ko": ["어찌", "음역에 쓰이는 글자"], "meaning_en": ["how", "a character used in transliterations"]}
+{"type": "character", "id": "yeo-201", "hanja": "女", "meaning_ko": ["여자", "딸"], "meaning_en": ["woman", "daughter"]}
+{"type": "character", "id": "yeon-200", "hanja": "年", "meaning_ko": ["해"], "meaning_en": ["year"]}
+{"type": "character", "id": "yeong-201", "hanja": "寧", "meaning_ko": ["편안하다"], "meaning_en": ["peaceful", "calm"]}
+{"type": "character", "id": "ro-200", "hanja": "怒", "meaning_ko": ["성내다"], "meaning_en": ["to be angry"]}
+{"type": "character", "id": "ye-200", "hanja": "隸", "meaning_ko": ["종", "딸리다"], "meaning_en": ["servant", "to be attached to"]}
+{"type": "character", "id": "bok-200", "hanja": "僕", "meaning_ko": ["종", "남자 하인"], "meaning_en": ["servant", "male servant"]}
+{"type": "character", "id": "swae-200", "hanja": "殺", "meaning_ko": ["몹시", "줄이다"], "meaning_en": ["intensely", "to reduce"]}
+{"type": "character", "id": "i-202", "hanja": "泥", "meaning_ko": ["진흙"], "meaning_en": ["mud", "clay"]}
+{"type": "character", "id": "gwa-200", "hanja": "菓", "meaning_ko": ["열매", "과자"], "meaning_en": ["fruit", "confectionery"]}
+{"type": "character", "id": "nok-200", "hanja": "綠", "meaning_ko": ["초록빛"], "meaning_en": ["green"]}
+{"type": "character", "id": "nong-200", "hanja": "弄", "meaning_ko": ["희롱하다"], "meaning_en": ["to tease", "to play with"]}
+{"type": "character", "id": "nong-201", "hanja": "濃", "meaning_ko": ["짙다", "진하다"], "meaning_en": ["deep in color", "concentrated"]}
+{"type": "character", "id": "naeng-200", "hanja": "冷", "meaning_ko": ["차갑다"], "meaning_en": ["cold", "cool"]}
+{"type": "character", "id": "ok-200", "hanja": "沃", "meaning_ko": ["기름지다"], "meaning_en": ["fertile"]}
+{"type": "character", "id": "gye-200", "hanja": "稽", "meaning_ko": ["살피다", "근거를 따져 보다"], "meaning_en": ["to examine", "to investigate"]}
+{"type": "character", "id": "tang-200", "hanja": "糖", "meaning_ko": ["당류", "설탕", "엿"], "meaning_en": ["sugar", "candy"]}
+{"type": "character", "id": "sa-200", "hanja": "砂", "meaning_ko": ["모래"], "meaning_en": ["sand"]}
+{"type": "character", "id": "po-203", "hanja": "葡", "meaning_ko": ["포도"], "meaning_en": ["grape"]}
+{"type": "character", "id": "do-201", "hanja": "萄", "meaning_ko": ["포도"], "meaning_en": ["grape"]}

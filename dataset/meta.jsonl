@@ -410,3 +410,5 @@
 {"type": "meta", "id": "pip", "sound_ko": "핍", "sound_en": "pip"}
 {"type": "meta", "id": "sol", "sound_ko": "솔", "sound_en": "sol"}
 {"type": "meta", "id": "paeng", "sound_ko": "팽", "sound_en": "paeng"}
+{"type": "meta", "id": "nok", "sound_ko": "녹", "sound_en": "nok"}
+{"type": "meta", "id": "naeng", "sound_ko": "냉", "sound_en": "naeng"}

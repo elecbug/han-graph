@@ -28,7 +28,7 @@ test('all direct neighbors are laid out once, with a clickable edge per word', (
 });
 
 test('long compounds, duplicate readings, homographs and repeated glyphs retain identity', () => {
-  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶','陸軍','旅券','阿鼻叫喚','跆拳道','糾正','規定','僅僅','僅僅扶持','千斤萬斤','極端','劇團','勤勉','僅免','禽獸','錦繡','利己','樂器','其間','期間','猜忌','時期','幾何級數','豈弟','許諾','難易度','娘娘','那落','奈落']) {
+  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶','陸軍','旅券','阿鼻叫喚','跆拳道','糾正','規定','僅僅','僅僅扶持','千斤萬斤','極端','劇團','勤勉','僅免','禽獸','錦繡','利己','樂器','其間','期間','猜忌','時期','幾何級數','豈弟','許諾','難易度','娘娘','那落','奈落','女子','年度','寧日','喜怒哀樂','惱殺','泥土','綠茶','茶道','怒發大發','但書','端緖','但書條項','但願桑麻成','剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代','冷淡','雪糖','砂糖','淡淡','堂堂','檀君神話','檀君朝鮮','荒唐無稽']) {
     const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
     assert.equal(new Set(layout.nodes.map(node=>node.hanja)).size,layout.nodes.length);
     const edge=layout.edges.find(edge=>edge.current);
@@ -41,7 +41,7 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
     if(hanja==='旅券')assert.equal(layout.nodes.find(node=>node.hanja==='旅').readings.length,2);
     if(hanja==='利己')assert.equal(layout.nodes.find(node=>node.hanja==='利').readings.length,2);
     if(hanja==='樂器')assert.equal(layout.nodes.find(node=>node.hanja==='樂').readings.length,2);
-    for(const [word,glyph] of [['豈弟','豈'],['許諾','諾'],['難易度','易'],['娘娘','娘'],['奈落','奈']]) {
+    for(const [word,glyph] of [['豈弟','豈'],['許諾','諾'],['難易度','易'],['娘娘','娘'],['奈落','奈'],['女子','女'],['年度','年'],['寧日','寧'],['喜怒哀樂','怒'],['惱殺','殺'],['泥土','泥'],['綠茶','綠'],['茶道','茶'],['弄談','弄'],['冷淡','冷'],['雪糖','糖'],['砂糖','糖']]) {
       if(hanja===word)assert.equal(layout.nodes.find(node=>node.hanja===glyph).readings.length,2);
     }
     if(hanja==='那落'||hanja==='奈落') {
@@ -54,14 +54,14 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
       assert.equal(layout.edges.filter(item=>item.current).length,1);
       assert.equal(edge.word.hanja,hanja);
     }
-    if(hanja==='各各'||hanja==='僅僅'||hanja==='娘娘') {
+    if(['各各','僅僅','娘娘','淡淡','堂堂'].includes(hanja)) {
       assert.deepEqual(edge.glyphs,[selected.components[0]]);
       const paths=edgePaths(edge,layout.nodes);
       assert.equal(paths.length,2);
       assert.notEqual(paths[0],paths[1], 'a repeated glyph needs a visible loop');
     }
     if(hanja==='康健')assert.equal(layout.edges.filter(edge=>edge.word.word==='강건').length,2);
-    if(['僅僅扶持','千斤萬斤'].includes(hanja)) {
+    if(['僅僅扶持','千斤萬斤','怒發大發'].includes(hanja)) {
       assert.equal(edge.glyphs.length,3);
       assert.equal(edge.word.components.length,4);
       assert.equal(layout.edges.filter(item=>item.word.hanja===hanja).length,1);
@@ -71,6 +71,20 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
       assert.deepEqual(edge.word.components,['句','句','節','節']);
       assert.equal(layout.edges.filter(item=>item.word.hanja===hanja).length,1);
     }
+    if(hanja==='但書'||hanja==='端緖') {
+      assert.equal(edge.word.word,'단서');
+      assert.equal(edge.word.hanja,hanja);
+      assert.equal(layout.edges.filter(item=>item.current).length,1);
+    }
+    if(['剛斷','講壇','端正','斷定','短期','檀紀','文壇','文段','弄談','濃淡','正當','政黨','唐代','當代'].includes(hanja)) {
+      assert.equal(edge.word.hanja,hanja);
+      assert.equal(layout.edges.filter(item=>item.current).length,1);
+    }
+    if(hanja==='但書條項') {
+      assert.equal(edge.word.word,'단서 조항');
+      assert.equal(edge.glyphs.length,4);
+    }
+    if(hanja==='但願桑麻成')assert.equal(edge.glyphs.length,5);
   }
 });
 
