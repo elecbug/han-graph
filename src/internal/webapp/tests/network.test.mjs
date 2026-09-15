@@ -28,7 +28,7 @@ test('all direct neighbors are laid out once, with a clickable edge per word', (
 });
 
 test('long compounds, duplicate readings, homographs and repeated glyphs retain identity', () => {
-  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶']) {
+  for(const hanja of ['勇敢無雙','降伏','各各','康健','句句節節','兔死狗烹','龜裂','菊花茶','陸軍','旅券','阿鼻叫喚','跆拳道','糾正','規定','僅僅','僅僅扶持','千斤萬斤','極端','劇團','勤勉','僅免','禽獸','錦繡']) {
     const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
     assert.equal(new Set(layout.nodes.map(node=>node.hanja)).size,layout.nodes.length);
     const edge=layout.edges.find(edge=>edge.current);
@@ -37,13 +37,20 @@ test('long compounds, duplicate readings, homographs and repeated glyphs retain 
     if(hanja==='降伏')assert.equal(layout.nodes.find(node=>node.hanja==='降').readings.length,2);
     if(hanja==='龜裂')assert.equal(layout.nodes.find(node=>node.hanja==='龜').readings.length,3);
     if(hanja==='菊花茶')assert.equal(layout.nodes.find(node=>node.hanja==='茶').readings.length,2);
-    if(hanja==='各各') {
-      assert.deepEqual(edge.glyphs,['各']);
+    if(hanja==='陸軍')assert.equal(layout.nodes.find(node=>node.hanja==='陸').readings.length,2);
+    if(hanja==='旅券')assert.equal(layout.nodes.find(node=>node.hanja==='旅').readings.length,2);
+    if(hanja==='各各'||hanja==='僅僅') {
+      assert.deepEqual(edge.glyphs,[selected.components[0]]);
       const paths=edgePaths(edge,layout.nodes);
       assert.equal(paths.length,2);
       assert.notEqual(paths[0],paths[1], 'a repeated glyph needs a visible loop');
     }
     if(hanja==='康健')assert.equal(layout.edges.filter(edge=>edge.word.word==='강건').length,2);
+    if(['僅僅扶持','千斤萬斤'].includes(hanja)) {
+      assert.equal(edge.glyphs.length,3);
+      assert.equal(edge.word.components.length,4);
+      assert.equal(layout.edges.filter(item=>item.word.hanja===hanja).length,1);
+    }
     if(hanja==='句句節節') {
       assert.deepEqual(edge.glyphs,['句','節']);
       assert.deepEqual(edge.word.components,['句','句','節','節']);

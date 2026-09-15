@@ -180,6 +180,10 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gyo-002", "gyo-003", "gyo-100", "gyo-101", "gyo-102", "gyo-103", "gu-000", "gu-001", "gu-002", "gu-003",
 		"gu-004", "gu-005", "gu-006", "gu-007", "gu-100", "gu-101", "gu-102", "gu-103", "gu-104", "gu-105",
 		"gu-106", "gu-107", "gu-108", "gu-109", "gu-110", "gu-111", "guk-000", "guk-100", "guk-101", "gun-000",
+		"gun-001", "gun-002", "gun-100", "gul-100", "gung-000", "gung-100", "gung-101", "gwon-000", "gwon-001", "gwon-002",
+		"gwon-100", "gwon-101", "gwol-100", "gwe-100", "gwi-000", "gwi-001", "gwi-100", "gyu-100", "gyu-101", "gyu-102",
+		"gyun-000", "gyun-100", "geuk-000", "geuk-100", "geuk-101", "geun-000", "geun-001", "geun-002", "geun-100", "geun-101",
+		"geun-102", "geum-000", "geum-001", "geum-002", "geum-100", "geum-101", "geum-102", "geup-000", "geup-001", "geup-002",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -203,6 +207,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"구조": {"救助", "構造"}, "구명": {"救命", "究明"}, "구형": {"舊型", "球形"},
 		"구생": {"俱生", "苟生"}, "구기": {"俱起", "球技"}, "기구": {"器具", "機構"},
 		"문구": {"文句", "文具"}, "지구": {"地區", "地球"}, "경구": {"警句", "驚懼"},
+		"규정": {"糾正", "規定"},
+		"극단": {"極端", "劇團"}, "근면": {"勤勉", "僅免"}, "금수": {"禽獸", "錦繡"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -357,6 +363,8 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"龜", map[string]string{"gu-111": "구", "gwi-200": "귀", "gyun-200": "균"}, map[string]string{"구미": "龜[구]", "귀감": "龜[귀]", "균열": "龜[균]"}},
 		{"裂", map[string]string{"ryeol-101": "렬", "yeol-200": "열"}, map[string]string{"균열": "裂[열]"}},
 		{"茶", map[string]string{"da-100": "다", "cha-201": "차"}, map[string]string{"국화차": "茶[차]"}},
+		{"陸", map[string]string{"ryuk-001": "륙", "yuk-200": "육"}, map[string]string{"육군": "陸[육]"}},
+		{"旅", map[string]string{"ryeo-000": "려", "yeo-200": "여"}, map[string]string{"여권": "旅[여]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
