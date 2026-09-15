@@ -18,7 +18,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	flags.SetOutput(stderr)
 	data := flags.String("data", "../dataset", "dataset directory (relative to the working directory)")
 	jsonOutput := flags.Bool("json", false, "write JSON results")
-	addr := flags.String("addr", "127.0.0.1:8080", "web server listening address")
+	addr := flags.String("addr", "0.0.0.0:18080", "web server listening address")
 	flags.Usage = func() {
 		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] [-addr HOST:PORT] validate|word QUERY|character QUERY|serve")
 		flags.PrintDefaults()
