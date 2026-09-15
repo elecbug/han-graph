@@ -328,26 +328,26 @@
 {"type": "character", "id": "dang-102", "hanja": "黨", "meaning_ko": ["무리"], "meaning_en": ["group", "party"]}
 {"type": "character", "id": "dae-000", "hanja": "代", "meaning_ko": ["대신하다", "시대", "세대"], "meaning_en": ["to replace", "era", "generation"]}
 {"type": "character", "id": "dae-001", "hanja": "大", "meaning_ko": ["크다"], "meaning_en": ["big", "great"]}
-{"type": "character", "id": "dae-002", "hanja": "對", "meaning_ko": ["대답하다", "대하다"], "meaning_en": ["to answer", "against"]}
-{"type": "character", "id": "dae-003", "hanja": "待", "meaning_ko": ["기다리다"], "meaning_en": ["to wait"]}
-{"type": "character", "id": "dae-100", "hanja": "帶", "meaning_ko": ["띠"], "meaning_en": ["belt", "to carry"]}
-{"type": "character", "id": "dae-101", "hanja": "臺", "meaning_ko": ["대"], "meaning_en": ["platform", "stand"]}
-{"type": "character", "id": "dae-102", "hanja": "貸", "meaning_ko": ["빌리다"], "meaning_en": ["to lend", "loan"]}
-{"type": "character", "id": "dae-103", "hanja": "隊", "meaning_ko": ["떼"], "meaning_en": ["group", "troop"]}
-{"type": "character", "id": "deok-000", "hanja": "德", "meaning_ko": ["덕"], "meaning_en": ["virtue", "morality"]}
+{"type": "character", "id": "dae-002", "hanja": "對", "meaning_ko": ["대답하다", "대하다", "마주하다"], "meaning_en": ["to answer", "to face", "against"]}
+{"type": "character", "id": "dae-003", "hanja": "待", "meaning_ko": ["기다리다", "대접하다"], "meaning_en": ["to wait", "to treat", "to receive a guest"]}
+{"type": "character", "id": "dae-100", "hanja": "帶", "meaning_ko": ["띠", "지니다", "구역"], "meaning_en": ["belt", "to carry", "zone"]}
+{"type": "character", "id": "dae-101", "hanja": "臺", "meaning_ko": ["높이 만든 자리", "받침대"], "meaning_en": ["raised platform", "stand"]}
+{"type": "character", "id": "dae-102", "hanja": "貸", "meaning_ko": ["빌려주다"], "meaning_en": ["to lend", "loan"]}
+{"type": "character", "id": "dae-103", "hanja": "隊", "meaning_ko": ["무리", "부대"], "meaning_en": ["group", "troop", "unit"]}
+{"type": "character", "id": "deok-000", "hanja": "德", "meaning_ko": ["덕", "바른 품성"], "meaning_en": ["virtue", "moral character"]}
 {"type": "character", "id": "do-000", "hanja": "刀", "meaning_ko": ["칼"], "meaning_en": ["knife", "sword"]}
 {"type": "character", "id": "do-001", "hanja": "到", "meaning_ko": ["이르다"], "meaning_en": ["to arrive"]}
-{"type": "character", "id": "do-002", "hanja": "圖", "meaning_ko": ["그림"], "meaning_en": ["picture", "diagram"]}
+{"type": "character", "id": "do-002", "hanja": "圖", "meaning_ko": ["그림", "도모하다"], "meaning_en": ["picture", "diagram", "to plan"]}
 {"type": "character", "id": "do-003", "hanja": "島", "meaning_ko": ["섬"], "meaning_en": ["island"]}
 {"type": "character", "id": "do-004", "hanja": "度", "meaning_ko": ["법도", "정도"], "meaning_en": ["degree", "rule"]}
-{"type": "character", "id": "do-005", "hanja": "徒", "meaning_ko": ["무리"], "meaning_en": ["group", "disciple"]}
-{"type": "character", "id": "do-006", "hanja": "道", "meaning_ko": ["길"], "meaning_en": ["road", "way"]}
-{"type": "character", "id": "do-007", "hanja": "都", "meaning_ko": ["도읍"], "meaning_en": ["capital city"]}
-{"type": "character", "id": "do-100", "hanja": "倒", "meaning_ko": ["넘어지다"], "meaning_en": ["to fall", "to collapse"]}
-{"type": "character", "id": "do-101", "hanja": "塗", "meaning_ko": ["진흙"], "meaning_en": ["mud", "to coat"]}
+{"type": "character", "id": "do-005", "hanja": "徒", "meaning_ko": ["무리", "제자", "걸어가다"], "meaning_en": ["group", "disciple", "to go on foot"]}
+{"type": "character", "id": "do-006", "hanja": "道", "meaning_ko": ["길", "도리", "행정 구역"], "meaning_en": ["road", "way", "moral principle", "province"]}
+{"type": "character", "id": "do-007", "hanja": "都", "meaning_ko": ["도읍", "큰 고을"], "meaning_en": ["capital city", "large city"]}
+{"type": "character", "id": "do-100", "hanja": "倒", "meaning_ko": ["넘어지다", "뒤집다"], "meaning_en": ["to fall", "to collapse", "to invert"]}
+{"type": "character", "id": "do-101", "hanja": "塗", "meaning_ko": ["진흙", "바르다", "칠하다"], "meaning_en": ["mud", "to apply", "to coat"]}
 {"type": "character", "id": "do-102", "hanja": "導", "meaning_ko": ["이끌다"], "meaning_en": ["to guide", "to lead"]}
-{"type": "character", "id": "do-103", "hanja": "挑", "meaning_ko": ["휐다", "돋우다"], "meaning_en": ["to lift", "to challenge"]}
-{"type": "character", "id": "do-104", "hanja": "桃", "meaning_ko": ["복숭아나무"], "meaning_en": ["peach tree"]}
+{"type": "character", "id": "do-103", "hanja": "挑", "meaning_ko": ["돋우다", "도전하다"], "meaning_en": ["to provoke", "to challenge"]}
+{"type": "character", "id": "do-104", "hanja": "桃", "meaning_ko": ["복숭아나무", "복숭아"], "meaning_en": ["peach tree", "peach"]}
 {"type": "character", "id": "do-105", "hanja": "渡", "meaning_ko": ["건너다"], "meaning_en": ["to cross"]}
 {"type": "character", "id": "do-106", "hanja": "盜", "meaning_ko": ["훔치다"], "meaning_en": ["to steal"]}
 {"type": "character", "id": "do-107", "hanja": "稻", "meaning_ko": ["벼"], "meaning_en": ["rice plant"]}
@@ -1442,7 +1442,7 @@
 {"type": "character", "id": "cha-002", "hanja": "次", "meaning_ko": ["버금"], "meaning_en": ["next", "order"]}
 {"type": "character", "id": "cha-003", "hanja": "此", "meaning_ko": ["이"], "meaning_en": ["this"]}
 {"type": "character", "id": "cha-100", "hanja": "差", "meaning_ko": ["어긋나다"], "meaning_en": ["difference", "to differ"]}
-{"type": "character", "id": "chak-000", "hanja": "着", "meaning_ko": ["붙다"], "meaning_en": ["to attach", "to arrive"]}
+{"type": "character", "id": "chak-000", "hanja": "着", "meaning_ko": ["붙다", "도착하다"], "meaning_en": ["to attach", "to arrive"]}
 {"type": "character", "id": "chak-100", "hanja": "捉", "meaning_ko": ["잡다"], "meaning_en": ["to catch"]}
 {"type": "character", "id": "chak-101", "hanja": "錯", "meaning_ko": ["섞이다"], "meaning_en": ["mixed", "mistake"]}
 {"type": "character", "id": "chan-100", "hanja": "讚", "meaning_ko": ["기리다"], "meaning_en": ["to praise"]}
@@ -1913,3 +1913,8 @@
 {"type": "character", "id": "sa-200", "hanja": "砂", "meaning_ko": ["모래"], "meaning_en": ["sand"]}
 {"type": "character", "id": "po-203", "hanja": "葡", "meaning_ko": ["포도"], "meaning_en": ["grape"]}
 {"type": "character", "id": "do-201", "hanja": "萄", "meaning_ko": ["포도"], "meaning_en": ["grape"]}
+{"type": "character", "id": "yeon-201", "hanja": "連", "meaning_ko": ["잇닿다"], "meaning_en": ["to connect", "continuous"]}
+{"type": "character", "id": "seo-200", "hanja": "嶼", "meaning_ko": ["섬"], "meaning_en": ["island", "islet"]}
+{"type": "character", "id": "yeol-201", "hanja": "列", "meaning_ko": ["벌이다", "줄지어 늘어서다"], "meaning_en": ["to arrange", "to line up", "row"]}
+{"type": "character", "id": "jeon-200", "hanja": "顚", "meaning_ko": ["엎어지다", "뒤집히다"], "meaning_en": ["to fall over", "to be overturned"]}
+{"type": "character", "id": "jang-201", "hanja": "狀", "meaning_ko": ["문서", "편지"], "meaning_en": ["document", "letter"]}

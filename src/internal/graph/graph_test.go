@@ -192,6 +192,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"noe-101", "neung-000", "ni-100", "da-000", "da-100", "dan-000", "dan-001", "dan-002", "dan-003", "dan-004",
 		"dan-100", "dan-101", "dan-102", "dan-103", "dan-104", "dan-105", "dal-000", "dam-000", "dam-100", "dam-101",
 		"dap-000", "dap-100", "dap-101", "dang-000", "dang-001", "dang-100", "dang-101", "dang-102", "dae-000", "dae-001",
+		"dae-002", "dae-003", "dae-100", "dae-101", "dae-102", "dae-103", "deok-000", "do-000", "do-001", "do-002",
+		"do-003", "do-004", "do-005", "do-006", "do-007", "do-100", "do-101", "do-102", "do-103", "do-104",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -222,6 +224,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"기한": {"期限", "飢寒"}, "기사": {"記事", "騎士"}, "기수": {"旗手", "騎手"}, "나락": {"那落", "奈落"},
 		"단서": {"但書", "端緖"},
 		"강단": {"剛斷", "講壇"}, "단정": {"端正", "斷定"}, "단기": {"短期", "檀紀"},
+		"지도": {"地圖", "指導"}, "도장": {"圖章", "塗裝"}, "교도": {"矯導", "敎徒"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -390,12 +393,15 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"年", map[string]string{"nyeon-000": "년", "yeon-200": "연"}, map[string]string{"학년": "年[년]", "연도": "年[연]"}},
 		{"寧", map[string]string{"nyeong-100": "녕", "yeong-201": "영"}, map[string]string{"안녕": "寧[녕]", "영일": "寧[영]"}},
 		{"怒", map[string]string{"no-000": "노", "ro-200": "로"}, map[string]string{"분노": "怒[노]", "희로애락": "怒[로]"}},
-		{"殺", map[string]string{"sal-000": "살", "swae-200": "쇄"}, map[string]string{"뇌쇄": "殺[쇄]", "뇌쇄적": "殺[쇄]"}},
+		{"殺", map[string]string{"sal-000": "살", "swae-200": "쇄"}, map[string]string{"뇌쇄": "殺[쇄]", "뇌쇄적": "殺[쇄]", "쇄도": "殺[쇄]"}},
 		{"泥", map[string]string{"ni-100": "니", "i-202": "이"}, map[string]string{"오니": "泥[니]", "이토": "泥[이]"}},
 		{"綠", map[string]string{"rok-000": "록", "nok-200": "녹"}, map[string]string{"녹차": "綠[녹]"}},
 		{"弄", map[string]string{"rong-100": "롱", "nong-200": "농"}, map[string]string{"농담": "弄[농]"}},
 		{"冷", map[string]string{"raeng-000": "랭", "naeng-200": "냉"}, map[string]string{"냉담": "冷[냉]"}},
 		{"糖", map[string]string{"dang-101": "당", "tang-200": "탕"}, map[string]string{"설탕": "糖[탕]", "사탕": "糖[탕]", "당분": "糖[당]"}},
+		{"連", map[string]string{"ryeon-001": "련", "yeon-201": "연"}, map[string]string{"연대": "連[연]"}},
+		{"列", map[string]string{"ryeol-000": "렬", "yeol-201": "열"}, map[string]string{"열도": "列[열]"}},
+		{"狀", map[string]string{"sang-105": "상", "jang-201": "장"}, map[string]string{"도전장": "狀[장]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
