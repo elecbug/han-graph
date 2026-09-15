@@ -212,6 +212,14 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"mang-101", "mang-102", "mae-000", "mae-001", "mae-002", "mae-003", "mae-100", "mae-101", "mae-102", "maek-000",
 		"maek-100", "maeng-100", "maeng-101", "maeng-102", "maeng-103", "myeon-000", "myeon-001", "myeon-002", "myeon-003", "myeon-100",
 		"myeol-100", "myeong-000", "myeong-001", "myeong-002", "myeong-003", "myeong-100", "myeong-101", "mo-000", "mo-001", "mo-002",
+		"mo-100", "mo-101", "mo-102", "mo-103", "mo-104", "mo-105", "mo-106", "mo-107", "mok-000", "mok-001",
+		"mok-100", "mok-101", "mol-100", "mong-100", "mong-101", "myo-000", "myo-001", "myo-100", "myo-101", "myo-102",
+		"mu-000", "mu-001", "mu-002", "mu-003", "mu-004", "mu-005", "mu-100", "mu-101", "muk-000", "muk-100",
+		"mun-000", "mun-001", "mun-002", "mun-003", "mul-000", "mul-001", "mi-000", "mi-001", "mi-002", "mi-003",
+		"mi-004", "mi-100", "mi-101", "mi-102", "min-000", "min-100", "min-101", "mil-000", "mil-100", "bak-000",
+		"bak-100", "bak-101", "bak-102", "bak-103", "bak-104", "ban-000", "ban-001", "ban-002", "ban-100", "ban-101",
+		"ban-102", "ban-103", "ban-104", "ban-105", "bal-000", "bal-100", "bal-101", "bang-000", "bang-001", "bang-002",
+		"bang-003", "bang-004", "bang-100", "bang-101", "bang-102", "bang-103", "bang-104", "bae-000", "bae-001", "bae-100",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -253,6 +261,12 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"이화": {"李花", "梨花"}, "향리": {"鄕里", "鄕吏"},
 		"매점": {"買占", "賣店"}, "매장": {"埋藏", "埋葬"},
 		"비명": {"悲鳴", "碑銘"},
+		"경모": {"輕侮", "敬慕"}, "공모": {"公募", "共謀"}, "모의": {"模擬", "謀議"},
+		"모년": {"暮年", "某年"}, "기묘": {"己卯", "奇妙"}, "종묘": {"宗廟", "種苗"},
+		"무술": {"戊戌", "武術"}, "전문": {"傳聞", "專門"},
+		"백미": {"白米", "白眉"}, "반주": {"飯酒", "伴奏"},
+		"반려": {"伴侶", "返戾"}, "공방": {"攻防", "工房"}, "방향": {"方向", "芳香"},
+		"예방": {"禮訪", "豫防"}, "이방": {"吏房", "異邦"},
 		"문단": {"文壇", "文段"}, "농담": {"弄談", "濃淡"}, "정당": {"正當", "政黨"}, "당대": {"唐代", "當代"},
 	} {
 		found := map[string]bool{}
@@ -506,6 +520,8 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"臨", map[string]string{"rim-100": "림", "im-201": "임"}, map[string]string{"임박": "臨[임]", "군림": "臨[림]"}},
 		{"爛", map[string]string{"ran-200": "란", "nan-204": "난"}, map[string]string{"천진난만": "爛[난]"}},
 		{"誓", map[string]string{"seo-106": "서", "se-200": "세"}, map[string]string{"맹세": "誓[세]"}},
+		{"陵", map[string]string{"reung-100": "릉", "neung-200": "능"}, map[string]string{"능묘": "陵[능]", "왕릉": "陵[릉]"}},
+		{"理", map[string]string{"ri-002": "리", "i-209": "이"}, map[string]string{"이발": "理[이]", "논리": "理[리]"}},
 	} {
 		t.Run(tc.glyph, func(t *testing.T) {
 			if matches := g.FindCharacters(tc.glyph); len(matches) != len(tc.readings) {
