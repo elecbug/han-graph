@@ -6,11 +6,58 @@
 | --- | --- |
 | `TARGETS.md` | 수집 대상 한자와 훈음의 초기 목록 및 추가 한자 |
 | `meta.jsonl` | 음 그룹 407개 |
-| `character.jsonl` | 한자·독음 레코드 1,818개: 중등 900, 고등 900, 확장 18 |
-| `normal_word.jsonl` | 단어 100개, 한국어·영어 뜻, 구성 한자와 선택적 의미 힌트 |
+| `character.jsonl` | 한자·독음 레코드 1,820개: 중등 900, 고등 900, 확장 20 |
+| `normal_word.jsonl` | 단어 149개, 한국어·영어 뜻, 구성 한자와 선택적 의미 힌트 |
 | `practice.json` | 직접 작성한 문맥 연습 6문항과 해설 초안 |
 
 데이터 형식과 검증 규칙은 [데이터 모델](../docs/DATA_MODEL.md)을 따른다. JSONL에는 주석이나 진행 메모를 넣지 않는다.
+
+## 2026-09-15: 이어서 21–30번째 한자 확장
+
+`gan-100`부터 `gam-002`까지 다음 10개 한자에 연결 단어를 5개씩 채웠다. 감각(感覺)은 이미 수록되어 있어 재사용하고 새 단어는 **49개** 추가했다. 현재는 **149개 단어, 308개 단어–한자 연결, 연결된 한자 170개**다. 첫 30개 한자 모두 연결 단어가 5개씩이며, 감각처럼 서로 공유하는 단어는 파일에 한 번만 저장한다.
+
+| 한자 ID | 한자 | 연결 단어 5개 |
+| --- | --- | --- |
+| gan-100 | 刊 | 간행, 출간, 발간, 월간, 주간 |
+| gan-101 | 姦 | 간사(姦邪), 간악, 간계, 간음, 간통 |
+| gan-102 | 幹 | 간부, 간선, 근간, 기간(基幹), 간사(幹事) |
+| gan-103 | 懇 | 간절, 간청, 간담회, 간곡, 간원 |
+| gan-104 | 簡 | 간단, 간략, 간결, 서간, 간소 |
+| gan-105 | 肝 | 간장(肝臟), 간염, 간암, 간담, 간경화 |
+| gal-000 | 渴 | 갈증, 갈망, 고갈, 갈구, 해갈 |
+| gam-000 | 感 | 감각(기존), 감정, 감사, 감동, 공감 |
+| gam-001 | 敢 | 용감, 과감, 감행, 용감무쌍, 언감생심 |
+| gam-002 | 減 | 감소, 감량, 감면, 삭감, 절감 |
+
+다음 순차 수집 시작점은 **`gam-003`(甘)**이다.
+
+### 보완 및 표기 검수
+
+- 간암·간담의 구성에 필요한 `癌[암]`(`am-200`), `膽[담]`(`dam-200`)을 등록했다.
+- `幹[간]`의 중심·주관, `懇[간]`의 간절함, `簡[간]`의 간단함·편지, `姦[간]`의 간음 의미를 기존 뜻에 보강했다.
+- `姦[간]`과 `奸[간]`을 임의로 치환하지 않았다. 간사(姦邪)·간악(姦惡)·간계(姦計)는 아래 국역 문헌에서 확인한 **문헌 표기**로 수록하고, 웹에 표시되는 의미 힌트에도 표시했다. 현대 한국어기초사전의 간사하다·간악하다에는 각각 奸邪·奸惡이 실려 있다. 이체 관계를 자동으로 합치는 기능은 아직 없으며 현대 표기와 문헌 표기를 동일한 그래프 노드로 취급하지 않는다.
+- 간사(幹事)는 실무 담당자를 뜻하는 별도 항목으로 보존했다. 기간(基幹)·간장(肝臟)에도 같은 한글 표기와 구별하는 힌트를 넣었다.
+- 간단·간소·과감 등 어근으로 주로 쓰이는 항목은 '-하다'와 함께 쓰는 예를 힌트에 적었다. 새 힌트의 직접 한자 표기는 모두 `漢[한]` 형식으로 독음을 병기했다.
+- 기존 JSONL 포맷과 문항 6개의 독음 병기 규칙을 유지했다. 이번 작업에서 기존 단어 100개와 `practice.json`의 내용은 바꾸지 않았다.
+
+### 대조 출처
+
+풀이와 힌트는 직접 작성했다. 아래는 혼동하기 쉬운 표기·의미의 대조 출처이며, 49개 전체의 외부 사전 대조나 전문가 검수 완료를 뜻하지 않는다. 문헌 표기와 관용 표현을 일상 고빈도 어휘로 간주하지 않는다.
+
+| 확인 항목 | 출처 |
+| --- | --- |
+| 간사(姦邪)의 문헌 표기와 현대 표기 차이 | [조선왕조실록 단종 3년 6월 9일](https://sillok.history.go.kr/popup/print.do?gubun=kor&id=kfa_10306009_003), [한국어기초사전 간사하다(奸邪)](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=15623&nation=eng) |
+| 간악(姦惡)의 문헌 표기 | [조선왕조실록 세종 16년 6월 5일](https://sillok.history.go.kr/id/kda_11606005_001), [한국어기초사전 간악하다(奸惡)가 포함된 의미 범주 목록](https://krdict.korean.go.kr/jpn/dicSearch/senseCategory?categoryName=null&currentPage=11&lgCategoryCode=1&miCategoryCode=-1&nation=jpn&searchFlag=Y&searchType=null) |
+| 간계(姦計)의 문헌 표기 | [국사편찬위원회 고려사 국역](https://db.history.go.kr/goryeo/level.do?levelId=kr_126r_0010_0010_0120&types=r) |
+| 간음·간통의 한자와 의미 | [한국어기초사전 간음하다](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=14043&nation=eng), [간통하다](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=15099&nation=eng) |
+| 간사(幹事)·근간(根幹)의 의미 | [한국어기초사전 간사](https://krdict.korean.go.kr/jpn/dicSearch/SearchView?ParaWordNo=15509&nation=jpn), [근간](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=33008) |
+| 간단·간결·간소의 뜻 | [한국어기초사전 간단하다](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=70702&nation=eng), [간결하다](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=35609), [간소하다](https://krdict.korean.go.kr/eng/dicSearch/SearchView?ParaWordNo=15515&nation=eng) |
+| 간담(肝膽)의 장기·비유 의미 | [KBS 한국어 학습: 간담](https://world.kbs.co.kr/service/contents_view.htm?board_seq=230459&id=&lang=k&menu_cate=learnkorean), [충청북도교육문화원 한글사랑관](https://www.cbec.go.kr/hangeul/sub.php?menukey=218&mod=view&no=199323&page=70) |
+| 간암의 한자 표기 | [국립국어원 온용어: 간암 치료제의 원어](https://kli.korean.go.kr/term/trgtWord/indexTrgtWord.do?trgtWordNo=2008870) |
+| 간경화의 의미·용어 | [서울아산병원 질환백과](https://bsh.asanfoundation.or.kr/asan/healthinfo/disease/diseaseDetail.do?contentId=30480), [국립국어원 국어 순화 자료](https://www.korean.go.kr/nkview/kclean/kclean_1.htm) |
+| 용감무쌍·언감생심의 한자 구성과 의미 | [경향신문·재능한자 용감무쌍](https://www.khan.co.kr/article/200710230943361), [위키낱말사전 언감생심](https://ko.wiktionary.org/wiki/%EC%96%B8%EA%B0%90%EC%83%9D%EC%8B%AC) |
+
+구조 검증 및 회귀 테스트의 단어 수 검사 범위를 첫 30개 한자로 넓혔다. 동음이의어 간사(姦邪/幹事)도 두 항목이 보존되는지 검사한다.
 
 ## 2026-09-15: 첫 20개 한자, 각각 연결 단어 5개
 
@@ -39,7 +86,7 @@
 | gan-001 | 看 | 간판, 간호, 간병, 간과, 간파 |
 | gan-002 | 間 | 시간, 공간, 인간, 중간, 순간 |
 
-다음 순차 수집 시작점은 `gan-100`(刊)이다. 추가 단어에 필요한 구성 한자를 먼저 등록하는 일은 이 순서와 별개다. 이번의 `彫`는 조각(彫刻)의 구성을 위해 `jo-200`으로 추가했다.
+이 차수는 `gan-002`까지 채웠고, 위의 다음 차수에서 `gan-100`(刊)부터 이어 수집했다. 추가 단어에 필요한 구성 한자를 먼저 등록하는 일은 이 순서와 별개다. 이 차수의 `彫`는 조각(彫刻)의 구성을 위해 `jo-200`으로 추가했다.
 
 ### 기존 데이터 수정
 

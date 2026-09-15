@@ -159,6 +159,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 	for _, id := range []string{
 		"ga-000", "ga-001", "ga-002", "ga-003", "ga-004", "ga-005", "ga-006", "ga-007", "ga-100", "ga-101",
 		"gak-000", "gak-001", "gak-002", "gak-100", "gak-101", "gak-102", "gak-103", "gan-000", "gan-001", "gan-002",
+		"gan-100", "gan-101", "gan-102", "gan-103", "gan-104", "gan-105", "gal-000", "gam-000", "gam-001", "gam-002",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -168,6 +169,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 	for query, forms := range map[string][]string{
 		"가경": {"佳景", "佳境"}, "가정": {"家庭", "假定"}, "가설": {"假設", "架設"},
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
+		"간사": {"姦邪", "幹事"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {

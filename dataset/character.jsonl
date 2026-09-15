@@ -19,10 +19,10 @@
 {"type": "character", "id": "gan-001", "hanja": "看", "meaning_ko": ["보다", "돌보다"], "meaning_en": ["to see", "to look after"]}
 {"type": "character", "id": "gan-002", "hanja": "間", "meaning_ko": ["사이"], "meaning_en": ["between", "space"]}
 {"type": "character", "id": "gan-100", "hanja": "刊", "meaning_ko": ["책을 펴내다"], "meaning_en": ["to publish"]}
-{"type": "character", "id": "gan-101", "hanja": "姦", "meaning_ko": ["간사하다"], "meaning_en": ["crafty", "wicked"]}
-{"type": "character", "id": "gan-102", "hanja": "幹", "meaning_ko": ["줄기"], "meaning_en": ["trunk", "stem"]}
-{"type": "character", "id": "gan-103", "hanja": "懇", "meaning_ko": ["정성"], "meaning_en": ["sincerity"]}
-{"type": "character", "id": "gan-104", "hanja": "簡", "meaning_ko": ["대쪽"], "meaning_en": ["bamboo slip"]}
+{"type": "character", "id": "gan-101", "hanja": "姦", "meaning_ko": ["간사하다", "간음하다"], "meaning_en": ["crafty", "wicked", "to commit adultery"]}
+{"type": "character", "id": "gan-102", "hanja": "幹", "meaning_ko": ["줄기", "중심", "주관하다"], "meaning_en": ["trunk", "stem", "main part", "to manage"]}
+{"type": "character", "id": "gan-103", "hanja": "懇", "meaning_ko": ["정성", "간절하다"], "meaning_en": ["sincerity", "earnest"]}
+{"type": "character", "id": "gan-104", "hanja": "簡", "meaning_ko": ["대쪽", "간단하다", "편지"], "meaning_en": ["bamboo slip", "simple", "letter"]}
 {"type": "character", "id": "gan-105", "hanja": "肝", "meaning_ko": ["간"], "meaning_en": ["liver"]}
 {"type": "character", "id": "gal-000", "hanja": "渴", "meaning_ko": ["목마르다"], "meaning_en": ["to thirst"]}
 {"type": "character", "id": "gam-000", "hanja": "感", "meaning_ko": ["느끼다"], "meaning_en": ["to feel"]}
@@ -1816,3 +1816,5 @@
 {"type": "character", "id": "pung-200", "hanja": "楓", "meaning_ko": ["단풍"], "meaning_en": ["maple"]}
 {"type": "character", "id": "hoe-200", "hanja": "灰", "meaning_ko": ["재"], "meaning_en": ["ash"]}
 {"type": "character", "id": "jo-200", "hanja": "彫", "meaning_ko": ["새기다", "조각하다"], "meaning_en": ["to carve", "to engrave"]}
+{"type": "character", "id": "am-200", "hanja": "癌", "meaning_ko": ["암"], "meaning_en": ["cancer"]}
+{"type": "character", "id": "dam-200", "hanja": "膽", "meaning_ko": ["쓸개", "담력"], "meaning_en": ["gallbladder", "courage"]}
