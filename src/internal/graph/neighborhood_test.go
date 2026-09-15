@@ -15,7 +15,7 @@ func TestNeighborhood(t *testing.T) {
 	if !reflect.DeepEqual(n.Roots, []string{"感", "覺"}) {
 		t.Fatalf("missing word components: %+v", n.Roots)
 	}
-	wanted := map[string]bool{"感覺": true, "感情": true, "感謝": true, "感動": true, "共感": true, "視覺": true, "聽覺": true, "自覺": true, "覺悟": true, "感慨": true, "感慨無量": true}
+	wanted := map[string]bool{"感覺": true, "感情": true, "感謝": true, "感動": true, "共感": true, "視覺": true, "聽覺": true, "自覺": true, "覺悟": true, "感慨": true, "感慨無量": true, "感激": true}
 	for _, word := range n.Words {
 		if !wanted[word.Hanja] {
 			t.Errorf("unexpected or duplicated word: %s", word.Hanja)
@@ -32,7 +32,7 @@ func TestNeighborhood(t *testing.T) {
 		}
 		characters[character.Hanja] = true
 	}
-	if len(characters) != 13 || !characters["情"] || !characters["視"] || !characters["慨"] || characters["監"] {
+	if len(characters) != 14 || !characters["情"] || !characters["視"] || !characters["慨"] || !characters["激"] || characters["監"] || characters["勵"] {
 		t.Fatalf("incorrect one-hop boundary: %+v", characters)
 	}
 	// A longer word retains all of its components, including more distant

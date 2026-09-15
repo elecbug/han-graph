@@ -164,6 +164,8 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"gang-102", "gang-103", "gae-000", "gae-001", "gae-002", "gae-003", "gae-100", "gae-101", "gae-102", "gae-103",
 		"gaek-000", "gaeng-000", "geo-000", "geo-001", "geo-002", "geo-003", "geo-004", "geo-100", "geo-101", "geo-102",
 		"geon-000", "geon-001", "geon-100", "geon-101", "geol-100", "geol-101", "geom-100", "geom-101", "geom-102", "gyeok-100",
+		"gyeok-101", "gyeok-102", "gyeok-103", "gyeon-000", "gyeon-001", "gyeon-002", "gyeon-100", "gyeon-101", "gyeon-102", "gyeon-103",
+		"gyeol-000", "gyeol-001", "gyeol-002", "gyeol-100", "gyeom-100", "gyeom-101", "gyeong-000", "gyeong-001", "gyeong-002", "gyeong-003",
 	} {
 		matches := g.FindCharacters(id)
 		if len(matches) != 1 || len(matches[0].Words) < 5 {
@@ -175,7 +177,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
 		"간사": {"姦邪", "幹事"},
 		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
-		"강요": {"強要", "綱要"}, "검사": {"劍士", "檢査"},
+		"강요": {"強要", "綱要"}, "검사": {"劍士", "檢査"}, "경신": {"更新", "庚申"},
 	} {
 		found := map[string]bool{}
 		for _, result := range g.FindWords(query) {
@@ -304,7 +306,12 @@ func TestRepositoryRenewalAndVehicleReadings(t *testing.T) {
 				}
 			}
 			for query, annotation := range tc.words {
-				words := g.FindWords(query)
+				var words []WordResult
+				for _, match := range g.FindWords(query) {
+					if strings.Contains(match.Word.Hanja, tc.glyph) {
+						words = append(words, match)
+					}
+				}
 				if len(words) != 1 || !strings.Contains(words[0].Word.SemanticHint, annotation) {
 					t.Fatalf("%s needs contextual reading %s: %+v", query, annotation, words)
 				}
