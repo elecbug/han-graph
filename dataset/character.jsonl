@@ -468,26 +468,26 @@
 {"type": "character", "id": "ryul-101", "hanja": "率", "meaning_ko": ["헤아리다", "비율"], "meaning_en": ["rate", "proportion"]}
 {"type": "character", "id": "ryung-100", "hanja": "隆", "meaning_ko": ["크다", "높다", "성하다", "두텁다"], "meaning_en": ["grand", "high", "prosperous", "generous"]}
 {"type": "character", "id": "reung-100", "hanja": "陵", "meaning_ko": ["큰 언덕", "왕릉"], "meaning_en": ["hill", "royal tomb"]}
-{"type": "character", "id": "ri-000", "hanja": "利", "meaning_ko": ["이롭다"], "meaning_en": ["beneficial", "profit"]}
-{"type": "character", "id": "ri-001", "hanja": "李", "meaning_ko": ["오얏"], "meaning_en": ["plum tree"]}
-{"type": "character", "id": "ri-002", "hanja": "理", "meaning_ko": ["다스리다"], "meaning_en": ["reason", "to manage"]}
-{"type": "character", "id": "ri-003", "hanja": "里", "meaning_ko": ["마을"], "meaning_en": ["village"]}
+{"type": "character", "id": "ri-000", "hanja": "利", "meaning_ko": ["이롭다", "이익"], "meaning_en": ["beneficial", "profit"]}
+{"type": "character", "id": "ri-001", "hanja": "李", "meaning_ko": ["오얏나무", "오얏", "성씨"], "meaning_en": ["plum tree", "plum", "the surname Yi or Lee"]}
+{"type": "character", "id": "ri-002", "hanja": "理", "meaning_ko": ["다스리다", "이치"], "meaning_en": ["to manage", "reason", "principle"]}
+{"type": "character", "id": "ri-003", "hanja": "里", "meaning_ko": ["마을", "거리의 단위"], "meaning_en": ["village", "ri, a unit of distance"]}
 {"type": "character", "id": "ri-100", "hanja": "吏", "meaning_ko": ["벼슬아치"], "meaning_en": ["government official"]}
 {"type": "character", "id": "ri-101", "hanja": "履", "meaning_ko": ["밟다", "행하다"], "meaning_en": ["to step on", "to carry out"]}
-{"type": "character", "id": "ri-102", "hanja": "梨", "meaning_ko": ["배나무"], "meaning_en": ["pear tree"]}
-{"type": "character", "id": "ri-103", "hanja": "裏", "meaning_ko": ["속"], "meaning_en": ["inside", "interior"]}
+{"type": "character", "id": "ri-102", "hanja": "梨", "meaning_ko": ["배나무", "배"], "meaning_en": ["pear tree", "pear"]}
+{"type": "character", "id": "ri-103", "hanja": "裏", "meaning_ko": ["속", "뒤"], "meaning_en": ["inside", "interior", "reverse side"]}
 {"type": "character", "id": "ri-104", "hanja": "離", "meaning_ko": ["떼어놓다"], "meaning_en": ["to separate", "to leave"]}
 {"type": "character", "id": "rin-100", "hanja": "鄰", "meaning_ko": ["이웃"], "meaning_en": ["neighbor"]}
 {"type": "character", "id": "rim-000", "hanja": "林", "meaning_ko": ["수풀"], "meaning_en": ["forest", "woods"]}
-{"type": "character", "id": "rim-100", "hanja": "臨", "meaning_ko": ["임하다"], "meaning_en": ["to face", "to overlook"]}
+{"type": "character", "id": "rim-100", "hanja": "臨", "meaning_ko": ["임하다", "다가오다", "다스리다"], "meaning_en": ["to face", "to overlook", "to approach", "to govern"]}
 {"type": "character", "id": "rip-000", "hanja": "立", "meaning_ko": ["서다"], "meaning_en": ["to stand"]}
 {"type": "character", "id": "ma-000", "hanja": "馬", "meaning_ko": ["말"], "meaning_en": ["horse"]}
 {"type": "character", "id": "ma-100", "hanja": "磨", "meaning_ko": ["갈다"], "meaning_en": ["to grind", "to polish"]}
-{"type": "character", "id": "ma-101", "hanja": "麻", "meaning_ko": ["삼"], "meaning_en": ["hemp"]}
+{"type": "character", "id": "ma-101", "hanja": "麻", "meaning_ko": ["삼", "저리다", "감각이 둔해지다"], "meaning_en": ["hemp", "to be numb", "to lose sensation"]}
 {"type": "character", "id": "mak-000", "hanja": "莫", "meaning_ko": ["없다"], "meaning_en": ["none", "do not"]}
 {"type": "character", "id": "mak-100", "hanja": "幕", "meaning_ko": ["막"], "meaning_en": ["curtain", "tent"]}
-{"type": "character", "id": "mak-101", "hanja": "漠", "meaning_ko": ["사막", "아득하다"], "meaning_en": ["desert", "vast"]}
-{"type": "character", "id": "man-000", "hanja": "晚", "meaning_ko": ["늦다"], "meaning_en": ["late"]}
+{"type": "character", "id": "mak-101", "hanja": "漠", "meaning_ko": ["사막", "아득하다", "희미하다"], "meaning_en": ["desert", "vast", "indistinct"]}
+{"type": "character", "id": "man-000", "hanja": "晚", "meaning_ko": ["늦다", "저녁"], "meaning_en": ["late", "evening"]}
 {"type": "character", "id": "man-001", "hanja": "滿", "meaning_ko": ["차다"], "meaning_en": ["full", "to fill"]}
 {"type": "character", "id": "man-002", "hanja": "萬", "meaning_ko": ["일만"], "meaning_en": ["ten thousand"]}
 {"type": "character", "id": "man-100", "hanja": "慢", "meaning_ko": ["게으르다"], "meaning_en": ["slow", "lazy"]}
@@ -2012,3 +2012,18 @@
 {"type": "character", "id": "yul-201", "hanja": "栗", "meaning_ko": ["밤나무", "밤"], "meaning_en": ["chestnut tree", "chestnut"]}
 {"type": "character", "id": "yul-202", "hanja": "率", "meaning_ko": ["헤아리다", "비율"], "meaning_en": ["rate", "proportion"]}
 {"type": "character", "id": "yung-200", "hanja": "隆", "meaning_ko": ["크다", "높다", "성하다", "두텁다"], "meaning_en": ["grand", "high", "prosperous", "generous"]}
+{"type": "character", "id": "i-204", "hanja": "李", "meaning_ko": ["오얏나무", "오얏", "성씨"], "meaning_en": ["plum tree", "plum", "the surname Yi or Lee"]}
+{"type": "character", "id": "i-205", "hanja": "里", "meaning_ko": ["마을", "거리의 단위"], "meaning_en": ["village", "ri, a unit of distance"]}
+{"type": "character", "id": "i-206", "hanja": "吏", "meaning_ko": ["벼슬아치"], "meaning_en": ["government official"]}
+{"type": "character", "id": "i-207", "hanja": "梨", "meaning_ko": ["배나무", "배"], "meaning_en": ["pear tree", "pear"]}
+{"type": "character", "id": "i-208", "hanja": "裏", "meaning_ko": ["속", "뒤"], "meaning_en": ["inside", "interior", "reverse side"]}
+{"type": "character", "id": "in-200", "hanja": "鄰", "meaning_ko": ["이웃"], "meaning_en": ["neighbor"]}
+{"type": "character", "id": "im-200", "hanja": "林", "meaning_ko": ["수풀"], "meaning_en": ["forest", "woods"]}
+{"type": "character", "id": "im-201", "hanja": "臨", "meaning_ko": ["임하다", "다가오다", "다스리다"], "meaning_en": ["to face", "to overlook", "to approach", "to govern"]}
+{"type": "character", "id": "seo-201", "hanja": "胥", "meaning_ko": ["하급 관리"], "meaning_en": ["a petty official", "a clerk"]}
+{"type": "character", "id": "jeup-200", "hanja": "汁", "meaning_ko": ["즙"], "meaning_en": ["juice", "sap"]}
+{"type": "character", "id": "mo-201", "hanja": "耗", "meaning_ko": ["줄어들다", "닳다"], "meaning_en": ["to diminish", "to wear away"]}
+{"type": "character", "id": "cha-202", "hanja": "磋", "meaning_ko": ["갈다", "닦다"], "meaning_en": ["to polish", "to refine"]}
+{"type": "character", "id": "tak-201", "hanja": "琢", "meaning_ko": ["쪼다", "다듬다"], "meaning_en": ["to carve", "to polish"]}
+{"type": "character", "id": "bi-201", "hanja": "痺", "meaning_ko": ["저리다", "마비되다"], "meaning_en": ["to be numb", "to be paralyzed"]}
+{"type": "character", "id": "chan-200", "hanja": "餐", "meaning_ko": ["먹다", "식사"], "meaning_en": ["to eat", "a meal"]}
