@@ -347,7 +347,7 @@ main:focus {
 .search-form input {
   width:100%;
   height:56px;
-  padding:0;
+  padding:0 18px 0 0;
   border:0;
   background:transparent;
   color:var(--ink);
@@ -365,21 +365,10 @@ main:focus {
 .search-form input::placeholder {
   color:#8b9286
 }
-.search-clear {
-  background:transparent;
-  font-size:20px;
-  padding:10px;
-  color:#7b8474
-}
-.search-shortcut {
-  border:1px solid var(--line);
-  color:#8c9584;
-  border-radius:4px;
-  font-size:10px;
-  line-height:21px;
-  min-width:22px;
-  text-align:center;
-  margin-right:18px
+.search-form input::-webkit-search-cancel-button,
+.search-form input::-webkit-search-decoration {
+  -webkit-appearance:none;
+  appearance:none
 }
 .section-bar {
   display:flex;
@@ -788,7 +777,33 @@ main:focus {
   stroke-width:1.7;
   fill:none;
   pointer-events:none;
-  vector-effect:non-scaling-stroke
+  vector-effect:non-scaling-stroke;
+  stroke-linejoin:round;
+  stroke-linecap:round
+}
+.network-path-halo {
+  stroke:#f0f2e9;
+  stroke-width:6;
+  fill:none;
+  pointer-events:none;
+  vector-effect:non-scaling-stroke;
+  stroke-linejoin:round
+}
+.has-focus .network-line-link:not(.connection-focus) {
+  opacity:.16
+}
+.has-focus .network-edge:not(.connection-focus),
+.has-focus .network-character:not(.connection-focus) {
+  opacity:.32
+}
+.network-line-link.connection-focus .network-path {
+  stroke:#a97642;
+  stroke-width:3
+}
+.network-edge.connection-focus rect,
+.network-character.connection-focus circle {
+  stroke:#a97642;
+  stroke-width:2.5
 }
 .network-line-link.current .network-path {
   stroke:#385e43;
@@ -973,6 +988,47 @@ main:focus {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:18px
+}
+.wordbook-tools {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+  padding:18px 20px;
+  margin-bottom:12px;
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:7px;
+  font-size:12px;
+  line-height:1.8
+}
+.wordbook-tools .storage-note {
+  margin:4px 0 0
+}
+.wordbook-actions {
+  display:flex;
+  gap:8px;
+  flex-shrink:0
+}
+.wordbook-actions button {
+  padding:10px 18px
+}
+.wordbook-actions button:disabled {
+  opacity:.5;
+  cursor:default
+}
+.wordbook-status {
+  color:var(--green);
+  font-size:12px;
+  line-height:1.8;
+  margin:0 0 20px
+}
+.wordbook-status:empty {
+  margin-bottom:16px
+}
+.wordbook-status.error {
+  color:#a34436
 }
 .saved-card {
   background:var(--white);
@@ -1496,9 +1552,6 @@ main:focus {
   .search-form>svg {
     margin-left:15px;
     margin-right:10px
-  }
-  .search-shortcut {
-    display:none
   }
   .explorer {
     display:block

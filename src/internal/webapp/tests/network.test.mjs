@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {layoutNetwork, edgePaths, renderNetworkSVG} from '../static/network.mjs';
+import {segmentHitsBox} from '../static/network-routing.mjs';
 
 const read=name=>fs.readFileSync(new URL(`../../../../dataset/${name}`,import.meta.url),'utf8').trim().split('\n').map(JSON.parse);
 const words=read('normal_word.jsonl'), characters=read('character.jsonl');
@@ -168,6 +169,16 @@ test('every dataset word has finite, unclipped positions without overlapping lab
       const overlapX=(a.width+b.width)/2-Math.abs(a.x-b.x);
       const overlapY=(a.height+b.height)/2-Math.abs(a.y-b.y);
       assert(overlapX<=0||overlapY<=0,`${selected.hanja}: ${a.id} overlaps ${b.id}`);
+    }
+    for(const edge of layout.edges)for(const route of edge.routes) {
+      assert(route.points.length>=2);
+      for(const p of route.points)assert(Number.isFinite(p.x)&&Number.isFinite(p.y)&&p.x>=0&&p.x<=layout.width&&p.y>=0&&p.y<=layout.height,`${selected.hanja}: route outside canvas`);
+      for(let i=1;i<route.points.length;i++)for(const other of elements) {
+        if(other===edge||other.hanja===route.glyph)continue;
+        // Routing has a 5px margin; reserve 2px here for stroke and rounded corners.
+        const r={left:other.x-other.width/2-2,right:other.x+other.width/2+2,top:other.y-other.height/2-2,bottom:other.y+other.height/2+2};
+        assert(!segmentHitsBox(route.points[i-1],route.points[i],r),`${selected.hanja}: ${edge.word.hanja} crosses ${other.id}`);
+      }
     }
   }
 });

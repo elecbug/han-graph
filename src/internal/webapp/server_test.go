@@ -49,6 +49,8 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/api/random-word?exclude_word=" + strings.Repeat("a", 101), 400, "application/json"},
 		{"GET", "/api/random-word?exclude_hanja=" + url.QueryEscape(strings.Repeat("家", 101)), 400, "application/json"},
 		{"GET", "/api/words?q=" + url.QueryEscape("가정"), 200, "application/json"},
+		{"GET", "/wordbook.mjs", 200, "javascript"},
+		{"GET", "/network-routing.mjs", 200, "javascript"},
 		{"GET", "/api/characters?q=" + url.QueryEscape("家"), 200, "application/json"},
 		{"GET", "/api/practice", 200, "application/json"},
 		{"GET", "/api/neighborhood?q=" + url.QueryEscape("感覺"), 200, "application/json"},

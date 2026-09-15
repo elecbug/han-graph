@@ -1,5 +1,25 @@
 // Panning uses a canvas translation so even a fitted graph can be dragged.
 // Leave wheel and touch scrolling to the page.
+export function bindNetworkFocus(svg, layout) {
+  const links=[...svg.querySelectorAll('[data-edge-id]')],nodes=[...svg.querySelectorAll('[data-node-glyph]')];
+  let hovered=null,focused=null;
+  const item=target=>target?.closest?.('[data-edge-id], [data-node-glyph]');
+  function update() {
+    const active=hovered??focused;
+    const edges=active?layout.edges.filter(edge=>active.dataset.edgeId?edge.id===active.dataset.edgeId:edge.glyphs.includes(active.dataset.nodeGlyph)):[];
+    const ids=new Set(edges.map(edge=>edge.id)),glyphs=new Set(edges.flatMap(edge=>edge.glyphs));
+    if(active?.dataset.nodeGlyph)glyphs.add(active.dataset.nodeGlyph);
+    svg.classList.toggle('has-focus',!!active);
+    for(const link of links)link.classList.toggle('connection-focus',ids.has(link.dataset.edgeId));
+    for(const node of nodes)node.classList.toggle('connection-focus',glyphs.has(node.dataset.nodeGlyph));
+  }
+  svg.addEventListener('pointerover',event=>{hovered=item(event.target);update();});
+  svg.addEventListener('pointerout',event=>{hovered=svg.contains(event.relatedTarget)?item(event.relatedTarget):null;update();});
+  svg.addEventListener('pointerleave',()=>{hovered=null;update();});
+  svg.addEventListener('focusin',event=>{focused=item(event.target);update();});
+  svg.addEventListener('focusout',event=>{focused=svg.contains(event.relatedTarget)?item(event.relatedTarget):null;update();});
+}
+
 export function bindNetworkDrag(viewport, {getPosition, onPan}) {
   let gesture = null;
   let suppressClick = false;

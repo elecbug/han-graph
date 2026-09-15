@@ -1,4 +1,5 @@
 import {wordKey} from './learning.mjs';
+import {routeNetwork, roundedPath} from './network-routing.mjs';
 
 // Words are edge labels (junctions for compounds with 3+ characters), not
 // additional character nodes. Keep glyph identity separate from its readings.
@@ -25,6 +26,20 @@ export function layoutNetwork(network, selected) {
     const owner=rootList.findIndex(root=>touching.some(edge=>edge.glyphs.includes(root)));
     groups[Math.max(0,owner)]?.push(node);
   }
+  // Visit companions in the same compound together instead of scattering them
+  // according to dataset order around the ring.
+  groups.forEach(group=>{
+    const pending=new Set(group),ordered=[];
+    const visit=node=>{
+      if(!pending.delete(node))return;
+      ordered.push(node);
+      for(const edge of edges.filter(e=>e.glyphs.includes(node.hanja)))for(const glyph of edge.glyphs) {
+        const next=byGlyph.get(glyph);if(pending.has(next))visit(next);
+      }
+    };
+    for(const node of group)visit(node);
+    group.splice(0,group.length,...ordered);
+  });
   groups.forEach((group,index) => group.forEach((node,i) => {
     const root=byGlyph.get(rootList[index]);
     const spread=rootList.length===1 ? 2*Math.PI : Math.PI*0.85;
@@ -37,9 +52,22 @@ export function layoutNetwork(network, selected) {
     edge.x=ends.reduce((sum,node)=>sum+node.x,0)/ends.length;
     edge.y=ends.reduce((sum,node)=>sum+node.y,0)/ends.length;
     if(ends.length===1) {edge.x+=155;edge.y+=index*65-60;}
-    else if(!edge.current) edge.y+=(index%3-1)*22;
     edge.fixed=edge.current;
   });
+  const parallel=new Map();
+  for(const edge of edges) {
+    const key=JSON.stringify([...edge.glyphs].sort());
+    if(!parallel.has(key))parallel.set(key,[]);
+    parallel.get(key).push(edge);
+  }
+  for(const group of parallel.values())if(group.length>1&&group[0].glyphs.length===2) {
+    group.sort((a,b)=>Number(b.current)-Number(a.current));
+    const [a,b]=group[0].glyphs.map(g=>byGlyph.get(g)),length=Math.max(1,Math.hypot(b.x-a.x,b.y-a.y));
+    group.forEach((edge,i)=>{
+      const lane=group[0].current?(i===0?0:Math.ceil(i/2)*(i%2?1:-1)):i-(group.length-1)/2;
+      edge.x-=(b.y-a.y)/length*lane*84;edge.y+=(b.x-a.x)/length*lane*84;
+    });
+  }
   const particles=[...nodes,...edges];
   particles.forEach(p=>{p.homeX=p.x;p.homeY=p.y;});
   const links=edges.flatMap(edge=>edge.glyphs.map(glyph=>[edge,byGlyph.get(glyph)]));
@@ -100,15 +128,21 @@ export function layoutNetwork(network, selected) {
     }
     settled.push(p);
   }
-  const minX=Math.min(0,...particles.map(p=>p.x-p.width/2))-55;
-  const minY=Math.min(0,...particles.map(p=>p.y-p.height/2))-65;
-  const width=Math.max(320,Math.max(0,...particles.map(p=>p.x+p.width/2))-minX+55);
-  const height=Math.max(240,Math.max(0,...particles.map(p=>p.y+p.height/2))-minY+65);
+  routeNetwork(nodes,edges);
+  const routePoints=edges.flatMap(e=>e.routes.flatMap(r=>r.points));
+  const minX=Math.min(0,...particles.map(p=>p.x-p.width/2),...routePoints.map(p=>p.x))-55;
+  const minY=Math.min(0,...particles.map(p=>p.y-p.height/2),...routePoints.map(p=>p.y))-65;
+  const width=Math.max(320,Math.max(0,...particles.map(p=>p.x+p.width/2),...routePoints.map(p=>p.x))-minX+55);
+  const height=Math.max(240,Math.max(0,...particles.map(p=>p.y+p.height/2),...routePoints.map(p=>p.y))-minY+65);
   particles.forEach(p=>{p.x-=minX;p.y-=minY;});
+  // Each route owns its points; shared obstacles are never translated here.
+  const shifted=new Set();
+  routePoints.forEach(p=>{if(!shifted.has(p)){p.x-=minX;p.y-=minY;shifted.add(p);}});
   return {nodes,edges,width,height};
 }
 
 export function edgePaths(edge, nodes) {
+  if(edge.routes)return edge.routes.map(route=>roundedPath(route.points));
   const byGlyph=new Map(nodes.map(node=>[node.hanja,node]));
   return edge.glyphs.flatMap(glyph=>{
     const node=byGlyph.get(glyph);
@@ -125,8 +159,8 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp
 export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단어 살펴보기',characterLabel='한자',label='한자와 단어 연결 그래프'} = {}) {
   const wordHref=word=>`#explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`;
   const characterHref=glyph=>`#explore?${new URLSearchParams({character:glyph})}`;
-  const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" class="network-line-link ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
-  const labels=layout.edges.map(edge=>`<a class="network-edge ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${wordLabel}: ${esc(edge.word.word)} (${esc(edge.word.hanja)})" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="-22" width="${edge.width}" height="44" rx="7"/><text class="edge-word" y="-2">${esc(edge.word.word)}</text><text class="edge-hanja" y="15">${esc(edge.word.hanja)}</text></a>`).join('');
+  const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
+  const labels=layout.edges.map(edge=>`<a class="network-edge ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${wordLabel}: ${esc(edge.word.word)} (${esc(edge.word.hanja)})" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="-22" width="${edge.width}" height="44" rx="7"/><text class="edge-word" y="-2">${esc(edge.word.word)}</text><text class="edge-hanja" y="15">${esc(edge.word.hanja)}</text></a>`).join('');
   const nodes=layout.nodes.map(node=>{
     const sounds=[...new Set(node.readings.map(reading=>reading.sound_ko))].join(' / ');
     const meanings=node.readings.map(reading=>reading[lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / ');
