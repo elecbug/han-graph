@@ -1632,7 +1632,7 @@
 {"type": "character", "id": "po-102", "hanja": "浦", "meaning_ko": ["물가"], "meaning_en": ["shore", "beach"]}
 {"type": "character", "id": "po-103", "hanja": "胞", "meaning_ko": ["태보", "세포", "동포"], "meaning_en": ["placenta", "cell", "compatriot"]}
 {"type": "character", "id": "po-104", "hanja": "飽", "meaning_ko": ["배부르다"], "meaning_en": ["full", "satiated"]}
-{"type": "character", "id": "pok-000", "hanja": "暴", "meaning_ko": ["사납다"], "meaning_en": ["violent", "violent"]}
+{"type": "character", "id": "pok-000", "hanja": "暴", "meaning_ko": ["사납다"], "meaning_en": ["violent"]}
 {"type": "character", "id": "pok-100", "hanja": "幅", "meaning_ko": ["너비"], "meaning_en": ["width", "breadth"]}
 {"type": "character", "id": "pok-101", "hanja": "爆", "meaning_ko": ["터지다"], "meaning_en": ["to explode"]}
 {"type": "character", "id": "pyo-000", "hanja": "表", "meaning_ko": ["겉", "나타내다"], "meaning_en": ["surface", "to express"]}
@@ -2256,7 +2256,7 @@
 {"type": "character", "id": "tu-201", "hanja": "妒", "meaning_ko": ["샘내다"], "meaning_en": ["to be jealous"]}
 {"type": "character", "id": "chang-201", "hanja": "槍", "meaning_ko": ["창"], "meaning_en": ["spear"]}
 {"type": "character", "id": "sa-203", "hanja": "肆", "meaning_ko": ["방자하다"], "meaning_en": ["unrestrained"]}
-{"type": "character", "id": "gol-200", "hanja": "滑", "meaning_ko": ["미끄럽다", "매끄럽다"], "meaning_en": ["slippery", "smooth"]}
+{"type": "character", "id": "gol-200", "hanja": "滑", "meaning_ko": ["익살스럽다"], "meaning_en": ["comic", "witty"]}
 {"type": "character", "id": "ja-202", "hanja": "煮", "meaning_ko": ["삶다"], "meaning_en": ["to boil"]}
 {"type": "character", "id": "ro-201", "hanja": "擄", "meaning_ko": ["사로잡다"], "meaning_en": ["to capture"]}
 {"type": "character", "id": "ya-201", "hanja": "冶", "meaning_ko": ["쇠를 녹이다"], "meaning_en": ["to smelt"]}
@@ -2280,24 +2280,24 @@
 {"type": "character", "id": "ip-201", "hanja": "粒", "meaning_ko": ["알갱이"], "meaning_en": ["grain", "particle"]}
 {"type": "character", "id": "gwa-201", "hanja": "顆", "meaning_ko": ["알갱이"], "meaning_en": ["grain; granule"]}
 {"type": "character", "id": "jo-205", "hanja": "凋", "meaning_ko": ["시들다"], "meaning_en": ["to wither"]}
-{"type": "character", "id": "jeon-201", "hanja": "顓", "meaning_ko": ["오로지하다; 옛 나라 이름"], "meaning_en": ["to be devoted; name of an ancient state"]}
+{"type": "character", "id": "jeon-201", "hanja": "顓", "meaning_ko": ["오로지하다", "옛 나라 이름"], "meaning_en": ["to devote oneself exclusively", "name of an ancient state"]}
 {"type": "character", "id": "yeom-202", "hanja": "簾", "meaning_ko": ["발"], "meaning_en": ["bamboo screen"]}
 {"type": "character", "id": "ya-202", "hanja": "倻", "meaning_ko": ["가야의 이름에 쓰는 글자"], "meaning_en": ["character in the name Gaya"]}
-{"type": "character", "id": "ram-201", "hanja": "藍", "meaning_ko": ["쪽; 절 이름의 음역에 쓰는 글자"], "meaning_en": ["indigo; character used in a temple-related transliteration"]}
+{"type": "character", "id": "ram-201", "hanja": "藍", "meaning_ko": ["쪽", "가람의 음역에 쓰이는 글자"], "meaning_en": ["indigo", "character used in the transliteration garam, meaning a Buddhist monastery"]}
 {"type": "character", "id": "jeon-202", "hanja": "箭", "meaning_ko": ["화살"], "meaning_en": ["arrow"]}
-{"type": "character", "id": "ga-202", "hanja": "苛", "meaning_ko": ["가혹하다; 까다롭다"], "meaning_en": ["harsh; exacting"]}
+{"type": "character", "id": "ga-202", "hanja": "苛", "meaning_ko": ["가혹하다", "까다롭다"], "meaning_en": ["harsh", "exacting"]}
 {"type": "character", "id": "ha-200", "hanja": "瑕", "meaning_ko": ["옥의 티"], "meaning_en": ["flaw in jade"]}
 {"type": "character", "id": "jin-202", "hanja": "塵", "meaning_ko": ["먼지"], "meaning_en": ["dust"]}
 {"type": "character", "id": "gyeong-202", "hanja": "莖", "meaning_ko": ["줄기"], "meaning_en": ["stem"]}
 {"type": "character", "id": "sang-200", "hanja": "箱", "meaning_ko": ["상자"], "meaning_en": ["box"]}
 {"type": "character", "id": "gwang-200", "hanja": "曠", "meaning_ko": ["넓고 탁 트이다"], "meaning_en": ["spacious; open"]}
 {"type": "character", "id": "yu-207", "hanja": "謬", "meaning_ko": ["그르다", "잘못"], "meaning_en": ["erroneous", "error"]}
-{"type": "character", "id": "nong-202", "hanja": "籃", "meaning_ko": ["바구니"], "meaning_en": ["basket"]}
+{"type": "character", "id": "nong-202", "hanja": "籠", "meaning_ko": ["대바구니", "새장"], "meaning_en": ["basket", "cage"]}
 {"type": "character", "id": "cheok-201", "hanja": "脊", "meaning_ko": ["등마루"], "meaning_en": ["spine"]}
 {"type": "character", "id": "gyeong-203", "hanja": "頸", "meaning_ko": ["목"], "meaning_en": ["neck"]}
 {"type": "character", "id": "jae-200", "hanja": "齋", "meaning_ko": ["재계하다"], "meaning_en": ["to observe ritual purification"]}
 {"type": "character", "id": "ma-201", "hanja": "摩", "meaning_ko": ["문지르다"], "meaning_en": ["to rub"]}
-{"type": "character", "id": "an-200", "hanja": "按", "meaning_ko": ["누르다; 살피다"], "meaning_en": ["to press; to examine"]}
+{"type": "character", "id": "an-200", "hanja": "按", "meaning_ko": ["누르다", "살피다"], "meaning_en": ["to press", "to examine"]}
 {"type": "character", "id": "ik-200", "hanja": "匿", "meaning_ko": ["숨다", "숨기다"], "meaning_en": ["hide", "conceal"]}
 {"type": "character", "id": "bing-200", "hanja": "憑", "meaning_ko": ["기대다"], "meaning_en": ["to rely on"]}
 {"type": "character", "id": "yung-202", "hanja": "戎", "meaning_ko": ["옛 중국 서방 집단의 명칭"], "meaning_en": ["historical name for western peoples in Chinese texts"]}
@@ -2306,16 +2306,16 @@
 {"type": "character", "id": "pyeom-200", "hanja": "貶", "meaning_ko": ["낮추다"], "meaning_en": ["to disparage"]}
 {"type": "character", "id": "u-202", "hanja": "盂", "meaning_ko": ["사발"], "meaning_en": ["bowl"]}
 {"type": "character", "id": "gwang-201", "hanja": "匡", "meaning_ko": ["바로잡다"], "meaning_en": ["to correct"]}
-{"type": "character", "id": "sak-200", "hanja": "索", "meaning_ko": ["찾다"], "meaning_en": ["to search"]}
-{"type": "character", "id": "pa-200", "hanja": "巴", "meaning_ko": ["땅 이름; 음역에 쓰는 글자"], "meaning_en": ["place name; character used in transliteration"]}
+{"type": "character", "id": "sak-200", "hanja": "索", "meaning_ko": ["노", "쓸쓸하다"], "meaning_en": ["rope", "desolate"]}
+{"type": "character", "id": "pa-200", "hanja": "巴", "meaning_ko": ["옛 파 지역의 이름", "음역에 쓰이는 글자"], "meaning_en": ["name of the ancient Ba region", "character used in transliterations"]}
 {"type": "character", "id": "ham-200", "hanja": "艦", "meaning_ko": ["군함"], "meaning_en": ["warship"]}
-{"type": "character", "id": "chwe-201", "hanja": "贅", "meaning_ko": ["덧붙이다; 데릴사위"], "meaning_en": ["superfluous; resident son-in-law"]}
+{"type": "character", "id": "chwe-201", "hanja": "贅", "meaning_ko": ["군더더기", "데릴사위"], "meaning_en": ["superfluous addition", "resident son-in-law"]}
 {"type": "character", "id": "ta-202", "hanja": "咤", "meaning_ko": ["꾸짖다"], "meaning_en": ["to scold"]}
 {"type": "character", "id": "mae-202", "hanja": "罵", "meaning_ko": ["욕하다"], "meaning_en": ["to revile"]}
 {"type": "character", "id": "ham-201", "hanja": "函", "meaning_ko": ["상자"], "meaning_en": ["box"]}
 {"type": "character", "id": "ta-203", "hanja": "惰", "meaning_ko": ["게으르다"], "meaning_en": ["lazy"]}
 {"type": "character", "id": "yeom-203", "hanja": "厭", "meaning_ko": ["싫증 나다"], "meaning_en": ["to grow weary of"]}
-{"type": "character", "id": "gwak-201", "hanja": "霍", "meaning_ko": ["빠르다; 곽란에 쓰는 글자"], "meaning_en": ["sudden; character in a historical illness name"]}
+{"type": "character", "id": "gwak-201", "hanja": "霍", "meaning_ko": ["빠르다", "갑작스럽다", "곽란에 쓰이는 글자"], "meaning_en": ["swift", "sudden", "character used in the historical disease term for acute vomiting and diarrhea"]}
 {"type": "character", "id": "eun-200", "hanja": "殷", "meaning_ko": ["은나라"], "meaning_en": ["Yin, the Shang dynasty"]}
 {"type": "character", "id": "yeom-204", "hanja": "閻", "meaning_ko": ["마을 문"], "meaning_en": ["village gate"]}
 {"type": "character", "id": "ui-201", "hanja": "倚", "meaning_ko": ["기대다"], "meaning_en": ["to lean on"]}
@@ -2325,4 +2325,6 @@
 {"type": "character", "id": "mok-201", "hanja": "鶩", "meaning_ko": ["집오리"], "meaning_en": ["domestic duck"]}
 {"type": "character", "id": "ye-204", "hanja": "穢", "meaning_ko": ["더럽다"], "meaning_en": ["filthy"]}
 {"type": "character", "id": "bi-203", "hanja": "誹", "meaning_ko": ["헐뜯다"], "meaning_en": ["to slander"]}
-{"type": "character", "id": "dun-200", "hanja": "敦", "meaning_ko": ["정이 두텁다", "정성스럽다"], "meaning_en": ["warm-hearted", "sincere"]}
+{"type": "character", "id": "dun-200", "hanja": "敦", "meaning_ko": ["중국 지명 둔황에 쓰는 글자"], "meaning_en": ["character used in the Chinese place name Dunhuang"]}
+{"type": "character", "id": "geuk-201", "hanja": "戟", "meaning_ko": ["갈래진 창"], "meaning_en": ["halberd", "branched spear"]}
+{"type": "character", "id": "dam-202", "hanja": "澹", "meaning_ko": ["맑다", "고요하다", "담박하다"], "meaning_en": ["clear", "calm", "plain"]}

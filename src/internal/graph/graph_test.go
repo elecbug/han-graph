@@ -153,6 +153,94 @@ func TestRepositoryDataset(t *testing.T) {
 	}
 }
 
+func TestRepositoryLexicalCorrections(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := map[[2]string]string{
+		{"가설", "假說"}:   "어떤 내용을 설명하려고 세운 아직 검증되지 않은 가정",
+		{"자극", "刺戟"}:   "몸이나 마음에 반응을 일으키는 작용이나 영향",
+		{"농구", "籠球"}:   "공을 상대편 바구니에 넣어 득점하는 경기",
+		{"수감", "收監"}:   "사람을 구치소나 교도소 등에 가둠.",
+		{"분장", "扮裝"}:   "역할이나 목적에 맞도록 얼굴과 차림을 꾸밈.",
+		{"암담", "暗澹"}:   "앞날이 막막하고 희망이 보이지 않음",
+		{"체포자", "逮捕者"}: "체포를 한 사람; 체포된 사람을 가리키는 쓰임도 있음",
+		{"파주", "把住"}:   "마음속에 잘 간직함",
+	}
+	found := make(map[[2]string]bool, len(want))
+	for _, word := range g.words {
+		key := [2]string{word.Word, word.Hanja}
+		if meaning, ok := want[key]; ok {
+			found[key] = true
+			if word.MeaningKo != meaning {
+				t.Errorf("%s (%s): meaning = %q, want %q", word.Word, word.Hanja, word.MeaningKo, meaning)
+			}
+		}
+	}
+	for key := range want {
+		if !found[key] {
+			t.Errorf("missing corrected entry %s (%s)", key[0], key[1])
+		}
+	}
+	for _, wrong := range [][2]string{
+		{"가설", "假設"}, {"자극", "刺激"}, {"농구", "籃球"}, {"수감", "囚監"}, {"분장", "扮粧"}, {"암담", "暗憺"},
+	} {
+		for _, word := range g.words {
+			if word.Word == wrong[0] && word.Hanja == wrong[1] {
+				t.Errorf("obsolete entry remains: %s (%s)", wrong[0], wrong[1])
+			}
+		}
+	}
+}
+
+func TestRepositoryWordComponentReadings(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	for _, word := range g.words {
+		syllables := []rune(strings.ReplaceAll(word.Word, " ", ""))
+		if len(syllables) != len(word.Components) {
+			t.Errorf("%s (%s): %d syllables for %d components", word.Word, word.Hanja, len(syllables), len(word.Components))
+			continue
+		}
+		for i, glyph := range word.Components {
+			matched := false
+			for _, character := range g.characters[glyph] {
+				if []rune(g.reading(character).SoundKo)[0] == syllables[i] {
+					matched = true
+					break
+				}
+			}
+			allowed := word.Word == "곤란" && word.Hanja == "困難" && i == 1
+			if !matched && !allowed {
+				t.Errorf("%s (%s): component %s has no %c reading", word.Word, word.Hanja, glyph, syllables[i])
+			}
+		}
+	}
+}
+
+func TestRepositoryCharacterMeaningsAreUnique(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, character := range g.characterOrder {
+		for label, meanings := range map[string][]string{"ko": character.MeaningKo, "en": character.MeaningEn} {
+			seen := make(map[string]bool, len(meanings))
+			for _, meaning := range meanings {
+				if seen[meaning] {
+					t.Errorf("%s %s: duplicate %s meaning %q", character.ID, character.Hanja, label, meaning)
+				}
+				seen[meaning] = true
+			}
+		}
+	}
+}
+
 func TestExpandedVocabularyCoverage(t *testing.T) {
 	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
 	if err != nil {
@@ -392,7 +480,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		}
 	}
 	for query, forms := range map[string][]string{
-		"가경": {"佳景", "佳境"}, "가정": {"家庭", "假定"}, "가설": {"假設", "架設"},
+		"가경": {"佳景", "佳境"}, "가정": {"家庭", "假定"}, "가설": {"假說", "架設"},
 		"고가": {"高架", "高價"}, "국가": {"國歌", "國家"}, "시각": {"時刻", "視覺"}, "각하": {"却下", "閣下"},
 		"간사": {"姦邪", "幹事"},
 		"감사": {"感謝", "監査"}, "감정": {"感情", "鑑定"}, "강건": {"剛健", "康健"},
@@ -416,7 +504,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"단서": {"但書", "端緖"},
 		"강단": {"剛斷", "講壇"}, "단정": {"端正", "斷定"}, "단기": {"短期", "檀紀"},
 		"지도": {"地圖", "指導"}, "도장": {"圖章", "塗裝"}, "교도": {"矯導", "敎徒"},
-		"수도": {"首都", "水稻"}, "전도": {"顚倒", "前途"}, "독자": {"獨自", "讀者"},
+		"수도": {"囚徒", "首都", "水稻"}, "전도": {"顚倒", "前途"}, "독자": {"獨自", "讀者"},
 		"동지": {"冬至", "同志"}, "공동": {"共同", "空洞"},
 		"동시": {"同時", "童詩"}, "동상": {"凍傷", "銅像"}, "단락": {"段落", "短絡"}, "산란": {"産卵", "散亂"},
 		"화랑": {"花郞", "畫廊"},
@@ -545,7 +633,7 @@ func TestExpandedVocabularyCoverage(t *testing.T) {
 		"장벽": {"障壁", "墻壁"},
 		"포장": {"褒奬", "包裝"},
 		"수장": {"首長", "手掌"},
-		"분장": {"分掌", "扮粧"},
+		"분장": {"分掌", "扮裝"},
 		"화장": {"化粧", "火葬"},
 		"농장": {"濃粧", "農莊"},
 		"소장": {"小腸", "所藏"},
