@@ -782,6 +782,31 @@ func TestRepositoryHintReadings(t *testing.T) {
 	}
 }
 
+func TestRepositorySemanticHintTone(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	koreanSentenceEnding := regexp.MustCompile(`([가-힣]+)\.(?:\s|$)`)
+	for _, word := range g.words {
+		if word.SemanticHint == "" {
+			continue
+		}
+		koreanHint := strings.TrimSpace(strings.SplitN(word.SemanticHint, " / ", 2)[0])
+		endings := koreanSentenceEnding.FindAllStringSubmatch(koreanHint, -1)
+		if len(endings) == 0 || !strings.HasSuffix(koreanHint, "요.") {
+			t.Errorf("%s (%s): Korean hint must end in 해요체 (-요.): %q", word.Word, word.Hanja, koreanHint)
+			continue
+		}
+		for _, ending := range endings {
+			if !strings.HasSuffix(ending[1], "요") {
+				t.Errorf("%s (%s): Korean hint sentence must use 해요체 (-요.): %q", word.Word, word.Hanja, ending[1]+".")
+			}
+		}
+	}
+}
+
 func TestRepositoryAlternateReading(t *testing.T) {
 	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
 	if err != nil {
