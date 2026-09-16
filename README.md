@@ -45,7 +45,8 @@ go run ./cmd -json word 번화가
 | [웹 앱 사용 안내](docs/WEB_APP.md) | 검색, 그래프 조작, 단어장, 문맥 연습 |
 | [개발 안내](docs/DEVELOPMENT.md) | 실행 옵션, 소스 구조, API, 검증 방법 |
 | [데이터 모델](docs/DATA_MODEL.md) | 파일 형식, 식별자, 연결 규칙, 검증 범위 |
-| [데이터 작업 기록](dataset/UPDATE_LOG.md) | 어휘 수집 내역, 출처 대조, 다음 수집 위치 |
+| [데이터 작성·검수 원칙](docs/DATA_GUIDELINES.md) | 수집 범위, 표기·출제 원칙, 남은 내용 검토 |
+| [데이터 작업 기록](log/UPDATE_LOG.md) | 날짜별 수집·교정 내역, 출처 대조, 검증 결과 |
 
 ## 라이선스
 

@@ -1,8 +1,8 @@
 # 데이터 모델
 
-[프로젝트 소개](../README.md) · [프로젝트 현황](README.md) · [웹 앱 사용 안내](WEB_APP.md) · [개발 안내](DEVELOPMENT.md)
+[프로젝트 소개](../README.md) · [프로젝트 현황](README.md) · [웹 앱 사용 안내](WEB_APP.md) · [개발 안내](DEVELOPMENT.md) · [데이터 작성·검수 원칙](DATA_GUIDELINES.md)
 
-현재 저장 형식과 프로그램의 검증·조회 규칙을 정리한다. 어휘 수집 위치, 개별 표기 수정과 대조 출처는 [데이터 작업 기록](../dataset/UPDATE_LOG.md)에서 관리한다.
+현재 저장 형식과 프로그램의 검증·조회 규칙을 정리한다. 수집 범위와 내용 작성·검수는 [데이터 작성·검수 원칙](DATA_GUIDELINES.md)을 따른다. 어휘 수집 위치, 개별 표기 수정과 대조 출처는 [데이터 작업 기록](../log/UPDATE_LOG.md)에서 관리한다.
 
 ## 파일과 작성 형식
 

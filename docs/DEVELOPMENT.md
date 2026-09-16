@@ -1,6 +1,6 @@
 # 개발 안내
 
-[프로젝트 소개·빠른 시작](../README.md) · [프로젝트 현황](README.md) · [웹 앱 사용 안내](WEB_APP.md) · [데이터 모델](DATA_MODEL.md)
+[프로젝트 소개·빠른 시작](../README.md) · [프로젝트 현황](README.md) · [웹 앱 사용 안내](WEB_APP.md) · [데이터 모델](DATA_MODEL.md) · [데이터 작성·검수 원칙](DATA_GUIDELINES.md)
 
 ## 개발 환경
 
@@ -140,7 +140,7 @@ flowchart LR
 
 ## 검증
 
-데이터만 바꾼 경우에는 다음 검사를 실행한다. 상세 JavaScript·브라우저·전체 웹 테스트는 데이터 검증 루틴에 포함하지 않는다.
+수집 범위와 내용 검수 기준은 [데이터 작성·검수 원칙](DATA_GUIDELINES.md)을 따른다. 데이터만 바꾼 경우에는 다음 검사를 실행한다. 상세 JavaScript·브라우저·전체 웹 테스트는 데이터 검증 루틴에 포함하지 않는다.
 
 ```sh
 go run ./cmd validate
