@@ -422,3 +422,6 @@
 {"type": "meta", "id": "rap", "sound_ko": "랍", "sound_en": "rap"}
 {"type": "meta", "id": "chwe", "sound_ko": "췌", "sound_en": "chwe"}
 {"type": "meta", "id": "geop", "sound_ko": "겁", "sound_en": "geop"}
+{"type": "meta", "id": "ral", "sound_ko": "랄", "sound_en": "ral"}
+{"type": "meta", "id": "ge", "sound_ko": "게", "sound_en": "ge"}
+{"type": "meta", "id": "ul", "sound_ko": "울", "sound_en": "ul"}

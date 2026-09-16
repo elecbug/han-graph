@@ -504,3 +504,128 @@ test('vocabulary expansion 891–910 preserves graph identities', () => {
     assert.deepEqual(edge.word.components,selected.components);
   }
 });
+
+
+test('vocabulary expansion 911–930 preserves graph identities', () => {
+  for(const forms of [["承服", "僧服"], ["始終", "侍從"], ["施行", "試行"], ["蔬食", "消息"], ["粉食", "粉飾"]]) {
+    for(const hanja of forms) {
+      const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+      assert.equal(layout.edges.filter(edge=>edge.current).length,1);
+      assert.equal(layout.edges.find(edge=>edge.current).word.hanja,hanja);
+      for(const other of forms.filter(form=>form!==hanja)) {
+        const candidate=words.find(word=>word.hanja===other);
+        assert.equal(layout.edges.some(edge=>edge.word.hanja===other),candidate.components.some(glyph=>selected.components.includes(glyph)));
+      }
+    }
+  }
+  for(const [hanja,glyph,id] of [["僧伽", "伽", "ga-200"], ["嚆矢", "嚆", "hyo-200"], ["矢鏃", "鏃", "chok-200"], ["流矢", "流", "yu-205"], ["僧侶", "侶", "ryeo-200"]]) {
+    const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id===id));
+  }
+  for(const [hanja,word,count] of [["是是非非", "시시비비", 2], ["試運轉", "시운전", 3], ["昇降機", "승강기", 3], ["僧伽", "승가", 2]]) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected), edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.word.word,word);
+    assert.equal(edge.glyphs.length,count);
+    assert.deepEqual(edge.word.components,selected.components);
+  }
+});
+
+
+test('vocabulary expansion 931–950 preserves graph identities', () => {
+  for(const forms of [["申告", "辛苦"]]) {
+    for(const hanja of forms) {
+      const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+      assert.equal(layout.edges.filter(edge=>edge.current).length,1);
+      assert.equal(layout.edges.find(edge=>edge.current).word.hanja,hanja);
+      for(const other of forms.filter(form=>form!==hanja)) {
+        const candidate=words.find(word=>word.hanja===other);
+        assert.equal(layout.edges.some(edge=>edge.word.hanja===other),candidate.components.some(glyph=>selected.components.includes(glyph)));
+      }
+    }
+  }
+  for(const [hanja,glyph,id] of [["辛辣", "辣", "ral-200"], ["辛酸", "酸", "san-200"], ["伸冤", "冤", "won-200"], ["十匙一飯", "匙", "si-202"], ["雙璧", "璧", "byeok-200"], ["昏定晨省", "省", "seong-006"]]) {
+    const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id===id));
+  }
+  for(const [hanja,word,count] of [["千辛萬苦", "천신만고", 4], ["愼始敬終", "신시경종", 4], ["昏定晨省", "혼정신성", 4], ["尋人廣告", "심인 광고", 4], ["十匙一飯", "십시일반", 4]]) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected), edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.word.word,word);
+    assert.equal(edge.glyphs.length,count);
+    assert.deepEqual(edge.word.components,selected.components);
+  }
+});
+
+
+test('vocabulary expansion 951–970 preserves graph identities', () => {
+  for(const forms of [["幼兒", "幼芽"], ["亞聖", "牙城"], ["孤兒", "高雅"], ["紅顔", "鴻雁"]]) {
+    for(const hanja of forms) {
+      const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+      assert.equal(layout.edges.filter(edge=>edge.current).length,1);
+      assert.equal(layout.edges.find(edge=>edge.current).word.hanja,hanja);
+      for(const other of forms.filter(form=>form!==hanja)) {
+        const candidate=words.find(word=>word.hanja===other);
+        assert.equal(layout.edges.some(edge=>edge.word.hanja===other),candidate.components.some(glyph=>selected.components.includes(glyph)));
+      }
+    }
+  }
+  for(const [hanja,glyph,id] of [["萌芽", "萌", "maeng-200"], ["謁見", "見", "hyeon-200"], ["亞流", "流", "ryu-001"], ["龍顔", "龍", "yong-202"], ["押留", "留", "ryu-002"]]) {
+    const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id===id));
+  }
+  for(const [hanja,word,count] of [["無我之境", "무아지경", 4], ["象牙塔", "상아탑", 3], ["沈魚落雁", "침어낙안", 4], ["亞鉛", "아연", 2]]) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected), edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.word.word,word);
+    assert.equal(edge.glyphs.length,count);
+    assert.deepEqual(edge.word.components,selected.components);
+  }
+});
+
+
+test('vocabulary expansion 971–990 preserves graph identities', () => {
+  for(const forms of [["禪讓", "宣揚"]]) {
+    for(const hanja of forms) {
+      const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+      assert.equal(layout.edges.filter(edge=>edge.current).length,1);
+      assert.equal(layout.edges.find(edge=>edge.current).word.hanja,hanja);
+      for(const other of forms.filter(form=>form!==hanja)) {
+        const candidate=words.find(word=>word.hanja===other);
+        assert.equal(layout.edges.some(edge=>edge.word.hanja===other),candidate.components.some(glyph=>selected.components.includes(glyph)));
+      }
+    }
+  }
+  for(const [hanja,glyph,id] of [["般若", "若", "ya-200"], ["揭揚", "揭", "ge-200"]]) {
+    const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id===id));
+  }
+  for(const [hanja,word,count] of [["意氣揚揚", "의기양양", 3], ["性相近也習相遠也", "성상근야습상원야", 6], ["殃及池魚", "앙급지어", 4], ["阿賴耶識", "아뢰야식", 4]]) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected), edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.word.word,word);
+    assert.equal(edge.glyphs.length,count);
+    assert.deepEqual(edge.word.components,selected.components);
+  }
+});
+
+
+test('vocabulary expansion 991–1010 preserves graph identities', () => {
+  for(const forms of [["糧食", "樣式"]]) {
+    for(const hanja of forms) {
+      const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+      assert.equal(layout.edges.filter(edge=>edge.current).length,1);
+      assert.equal(layout.edges.find(edge=>edge.current).word.hanja,hanja);
+      for(const other of forms.filter(form=>form!==hanja)) {
+        const candidate=words.find(word=>word.hanja===other);
+        assert.equal(layout.edges.some(edge=>edge.word.hanja===other),candidate.components.some(glyph=>selected.components.includes(glyph)));
+      }
+    }
+  }
+  for(const [hanja,glyph,id] of [["抑鬱", "鬱", "ul-200"], ["記憶力", "力", "ryeok-000"], ["追憶錄", "錄", "rok-101"], ["抑留", "留", "ryu-002"]]) {
+    const selected=words.find(word=>word.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id===id));
+  }
+  for(const [hanja,word,count] of [["吾不關焉", "오불관언", 4], ["余那山", "여나산", 3], ["天壤之差", "천양지차", 4], ["億萬長者", "억만장자", 4]]) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected), edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.word.word,word);
+    assert.equal(edge.glyphs.length,count);
+    assert.deepEqual(edge.word.components,selected.components);
+  }
+});

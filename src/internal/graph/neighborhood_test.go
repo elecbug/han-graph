@@ -49,7 +49,7 @@ func TestNeighborhood(t *testing.T) {
 	}
 	for _, query := range []string{"降", "hang-200"} {
 		n := g.Neighborhood(query)
-		if len(n.Roots) != 1 || len(n.Characters[0].Readings) != 2 || len(n.Words) != 7 {
+		if len(n.Roots) != 1 || len(n.Characters[0].Readings) != 2 || len(n.Words) != 9 {
 			t.Errorf("multiple readings duplicated the neighborhood: %+v", n)
 		}
 	}
