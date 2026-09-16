@@ -40,7 +40,7 @@ func TestNeighborhood(t *testing.T) {
 	if !reflect.DeepEqual(characters, wantedCharacters) {
 		t.Fatalf("incorrect neighborhood characters: got %+v, want %+v", characters, wantedCharacters)
 	}
-	if !characters["情"] || !characters["視"] || !characters["慨"] || !characters["激"] || !characters["愧"] || !characters["鈍"] || characters["監"] || characters["勵"] || characters["羞"] || characters["愚"] || !characters["淸"] || !characters["涼"] || !characters["諒"] || !characters["解"] || !characters["書"] || characters["荒"] || characters["恕"] || !characters["銘"] || characters["碑"] || characters["墓"] || !characters["侮"] || !characters["辱"] || !characters["蔑"] || characters["輕"] || !characters["敏"] || characters["銳"] || characters["機"] {
+	if !characters["情"] || !characters["視"] || !characters["慨"] || !characters["激"] || !characters["愧"] || !characters["鈍"] || characters["監"] || characters["勵"] || characters["羞"] || characters["愚"] || !characters["淸"] || !characters["涼"] || !characters["諒"] || !characters["解"] || !characters["書"] || characters["荒"] || characters["恕"] || !characters["銘"] || characters["碑"] || characters["墓"] || !characters["侮"] || !characters["辱"] || !characters["蔑"] || !characters["輕"] || !characters["敏"] || characters["銳"] || characters["機"] {
 		t.Fatalf("incorrect one-hop boundary: %+v", characters)
 	}
 	// A longer word retains all of its components, including more distant

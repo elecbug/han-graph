@@ -32,7 +32,7 @@ test('all direct neighbors are laid out once, with a clickable edge per word', (
   assert(layout.nodes.some(node=>node.hanja==='銘'), 'include the newly connected 감명');
   for(const glyph of ['碑','墓'])assert(!layout.nodes.some(node=>node.hanja===glyph), 'do not expand 銘 to 비명 or 묘지명');
   for(const glyph of ['侮','辱','蔑'])assert(layout.nodes.some(node=>node.hanja===glyph), 'include 모욕감 and 모멸감');
-  assert(!layout.nodes.some(node=>node.hanja==='輕'), 'do not expand from 侮 to 경모');
+  assert(layout.nodes.some(node=>node.hanja==='輕'), 'include the directly connected 경멸감');
   assert(!layout.edges.some(edge=>edge.word.hanja==='侮辱'||edge.word.hanja==='侮蔑'), 'only words containing a selected root belong in the neighborhood');
   assert(layout.nodes.some(node=>node.hanja==='敏'), 'include 민감');
   for(const glyph of ['銳','機'])assert(!layout.nodes.some(node=>node.hanja===glyph), 'do not expand from 敏 to 예민 or 기민');
@@ -1534,5 +1534,45 @@ test('vocabulary expansion 1791–1800 preserves graph identities', () => {
     assert.equal(edge.word.word,word);
     assert.equal(edge.glyphs.length,count);
     assert.deepEqual(edge.word.components,selected.components);
+  }
+});
+
+
+test('fixed supplemental vocabulary keeps homographs distinct in shared neighborhoods', () => {
+  for(const [word, forms] of [
+    ['기적', ['汽笛', '奇蹟']],
+    ['포장', ['包裝', '鋪裝']],
+    ['함정', ['陷穽', '艦艇']],
+  ]) {
+    const matches=words.filter(item=>item.word===word);
+    for(const hanja of forms) {
+      const selected=matches.find(item=>item.hanja===hanja);
+      assert(selected, `${word} ${hanja} must remain independently selectable`);
+      const graph=neighborhood(selected), layout=layoutNetwork(graph,selected);
+      assert.deepEqual(layout.edges.filter(edge=>edge.current).map(edge=>[edge.word.word,edge.word.hanja]), [[word,hanja]]);
+      assert.deepEqual(layout.edges.map(edge=>JSON.stringify([edge.word.word,edge.word.hanja])).sort(), graph.words.map(item=>JSON.stringify([item.word,item.hanja])).sort());
+    }
+  }
+});
+
+test('supplemental readings and repeated characters remain available after the collection cutoff', () => {
+  for(const [word,hanja,glyph,sound] of [
+    ['인후', '咽喉', '咽', 'in'],
+    ['익명', '匿名', '匿', 'ik'],
+    ['골계', '滑稽', '滑', 'gol'],
+    ['봉랍', '封蠟', '蠟', 'rap'],
+    ['납촉', '蠟燭', '蠟', 'nap'],
+    ['이정', '釐正', '釐', 'i'],
+  ]) {
+    const selected=words.find(item=>item.word===word && item.hanja===hanja);
+    const layout=layoutNetwork(neighborhood(selected),selected);
+    assert(layout.nodes.find(node=>node.hanja===glyph).readings.some(reading=>reading.id.startsWith(`${sound}-`)));
+  }
+  for(const hanja of ['煌煌','燦燦']) {
+    const selected=words.find(item=>item.hanja===hanja), layout=layoutNetwork(neighborhood(selected),selected);
+    const edge=layout.edges.find(item=>item.current);
+    assert.equal(edge.glyphs.length,1);
+    assert.equal(edge.word.components.length,2);
+    assert.equal(edgePaths(edge,layout.nodes).length,2);
   }
 });
