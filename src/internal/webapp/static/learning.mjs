@@ -12,6 +12,8 @@ export function normalizeSaved(value) {
   }).slice(0, 500).map(({word, hanja}) => ({word, hanja}));
 }
 
+export const PRACTICE_SESSION_SIZE = 10;
+
 export function createSession(questions, random = Math.random) {
   const shuffled = values => {
     const result = [...values];
@@ -21,7 +23,7 @@ export function createSession(questions, random = Math.random) {
     }
     return result;
   };
-  return {questions: shuffled(questions).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
+  return {questions: shuffled(questions).slice(0, PRACTICE_SESSION_SIZE).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
 }
 
 export function answerQuestion(session, index, selected) {

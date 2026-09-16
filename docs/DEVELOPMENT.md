@@ -75,7 +75,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 | [static/network.mjs](../src/internal/webapp/static/network.mjs) | 그래프 배치와 SVG 생성 |
 | [static/network-routing.mjs](../src/internal/webapp/static/network-routing.mjs) | 상자를 피하는 연결선 경로 계산 |
 | [static/network-view.mjs](../src/internal/webapp/static/network-view.mjs) | 그래프 이동과 포인터·키보드 조작 |
-| [static/learning.mjs](../src/internal/webapp/static/learning.mjs) | 항목 식별, 단어장 정규화, 채점 |
+| [static/learning.mjs](../src/internal/webapp/static/learning.mjs) | 항목 식별, 단어장 정규화, 무작위 10문항 선택과 채점 |
 | [static/wordbook.mjs](../src/internal/webapp/static/wordbook.mjs) | 단어장 JSONL 파싱·병합·출력 |
 
 ```mermaid
@@ -102,7 +102,7 @@ flowchart LR
 | `GET /api/characters` | 필수 `q` | 글자·독음·ID에 정확히 일치하는 독음 레코드와 연결 단어 배열 |
 | `GET /api/neighborhood` | 필수 `q` | `roots`, `characters`, `words`로 구성된 깊이 1 그래프 |
 | `GET /api/random-word` | 선택적 `exclude_word`, `exclude_hanja` | 전체 데이터에서 선택한 단어 객체 하나 |
-| `GET /api/practice` | 없음 | 문항, 선택지, 정답과 해설 |
+| `GET /api/practice` | 없음 | 전체 문항, 선택지, 정답과 해설; 회차의 10문항 선택은 브라우저에서 수행 |
 
 ### 조회 규칙
 
