@@ -160,3 +160,44 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 	}
 	return result
 }
+
+// SearchSound matches one exact registered reading in Hangul or romanization.
+// Words must contain that Hangul sound in their written form; sharing a glyph
+// with another reading is not enough. Meanings do not participate in this search.
+func (g *Graph) SearchSound(query string, limit int) SearchResult {
+	query = strings.ToLower(strings.TrimSpace(query))
+	if query == "" {
+		return g.Search("", limit)
+	}
+	if limit < 1 {
+		limit = 60
+	}
+	result := SearchResult{Words: []Word{}, Characters: []Reading{}}
+	sounds := make(map[rune]bool)
+	for _, character := range g.characterOrder {
+		reading := g.reading(character)
+		if reading.SoundKo != query && strings.ToLower(reading.SoundEn) != query {
+			continue
+		}
+		for _, sound := range reading.SoundKo {
+			sounds[sound] = true
+		}
+		result.CharacterCount++
+		if len(result.Characters) < limit {
+			result.Characters = append(result.Characters, reading)
+		}
+	}
+	for _, word := range g.words {
+		for _, sound := range word.Word {
+			if !sounds[sound] {
+				continue
+			}
+			result.WordCount++
+			if len(result.Words) < limit {
+				result.Words = append(result.Words, word)
+			}
+			break
+		}
+	}
+	return result
+}

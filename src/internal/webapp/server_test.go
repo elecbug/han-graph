@@ -250,3 +250,46 @@ func TestPracticeValidation(t *testing.T) {
 		})
 	}
 }
+
+func TestSearchModesAPI(t *testing.T) {
+	g, _, app := testApp(t)
+	for _, tc := range []struct {
+		mode, query string
+		status      int
+	}{
+		{"", "하", 200},
+		{"all", "하", 200},
+		{"sound", "하", 200},
+		{"sound", " HA ", 200},
+		{"sound", "", 200},
+		{"sound", "하다", 200},
+		{"sound", strings.Repeat("하", 101), 400},
+		{"unknown", "하", 400},
+	} {
+		t.Run(tc.mode+"/"+tc.query, func(t *testing.T) {
+			params := url.Values{"q": {tc.query}}
+			if tc.mode != "" {
+				params.Set("mode", tc.mode)
+			}
+			response := httptest.NewRecorder()
+			app.ServeHTTP(response, httptest.NewRequest("GET", "/api/search?"+params.Encode(), nil))
+			if response.Code != tc.status || !json.Valid(response.Body.Bytes()) {
+				t.Fatalf("unexpected search response: %d %s", response.Code, response.Body.String())
+			}
+			if tc.status != 200 {
+				return
+			}
+			var got graph.SearchResult
+			if err := json.Unmarshal(response.Body.Bytes(), &got); err != nil {
+				t.Fatal(err)
+			}
+			want := g.Search(tc.query, 60)
+			if tc.mode == "sound" {
+				want = g.SearchSound(tc.query, 60)
+			}
+			if !reflect.DeepEqual(got, want) || response.Header().Get("Cache-Control") != "no-store" {
+				t.Fatalf("incorrect mode response: %+v", got)
+			}
+		})
+	}
+}

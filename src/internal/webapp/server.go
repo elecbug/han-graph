@@ -38,7 +38,16 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 	mux.HandleFunc("GET /api/stats", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, g.Stats()) })
 	mux.HandleFunc("GET /api/search", func(w http.ResponseWriter, r *http.Request) {
 		if q, ok := query(w, r, false); ok {
-			jsonReply(w, g.Search(q, 60))
+			switch r.URL.Query().Get("mode") {
+			case "", "all":
+				jsonReply(w, g.Search(q, 60))
+			case "sound":
+				jsonReply(w, g.SearchSound(q, 60))
+			default:
+				w.Header().Set("Content-Type", "application/json; charset=utf-8")
+				w.WriteHeader(http.StatusBadRequest)
+				jsonReply(w, map[string]string{"error": "mode must be all or sound"})
+			}
 		}
 	})
 	mux.HandleFunc("GET /api/words", func(w http.ResponseWriter, r *http.Request) {

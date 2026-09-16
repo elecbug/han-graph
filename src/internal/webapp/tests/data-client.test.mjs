@@ -46,3 +46,26 @@ test('cache evicts least recently used results and does not cross reloads', asyn
   const reloaded=createDataClient({origin,fetcher});
   assert.equal(await reloaded('/a'),5);
 });
+
+test('sound and full searches keep separate caches for the same query and empty browsing', async () => {
+  const calls=[];
+  const full={characters:[{hanja:'家',sound_ko:'가'}]};
+  const sound={characters:[{hanja:'下',sound_ko:'하'}]};
+  const get=createDataClient({origin,seed:{'/api/search':full},fetcher:async href=>{
+    const url=new URL(href);
+    calls.push(url);
+    return reply(url.searchParams.get('mode')==='sound'?sound:full);
+  }});
+  const allRequest=get('/api/search','하');
+  const soundRequest=get('/api/search?mode=sound','하');
+  assert.notEqual(allRequest,soundRequest);
+  assert.equal(soundRequest,get('/api/search?mode=sound&q=하'));
+  assert.deepEqual(await allRequest,full);
+  assert.deepEqual(await soundRequest,sound);
+  assert.deepEqual(await get('/api/search',''),full);
+  assert.deepEqual(await get('/api/search?mode=sound',''),sound);
+  assert.deepEqual(await get('/api/search','하'),full);
+  assert.equal(calls.length,3);
+  assert.equal(calls[1].searchParams.get('q'),'하');
+  assert.equal(calls[1].searchParams.get('mode'),'sound');
+});

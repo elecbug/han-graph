@@ -22,6 +22,7 @@ const copy = {
     randomWord:'랜덤 단어', randomHint:'전체 단어에서 무작위로 선택', randomLoading:'고르는 중…', randomError:'랜덤 단어를 불러오지 못했어요. 다시 눌러 주세요.',
     workspace:'나의 학습 공간', explore:'단어 탐색', practice:'문맥 연습', saved:'내 단어장', sidebarQuote:'한 글자를 이해하면,<br>더 많은 단어가 보여요.', sidebarSub:'작은 연결에서 시작하는 한국어', local:'나만의 한국어 학습 공간', footer:'하나의 단어에서 시작되는 새로운 이해.',
     exploreTitle:'뜻을 따라, 단어를 연결해요.', exploreSub:'하나의 한자를 이해하면, 새로운 단어가 보입니다.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'탐색할 단어', search:'단어, 한자, 뜻을 찾아보세요', clear:'검색 지우기', browseLabel:'작은 연결에서 시작해 보세요', words:'단어', characters:'한자', entries:'개', searchResults:'검색 결과', limited:'일부 결과를 표시하고 있어요. 검색어를 더 구체적으로 입력해 주세요.',
+    searchMode:'검색 범위', searchAll:'전체 검색', searchSound:'소리 검색', soundPlaceholder:'한자 독음으로 검색 (예: 하, ha)', allSearchHint:'단어·한자·독음·뜻을 함께 찾아요.', soundSearchHint:'한자는 같은 독음으로, 단어는 그 음을 포함한 표기로 찾아요. 예: 하 / ha', soundEmptyHint:'한 글자의 독음을 입력해 주세요. 예: 하, 수, ha, su', soundLimited:'일부 단어를 표시하고 있어요. 한자 탭에서 원하는 한자를 골라 연결 단어를 살펴보세요.',
     noResults:'일치하는 항목이 없어요.', searchHint:'다른 단어, 한자 또는 영어 뜻으로 찾아보세요.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'저장하기', savedButton:'저장됨', removed:'단어장에서 삭제했어요.', added:'내 단어장에 저장했어요.', maxSaved:'단어장에 최대 500개까지 저장할 수 있어요.', storageFailed:'이 브라우저에서는 저장할 수 없어 이번 방문 동안만 유지됩니다.',
     breakDown:'단어를 이루는 한자', tapCharacter:'한자를 누르면 그래프에서 강조해요', readingNote:'한자의 뜻은 단어와 문맥에 따라 달라질 수 있어요.', connections:'같은 한자, 다른 단어', graphHint:'한자는 원, 단어는 선 위의 이름이에요. 마우스를 올리거나 키보드로 초점을 두면 연결이 강조돼요.', graphScope:'선택한 한자에서 한 번 연결되는 모든 단어', zoomIn:'확대', zoomOut:'축소', fitGraph:'전체 보기', graphPan:'드래그하거나 그래프에 초점을 두고 방향키로 이동해요. 휠은 페이지를 스크롤해요.', graphRegion:'한자와 단어 연결 그래프', graphSelected:'선택 단어의 구성 한자', currentWord:'선택한 단어', noConnections:'아직 연결된 단어가 없어요.', noConnectionsSub:'이 한자의 단어는 앞으로 채워 갈 예정이에요.', readings:'독음과 뜻', notFound:'이 항목을 찾을 수 없어요.', notFoundSub:'검색 목록에서 다른 항목을 선택해 주세요.',
     savedTitle:'기억하고 싶은 단어들.', savedSub:'다시 만나고 싶은 단어를 한곳에 모아 보세요.', savedEye:'YOUR WORD COLLECTION', storageNote:'단어장은 이 브라우저에 저장됩니다. 다른 기기와는 동기화되지 않아요.', savedEmpty:'아직 모아 둔 단어가 없어요.', savedEmptySub:'탐색 중 마음에 남는 단어를 저장해 보세요.', startExplore:'단어 탐색하기', openWord:'단어 살펴보기', remove:'저장 취소', missingSaved:'현재 데이터에서 찾을 수 없는 저장 항목',
@@ -33,6 +34,7 @@ const copy = {
     randomWord:'Random word', randomHint:'Choose from all words', randomLoading:'Choosing…', randomError:'Could not load a random word. Please try again.',
     workspace:'YOUR LEARNING SPACE', explore:'Explore', practice:'Practice', saved:'My words', sidebarQuote:'Understand one character.<br>Discover a world of words.', sidebarSub:'Korean, one connection at a time', local:'Your Korean learning space', footer:'A new understanding starts with one word.',
     exploreTitle:'Follow the meaning. Find a connection.', exploreSub:'Understand a character, and see Korean words in a new way.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'words to explore', search:'Search a word, character, or meaning', clear:'Clear search', browseLabel:'Start with a small connection', words:'Words', characters:'Characters', entries:'', searchResults:'Search results', limited:'Showing a selection. Refine your search to find more.',
+    searchMode:'Search scope', searchAll:'All fields', searchSound:'By reading', soundPlaceholder:'Hanja reading (e.g. 하, ha)', allSearchHint:'Search words, characters, readings, and meanings.', soundSearchHint:'Find exact character readings and words containing that sound. Try 하 / ha.', soundEmptyHint:'Enter one character’s reading, for example 하, 수, ha, or su.', soundLimited:'Showing some words. Choose a character in the Characters tab to explore its connected words.',
     noResults:'No matches yet.', searchHint:'Try another Korean word, character, or English meaning.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'Save word', savedButton:'Saved', removed:'Removed from your words.', added:'Added to your words.', maxSaved:'You can save up to 500 words.', storageFailed:'Storage is unavailable. Your changes will last for this visit only.',
     breakDown:'The characters inside', tapCharacter:'Select a character to highlight it in the graph', readingNote:'A character’s meaning can change with the word and context.', connections:'One character. More connections.', graphHint:'Circles are characters; words label the lines. Hover or focus with the keyboard to highlight a connection.', graphScope:'All words one connection from the selected characters', zoomIn:'Zoom in', zoomOut:'Zoom out', fitGraph:'Fit all', graphPan:'Drag to move, or focus the graph and use arrow keys. Scroll the wheel to move the page.', graphRegion:'Character and word connection graph', graphSelected:'Characters in the selected word', currentWord:'Selected word', noConnections:'No connected words yet.', noConnectionsSub:'Vocabulary for this character will be added over time.', readings:'Readings and meanings', notFound:'This entry could not be found.', notFoundSub:'Choose another entry from the search results.',
     savedTitle:'Words worth coming back to.', savedSub:'Keep the connections you want to remember.', savedEye:'YOUR WORD COLLECTION', storageNote:'Your collection is saved in this browser. It does not sync to other devices.', savedEmpty:'Your collection starts here.', savedEmptySub:'Save a word as you explore to find it here later.', startExplore:'Explore words', openWord:'Explore this word', remove:'Remove saved word', missingSaved:'Saved entries no longer in the current dataset',
@@ -43,12 +45,13 @@ function readStorage(key, fallback) { try { return JSON.parse(localStorage.getIt
 const state = {
   lang: readStorage('han-graph.language', 'ko') === 'en' ? 'en' : 'ko',
   saved: normalizeSaved(readStorage('han-graph.words.v1', [])),
-  page:'explore', query:'', tab:'words', search:null, stats:null, practice:null,
+  page:'explore', query:'', searchMode:'all', tab:'words', search:null, stats:null, practice:null,
   selection:null, detail:null, glyph:null, session:null, index:0, translation:false,
   ready:false, importingWords:false, wordbookStatus:null,
 };
 let pageEpoch=0, detailEpoch=0, searchEpoch=0, searchTimer, toastTimer;
 const t = key => copy[state.lang][key] ?? key;
+const searchPath = mode => mode==='sound'?'/api/search?mode=sound':'/api/search';
 const meaning = word => word[state.lang === 'ko' ? 'meaning_ko' : 'meaning_en'];
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
@@ -89,10 +92,11 @@ async function renderPage({revealSelection=false} = {}) {
   else if(params.get('character')) state.selection={kind:'character',glyph:params.get('character')};
   else if(!state.selection) { const word=state.search.words.find(word=>word.word==='가정')??state.search.words[0]; if(word)state.selection={kind:'word',...word}; }
   $('#main').innerHTML=`${hero('exploreEye','exploreTitle','exploreSub',`<div class="hero-counter"><strong>${state.stats.words}</strong><span>${t('wordsReady')}</span></div>`)}
-    <div class="explore-tools"><form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t('search')}" aria-label="${t('search')}" autocomplete="off"></form><button class="random-button" type="button" data-action="random-word" title="${t('randomHint')}">${icons.shuffle}<span>${t('randomWord')}</span></button></div>
+    <div class="search-filters"><div class="search-modes" role="group" aria-label="${t('searchMode')}">${['all','sound'].map(mode=>`<button type="button" data-action="search-mode" data-mode="${mode}" class="${state.searchMode===mode?'active':''}" aria-pressed="${state.searchMode===mode}">${t(mode==='sound'?'searchSound':'searchAll')}</button>`).join('')}</div><p id="search-mode-hint">${t(state.searchMode==='sound'?'soundSearchHint':'allSearchHint')}</p></div>
+    <div class="explore-tools"><form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-label="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-describedby="search-mode-hint" autocomplete="off"></form><button class="random-button" type="button" data-action="random-word" title="${t('randomHint')}">${icons.shuffle}<span>${t('randomWord')}</span></button></div>
     <div class="section-bar"><span>${t('browseLabel')}</span><span>${state.stats.characters.toLocaleString(state.lang)} ${t('characters')} · ${state.stats.words} ${t('words')}</span></div>
     <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section><div class="network-panel" id="network"></div></div>`;
-  $('#search-form').addEventListener('submit', event=>{event.preventDefault();clearTimeout(searchTimer);performSearch();});
+  $('#search-form').addEventListener('submit', event=>{event.preventDefault();state.query=$('#search').value;clearTimeout(searchTimer);performSearch();});
   $('#search').addEventListener('input', event=>{state.query=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(performSearch,180);});
   renderCatalog();
   if(state.selection) await loadDetail(state.selection); else $('#detail').innerHTML=`<div class="empty-state">${t('notFoundSub')}</div>`;
@@ -115,7 +119,7 @@ function renderCatalog() {
     const sub=word?meaning(item):item[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ');
     return `<button class="catalog-item ${selected?'selected':''}" data-action="${word?'open-word':'open-character'}" ${word?wordAttrs(item):`data-glyph="${esc(item.hanja)}"`} ${selected?'aria-current="true"':''}><span class="item-main"><span class="item-title">${esc(title)}</span><span class="item-sub">${esc(sub)}</span></span>${word?`<span class="item-hanja">${esc(item.hanja)}</span>`:''}${selected?'<span class="item-arrow">↗</span>':''}</button>`;
   }).join('');
-  $('#catalog').innerHTML=`<div class="catalog-tabs" role="group" aria-label="${t('searchResults')}"><button data-action="tab" data-tab="words" class="${state.tab==='words'?'active':''}" aria-pressed="${state.tab==='words'}">${t('words')}<span class="tab-count">${result.word_count}</span></button><button data-action="tab" data-tab="characters" class="${state.tab==='characters'?'active':''}" aria-pressed="${state.tab==='characters'}">${t('characters')}<span class="tab-count">${result.character_count}</span></button></div><div class="catalog-list">${items||`<div class="empty-state"><p>${t('noResults')}</p><p>${t('searchHint')}</p></div>`}</div><div class="list-footnote" aria-live="polite">${count>list.length?t('limited'):`${t('searchResults')} · ${count} ${t('entries')}`}</div>`;
+  $('#catalog').innerHTML=`<div class="catalog-tabs" role="group" aria-label="${t('searchResults')}"><button data-action="tab" data-tab="words" class="${state.tab==='words'?'active':''}" aria-pressed="${state.tab==='words'}">${t('words')}<span class="tab-count">${result.word_count}</span></button><button data-action="tab" data-tab="characters" class="${state.tab==='characters'?'active':''}" aria-pressed="${state.tab==='characters'}">${t('characters')}<span class="tab-count">${result.character_count}</span></button></div><div class="catalog-list">${items||`<div class="empty-state"><p>${t('noResults')}</p><p>${t(state.searchMode==='sound'?'soundEmptyHint':'searchHint')}</p></div>`}</div><div class="list-footnote" aria-live="polite">${count>list.length?t(state.searchMode==='sound'?'soundLimited':'limited'):`${t('searchResults')} · ${count} ${t('entries')}`}</div>`;
 }
 async function showRandomWord(button) {
   if(button.disabled)return;
@@ -143,19 +147,38 @@ async function showRandomWord(button) {
     button.querySelector('span').textContent=t('randomWord');
   }
 }
+function changeSearchMode(mode) {
+  if(!['all','sound'].includes(mode) || mode===state.searchMode)return;
+  state.searchMode=mode;
+  state.tab=mode==='sound'?'characters':'words';
+  clearTimeout(searchTimer);
+  document.querySelectorAll('[data-action="search-mode"]').forEach(button=>{
+    const active=button.dataset.mode===mode;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
+  });
+  const input=$('#search');
+  input.placeholder=t(mode==='sound'?'soundPlaceholder':'search');
+  input.setAttribute('aria-label',input.placeholder);
+  $('#search-mode-hint').textContent=t(mode==='sound'?'soundSearchHint':'allSearchHint');
+  performSearch();
+}
 async function performSearch() {
   const epoch=++searchEpoch;
-  const query=state.query;
+  const query=state.query, mode=state.searchMode;
+  $('#catalog')?.setAttribute('aria-busy','true');
   const note=$('.list-footnote'); if(note)note.textContent=t('looking');
   try {
-    const result=await getJSON('/api/search',query);
-    if(epoch!==searchEpoch || query!==state.query)return;
+    const result=await getJSON(searchPath(mode),query);
+    if(epoch!==searchEpoch || query!==state.query || mode!==state.searchMode)return;
     state.search=result;
     if(!result.words.length && result.characters.length)state.tab='characters';
     else if(!result.characters.length && result.words.length)state.tab='words';
     renderCatalog();
   } catch {
-    if(epoch===searchEpoch && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
+    if(epoch===searchEpoch && query===state.query && mode===state.searchMode && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
+  } finally {
+    if(epoch===searchEpoch)$('#catalog')?.removeAttribute('aria-busy');
   }
 }
 
@@ -352,7 +375,7 @@ async function boot() {
   updateShell();
   $('#main').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
   try {
-    const [stats,practice,search]=await Promise.all([getJSON('/api/stats'),getJSON('/api/practice'),getJSON('/api/search',state.query)]);
+    const [stats,practice,search]=await Promise.all([getJSON('/api/stats'),getJSON('/api/practice'),getJSON(searchPath(state.searchMode),state.query)]);
     Object.assign(state,{stats,practice,search,ready:true});
     await renderPage();
   } catch {$('#main').innerHTML=errorPanel();}
@@ -370,6 +393,7 @@ $('#main').addEventListener('click',event=>{
   else if(action==='download-words')downloadWordbook();
   else if(action==='upload-words')$('#wordbook-file')?.click();
   else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog();$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
+  else if(action==='search-mode')changeSearchMode(button.dataset.mode);
   else if(action==='search-retry')performSearch();
   else if(action==='retry'){if(state.ready)renderPage();else boot();}
   else if(action==='start-practice'){state.session=createSession(state.practice.questions);state.index=0;state.translation=false;renderPractice();$('.question-prompt')?.scrollIntoView({block:'nearest'});}
