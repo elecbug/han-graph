@@ -17,6 +17,8 @@ type WordRef struct {
 }
 
 type Question struct {
+	Difficulty    string    `json:"difficulty"`
+	WordLevel     string    `json:"word_level,omitempty"`
 	ID            string    `json:"id"`
 	PromptKo      string    `json:"prompt_ko"`
 	PromptEn      string    `json:"prompt_en"`
@@ -51,7 +53,8 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 		return practice, fmt.Errorf("%s: expected version=1, source, review_status=draft and questions", filename)
 	}
 	ids := make(map[string]bool)
-	for _, q := range practice.Questions {
+	for index := range practice.Questions {
+		q := &practice.Questions[index]
 		fail := func(message string) (Practice, error) {
 			return practice, fmt.Errorf("%s: question %q: %s", filename, q.ID, message)
 		}
@@ -62,6 +65,11 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 		}
 		if ids[q.ID] || len(q.Options) < 2 || len(q.Options) > 4 {
 			return fail("expected unique ID and 2–4 options")
+		}
+		switch q.Difficulty {
+		case "easy", "medium", "hard":
+		default:
+			return fail("difficulty must be easy, medium or hard")
 		}
 		ids[q.ID] = true
 		options := make(map[WordRef]bool)
@@ -74,6 +82,9 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 			for _, word := range g.FindWords(option.Word) {
 				if word.Word.Hanja == option.Hanja {
 					found = true
+					if option == q.Answer {
+						q.WordLevel = word.Word.Level
+					}
 				}
 			}
 			if !found {

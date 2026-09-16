@@ -1,5 +1,14 @@
-import {wordKey} from './learning.mjs';
+import {wordKey, WORD_LEVELS} from './learning.mjs';
 import {routeNetwork, roundedPath} from './network-routing.mjs';
+
+// Preserve root characters for context, but prune unrelated leaves and words.
+export function filterNetwork(network, level='all') {
+  if (!WORD_LEVELS.includes(level)) throw new RangeError('Invalid word category');
+  if (level==='all') return network;
+  const words=network.words.filter(word=>word.level===level);
+  const glyphs=new Set([...network.roots,...words.flatMap(word=>word.components)]);
+  return {...network, words, characters:network.characters.filter(character=>glyphs.has(character.hanja))};
+}
 
 // Words are edge labels (junctions for compounds with 3+ characters), not
 // additional character nodes. Keep glyph identity separate from its readings.
@@ -13,7 +22,7 @@ export function layoutNetwork(network, selected) {
   const edges = network.words.map(word => ({
     word, id:wordKey(word), glyphs:[...new Set(word.components)],
     current:selected ? wordKey(word)===wordKey(selected) : false,
-    width:Math.max(92, Math.max([...word.word].length,[...word.hanja].length)*15+26), height:44,
+    width:Math.max(92, Math.max([...word.word].length,[...word.hanja].length)*15+26), height:60,
   }));
   const angle = index => rootList.length===2 ? Math.PI+index*Math.PI : -Math.PI/2+index*2*Math.PI/rootList.length;
   rootList.forEach((glyph,index) => {
@@ -159,8 +168,10 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp
 export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단어 살펴보기',characterLabel='한자',label='한자와 단어 연결 그래프'} = {}) {
   const wordHref=word=>`#explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`;
   const characterHref=glyph=>`#explore?${new URLSearchParams({character:glyph})}`;
-  const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
-  const labels=layout.edges.map(edge=>`<a class="network-edge ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${wordLabel}: ${esc(edge.word.word)} (${esc(edge.word.hanja)})" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="-22" width="${edge.width}" height="44" rx="7"/><text class="edge-word" y="-2">${esc(edge.word.word)}</text><text class="edge-hanja" y="15">${esc(edge.word.hanja)}</text></a>`).join('');
+  const category=word=>word.level==='classical'?'classical':'normal';
+  const categoryLabel=word=>lang==='ko'?(category(word)==='classical'?'고전·문어':'일반'):(category(word)==='classical'?'Classical':'General');
+  const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${category(edge.word)} ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
+  const labels=layout.edges.map(edge=>`<a class="network-edge ${category(edge.word)} ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${esc(wordLabel)}: ${esc(edge.word.word)} (${esc(edge.word.hanja)}), ${categoryLabel(edge.word)}" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} · ${categoryLabel(edge.word)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="${-edge.height/2}" width="${edge.width}" height="${edge.height}" rx="7"/><text class="edge-word" y="-11">${esc(edge.word.word)}</text><text class="edge-hanja" y="6">${esc(edge.word.hanja)}</text><text class="edge-category" y="23">${categoryLabel(edge.word)}</text></a>`).join('');
   const nodes=layout.nodes.map(node=>{
     const sounds=[...new Set(node.readings.map(reading=>reading.sound_ko))].join(' / ');
     const meanings=node.readings.map(reading=>reading[lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / ');

@@ -13,8 +13,16 @@ export function normalizeSaved(value) {
 }
 
 export const PRACTICE_SESSION_SIZE = 10;
+export const WORD_LEVELS = ['all', 'normal', 'classical'];
+export const PRACTICE_DIFFICULTIES = ['all', 'easy', 'medium', 'hard'];
 
-export function createSession(questions, random = Math.random) {
+export function filterPracticeQuestions(questions, {difficulty='all', level='all'} = {}) {
+  if (!WORD_LEVELS.includes(level) || !PRACTICE_DIFFICULTIES.includes(difficulty)) throw new RangeError('Invalid practice settings');
+  return questions.filter(q => (difficulty==='all' || q.difficulty===difficulty) && (level==='all' || q.word_level===level));
+}
+
+export function createSession(questions, random = Math.random, {difficulty='all', level='all'} = {}) {
+  const pool = filterPracticeQuestions(questions, {difficulty, level});
   const shuffled = values => {
     const result = [...values];
     for (let i = result.length - 1; i > 0; i--) {
@@ -23,7 +31,7 @@ export function createSession(questions, random = Math.random) {
     }
     return result;
   };
-  return {questions: shuffled(questions).slice(0, PRACTICE_SESSION_SIZE).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
+  return {difficulty, level, questions: shuffled(pool).slice(0, PRACTICE_SESSION_SIZE).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
 }
 
 export function answerQuestion(session, index, selected) {

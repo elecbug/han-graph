@@ -25,6 +25,18 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		w.Header().Set("Cache-Control", "no-store")
 		json.NewEncoder(w).Encode(value)
 	}
+	wordLevel := func(w http.ResponseWriter, r *http.Request) (string, bool) {
+		level := r.URL.Query().Get("level")
+		switch level {
+		case "", "all", "normal", "classical":
+			return level, true
+		default:
+			w.Header().Set("Content-Type", "application/json; charset=utf-8")
+			w.WriteHeader(http.StatusBadRequest)
+			jsonReply(w, map[string]string{"error": "level must be all, normal or classical"})
+			return "", false
+		}
+	}
 	query := func(w http.ResponseWriter, r *http.Request, required bool) (string, bool) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))
 		if (required && q == "") || utf8.RuneCountInString(q) > 100 {
@@ -37,12 +49,16 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 	}
 	mux.HandleFunc("GET /api/stats", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, g.Stats()) })
 	mux.HandleFunc("GET /api/search", func(w http.ResponseWriter, r *http.Request) {
+		level, valid := wordLevel(w, r)
+		if !valid {
+			return
+		}
 		if q, ok := query(w, r, false); ok {
 			switch r.URL.Query().Get("mode") {
 			case "", "all":
-				jsonReply(w, g.Search(q, 60))
+				jsonReply(w, g.SearchByLevel(q, 60, level))
 			case "sound":
-				jsonReply(w, g.SearchSound(q, 60))
+				jsonReply(w, g.SearchSoundByLevel(q, 60, level))
 			default:
 				w.Header().Set("Content-Type", "application/json; charset=utf-8")
 				w.WriteHeader(http.StatusBadRequest)
@@ -56,6 +72,10 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		}
 	})
 	mux.HandleFunc("GET /api/random-word", func(w http.ResponseWriter, r *http.Request) {
+		level, valid := wordLevel(w, r)
+		if !valid {
+			return
+		}
 		word := strings.TrimSpace(r.URL.Query().Get("exclude_word"))
 		hanja := strings.TrimSpace(r.URL.Query().Get("exclude_hanja"))
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -65,7 +85,7 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 			jsonReply(w, map[string]string{"error": "excluded word and hanja must be at most 100 characters"})
 			return
 		}
-		selected, ok := g.RandomWord(word, hanja)
+		selected, ok := g.RandomWordByLevel(word, hanja, level)
 		if !ok {
 			w.WriteHeader(http.StatusNotFound)
 			jsonReply(w, map[string]string{"error": "no words available"})

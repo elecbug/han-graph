@@ -57,25 +57,47 @@ func (g *Graph) Stats() Stats {
 // RandomWord samples the entire dataset, excluding the exact current entry when
 // another word is available. Words with the same Hangul remain distinct choices.
 func (g *Graph) RandomWord(excludeWord, excludeHanja string) (Word, bool) {
-	count := len(g.words)
-	if count == 0 {
-		return Word{}, false
-	}
+	return g.RandomWordByLevel(excludeWord, excludeHanja, "")
+}
+
+// RandomWordByLevel samples the selected category before excluding the current
+// entry. A singleton category still returns its only word.
+func (g *Graph) RandomWordByLevel(excludeWord, excludeHanja, level string) (Word, bool) {
+	candidates := make([]int, 0)
 	excluded := -1
-	if count > 1 {
-		for _, index := range g.wordsByQuery[excludeWord] {
-			if g.words[index].Word == excludeWord && g.words[index].Hanja == excludeHanja {
-				excluded = index
-				count--
-				break
-			}
+	for index, word := range g.words {
+		if !matchesLevel(word, level) {
+			continue
+		}
+		if word.Word == excludeWord && word.Hanja == excludeHanja {
+			excluded = index
+		} else {
+			candidates = append(candidates, index)
 		}
 	}
-	index := rand.IntN(count)
-	if excluded >= 0 && index >= excluded {
-		index++
+	if len(candidates) > 0 {
+		return g.words[candidates[rand.IntN(len(candidates))]], true
 	}
-	return g.words[index], true
+	if excluded >= 0 {
+		return g.words[excluded], true
+	}
+	return Word{}, false
+}
+
+func matchesLevel(word Word, level string) bool {
+	return level == "" || level == "all" || word.Level == level
+}
+
+func (g *Graph) hasLevelWords(glyph, level string) bool {
+	if level == "" || level == "all" {
+		return true
+	}
+	for _, index := range g.wordsByCharacter[glyph] {
+		if matchesLevel(g.words[index], level) {
+			return true
+		}
+	}
+	return false
 }
 
 func (g *Graph) reading(c Character) Reading {
@@ -128,6 +150,12 @@ type SearchResult struct {
 
 // Search matches written forms and meanings. Counts include results beyond limit.
 func (g *Graph) Search(query string, limit int) SearchResult {
+	return g.SearchByLevel(query, limit, "")
+}
+
+// SearchByLevel filters before counting and limiting. Characters remain visible
+// when at least one connected word belongs to the selected category.
+func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResult {
 	result := SearchResult{Words: []Word{}, Characters: []Reading{}}
 	query = strings.ToLower(strings.TrimSpace(query))
 	if limit < 1 {
@@ -142,7 +170,7 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 		return false
 	}
 	for _, word := range g.words {
-		if matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
+		if matchesLevel(word, level) && matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
 			result.WordCount++
 			if len(result.Words) < limit {
 				result.Words = append(result.Words, word)
@@ -151,7 +179,7 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)
-		if matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " ")) {
+		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " ")) {
 			result.CharacterCount++
 			if len(result.Characters) < limit {
 				result.Characters = append(result.Characters, reading)
@@ -165,9 +193,13 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 // Words must contain that Hangul sound in their written form; sharing a glyph
 // with another reading is not enough. Meanings do not participate in this search.
 func (g *Graph) SearchSound(query string, limit int) SearchResult {
+	return g.SearchSoundByLevel(query, limit, "")
+}
+
+func (g *Graph) SearchSoundByLevel(query string, limit int, level string) SearchResult {
 	query = strings.ToLower(strings.TrimSpace(query))
 	if query == "" {
-		return g.Search("", limit)
+		return g.SearchByLevel("", limit, level)
 	}
 	if limit < 1 {
 		limit = 60
@@ -182,12 +214,18 @@ func (g *Graph) SearchSound(query string, limit int) SearchResult {
 		for _, sound := range reading.SoundKo {
 			sounds[sound] = true
 		}
+		if !g.hasLevelWords(character.Hanja, level) {
+			continue
+		}
 		result.CharacterCount++
 		if len(result.Characters) < limit {
 			result.Characters = append(result.Characters, reading)
 		}
 	}
 	for _, word := range g.words {
+		if !matchesLevel(word, level) {
+			continue
+		}
 		for _, sound := range word.Word {
 			if !sounds[sound] {
 				continue

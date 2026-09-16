@@ -1760,3 +1760,182 @@ main:focus {
 .empty-state > a {
   margin-top: 20px;
 }
+
+.vocabulary-filter-bar {
+  margin:0 0 16px;
+}
+.vocabulary-filters {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:7px;
+  font-size:12px;
+}
+.vocabulary-filters>span {
+  margin-right:5px;
+  font-weight:600;
+}
+.vocabulary-filters button {
+  background:var(--white);
+  border:1px solid #d5dece;
+  border-radius:20px;
+  padding:7px 13px;
+  min-height:36px;
+}
+.vocabulary-filters button.active {
+  background:var(--green);
+  border-color:var(--green);
+  color:white;
+}
+.filter-help {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:8px;
+}
+.level-badge,.difficulty-badge {
+  display:inline-flex;
+  align-items:center;
+  font-size:10px;
+  line-height:1.6;
+  font-weight:600;
+  padding:2px 7px;
+  border-radius:4px;
+  white-space:nowrap;
+  color:#315e48;
+  background:#edf3e8;
+  border:1px solid #c6d6be;
+}
+.level-badge.classical {
+  color:#824c22;
+  background:#fff0de;
+  border:1px dashed #a46b36;
+}
+.catalog-item .level-badge {
+  margin:3px 0;
+}
+.word-tags,.category-legend {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.category-legend {
+  gap:16px;
+  margin:10px 0;
+  font-size:11px;
+}
+.filter-notice {
+  padding:12px 22px;
+  background:var(--sage);
+  font-size:12px;
+}
+.network-line-link.classical .network-path {
+  stroke:#a46b36;
+  stroke-dasharray:5 3;
+}
+.network-edge.classical rect {
+  fill:#fff2e2;
+  stroke:#a46b36;
+  stroke-dasharray:4 2;
+}
+.network-edge .edge-category {
+  font-size:10px;
+  fill:#526b45;
+}
+.network-edge.classical text {
+  fill:#824c22;
+}
+.network-edge.classical.current rect {
+  fill:#7b4b25;
+  stroke:#7b4b25;
+  stroke-width:3;
+}
+.network-edge.current text {
+  fill:#fffef1;
+}
+.network-line-link.classical.current .network-path {
+  stroke:#7b4b25;
+  stroke-width:3;
+}
+.network-edge.classical:focus-visible rect,.network-edge.classical:hover rect,
+.network-edge.classical.connection-focus rect {
+  stroke:#724019;
+  stroke-width:3;
+}
+.practice-settings {
+  text-align:left;
+  margin:24px 0;
+}
+.practice-settings fieldset {
+  padding:0;
+  border:0;
+  margin:0 0 22px;
+  min-width:0;
+}
+.practice-settings legend {
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:10px;
+}
+.practice-levels {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  font-size:12px;
+}
+.practice-levels label,.difficulty-card {
+  cursor:pointer;
+}
+.practice-settings input {
+  accent-color:var(--green);
+  margin:3px 7px 0 0;
+}
+.difficulty-options {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.difficulty-card {
+  display:flex;
+  align-items:flex-start;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:14px;
+  background:#fafbf6;
+}
+.difficulty-card:has(input:checked) {
+  background:#edf3e7;
+  border-color:#55794b;
+  box-shadow:inset 0 0 0 1px #55794b;
+}
+.difficulty-card:focus-within {
+  outline:3px solid #c58646;
+  outline-offset:3px;
+}
+.difficulty-card strong,.difficulty-card small {
+  display:block;
+}
+.difficulty-card small {
+  color:#687361;
+  font-size:11px;
+  margin-top:5px;
+}
+.difficulty-card .difficulty-count {
+  color:var(--green);
+  font-weight:600;
+}
+.practice-intro .practice-pool {
+  color:var(--green);
+  margin-bottom:16px;
+}
+.question-tags {
+  margin-bottom:12px;
+}
+.answer-feedback .level-badge {
+  margin-bottom:10px;
+}
+@media(max-width:640px) {
+  .difficulty-options { grid-template-columns:1fr; }
+  .vocabulary-filters button { padding:6px 10px; }
+  .word-tags { gap:6px; }
+}

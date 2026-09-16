@@ -97,21 +97,23 @@ flowchart LR
 | 경로 | 입력 | 응답 |
 | --- | --- | --- |
 | `GET /api/stats` | 없음 | 음 그룹·독음·고유 한자·단어·연결 수치 |
-| `GET /api/search` | 선택적 `q`, `mode=all` 또는 `mode=sound` (기본 `all`) | `words`, `characters`, `word_count`, `character_count` |
+| `GET /api/search` | 선택적 `q`, `mode=all|sound`, `level=all|normal|classical` (둘 다 기본 `all`) | `words`, `characters`, `word_count`, `character_count` |
 | `GET /api/words` | 필수 `q` | 정확히 일치하는 단어와 구성 한자의 독음 후보 배열 |
 | `GET /api/characters` | 필수 `q` | 글자·독음·ID에 정확히 일치하는 독음 레코드와 연결 단어 배열 |
 | `GET /api/neighborhood` | 필수 `q` | `roots`, `characters`, `words`로 구성된 깊이 1 그래프 |
-| `GET /api/random-word` | 선택적 `exclude_word`, `exclude_hanja` | 전체 데이터에서 선택한 단어 객체 하나 |
-| `GET /api/practice` | 없음 | 전체 문항, 선택지, 정답과 해설; 회차의 10문항 선택은 브라우저에서 수행 |
+| `GET /api/random-word` | 선택적 `exclude_word`, `exclude_hanja`, `level=all|normal|classical` | 해당 분류에서 선택한 단어 객체 하나 |
+| `GET /api/practice` | 없음 | 전체 문항의 `difficulty`·`word_level`, 선택지, 정답과 해설; 필터링·10문항 추출은 브라우저에서 수행 |
 
 ### 조회 규칙
 
 - `q`는 앞뒤 공백을 제거한 뒤 최대 100개 유니코드 문자까지 받는다. 필수 검색어가 비었거나 길이를 초과하면 `400`이다.
 - `mode=all`은 표기·독음·뜻의 부분 검색이며 영문 대소문자를 구별하지 않는다. `mode=sound`는 한글 또는 로마자 독음이 정확히 일치하는 한자와, 해당 한글 음절이 실제 표기에 들어 있는 단어를 반환한다. 예를 들어 `/api/search?q=하&mode=sound`와 `/api/search?q=HA&mode=sound`는 같은 결과를 내며 뜻풀이의 ‘하다’는 검색하지 않는다. 등록되지 않은 모드는 `400`이다.
-- 두 검색 모드 모두 단어·한자 결과는 종류별 최대 60개이며, 개수 필드는 제한 전 전체 일치 수다. 빈 검색어는 각 목록의 처음 항목들을 반환한다. 브라우저는 모드를 포함한 URL로 검색 캐시를 구분한다.
+- `level=normal|classical`은 검색과 랜덤 선택의 어휘 분류다. 누락하거나 `all`이면 전체이며 다른 값은 `400`이다. 검색에서 분류 필터는 개수 계산·60개 제한보다 먼저 적용한다. 한자는 해당 분류의 연결 단어가 있는 경우만 반환한다.
+- 두 검색 모드 모두 단어·한자 결과는 종류별 최대 60개이며, 개수 필드는 제한 전 전체 일치 수다. 빈 검색어는 각 목록의 처음 항목들을 반환한다. 브라우저는 검색 모드·어휘 분류를 포함한 URL로 검색 캐시를 구분한다.
 - 정확 일치 조회 결과가 없으면 `[]`다. 그래프 결과가 없으면 세 배열이 모두 비어 있다.
 - 그래프는 단어 조회를 먼저 시도하고, 일치하는 단어가 없으면 글자·독음·ID 조회로 시작점을 정한다. 한글 동음이의어로 조회하면 일치한 여러 단어의 구성 한자가 함께 시작점이 될 수 있다. 웹 앱은 선택 단어의 한자 표기로 요청한다.
-- 무작위 선택은 다른 항목이 있을 때 정확한 `(exclude_word, exclude_hanja)` 쌍을 제외한다. 제외 필드는 각각 최대 100개 유니코드 문자이며, 데이터가 비어 있으면 `404`다.
+- 그래프 API는 전체 분류의 연결을 반환한다. 브라우저는 `level`에 따라 단어와 불필요한 주변 한자를 걸러 표시하며 시작점 한자는 보존한다. 정확한 단어 상세는 필터와 무관하게 열 수 있다.
+- 무작위 선택은 선택한 분류에 다른 항목이 있을 때 정확한 `(exclude_word, exclude_hanja)` 쌍을 제외한다. 제외 필드는 각각 최대 100개 유니코드 문자이며, 데이터가 비어 있으면 `404`다.
 - 없는 경로는 `404`, 지원 경로에 허용하지 않은 HTTP 메서드를 사용하면 `405`다.
 
 문맥 연습 API는 정답과 해설도 브라우저에 전달한다. 채점은 브라우저에서 수행하는 자율 학습 기능이다.
@@ -130,7 +132,9 @@ flowchart LR
 | --- | --- |
 | `han-graph.words.v1` | 저장한 `(word, hanja)` 쌍, 최대 500개 |
 | `han-graph.language` | 한국어·영어 선택 |
-| `han-graph.practice.v1` | 마지막 완료 연습의 정답 수·문항 수·완료 시각 |
+| `han-graph.word-level` | 탐색의 어휘 분류 선택 |
+| `han-graph.practice-settings.v1` | 연습의 `difficulty`·`level` 선택 |
+| `han-graph.practice.v1` | 마지막 완료 연습의 정답 수·문항 수·난이도·분류·완료 시각 |
 
 단어장 파일의 문자열 길이는 JavaScript의 문자열 길이(UTF-16 코드 단위)로 검사한다. HTTP API의 유니코드 문자 수 제한과는 계산 방식이 다르다.
 

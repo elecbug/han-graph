@@ -26,7 +26,8 @@
         }
       ],
       "explanation_ko": "假[가]는 ‘거짓·가짜’, 名[명]은 ‘이름’과 관련돼요. 본명 대신 쓰는 다른 이름을 가명이라고 해요. ‘본명을 밝히지 않고’가 문맥의 단서예요.",
-      "explanation_en": "假[가] relates to something false or assumed; 名[명] means name. 가명 is an assumed name, or pseudonym. The clue is that the writer did not reveal their real name."
+      "explanation_en": "假[가] relates to something false or assumed; 名[명] means name. 가명 is an assumed name, or pseudonym. The clue is that the writer did not reveal their real name.",
+      "difficulty": "easy"
     },
     {
       "id": "price",
@@ -51,7 +52,8 @@
         }
       ],
       "explanation_ko": "價[가]는 ‘값’과 관련돼요. 가격은 물건을 사는 데 내는 돈을, 가치는 물건 등의 값어치나 중요성을 가리켜요. ‘얼마예요?’가 가격을 묻는 단서예요.",
-      "explanation_en": "價[가] relates to value or price. 가격 is the amount paid for an item, while 가치 refers to its worth or importance. Asking how much something costs points to 가격."
+      "explanation_en": "價[가] relates to value or price. 가격 is the amount paid for an item, while 가치 refers to its worth or importance. Asking how much something costs points to 가격.",
+      "difficulty": "easy"
     },
     {
       "id": "permission",
@@ -76,7 +78,8 @@
         }
       ],
       "explanation_ko": "許[허]와 可[가]에는 허락한다는 뜻이 있어요. 허가는 어떤 일을 해도 좋다고 허락하는 것이에요. 가능은 할 수 있음을 뜻하므로, 허락을 받았다는 문맥에서는 허가가 맞아요.",
-      "explanation_en": "許[허] and 可[가] carry meanings related to allowing something. 허가 means permission. 가능 is about possibility or being able to do something; this context is about receiving permission."
+      "explanation_en": "許[허] and 可[가] carry meanings related to allowing something. 허가 means permission. 가능 is about possibility or being able to do something; this context is about receiving permission.",
+      "difficulty": "easy"
     },
     {
       "id": "acceleration",
@@ -101,7 +104,8 @@
         }
       ],
       "explanation_ko": "加[가]는 ‘더하다’, 速[속]은 ‘빠르다’와 관련돼요. 속도를 더 높이는 것이 가속이에요. 가산에도 加[가]가 들어가지만, 算[산]은 계산과 관련된 글자예요.",
-      "explanation_en": "加[가] means to add or increase, and 速[속] relates to speed. 가속 is an increase in speed. 가산 also uses 加[가], but 算[산] relates to calculation."
+      "explanation_en": "加[가] means to add or increase, and 速[속] relates to speed. 가속 is an increase in speed. 가산 also uses 加[가], but 算[산] relates to calculation.",
+      "difficulty": "easy"
     },
     {
       "id": "writer",
@@ -126,7 +130,8 @@
         }
       ],
       "explanation_ko": "作[작]은 ‘짓다’와 관련돼요. 家[가]는 집을 뜻하기도 하지만, 작가처럼 어떤 분야에서 활동하는 사람을 가리키는 데에도 쓰여요. 한자의 뜻은 단어 안에서 달라질 수 있어요.",
-      "explanation_en": "作[작] relates to making or creating. 家[가] can mean a house, but in words such as 작가 it also refers to a person working in a field. A character’s role depends on the word it appears in."
+      "explanation_en": "作[작] relates to making or creating. 家[가] can mean a house, but in words such as 작가 it also refers to a person working in a field. A character’s role depends on the word it appears in.",
+      "difficulty": "easy"
     },
     {
       "id": "bookshelf",
@@ -151,7 +156,8 @@
         }
       ],
       "explanation_ko": "書[서]는 ‘책·글’, 架[가]는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 소리가 같은 家[가]와 架[가]를 구분해 보세요.",
-      "explanation_en": "書[서] relates to books or writing; 架[가] relates to a frame or rack. 서가 is a bookshelf. Notice that 家[가] and 架[가] share the sound 가 but contribute different meanings."
+      "explanation_en": "書[서] relates to books or writing; 架[가] relates to a frame or rack. 서가 is a bookshelf. Notice that 家[가] and 架[가] share the sound 가 but contribute different meanings.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-001",
@@ -176,7 +182,8 @@
         }
       ],
       "explanation_ko": "타인(他[타]人[인])은 자기 이외의 다른 사람이에요. 자기 물건과 다른 사람의 물건을 대비한 부분이 단서예요.",
-      "explanation_en": "타인 means another person, someone other than oneself. The contrast between one's own belongings and those of others is the clue."
+      "explanation_en": "타인 means another person, someone other than oneself. The contrast between one's own belongings and those of others is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-002",
@@ -201,7 +208,8 @@
         }
       ],
       "explanation_ko": "원격(遠[원]隔[격])은 멀리 떨어져 있거나 멀리서 통신 등을 통해 일을 하는 방식이에요. 현장에 가지 않고 기계를 조작했다는 점이 단서예요.",
-      "explanation_en": "원격 describes being far away or working remotely through communication links. Operating the machine without visiting the site is the clue."
+      "explanation_en": "원격 describes being far away or working remotely through communication links. Operating the machine without visiting the site is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-003",
@@ -226,7 +234,8 @@
         }
       ],
       "explanation_ko": "적폐(積[적]弊[폐])는 오랫동안 쌓여 온 폐단이에요. 한 번의 실수가 아니라 부당한 관행이 오랜 기간 누적되었다는 점이 단서예요.",
-      "explanation_en": "적폐 refers to abuses that have built up over a long time. The clue is the accumulation of unfair practices, rather than a single mistake."
+      "explanation_en": "적폐 refers to abuses that have built up over a long time. The clue is the accumulation of unfair practices, rather than a single mistake.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-004",
@@ -251,7 +260,8 @@
         }
       ],
       "explanation_ko": "서명(署[서]名[명])은 문서에 자기 이름을 적는 일이에요. 성명은 이름 자체이고, 이 문맥에서는 이름을 직접 적는 행동을 묻고 있어요.",
-      "explanation_en": "서명 is the act of signing a document. 성명 refers to the name itself; this situation asks about the action of writing it."
+      "explanation_en": "서명 is the act of signing a document. 성명 refers to the name itself; this situation asks about the action of writing it.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-005",
@@ -276,7 +286,8 @@
         }
       ],
       "explanation_ko": "막무가내(莫[막]無[무]可[가]奈[내])는 남의 말을 받아들이지 않고 고집을 부려 어찌할 수 없는 태도예요. 설명을 들어도 무조건 자기 뜻을 고집한다는 점이 단서예요.",
-      "explanation_en": "막무가내 describes stubbornly refusing to listen to reason. Insisting on one's own way despite others' explanations is the clue."
+      "explanation_en": "막무가내 describes stubbornly refusing to listen to reason. Insisting on one's own way despite others' explanations is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-006",
@@ -301,7 +312,8 @@
         }
       ],
       "explanation_ko": "한발지역(旱[한]魃[발]地[지]域[역])은 가뭄이 발생한 지역이에요. 비가 오지 않아 땅과 농작물이 마른 것이 단서예요.",
-      "explanation_en": "한발지역 means an area affected by drought. The lack of rain and the dried-out land and crops are the clues."
+      "explanation_en": "한발지역 means an area affected by drought. The lack of rain and the dried-out land and crops are the clues.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-007",
@@ -326,7 +338,8 @@
         }
       ],
       "explanation_ko": "초단위(秒[초]單[단]位[위])는 초를 기준으로 시간을 재거나 나누는 방식이에요. 달리기 기록 뒤에 붙은 ‘초’가 단서예요.",
-      "explanation_en": "초단위 means measuring or dividing time in seconds. The word seconds after each running time is the clue."
+      "explanation_en": "초단위 means measuring or dividing time in seconds. The word seconds after each running time is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-008",
@@ -351,7 +364,8 @@
         }
       ],
       "explanation_ko": "탐구(探[탐]究[구])는 대상을 깊이 살피고 따져 이치를 밝히는 활동이에요. 조건을 바꾸며 관찰하고 분석했다는 점이 단서예요.",
-      "explanation_en": "탐구 means investigating something closely to understand how or why it works. Observation and analysis under different conditions are the clues."
+      "explanation_en": "탐구 means investigating something closely to understand how or why it works. Observation and analysis under different conditions are the clues.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-009",
@@ -376,7 +390,8 @@
         }
       ],
       "explanation_ko": "산수(算[산]數[수])는 수를 셈하고 기초적인 계산을 배우는 분야예요. 덧셈과 뺄셈을 연습했다는 점이 단서예요.",
-      "explanation_en": "산수 means elementary arithmetic. Practicing addition and subtraction is the clue."
+      "explanation_en": "산수 means elementary arithmetic. Practicing addition and subtraction is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-010",
@@ -401,7 +416,8 @@
         }
       ],
       "explanation_ko": "지우금(至[지]于[우]今[금])은 지금까지 이르도록이라는 뜻의 문어적 표현이에요. 앞으로가 아니라 과거부터 지금까지 이어졌다는 점이 단서예요.",
-      "explanation_en": "지우금 is a literary expression meaning up to now. The clue is continuation from the past to the present, rather than into the future."
+      "explanation_en": "지우금 is a literary expression meaning up to now. The clue is continuation from the past to the present, rather than into the future.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-011",
@@ -426,7 +442,8 @@
         }
       ],
       "explanation_ko": "누수(漏[누]水[수])는 물이 틈이나 구멍으로 새는 현상이에요. 물에 잠기는 침수와 달리, 이 문맥에서는 관 밖으로 물이 새고 있어요.",
-      "explanation_en": "누수 means water leaking through a gap or hole. Unlike 침수, which means being flooded or submerged, this situation concerns water escaping from a pipe."
+      "explanation_en": "누수 means water leaking through a gap or hole. Unlike 침수, which means being flooded or submerged, this situation concerns water escaping from a pipe.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-012",
@@ -451,7 +468,8 @@
         }
       ],
       "explanation_ko": "편찬자(編[편]纂[찬]者[자])는 여러 자료를 모으고 정리해 책을 엮는 사람이에요. 이미 있는 기록을 모아 자료집으로 만들었다는 점이 단서예요.",
-      "explanation_en": "편찬자 is a compiler who gathers and organizes materials into a book. Collecting existing records into a reference volume is the clue."
+      "explanation_en": "편찬자 is a compiler who gathers and organizes materials into a book. Collecting existing records into a reference volume is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-013",
@@ -476,7 +494,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 탈모(脫[탈]帽[모])는 모자를 벗는 일이에요. 머리카락이 빠지는 탈모와 소리는 같지만, 모자를 벗었다는 문맥으로 구별해요.",
-      "explanation_en": "Here 탈모 means taking off a hat. It sounds the same as the word for hair loss, but removing a hat is the distinguishing clue."
+      "explanation_en": "Here 탈모 means taking off a hat. It sounds the same as the word for hair loss, but removing a hat is the distinguishing clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-014",
@@ -501,7 +520,8 @@
         }
       ],
       "explanation_ko": "만조(滿[만]潮[조])는 밀물이 들어와 바닷물 높이가 가장 높아진 때예요. 물 높이가 가장 낮은 간조와 구별해요.",
-      "explanation_en": "만조 means high tide, when the water reaches its highest level. It contrasts with 간조, low tide."
+      "explanation_en": "만조 means high tide, when the water reaches its highest level. It contrasts with 간조, low tide.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-015",
@@ -526,7 +546,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 유시(流[유]矢[시])는 어디서 날아왔는지 분명하지 않거나 목표를 벗어난 화살이에요. 시간을 나타내는 같은 소리의 단어와 구별해요.",
-      "explanation_en": "Here 유시 means a stray arrow with an unclear origin or one that has missed its target. It is different from the identically pronounced term for a time of day."
+      "explanation_en": "Here 유시 means a stray arrow with an unclear origin or one that has missed its target. It is different from the identically pronounced term for a time of day.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-016",
@@ -551,7 +572,8 @@
         }
       ],
       "explanation_ko": "침수(浸[침]水[수])는 물에 잠기는 일이에요. 작은 틈에서 물이 새는 모습보다 주차장 전체가 물에 잠긴 상태에 주목해요.",
-      "explanation_en": "침수 means flooding or submersion. The key is that the car park is underwater, rather than water merely leaking through a small gap."
+      "explanation_en": "침수 means flooding or submersion. The key is that the car park is underwater, rather than water merely leaking through a small gap.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-017",
@@ -576,7 +598,8 @@
         }
       ],
       "explanation_ko": "발전(發[발]展[전])은 규모나 수준이 더 나아지는 것이에요. 기술을 꾸준히 개선해 더 좋은 제품을 만들었다는 점이 단서예요.",
-      "explanation_en": "발전 means development or progress. Improving technology to make better products is the clue."
+      "explanation_en": "발전 means development or progress. Improving technology to make better products is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-018",
@@ -601,7 +624,8 @@
         }
       ],
       "explanation_ko": "영준(英[영]俊[준])은 재능과 인품이 뛰어나거나 그런 사람을 이르는 말이에요. 능력과 품성이 모두 훌륭하다는 점이 단서예요.",
-      "explanation_en": "영준 describes excellence in both talent and character, or a person possessing those qualities. Both abilities and personal character are emphasized here."
+      "explanation_en": "영준 describes excellence in both talent and character, or a person possessing those qualities. Both abilities and personal character are emphasized here.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-019",
@@ -626,7 +650,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 소요(逍[소]遙[요])는 일정한 목적 없이 자유롭게 거니는 일이에요. 여러 사람이 떠들며 질서를 어지럽히는 소요와는 다른 말이에요.",
-      "explanation_en": "Here 소요 means strolling freely at leisure. It differs from the identically pronounced word for a noisy disturbance of public order."
+      "explanation_en": "Here 소요 means strolling freely at leisure. It differs from the identically pronounced word for a noisy disturbance of public order.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-020",
@@ -651,7 +676,8 @@
         }
       ],
       "explanation_ko": "지휘자(指[지]揮[휘]者[자])는 연주자들이 함께 맞추어 연주하도록 이끄는 사람이에요. 곡을 만드는 작곡가나 연주를 듣는 관객과 역할이 달라요.",
-      "explanation_en": "A 지휘자 conducts the musicians so they play together. The role differs from composing the music or listening as a member of the audience."
+      "explanation_en": "A 지휘자 conducts the musicians so they play together. The role differs from composing the music or listening as a member of the audience.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-021",
@@ -676,7 +702,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 소재(所[소]在[재])는 사람이나 물건이 있는 곳이에요. 가방을 만든 재료가 아니라 가방의 위치를 묻고 있어요.",
-      "explanation_en": "Here 소재 means location or whereabouts. The question concerns where the bag is, rather than the material it is made from."
+      "explanation_en": "Here 소재 means location or whereabouts. The question concerns where the bag is, rather than the material it is made from.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-022",
@@ -701,7 +728,8 @@
         }
       ],
       "explanation_ko": "진폭(振[진]幅[폭])은 진동하는 물체가 중심 위치에서 벗어나는 최대 거리예요. 움직이는 빠르기나 한 번 되풀이하는 데 걸리는 시간과는 달라요.",
-      "explanation_en": "진폭 is the maximum displacement from the central position. It differs from speed and from the time needed for one cycle."
+      "explanation_en": "진폭 is the maximum displacement from the central position. It differs from speed and from the time needed for one cycle.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-023",
@@ -726,7 +754,8 @@
         }
       ],
       "explanation_ko": "응집(凝[응]集[집])은 작은 부분들이 서로 엉겨 모이는 현상이에요. 흩어지거나 나뉘는 것이 아니라 한데 뭉쳤다는 점이 단서예요.",
-      "explanation_en": "응집 means small parts gathering and clumping together. The clue is that they join into a clump instead of spreading out or separating."
+      "explanation_en": "응집 means small parts gathering and clumping together. The clue is that they join into a clump instead of spreading out or separating.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-024",
@@ -751,7 +780,8 @@
         }
       ],
       "explanation_ko": "종류(種[종]類[류])는 공통된 특징에 따라 나눈 갈래예요. 책이 몇 권인지보다 어떤 갈래에 속하는지를 보고 있어요.",
-      "explanation_en": "종류 means a kind or category based on shared characteristics. The question concerns the categories of books, rather than their number or order."
+      "explanation_en": "종류 means a kind or category based on shared characteristics. The question concerns the categories of books, rather than their number or order.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-025",
@@ -776,7 +806,8 @@
         }
       ],
       "explanation_ko": "이장(里[이]長[장])은 행정 구역인 리를 대표하여 마을 일을 맡는 사람이에요. 시나 도가 아니라 리 단위의 대표라는 점이 단서예요.",
-      "explanation_en": "이장 is the head of an administrative village, or ri. The relevant administrative unit is a village, rather than a city or province."
+      "explanation_en": "이장 is the head of an administrative village, or ri. The relevant administrative unit is a village, rather than a city or province.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-026",
@@ -801,7 +832,8 @@
         }
       ],
       "explanation_ko": "통달(通[통]達[달])은 어떤 분야의 이치나 내용을 깊이 알아 능숙해진 상태예요. 단순히 처음 배우기 시작한 것이 아니라 원리까지 익혔다는 점이 단서예요.",
-      "explanation_en": "통달 means a thorough understanding or mastery of a field. The clue is knowledge of the underlying principles together with practical skill."
+      "explanation_en": "통달 means a thorough understanding or mastery of a field. The clue is knowledge of the underlying principles together with practical skill.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-027",
@@ -826,7 +858,8 @@
         }
       ],
       "explanation_ko": "시인(是[시]認[인])은 어떤 사실이나 주장이 맞다고 인정하는 것이에요. 이 문맥에서는 자신의 잘못을 인정했으므로, 사실을 부정하거나 잘못 안 것과 구별해요.",
-      "explanation_en": "시인 means acknowledging a fact or accepting a claim as true. Here the person admits an error, rather than denying the fact or misunderstanding it."
+      "explanation_en": "시인 means acknowledging a fact or accepting a claim as true. Here the person admits an error, rather than denying the fact or misunderstanding it.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-028",
@@ -851,7 +884,8 @@
         }
       ],
       "explanation_ko": "불면증(不[불]眠[면]症[증])은 잠들거나 잠을 유지하기 어려운 증상이에요. 잠을 충분히 깊게 자는 상태와는 달라요.",
-      "explanation_en": "불면증 means difficulty falling asleep or staying asleep. It contrasts with sleeping deeply and continuously."
+      "explanation_en": "불면증 means difficulty falling asleep or staying asleep. It contrasts with sleeping deeply and continuously.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-029",
@@ -876,7 +910,8 @@
         }
       ],
       "explanation_ko": "여기서는 ‘그다음에야 비로소’라는 뜻의 이후(而[이]後[후])가 맞아요. 시간상 뒤를 넓게 가리키는 같은 소리의 단어와 의미를 구별해요.",
-      "explanation_en": "The intended 이후 expresses only after a preceding event has happened. It is distinguished from the identically pronounced term that broadly means afterward."
+      "explanation_en": "The intended 이후 expresses only after a preceding event has happened. It is distinguished from the identically pronounced term that broadly means afterward.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-030",
@@ -901,7 +936,8 @@
         }
       ],
       "explanation_ko": "청우(晴[청]雨[우])는 맑은 날씨와 비 오는 날씨를 아울러 이르는 말이에요. 춥고 따뜻함이나 낮과 밤을 묶은 표현이 아니에요.",
-      "explanation_en": "청우 combines fair weather and rainy weather. It differs from cold and warm conditions or day and night."
+      "explanation_en": "청우 combines fair weather and rainy weather. It differs from cold and warm conditions or day and night.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-031",
@@ -926,7 +962,8 @@
         }
       ],
       "explanation_ko": "참알(參[참]謁[알])은 예를 갖추어 높은 사람을 뵙거나 사당 등에 인사드리는 일이에요. 이 문맥에서는 높은 관리에게 정식으로 인사를 드린 것이 단서예요.",
-      "explanation_en": "참알 means making a formal visit to a superior or paying respects at a shrine. Here the formal greeting to a senior official is the clue."
+      "explanation_en": "참알 means making a formal visit to a superior or paying respects at a shrine. Here the formal greeting to a senior official is the clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-032",
@@ -951,7 +988,8 @@
         }
       ],
       "explanation_ko": "비밀유지(秘[비]密[밀]維[유]持[지])는 비밀이 밖으로 알려지지 않게 하는 것이에요. 출시 전에 내용을 공개하지 않기로 했다는 점이 단서예요.",
-      "explanation_en": "비밀유지 means keeping information secret. The agreement not to disclose the product details before release is the clue."
+      "explanation_en": "비밀유지 means keeping information secret. The agreement not to disclose the product details before release is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-033",
@@ -976,7 +1014,8 @@
         }
       ],
       "explanation_ko": "성쇠(盛[성]衰[쇠])는 기세가 왕성함과 약해짐을 함께 이르는 말이에요. 생겨나고 없어지는 일보다 기세가 강하고 약한 변화에 초점을 둬요.",
-      "explanation_en": "성쇠 pairs flourishing strength with decline. The focus is on becoming stronger or weaker, rather than coming into existence or disappearing."
+      "explanation_en": "성쇠 pairs flourishing strength with decline. The focus is on becoming stronger or weaker, rather than coming into existence or disappearing.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-034",
@@ -1001,7 +1040,8 @@
         }
       ],
       "explanation_ko": "첨병(尖[첨]兵[병])은 대열 앞에서 경계하거나 앞장서 활동하는 사람이에요. 전체 대열을 이끄는 역할보다 앞서 나가 위험을 살피는 임무가 단서예요.",
-      "explanation_en": "첨병 means an advance guard or someone at the forefront. Going ahead to watch for danger is the defining clue here."
+      "explanation_en": "첨병 means an advance guard or someone at the forefront. Going ahead to watch for danger is the defining clue here.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-035",
@@ -1026,7 +1066,8 @@
         }
       ],
       "explanation_ko": "수석(首[수]席[석])은 자리나 성적에서 맨 앞이나 으뜸을 차지하는 것이에요. 시험에 참석했는지가 아니라 가장 높은 성적을 받았다는 점이 단서예요.",
-      "explanation_en": "수석 means the highest rank or the person holding it. The clue is the top score, rather than attendance or absence."
+      "explanation_en": "수석 means the highest rank or the person holding it. The clue is the top score, rather than attendance or absence.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-036",
@@ -1051,7 +1092,8 @@
         }
       ],
       "explanation_ko": "윤법(閏[윤]法[법])은 달력에 윤일이나 윤월을 두는 방법이에요. 특정한 해나 달 자체가 아니라 그것을 배치하는 규칙을 묻고 있어요.",
-      "explanation_en": "윤법 means the rules for inserting leap days or months. The question asks about the rules, rather than a particular year or month."
+      "explanation_en": "윤법 means the rules for inserting leap days or months. The question asks about the rules, rather than a particular year or month.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-037",
@@ -1076,7 +1118,8 @@
         }
       ],
       "explanation_ko": "신속처리(迅[신]速[속]處[처]理[리])는 일을 빠르게 처리하는 것이에요. 일을 미루거나 멈추어 두지 않고 바로 마무리했다는 점이 단서예요.",
-      "explanation_en": "신속처리 means prompt processing. Completing the work quickly instead of delaying or holding it is the clue."
+      "explanation_en": "신속처리 means prompt processing. Completing the work quickly instead of delaying or holding it is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-038",
@@ -1101,7 +1144,8 @@
         }
       ],
       "explanation_ko": "지속(持[지]續[속])은 어떤 상태나 일이 끊어지지 않고 이어지는 것이에요. 한 달도 빠지지 않고 계속했다는 점이 단서예요.",
-      "explanation_en": "지속 means continuing without interruption. The clue is that the activity has gone on every month without a break."
+      "explanation_en": "지속 means continuing without interruption. The clue is that the activity has gone on every month without a break.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-039",
@@ -1126,7 +1170,8 @@
         }
       ],
       "explanation_ko": "마귀(魔[마]鬼[귀])는 종교나 설화에서 사람을 해치는 악한 영적 존재예요. 이 문맥은 실제 인물이 아니라 이야기 속 존재를 설명해요.",
-      "explanation_en": "마귀 is an evil spiritual being in religion or folklore. This context describes a being within a story."
+      "explanation_en": "마귀 is an evil spiritual being in religion or folklore. This context describes a being within a story.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-040",
@@ -1151,7 +1196,8 @@
         }
       ],
       "explanation_ko": "위암(胃[위]癌[암])은 위에 생기는 암이에요. 위라는 장기의 이름이나 위의 염증을 뜻하는 말과 구별해요.",
-      "explanation_en": "위암 means stomach cancer. It is different from the name of the organ itself or a term for inflammation of the stomach."
+      "explanation_en": "위암 means stomach cancer. It is different from the name of the organ itself or a term for inflammation of the stomach.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-041",
@@ -1176,7 +1222,8 @@
         }
       ],
       "explanation_ko": "평영(平[평]泳[영])은 엎드린 자세에서 팔과 다리를 좌우 대칭으로 움직이는 수영법이에요. 등을 아래로 두는 배영이나 나비 날개 같은 팔 동작의 접영과 구별해요.",
-      "explanation_en": "평영 is breaststroke, performed face down with symmetrical arm and leg movements. It differs from backstroke and the butterfly-like arm movements of 접영."
+      "explanation_en": "평영 is breaststroke, performed face down with symmetrical arm and leg movements. It differs from backstroke and the butterfly-like arm movements of 접영.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-042",
@@ -1201,7 +1248,8 @@
         }
       ],
       "explanation_ko": "견갑골(肩[견]胛[갑]骨[골])은 등 위쪽 양옆에 있는 넓적한 어깨뼈예요. 머리를 이루는 두개골이나 무릎 앞쪽의 슬개골과 위치가 달라요.",
-      "explanation_en": "견갑골 means the shoulder blade. It is in the upper back, unlike the skull or the kneecap."
+      "explanation_en": "견갑골 means the shoulder blade. It is in the upper back, unlike the skull or the kneecap.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-043",
@@ -1226,7 +1274,8 @@
         }
       ],
       "explanation_ko": "유영(游[유]泳[영])은 물속에서 헤엄치는 것이에요. 땅 위를 걷거나 공중을 나는 움직임과 구별해요.",
-      "explanation_en": "유영 means swimming. It is distinguished from walking on land or flying through the air."
+      "explanation_en": "유영 means swimming. It is distinguished from walking on land or flying through the air.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-044",
@@ -1251,7 +1300,8 @@
         }
       ],
       "explanation_ko": "정찬(正[정]餐[찬])은 격식을 갖추어 차리는 식사예요. 이 문맥은 아침이나 점심이 아니라 저녁에 격식을 갖추어 먹는 식사예요.",
-      "explanation_en": "정찬 is a formal meal. Here the meal is in the evening, which rules out breakfast and lunch."
+      "explanation_en": "정찬 is a formal meal. Here the meal is in the evening, which rules out breakfast and lunch.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-045",
@@ -1276,7 +1326,8 @@
         }
       ],
       "explanation_ko": "대부(貸[대]付[부])는 기한과 이자를 정해 돈을 빌려주는 일이에요. 돈을 돌려받지 않는 기부와 다르고, 부동산이나 물건을 빌려주는 임대와도 구별해요.",
-      "explanation_en": "대부 means lending money for an agreed term and interest rate. It differs from donating money or renting out property or goods."
+      "explanation_en": "대부 means lending money for an agreed term and interest rate. It differs from donating money or renting out property or goods.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-046",
@@ -1301,7 +1352,8 @@
         }
       ],
       "explanation_ko": "다시(茶[다]匙[시])는 차를 뜨는 작은 숟가락을 이르는 말이에요. 차를 마시는 잔이나 차와 함께 먹는 과자가 아니라 떠서 옮기는 도구예요.",
-      "explanation_en": "다시 is a traditional term for a small spoon used to scoop tea. It is a utensil, rather than a teacup or refreshments served with tea."
+      "explanation_en": "다시 is a traditional term for a small spoon used to scoop tea. It is a utensil, rather than a teacup or refreshments served with tea.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-047",
@@ -1326,7 +1378,8 @@
         }
       ],
       "explanation_ko": "연료(燃[연]料[료])는 태워서 열이나 동력을 얻는 데 쓰는 재료예요. 표면을 칠하거나 색을 물들이는 재료와 구별해요.",
-      "explanation_en": "연료 is material burned to produce heat or power. It differs from materials used for coating surfaces or dyeing things."
+      "explanation_en": "연료 is material burned to produce heat or power. It differs from materials used for coating surfaces or dyeing things.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-048",
@@ -1351,7 +1404,8 @@
         }
       ],
       "explanation_ko": "주야(晝[주]夜[야])는 낮과 밤을 함께 이르는 말이에요. 날씨가 맑거나 비가 오는지, 춥거나 따뜻한지를 묻는 문맥은 아니에요.",
-      "explanation_en": "주야 means day and night together. The context concerns times of day, rather than weather or temperature."
+      "explanation_en": "주야 means day and night together. The context concerns times of day, rather than weather or temperature.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-049",
@@ -1376,7 +1430,8 @@
         }
       ],
       "explanation_ko": "반원(班[반]員[원])은 같은 학급이나 작업반 등에 속한 구성원이에요. 반장은 대표의 직책이고, 반원은 반에 속한 사람을 두루 가리켜요.",
-      "explanation_en": "반원 means a member of a class or working group. 반장 is the leader's position, while 반원 includes the group's members generally."
+      "explanation_en": "반원 means a member of a class or working group. 반장 is the leader's position, while 반원 includes the group's members generally.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-050",
@@ -1401,7 +1456,8 @@
         }
       ],
       "explanation_ko": "편성(編[편]成[성])은 조직이나 일정 등을 짜서 구성하는 일이에요. 프로그램들을 시간표에 맞추어 배치했다는 점이 단서예요.",
-      "explanation_en": "편성 means organizing a structure or schedule. Arranging programs into time slots is the clue."
+      "explanation_en": "편성 means organizing a structure or schedule. Arranging programs into time slots is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-051",
@@ -1426,7 +1482,8 @@
         }
       ],
       "explanation_ko": "양육(養[양]育[육])은 아이 등을 보살펴 기르는 일이에요. 지식을 가르치는 활동만이 아니라 생활을 돌보며 성장하도록 돕는 일을 포함해요.",
-      "explanation_en": "양육 means raising and caring for a child. It includes everyday care and support for growth, beyond teaching knowledge alone."
+      "explanation_en": "양육 means raising and caring for a child. It includes everyday care and support for growth, beyond teaching knowledge alone.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-052",
@@ -1451,7 +1508,8 @@
         }
       ],
       "explanation_ko": "대형(大[대]亨[형])은 한문에서 크게 형통함을 이르는 표현이에요. 크기가 매우 크다는 거대나 벗어나기 어려운 처지인 궁지와 구별해요.",
-      "explanation_en": "대형 is a Classical Chinese expression for great success or prosperity. It differs from 거대, enormous size, and 궁지, a difficult predicament."
+      "explanation_en": "대형 is a Classical Chinese expression for great success or prosperity. It differs from 거대, enormous size, and 궁지, a difficult predicament.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-053",
@@ -1476,7 +1534,8 @@
         }
       ],
       "explanation_ko": "이열(怡[이]悅[열])은 마음이 즐겁고 기쁜 상태를 이르는 문어적 표현이에요. 슬픔이나 화가 아니라 반가움에서 오는 즐거움이 단서예요.",
-      "explanation_en": "이열 is a literary term for contentment and delight. The clue is happiness on seeing a friend again, rather than sadness or anger."
+      "explanation_en": "이열 is a literary term for contentment and delight. The clue is happiness on seeing a friend again, rather than sadness or anger.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-054",
@@ -1501,7 +1560,8 @@
         }
       ],
       "explanation_ko": "육도(陸[육]稻[도])는 물을 가두지 않는 밭에서 기르는 벼예요. 물을 대는 논에서 기르는 벼나 밀과 구별해요.",
-      "explanation_en": "육도 is upland rice grown in dry fields. It differs from rice cultivated in flooded paddies and from wheat."
+      "explanation_en": "육도 is upland rice grown in dry fields. It differs from rice cultivated in flooded paddies and from wheat.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-055",
@@ -1526,7 +1586,8 @@
         }
       ],
       "explanation_ko": "변경(變[변]更[경])은 정해진 내용이나 상태를 다르게 바꾸는 것이에요. 처음 계획을 그대로 유지하지 않고 장소를 바꿨다는 점이 단서예요.",
-      "explanation_en": "변경 means changing something already arranged or established. Moving the gathering indoors instead of keeping the original plan is the clue."
+      "explanation_en": "변경 means changing something already arranged or established. Moving the gathering indoors instead of keeping the original plan is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-056",
@@ -1551,7 +1612,8 @@
         }
       ],
       "explanation_ko": "추첨식(抽[추]籤[첨]式[식])은 제비뽑기로 정하는 방식이에요. 이름을 적은 종이를 뽑았다는 점이 단서이고, 추첨권은 뽑기에 쓰는 표를 가리켜요.",
-      "explanation_en": "추첨식 means a method based on drawing lots. Drawing names is the clue; 추첨권 refers to a ticket used in a draw."
+      "explanation_en": "추첨식 means a method based on drawing lots. Drawing names is the clue; 추첨권 refers to a ticket used in a draw.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-057",
@@ -1576,7 +1638,8 @@
         }
       ],
       "explanation_ko": "고아(孤[고]兒[아])는 부모를 잃었거나 부모의 보호를 받지 못하는 아이예요. 단순히 나이가 어리다는 점이 아니라 부모를 잃은 상황이 단서예요.",
-      "explanation_en": "고아 means an orphan or a child without parental care. The clue is the loss of the parents, rather than simply the child's young age."
+      "explanation_en": "고아 means an orphan or a child without parental care. The clue is the loss of the parents, rather than simply the child's young age.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-058",
@@ -1601,7 +1664,8 @@
         }
       ],
       "explanation_ko": "결혼(結[결]婚[혼])은 두 사람이 부부 관계를 맺는 것이에요. 혼인하기로 약속한 단계를 넘어 실제로 부부가 되었다는 점이 단서예요.",
-      "explanation_en": "결혼 means entering a marriage. The couple have become spouses, rather than merely promising to marry."
+      "explanation_en": "결혼 means entering a marriage. The couple have become spouses, rather than merely promising to marry.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-059",
@@ -1626,7 +1690,8 @@
         }
       ],
       "explanation_ko": "사행(蛇[사]行[행])은 뱀처럼 좌우로 굽이쳐 나아가는 것이에요. 빠르기나 뒤로 물러나는 방향보다 굽이치는 경로에 주목해요.",
-      "explanation_en": "사행 means moving in a winding, snake-like course. The clue is the winding path, rather than speed or retreat."
+      "explanation_en": "사행 means moving in a winding, snake-like course. The clue is the winding path, rather than speed or retreat.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-060",
@@ -1651,7 +1716,8 @@
         }
       ],
       "explanation_ko": "강선(鋼[강]線[선])은 강철로 만든 가늘고 긴 줄이에요. 넓적한 강판과 모양이 다르고, 청동과는 금속의 종류가 달라요.",
-      "explanation_en": "강선 means steel wire. It differs in shape from a steel plate and in material from bronze."
+      "explanation_en": "강선 means steel wire. It differs in shape from a steel plate and in material from bronze.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-061",
@@ -1676,7 +1742,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 도장(屠[도]場[장])은 가축을 잡는 곳을 줄여 이르는 말이에요. 문서에 찍는 도장이나 가축을 기르는 목장과 구별해요.",
-      "explanation_en": "Here 도장 is an abbreviated term for a slaughterhouse. It differs from a stamp or seal and from a farm where livestock are raised."
+      "explanation_en": "Here 도장 is an abbreviated term for a slaughterhouse. It differs from a stamp or seal and from a farm where livestock are raised.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-062",
@@ -1701,7 +1768,8 @@
         }
       ],
       "explanation_ko": "보급률(普[보]及[급]率[률])은 물건이나 기술이 대상 집단에 퍼져 있는 정도를 나타내는 비율이에요. 이 조사에서는 기기가 설치된 가구의 비율을 봐요.",
-      "explanation_en": "보급률 is the rate of adoption or coverage within a target population. Here it is the proportion of households with the device installed."
+      "explanation_en": "보급률 is the rate of adoption or coverage within a target population. Here it is the proportion of households with the device installed.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-063",
@@ -1726,7 +1794,8 @@
         }
       ],
       "explanation_ko": "연미복(燕[연]尾[미]服[복])은 뒷자락이 제비 꼬리처럼 갈라진 남성 예복이에요. 옷을 입는 목적과 뒷자락의 독특한 모양이 단서예요.",
-      "explanation_en": "연미복 is a formal tailcoat with a back shaped like a swallow's divided tail. Its formal use and distinctive shape are the clues."
+      "explanation_en": "연미복 is a formal tailcoat with a back shaped like a swallow's divided tail. Its formal use and distinctive shape are the clues.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-064",
@@ -1751,7 +1820,8 @@
         }
       ],
       "explanation_ko": "망언(妄[망]言[언])은 이치에 맞지 않거나 분별없이 함부로 하는 말이에요. 훌륭한 말이나 조심스러운 말이 아니라 함부로 내뱉었다는 점이 단서예요.",
-      "explanation_en": "망언 means an irresponsible or absurd remark. The clue is reckless speech, rather than admirable or carefully chosen words."
+      "explanation_en": "망언 means an irresponsible or absurd remark. The clue is reckless speech, rather than admirable or carefully chosen words.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-065",
@@ -1776,7 +1846,8 @@
         }
       ],
       "explanation_ko": "손녀(孫[손]女[녀])는 아들이나 딸이 낳은 여자아이예요. 할머니를 기준으로 두 세대 아래의 여자아이라는 점이 단서예요.",
-      "explanation_en": "손녀 means granddaughter, the daughter of one's son or daughter. The perspective is that of the grandmother."
+      "explanation_en": "손녀 means granddaughter, the daughter of one's son or daughter. The perspective is that of the grandmother.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-066",
@@ -1801,7 +1872,8 @@
         }
       ],
       "explanation_ko": "지관(只[지]管[관])은 문어에서 오로지 또는 다만이라는 뜻으로 쓰이는 말이에요. 한 가지에만 뜻을 둔다는 점이 단서예요.",
-      "explanation_en": "지관 is a literary word meaning only or solely. The clue is an exclusive focus on one matter."
+      "explanation_en": "지관 is a literary word meaning only or solely. The clue is an exclusive focus on one matter.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-067",
@@ -1826,7 +1898,8 @@
         }
       ],
       "explanation_ko": "겸직(兼[겸]職[직])은 둘 이상의 직무나 직책을 함께 맡는 것이에요. 단순히 일자리를 얻거나 일을 쉬는 것이 아니라 두 직책을 동시에 맡았다는 점이 단서예요.",
-      "explanation_en": "겸직 means holding multiple posts concurrently. The clue is two simultaneous positions, rather than getting a job or taking leave."
+      "explanation_en": "겸직 means holding multiple posts concurrently. The clue is two simultaneous positions, rather than getting a job or taking leave.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-068",
@@ -1851,7 +1924,8 @@
         }
       ],
       "explanation_ko": "자아(自[자]我[아])는 스스로를 인식하는 주체로서의 자기 자신이에요. 다른 사람이나 여러 사람의 집단이 아니라 자신을 바라보는 ‘나’가 단서예요.",
-      "explanation_en": "자아 means the self as the subject of awareness. The focus is on one's awareness of oneself, rather than another person or a group."
+      "explanation_en": "자아 means the self as the subject of awareness. The focus is on one's awareness of oneself, rather than another person or a group.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-069",
@@ -1876,7 +1950,8 @@
         }
       ],
       "explanation_ko": "읍혈(泣[읍]血[혈])은 피눈물을 흘리듯 몹시 슬퍼한다는 표현이에요. 문맥에서는 슬픔의 깊이를 비유적으로 나타내고 있어요.",
-      "explanation_en": "읍혈 expresses grief as if one were shedding tears of blood. In this context, it is a figurative description of intense sorrow."
+      "explanation_en": "읍혈 expresses grief as if one were shedding tears of blood. In this context, it is a figurative description of intense sorrow.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-070",
@@ -1901,7 +1976,8 @@
         }
       ],
       "explanation_ko": "조기(早[조]期[기])는 보통이나 예정된 때보다 이른 시기예요. 특정 계절이나 한 해의 절반을 뜻하는 것이 아니라, 발견한 때가 빨랐다는 점이 단서예요.",
-      "explanation_en": "조기 means an early stage or time. The clue is early discovery, rather than a particular season or half of the year."
+      "explanation_en": "조기 means an early stage or time. The clue is early discovery, rather than a particular season or half of the year.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-071",
@@ -1926,7 +2002,8 @@
         }
       ],
       "explanation_ko": "방송(放[방]送[송])은 소리나 영상을 내보내 여러 사람이 듣거나 보게 하는 것이에요. 악기로 음악을 연주하거나 누군가를 찾아가는 것이 아니라 안내를 여러 교실에 내보낸 점이 단서예요.",
-      "explanation_en": "방송 means transmitting sound or images to an audience. The clue is sending an announcement to many classrooms, rather than playing an instrument or visiting someone."
+      "explanation_en": "방송 means transmitting sound or images to an audience. The clue is sending an announcement to many classrooms, rather than playing an instrument or visiting someone.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-072",
@@ -1951,7 +2028,8 @@
         }
       ],
       "explanation_ko": "핵심(核[핵]心[심])은 사물이나 문제의 가장 중요한 부분이에요. 주변의 부수적인 내용보다 중심이 되는 내용을 말해요.",
-      "explanation_en": "핵심 means the core or most important part of a matter. It refers to the central content rather than peripheral details."
+      "explanation_en": "핵심 means the core or most important part of a matter. It refers to the central content rather than peripheral details.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-073",
@@ -1976,7 +2054,8 @@
         }
       ],
       "explanation_ko": "궁지(窮[궁]地[지])는 벗어나거나 해결하기 어려운 막다른 처지예요. 선택할 길이 막혀 있다는 점이 단서예요.",
-      "explanation_en": "궁지 means a difficult predicament with no easy way out. The clue is that the available options have been cut off."
+      "explanation_en": "궁지 means a difficult predicament with no easy way out. The clue is that the available options have been cut off.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-074",
@@ -2001,7 +2080,8 @@
         }
       ],
       "explanation_ko": "진품(珍[진]品[품])은 진귀한 물품이에요. 다른 물건을 대신하거나 본떠 만든 것이라는 뜻보다, 드물고 귀하다는 점에 주목해요.",
-      "explanation_en": "진품 here means a rare and precious object. The clue is rarity and value, rather than replacing or imitating another item."
+      "explanation_en": "진품 here means a rare and precious object. The clue is rarity and value, rather than replacing or imitating another item.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-075",
@@ -2026,7 +2106,8 @@
         }
       ],
       "explanation_ko": "균열(龜[균]裂[열])은 물체가 갈라져 틈이 생기는 것이에요. 문맥에서는 갈라진 벽의 표면이 단서예요.",
-      "explanation_en": "균열 means a crack or fissure forming in an object. The split in the wall's surface is the clue."
+      "explanation_en": "균열 means a crack or fissure forming in an object. The split in the wall's surface is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-076",
@@ -2051,7 +2132,8 @@
         }
       ],
       "explanation_ko": "배경(背[배]景[경])은 대상의 뒤쪽에 보이는 모습이에요. 사진의 중심인 인물보다 그 뒤에 놓인 산과 호수를 가리켜요.",
-      "explanation_en": "배경 means the background behind a subject. Here it is the mountains and lake behind the person in the photograph."
+      "explanation_en": "배경 means the background behind a subject. Here it is the mountains and lake behind the person in the photograph.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-077",
@@ -2076,7 +2158,8 @@
         }
       ],
       "explanation_ko": "강개지사(慷[강]慨[개]之[지]士[사])는 불의를 보고 의롭게 분개하는 사람이에요. 자기 이익을 위해서가 아니라 부당함에 맞서려는 마음이 단서예요.",
-      "explanation_en": "강개지사 refers to a person of righteous indignation. The clue is concern about injustice rather than personal gain."
+      "explanation_en": "강개지사 refers to a person of righteous indignation. The clue is concern about injustice rather than personal gain.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-078",
@@ -2101,7 +2184,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 시정(市[시]井[정])은 사람들이 모여 사는 거리나 저자예요. 잘못을 바로잡는다는 뜻의 시정과는 다른 말이에요.",
-      "explanation_en": "Here 시정 refers to a marketplace or the streets of everyday town life. It differs from the identically pronounced word meaning correction."
+      "explanation_en": "Here 시정 refers to a marketplace or the streets of everyday town life. It differs from the identically pronounced word meaning correction.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-079",
@@ -2126,7 +2210,8 @@
         }
       ],
       "explanation_ko": "참회(慙[참]悔[회])는 자신의 잘못을 부끄러워하며 뉘우치는 것이에요. 다른 사람을 탓하는 것이 아니라 자기 행동을 돌아보는 점이 단서예요.",
-      "explanation_en": "참회 means feeling ashamed and remorseful about one's wrongdoing. The focus is on reflecting on one's own actions rather than blaming someone else."
+      "explanation_en": "참회 means feeling ashamed and remorseful about one's wrongdoing. The focus is on reflecting on one's own actions rather than blaming someone else.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-080",
@@ -2151,7 +2236,8 @@
         }
       ],
       "explanation_ko": "우량(優[우]良[량])은 품질이나 상태가 뛰어나고 좋다는 뜻이에요. 단순히 보통 수준이 아니라 상태가 훌륭하다는 점이 단서예요.",
-      "explanation_en": "우량 means excellent or of high quality. The clue is a condition better than merely average."
+      "explanation_en": "우량 means excellent or of high quality. The clue is a condition better than merely average.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-081",
@@ -2176,7 +2262,8 @@
         }
       ],
       "explanation_ko": "동몽(童[동]蒙[몽])은 아직 배움이 깊지 않은 어린아이를 이르던 말이에요. 나이가 어리고 배움의 첫 단계에 있다는 점이 단서예요.",
-      "explanation_en": "동몽 is a traditional term for a child beginning to learn. Youth and an early stage of education are the clues."
+      "explanation_en": "동몽 is a traditional term for a child beginning to learn. Youth and an early stage of education are the clues.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-082",
@@ -2201,7 +2288,8 @@
         }
       ],
       "explanation_ko": "정복(征[정]服[복])은 무력이나 힘으로 상대를 굴복시키는 것이에요. 자신이 굴복하는 것이 아니라 상대를 굴복시킨 쪽의 행동이에요.",
-      "explanation_en": "정복 means conquest, forcing another party into submission. It describes the action of the conquering side, rather than surrendering or being defeated."
+      "explanation_en": "정복 means conquest, forcing another party into submission. It describes the action of the conquering side, rather than surrendering or being defeated.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-083",
@@ -2226,7 +2314,8 @@
         }
       ],
       "explanation_ko": "옥체(玉[옥]體[체])는 임금이나 귀한 사람의 몸을 높여 이르는 말이에요. 건물 위쪽이나 머리에 쓰는 왕관이 아니라 몸을 가리켜요.",
-      "explanation_en": "옥체 is an honorific word for a monarch's or esteemed person's body. It refers to the body, rather than a rooftop or crown."
+      "explanation_en": "옥체 is an honorific word for a monarch's or esteemed person's body. It refers to the body, rather than a rooftop or crown.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-084",
@@ -2251,7 +2340,8 @@
         }
       ],
       "explanation_ko": "규명(糾[규]明[명])은 사실이나 원인을 자세히 살펴 분명하게 밝히는 것이에요. 짐작하는 단계에 머물지 않고 원인을 밝혔다는 점이 단서예요.",
-      "explanation_en": "규명 means investigating facts or causes and making them clear. The clue is that the cause was established, rather than merely guessed."
+      "explanation_en": "규명 means investigating facts or causes and making them clear. The clue is that the cause was established, rather than merely guessed.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-085",
@@ -2276,7 +2366,8 @@
         }
       ],
       "explanation_ko": "감언(甘[감]言[언])은 남의 마음을 얻으려고 듣기 좋게 꾸민 말이에요. 단순히 조심스럽게 하거나 독하게 하는 말보다 환심을 사려는 목적이 단서예요.",
-      "explanation_en": "감언 means sweet talk meant to gain someone's favor. The intention to please distinguishes it from merely cautious or harsh speech."
+      "explanation_en": "감언 means sweet talk meant to gain someone's favor. The intention to please distinguishes it from merely cautious or harsh speech.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-086",
@@ -2301,7 +2392,8 @@
         }
       ],
       "explanation_ko": "합장(合[합]掌[장])은 두 손바닥을 가슴 앞에서 마주 대는 것이에요. 상대의 손을 잡거나 두 손을 쳐서 소리를 내는 동작과 구별해요.",
-      "explanation_en": "합장 means pressing one's palms together in front of the chest. It differs from shaking another person's hand or clapping."
+      "explanation_en": "합장 means pressing one's palms together in front of the chest. It differs from shaking another person's hand or clapping.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-087",
@@ -2326,7 +2418,8 @@
         }
       ],
       "explanation_ko": "수도관(水[수]道[도]管[관])은 수돗물을 보내는 데 사용하는 관이에요. 몸속에서 피가 흐르는 혈관이나 육지 사이에 있는 좁은 바닷길인 해협과 구별해요.",
-      "explanation_en": "수도관 is a tap-water supply pipe. It differs from a blood vessel and from a strait, a narrow sea passage between areas of land."
+      "explanation_en": "수도관 is a tap-water supply pipe. It differs from a blood vessel and from a strait, a narrow sea passage between areas of land.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-088",
@@ -2351,7 +2444,8 @@
         }
       ],
       "explanation_ko": "고립(孤[고]立[립])은 다른 사람이나 지역과 연결되지 못하고 홀로 떨어진 상태예요. 밖으로 오갈 길이 막혔다는 점이 단서예요.",
-      "explanation_en": "고립 means isolation from others or from other places. The blocked connections to the outside are the clue."
+      "explanation_en": "고립 means isolation from others or from other places. The blocked connections to the outside are the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-089",
@@ -2376,7 +2470,8 @@
         }
       ],
       "explanation_ko": "북극(北[북]極[극])은 지구 자전축의 북쪽 끝 지점이에요. 남쪽 끝이나 지구의 가운데를 둘러가는 선과 구별해요.",
-      "explanation_en": "북극 is the North Pole, the northern end of Earth's rotational axis. It differs from the southern end and the equator."
+      "explanation_en": "북극 is the North Pole, the northern end of Earth's rotational axis. It differs from the southern end and the equator.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-090",
@@ -2401,7 +2496,8 @@
         }
       ],
       "explanation_ko": "소급적용(遡[소]及[급]適[적]用[용])은 새 기준을 이전에 있었던 일에도 적용하는 것이에요. 앞으로의 경기뿐 아니라 이미 끝난 경기까지 다시 계산한다는 점이 단서예요.",
-      "explanation_en": "소급적용 means applying a new standard to earlier events. The clue is rescoring matches that have already ended, not just future ones."
+      "explanation_en": "소급적용 means applying a new standard to earlier events. The clue is rescoring matches that have already ended, not just future ones.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-091",
@@ -2426,7 +2522,8 @@
         }
       ],
       "explanation_ko": "실연(失[실]戀[연])은 사랑이 이루어지지 않거나 사랑하는 사람과 헤어지는 일이에요. 이 문맥에서는 이별로 사랑을 잃은 점이 단서예요.",
-      "explanation_en": "실연 means unrequited love or the loss of a romantic relationship. Here the clue is the end of a loving relationship."
+      "explanation_en": "실연 means unrequited love or the loss of a romantic relationship. Here the clue is the end of a loving relationship.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-092",
@@ -2451,7 +2548,8 @@
         }
       ],
       "explanation_ko": "태평(泰[태]平[평])은 세상이 평화롭고 안정된 상태예요. 싸움이나 어지러운 혼란이 없다는 점이 단서예요.",
-      "explanation_en": "태평 means peace and tranquility in the world. The absence of war and disorder is the clue."
+      "explanation_en": "태평 means peace and tranquility in the world. The absence of war and disorder is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-001-093",
@@ -2476,7 +2574,8 @@
         }
       ],
       "explanation_ko": "국화차(菊[국]花[화]茶[차])는 국화꽃을 우려서 만든 차예요. 꽃 자체나 술이 아니라 따뜻한 물에 우린 음료라는 점이 단서예요.",
-      "explanation_en": "국화차 is tea made by steeping chrysanthemum flowers. The clue is an infused drink, rather than the flower itself or an alcoholic beverage."
+      "explanation_en": "국화차 is tea made by steeping chrysanthemum flowers. The clue is an infused drink, rather than the flower itself or an alcoholic beverage.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-094",
@@ -2501,7 +2600,8 @@
         }
       ],
       "explanation_ko": "취침(就[취]寢[침])은 잠자리에 들어 잠을 자는 것이에요. 잠이 얼마나 깊은지보다 잠자리에 들어 자는 행동이 단서예요.",
-      "explanation_en": "취침 means going to bed and sleeping. The clue is the act of going to bed, rather than the depth of sleep."
+      "explanation_en": "취침 means going to bed and sleeping. The clue is the act of going to bed, rather than the depth of sleep.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-095",
@@ -2526,7 +2626,8 @@
         }
       ],
       "explanation_ko": "다량(多[다]量[량])은 많은 분량이라는 뜻이에요. 물품이 적거나 드문 것이 아니라 아주 많이 들어왔다는 점이 단서예요.",
-      "explanation_en": "다량 means a large quantity. The clue is the abundance of supplies, rather than a small number or scarcity."
+      "explanation_en": "다량 means a large quantity. The clue is the abundance of supplies, rather than a small number or scarcity.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-096",
@@ -2551,7 +2652,8 @@
         }
       ],
       "explanation_ko": "염증(炎[염]症[증])은 손상이나 자극에 대응해 조직에 나타나는 방어 반응이에요. 물건을 물들이는 재료나 소금 성분을 뜻하는 말과 구별해요.",
-      "explanation_en": "염증 is inflammation, a tissue response to injury or irritation. It differs from dye or salt content."
+      "explanation_en": "염증 is inflammation, a tissue response to injury or irritation. It differs from dye or salt content.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-001-097",
@@ -2576,7 +2678,8 @@
         }
       ],
       "explanation_ko": "탁발(托[탁]鉢[발])은 승려가 발우를 들고 음식을 시주받는 수행이에요. 일반적으로 음식을 구걸하는 걸식보다, 승려와 발우라는 구체적인 문맥에 맞는 말이에요.",
-      "explanation_en": "탁발 is a monk's alms round with a bowl. The specific context of a monk and an alms bowl distinguishes it from the general term for begging for food."
+      "explanation_en": "탁발 is a monk's alms round with a bowl. The specific context of a monk and an alms bowl distinguishes it from the general term for begging for food.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-098",
@@ -2601,7 +2704,8 @@
         }
       ],
       "explanation_ko": "오니(汚[오]泥[니])는 오염된 진흙이나 물속에서 가라앉아 생긴 찌꺼기예요. 물 처리 시설 바닥에 쌓인 진흙 같은 물질이 단서예요.",
-      "explanation_en": "오니 means sludge or contaminated mud. The mud-like residue settled at the bottom of the treatment tank is the clue."
+      "explanation_en": "오니 means sludge or contaminated mud. The mud-like residue settled at the bottom of the treatment tank is the clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-099",
@@ -2626,7 +2730,8 @@
         }
       ],
       "explanation_ko": "이 문맥의 연대(硯[연]臺[대])는 벼루를 올려놓는 받침이나 대예요. 서로 힘을 합한다는 뜻의 같은 소리의 단어와 구별해요.",
-      "explanation_en": "Here 연대 means an inkstone stand. It differs from the identically pronounced word for solidarity."
+      "explanation_en": "Here 연대 means an inkstone stand. It differs from the identically pronounced word for solidarity.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-001-100",
@@ -2651,7 +2756,8 @@
         }
       ],
       "explanation_ko": "악력(握[악]力[력])은 손으로 움켜쥐는 힘이에요. 일반적인 위세나 힘, 기억하는 능력보다 손을 쥐는 힘을 구체적으로 가리켜요.",
-      "explanation_en": "악력 means grip strength. It specifically concerns squeezing with the hand, rather than power in general or the ability to remember."
+      "explanation_en": "악력 means grip strength. It specifically concerns squeezing with the hand, rather than power in general or the ability to remember.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-001",
@@ -2676,7 +2782,8 @@
         }
       ],
       "explanation_ko": "창공(蒼[창]空[공])은 푸르고 넓은 하늘을 뜻해요. 蒼[창]은 푸른빛, 空[공]은 하늘과 관련돼요. 새가 날아오른 푸른 하늘이 단서예요.",
-      "explanation_en": "창공: A vast blue sky. 蒼[창] suggests blue and 空[공] the sky. The bird flying upward into the blue sky is the clue."
+      "explanation_en": "창공: A vast blue sky. 蒼[창] suggests blue and 空[공] the sky. The bird flying upward into the blue sky is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-002",
@@ -2701,7 +2808,8 @@
         }
       ],
       "explanation_ko": "비극(悲[비]劇[극])은 슬픔이나 인물의 불행을 중심으로 전개되는 극을 뜻해요. 悲[비]는 슬픔, 劇[극]은 극과 관련돼요. 웃음을 중심으로 하는 희극과 구별해요.",
-      "explanation_en": "비극: A tragedy, a drama centered on suffering or misfortune. 悲[비] relates to sadness and 劇[극] to drama. The unhappy ending distinguishes it from a comedy."
+      "explanation_en": "비극: A tragedy, a drama centered on suffering or misfortune. 悲[비] relates to sadness and 劇[극] to drama. The unhappy ending distinguishes it from a comedy.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-003",
@@ -2726,7 +2834,8 @@
         }
       ],
       "explanation_ko": "탁월(卓[탁]越[월])은 다른 것보다 매우 뛰어남을 뜻해요. 卓[탁]은 뛰어남, 越[월]은 넘어섬과 관련돼요. 보통 수준을 훨씬 넘는 능력이 단서예요.",
-      "explanation_en": "탁월: Outstanding excellence. 卓[탁] suggests distinction and 越[월] going beyond. An ability far above the ordinary level is the clue."
+      "explanation_en": "탁월: Outstanding excellence. 卓[탁] suggests distinction and 越[월] going beyond. An ability far above the ordinary level is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-004",
@@ -2751,7 +2860,8 @@
         }
       ],
       "explanation_ko": "장애인(障[장]礙[애]人[인])은 신체적 또는 정신적 장애가 있는 사람을 가리켜요. 人[인]이 사람을 뜻한다는 점과 안내문의 지원 대상이 단서예요.",
-      "explanation_en": "장애인: A person with a disability. 人[인] means person; the notice identifies the group the support is intended for."
+      "explanation_en": "장애인: A person with a disability. 人[인] means person; the notice identifies the group the support is intended for.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-005",
@@ -2776,7 +2886,8 @@
         }
       ],
       "explanation_ko": "번복(飜[번]覆[복])은 이미 한 말이나 결정을 뒤집어 바꾸는 일이에요. 飜[번]과 覆[복]에는 뒤집는 뜻이 있어요. 기존 결정을 그대로 지키는 유지와 구별해요.",
-      "explanation_en": "번복: Reversing a previous statement or decision. 飜[번] and 覆[복] carry senses of overturning. The decision was reversed rather than maintained."
+      "explanation_en": "번복: Reversing a previous statement or decision. 飜[번] and 覆[복] carry senses of overturning. The decision was reversed rather than maintained.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-006",
@@ -2801,7 +2912,8 @@
         }
       ],
       "explanation_ko": "매립(埋[매]立[립])은 바다나 낮은 곳을 흙으로 메워 땅을 만드는 일이에요. 埋[매]는 묻거나 메우는 뜻과 관련돼요. 이 문맥에서는 새로운 땅을 만드는 것이 단서예요.",
-      "explanation_en": "매립: Filling shallow water or low ground to create land. 埋[매] relates to burying or filling. Here the purpose is land reclamation."
+      "explanation_en": "매립: Filling shallow water or low ground to create land. 埋[매] relates to burying or filling. Here the purpose is land reclamation.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-007",
@@ -2826,7 +2938,8 @@
         }
       ],
       "explanation_ko": "재보(宰[재]輔[보])는 임금을 도와 나라를 다스리는 높은 신하를 뜻하는 역사적 표현이에요. 宰[재]는 다스림, 輔[보]는 도움과 관련돼요.",
-      "explanation_en": "재보: A high minister assisting the ruler in government. This is a historical term: 宰[재] relates to governing and 輔[보] to assisting."
+      "explanation_en": "재보: A high minister assisting the ruler in government. This is a historical term: 宰[재] relates to governing and 輔[보] to assisting.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-008",
@@ -2851,7 +2964,8 @@
         }
       ],
       "explanation_ko": "누차(屢[누]次[차])는 여러 차례라는 뜻이에요. 屢[누]는 거듭함, 次[차]는 차례와 관련돼요. 앞으로를 뜻하는 장차나 조금씩을 뜻하는 점차와 구별해요.",
-      "explanation_en": "누차: Repeatedly, or on several occasions. 屢[누] suggests repetition and 次[차] an occasion. 장차 concerns the future, while 점차 means gradually."
+      "explanation_en": "누차: Repeatedly, or on several occasions. 屢[누] suggests repetition and 次[차] an occasion. 장차 concerns the future, while 점차 means gradually.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-009",
@@ -2876,7 +2990,8 @@
         }
       ],
       "explanation_ko": "시가(市[시]街[가])는 집과 가게가 밀집한 도시의 거리나 구역이에요. 市[시]와 街[가]가 도시와 거리를 가리켜요. 같은 소리의 시가(媤[시]家[가])는 남편의 집안이에요.",
-      "explanation_en": "시가: An urban area of closely packed streets and buildings. 市[시] and 街[가] point to a city and its streets. 시가 written 媤[시]家[가] instead means a husband's family."
+      "explanation_en": "시가: An urban area of closely packed streets and buildings. 市[시] and 街[가] point to a city and its streets. 시가 written 媤[시]家[가] instead means a husband's family.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-010",
@@ -2901,7 +3016,8 @@
         }
       ],
       "explanation_ko": "기동(起[기]動[동])은 기계나 장치를 작동시키거나 움직이기 시작하는 일이에요. 起[기]는 일어남, 動[동]은 움직임과 관련돼요. 멈추는 정지나 중단과 반대 방향의 변화예요.",
-      "explanation_en": "기동: Starting up or putting a device into operation. 起[기] suggests rising or beginning and 動[동] movement. The device begins working rather than stopping."
+      "explanation_en": "기동: Starting up or putting a device into operation. 起[기] suggests rising or beginning and 動[동] movement. The device begins working rather than stopping.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-011",
@@ -2926,7 +3042,8 @@
         }
       ],
       "explanation_ko": "변새(邊[변]塞[새])는 국경 부근의 요새나 변방 지역을 뜻해요. 邊[변]은 가장자리, 塞[새]는 요새와 관련돼요. 단순히 강이나 바다 가까운 곳이라는 뜻은 아니에요.",
-      "explanation_en": "변새: A frontier fortress or border region. 邊[변] relates to an edge and 塞[새] to a fortress. The national border is the key clue."
+      "explanation_en": "변새: A frontier fortress or border region. 邊[변] relates to an edge and 塞[새] to a fortress. The national border is the key clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-012",
@@ -2951,7 +3068,8 @@
         }
       ],
       "explanation_ko": "분장(扮[분]裝[장])은 배역이나 목적에 맞게 얼굴과 차림을 꾸미는 일이에요. 扮[분]과 裝[장]은 꾸밈과 관련돼요. 업무를 나누어 맡는 분장(分[분]掌[장])과 구별해요.",
-      "explanation_en": "분장: Making up and dressing for a role. 扮[분] and 裝[장] relate to dressing or adorning. 분장 written 分[분]掌[장] means dividing responsibilities."
+      "explanation_en": "분장: Making up and dressing for a role. 扮[분] and 裝[장] relate to dressing or adorning. 분장 written 分[분]掌[장] means dividing responsibilities.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-013",
@@ -2976,7 +3094,8 @@
         }
       ],
       "explanation_ko": "봉관(鳳[봉]冠[관])은 봉황 장식이 달린 의례용 관이에요. 鳳[봉]은 봉황, 冠[관]은 관을 뜻해요. 장식의 모양이 다른 관과 구별하는 단서예요.",
-      "explanation_en": "봉관: A ceremonial crown decorated with phoenix motifs. 鳳[봉] means phoenix and 冠[관] crown. The decoration provides the specific clue."
+      "explanation_en": "봉관: A ceremonial crown decorated with phoenix motifs. 鳳[봉] means phoenix and 冠[관] crown. The decoration provides the specific clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-014",
@@ -3001,7 +3120,8 @@
         }
       ],
       "explanation_ko": "기탄지심(忌[기]憚[탄]之[지]心[심])은 꺼리거나 두려워하는 마음을 뜻하는 문어적 표현이에요. 忌[기]와 憚[탄]은 꺼림, 心[심]은 마음과 관련돼요. 불쌍히 여기는 측은지심과는 달라요.",
-      "explanation_en": "기탄지심: A feeling of reluctance or apprehension, expressed in a literary register. 忌[기] and 憚[탄] relate to reluctance and 心[심] to the heart or mind."
+      "explanation_en": "기탄지심: A feeling of reluctance or apprehension, expressed in a literary register. 忌[기] and 憚[탄] relate to reluctance and 心[심] to the heart or mind.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-015",
@@ -3026,7 +3146,8 @@
         }
       ],
       "explanation_ko": "공작(公[공]爵[작])은 오등작 제도에서 가장 높은 귀족 작위예요. 爵[작]은 작위를 뜻해요. 화려한 깃을 가진 새인 공작(孔[공]雀[작])과 한자도 뜻도 달라요.",
-      "explanation_en": "공작: The highest rank in the five-rank nobility system, commonly translated as duke. 爵[작] means a noble title. 공작 written 孔[공]雀[작] is a peacock."
+      "explanation_en": "공작: The highest rank in the five-rank nobility system, commonly translated as duke. 爵[작] means a noble title. 공작 written 孔[공]雀[작] is a peacock.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-016",
@@ -3051,7 +3172,8 @@
         }
       ],
       "explanation_ko": "유유자적(悠[유]悠[유]自[자]適[적])은 근심이나 속박 없이 느긋하게 지내는 모습이에요. 悠[유]의 여유로운 느낌과 適[적]의 편안함을 함께 생각해 볼 수 있어요. 이리저리 바쁘게 뛰는 동분서주와 구별해요.",
-      "explanation_en": "유유자적: Living at ease without pressing worries or constraints. 悠[유] suggests leisure and 適[적] comfort. This differs from rushing about, expressed by 동분서주."
+      "explanation_en": "유유자적: Living at ease without pressing worries or constraints. 悠[유] suggests leisure and 適[적] comfort. This differs from rushing about, expressed by 동분서주.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-017",
@@ -3076,7 +3198,8 @@
         }
       ],
       "explanation_ko": "파랑(波[파]浪[랑])은 바다나 호수에 이는 물결이에요. 波[파]와 浪[랑]은 모두 물결과 관련돼요. 여기서는 색깔이 아니라 물의 움직임을 가리켜요.",
-      "explanation_en": "파랑: Waves on a sea or lake. Both 波[파] and 浪[랑] relate to waves. The context concerns moving water, not a color."
+      "explanation_en": "파랑: Waves on a sea or lake. Both 波[파] and 浪[랑] relate to waves. The context concerns moving water, not a color.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-018",
@@ -3101,7 +3224,8 @@
         }
       ],
       "explanation_ko": "최대치(最[최]大[대]値[치])는 가능하거나 관찰된 값 가운데 가장 큰 값이에요. 最[최]는 가장, 大[대]는 큼, 値[치]는 값을 뜻해요. 여러 값의 평균과 구별해요.",
-      "explanation_en": "최대치: The maximum value. 最[최] means most, 大[대] large, and 値[치] value. Here it is the largest observation, not the average."
+      "explanation_en": "최대치: The maximum value. 最[최] means most, 大[대] large, and 値[치] value. Here it is the largest observation, not the average.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-019",
@@ -3126,7 +3250,8 @@
         }
       ],
       "explanation_ko": "군량(軍[군]糧[량])은 군대에서 먹을 식량이에요. 軍[군]은 군대, 糧[량]은 식량과 관련돼요. 무기인 병기나 물자를 보관하는 군창과 구별해요.",
-      "explanation_en": "군량: Food provisions for an army. 軍[군] relates to the military and 糧[량] to food supplies. It names the food, not weapons or a military storehouse."
+      "explanation_en": "군량: Food provisions for an army. 軍[군] relates to the military and 糧[량] to food supplies. It names the food, not weapons or a military storehouse.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-020",
@@ -3151,7 +3276,8 @@
         }
       ],
       "explanation_ko": "정수(精[정]粹[수])는 가장 순수하고 핵심적인 부분을 뜻해요. 精[정]과 粹[수]는 순수하고 정제된 것과 관련돼요. 물을 뜻하는 다른 한자의 정수와 구별해요.",
-      "explanation_en": "정수: The quintessence, or purest essential part. 精[정] and 粹[수] suggest purity and refinement. Other words pronounced 정수 concern water."
+      "explanation_en": "정수: The quintessence, or purest essential part. 精[정] and 粹[수] suggest purity and refinement. Other words pronounced 정수 concern water.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-021",
@@ -3176,7 +3302,8 @@
         }
       ],
       "explanation_ko": "나태심(懶[나]怠[태]心[심])은 게으르게 지내려는 마음이에요. 懶[나]와 怠[태]는 게으름, 心[심]은 마음과 관련돼요. 성실하게 일을 하려는 태도와 구별해요.",
-      "explanation_en": "나태심: An inclination toward idleness. 懶[나] and 怠[태] relate to laziness and 心[심] to the mind. Wanting to avoid the work is the clue."
+      "explanation_en": "나태심: An inclination toward idleness. 懶[나] and 怠[태] relate to laziness and 心[심] to the mind. Wanting to avoid the work is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-022",
@@ -3201,7 +3328,8 @@
         }
       ],
       "explanation_ko": "예각(銳[예]角[각])은 0도보다 크고 90도보다 작은 각이에요. 銳[예]는 날카로움, 角[각]은 각을 뜻해요. 35도는 직각인 90도보다 작아요.",
-      "explanation_en": "예각: An acute angle, greater than zero and less than ninety degrees. 銳[예] suggests sharpness and 角[각] an angle. Thirty-five degrees meets this condition."
+      "explanation_en": "예각: An acute angle, greater than zero and less than ninety degrees. 銳[예] suggests sharpness and 角[각] an angle. Thirty-five degrees meets this condition.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-023",
@@ -3226,7 +3354,8 @@
         }
       ],
       "explanation_ko": "무편무파(無[무]偏[편]無[무]頗[파])는 어느 한쪽에도 치우치지 않음을 뜻해요. 無[무]가 偏[편]과 頗[파] 앞에 각각 놓여 치우침이 없다는 뜻을 만들어요.",
-      "explanation_en": "무편무파: Complete impartiality. 無[무] negates 偏[편] and 頗[파], both associated with bias or leaning to one side. Fair treatment is the clue."
+      "explanation_en": "무편무파: Complete impartiality. 無[무] negates 偏[편] and 頗[파], both associated with bias or leaning to one side. Fair treatment is the clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-024",
@@ -3251,7 +3380,8 @@
         }
       ],
       "explanation_ko": "소요음영(逍[소]遙[요]吟[음]詠[영])은 한가로이 거닐며 시를 읊는 일이에요. 소요는 느긋하게 거니는 것, 음영은 시가를 읊는 것이에요. 두 행동이 함께 나온 점이 단서예요.",
-      "explanation_en": "소요음영: Strolling at leisure while reciting poetry. The first part describes the stroll and the second the recitation; both actions appear in the scene."
+      "explanation_en": "소요음영: Strolling at leisure while reciting poetry. The first part describes the stroll and the second the recitation; both actions appear in the scene.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-025",
@@ -3276,7 +3406,8 @@
         }
       ],
       "explanation_ko": "소실(燒[소]失[실])은 불에 타서 없어지는 일이에요. 燒[소]는 불에 탐, 失[실]은 잃거나 없어짐과 관련돼요. 불 때문에 사라졌다는 원인이 단서예요.",
-      "explanation_en": "소실: Destruction by fire. 燒[소] relates to burning and 失[실] to loss. The fire, rather than forgetting or cooling, caused the documents to disappear."
+      "explanation_en": "소실: Destruction by fire. 燒[소] relates to burning and 失[실] to loss. The fire, rather than forgetting or cooling, caused the documents to disappear.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-026",
@@ -3301,7 +3432,8 @@
         }
       ],
       "explanation_ko": "강호(江[강]湖[호])는 강과 호수를 뜻하며, 옛 시에서는 세상일을 떠나 지내는 자연 공간을 가리키기도 해요. 江[강]은 강, 湖[호]는 호수예요.",
-      "explanation_en": "강호: Rivers and lakes, also a literary retreat from worldly affairs. 江[강] means river and 湖[호] lake. Leaving official life for nature is the clue."
+      "explanation_en": "강호: Rivers and lakes, also a literary retreat from worldly affairs. 江[강] means river and 湖[호] lake. Leaving official life for nature is the clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-027",
@@ -3326,7 +3458,8 @@
         }
       ],
       "explanation_ko": "모색(摸[모]索[색])은 문제를 풀 방법이나 방향을 여러모로 찾아보는 일이에요. 摸[모]와 索[색]은 더듬거나 찾는 뜻과 관련돼요. 아직 방법을 확정하지 않고 찾고 있다는 점이 단서예요.",
-      "explanation_en": "모색: Exploring possible ways to solve a problem. 摸[모] and 索[색] relate to feeling one's way and searching. The team is still seeking a solution."
+      "explanation_en": "모색: Exploring possible ways to solve a problem. 摸[모] and 索[색] relate to feeling one's way and searching. The team is still seeking a solution.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-028",
@@ -3351,7 +3484,8 @@
         }
       ],
       "explanation_ko": "후대(厚[후]待[대])는 정성을 들여 넉넉하게 대접하는 일이에요. 厚[후]는 두터움, 待[대]는 대우함과 관련돼요. 소홀히 대하는 홀대와 구별해요.",
-      "explanation_en": "후대: Generous, considerate treatment. 厚[후] suggests generosity and 待[대] treatment. The host's care contrasts with neglectful treatment, 홀대."
+      "explanation_en": "후대: Generous, considerate treatment. 厚[후] suggests generosity and 待[대] treatment. The host's care contrasts with neglectful treatment, 홀대.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-029",
@@ -3376,7 +3510,8 @@
         }
       ],
       "explanation_ko": "옥토(玉[옥]兔[토])는 달 속에 산다고 여기는 전설의 토끼예요. 兔[토]는 토끼를 뜻해요. 기름진 땅을 뜻하는 옥토(沃[옥]土[토])와 구별해요.",
-      "explanation_en": "옥토: The mythical rabbit believed to live on the moon. 兔[토] means rabbit. 옥토 written 沃[옥]土[토] instead means fertile land."
+      "explanation_en": "옥토: The mythical rabbit believed to live on the moon. 兔[토] means rabbit. 옥토 written 沃[옥]土[토] instead means fertile land.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-030",
@@ -3401,7 +3536,8 @@
         }
       ],
       "explanation_ko": "격변(激[격]變[변])은 상태나 상황이 급격하게 크게 달라지는 일이에요. 激[격]은 세참, 變[변]은 변화를 뜻해요. 변화의 크기와 빠르기가 단서예요.",
-      "explanation_en": "격변: A drastic, rapid change or upheaval. 激[격] suggests intensity and 變[변] change. Both the speed and scale of the transformation matter."
+      "explanation_en": "격변: A drastic, rapid change or upheaval. 激[격] suggests intensity and 變[변] change. Both the speed and scale of the transformation matter.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-031",
@@ -3426,7 +3562,8 @@
         }
       ],
       "explanation_ko": "기마대(騎[기]馬[마]隊[대])는 말을 타고 활동하는 사람들로 이루어진 부대나 집단이에요. 騎[기]는 말을 탐, 馬[마]는 말, 隊[대]는 무리나 부대와 관련돼요.",
-      "explanation_en": "기마대: A mounted unit or troop. 騎[기] relates to riding, 馬[마] to a horse, and 隊[대] to a group or unit. Traveling on horseback is the clue."
+      "explanation_en": "기마대: A mounted unit or troop. 騎[기] relates to riding, 馬[마] to a horse, and 隊[대] to a group or unit. Traveling on horseback is the clue.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-032",
@@ -3451,7 +3588,8 @@
         }
       ],
       "explanation_ko": "신음성(呻[신]吟[음]聲[성])은 괴로워서 내는 신음 소리예요. 呻[신]과 吟[음]은 신음함, 聲[성]은 소리와 관련돼요. 아픔 때문에 끙끙거린다는 점이 단서예요.",
-      "explanation_en": "신음성: A groaning sound caused by distress. 呻[신] and 吟[음] relate to groaning and 聲[성] to sound. The character's pain explains the sound."
+      "explanation_en": "신음성: A groaning sound caused by distress. 呻[신] and 吟[음] relate to groaning and 聲[성] to sound. The character's pain explains the sound.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-033",
@@ -3476,7 +3614,8 @@
         }
       ],
       "explanation_ko": "제시(提[제]示[시])는 내용이나 대상을 내놓아 보이는 일이에요. 提[제]는 내놓거나 들어 보임, 示[시]는 보임과 관련돼요. 자료를 감추거나 지우는 것과 구별해요.",
-      "explanation_en": "제시: Presenting or showing information. 提[제] suggests putting forward and 示[시] showing. The speaker makes the evidence visible."
+      "explanation_en": "제시: Presenting or showing information. 提[제] suggests putting forward and 示[시] showing. The speaker makes the evidence visible.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-034",
@@ -3501,7 +3640,8 @@
         }
       ],
       "explanation_ko": "용광(鎔[용]鑛[광])은 광석을 녹여 금속을 얻는 일이에요. 鎔[용]은 녹임, 鑛[광]은 광석과 관련돼요. 땅에서 광물을 캐는 채굴과 구별해요.",
-      "explanation_en": "용광: Smelting ore to obtain metal. 鎔[용] relates to melting and 鑛[광] to ore. This differs from mining the ore out of the ground."
+      "explanation_en": "용광: Smelting ore to obtain metal. 鎔[용] relates to melting and 鑛[광] to ore. This differs from mining the ore out of the ground.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-035",
@@ -3526,7 +3666,8 @@
         }
       ],
       "explanation_ko": "정권(正[정]拳[권])은 무술에서 바르게 쥔 주먹이나 그 앞쪽 타격 부위를 뜻해요. 正[정]은 바름, 拳[권]은 주먹과 관련돼요. 이 문맥에서는 무술 용어예요.",
-      "explanation_en": "정권: A properly clenched fist or its front striking surface in martial arts. 正[정] means proper and 拳[권] fist. The martial arts setting fixes the meaning."
+      "explanation_en": "정권: A properly clenched fist or its front striking surface in martial arts. 正[정] means proper and 拳[권] fist. The martial arts setting fixes the meaning.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-036",
@@ -3551,7 +3692,8 @@
         }
       ],
       "explanation_ko": "밀선(蜜[밀]腺[선])은 식물에서 당분이 든 액체를 분비하는 꿀샘이에요. 蜜[밀]은 꿀, 腺[선]은 분비샘을 뜻해요. 땀이나 침을 내는 동물의 샘과 구별해요.",
-      "explanation_en": "밀선: A nectary, a plant structure that secretes nectar. 蜜[밀] means nectar or honey and 腺[선] gland. The plant context distinguishes it from sweat or salivary glands."
+      "explanation_en": "밀선: A nectary, a plant structure that secretes nectar. 蜜[밀] means nectar or honey and 腺[선] gland. The plant context distinguishes it from sweat or salivary glands.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-037",
@@ -3576,7 +3718,8 @@
         }
       ],
       "explanation_ko": "외투(外[외]套[투])는 겉에 입는 두꺼운 옷이에요. 外[외]는 바깥을 뜻해요. 손에 끼는 장갑이 아니라 다른 옷 위에 걸친다는 점이 단서예요.",
-      "explanation_en": "외투: An overcoat, worn over other clothes. 外[외] means outside. The garment covers the body rather than only the hands."
+      "explanation_en": "외투: An overcoat, worn over other clothes. 外[외] means outside. The garment covers the body rather than only the hands.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-038",
@@ -3601,7 +3744,8 @@
         }
       ],
       "explanation_ko": "개별(個[개]別[별])은 각각을 따로 구별하거나 하나하나 따로인 것을 뜻해요. 個[개]는 낱낱, 別[별]은 나눔과 관련돼요. 한꺼번에 처리하는 일괄과 구별해요.",
-      "explanation_en": "개별: Individual or separate treatment. 個[개] suggests individual units and 別[별] separation. Each student receives a separate meeting."
+      "explanation_en": "개별: Individual or separate treatment. 個[개] suggests individual units and 別[별] separation. Each student receives a separate meeting.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-039",
@@ -3626,7 +3770,8 @@
         }
       ],
       "explanation_ko": "탐욕(貪[탐]慾[욕])은 지나치게 탐내는 욕심이에요. 貪[탐]은 탐냄, 慾[욕]은 욕심과 관련돼요. 남의 몫까지 차지하려는 태도가 단서예요.",
-      "explanation_en": "탐욕: Excessive greed. 貪[탐] relates to coveting and 慾[욕] to desire. Wanting other people's shares despite having enough is the clue."
+      "explanation_en": "탐욕: Excessive greed. 貪[탐] relates to coveting and 慾[욕] to desire. Wanting other people's shares despite having enough is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-040",
@@ -3651,7 +3796,8 @@
         }
       ],
       "explanation_ko": "영결(永[영]訣[결])은 죽은 사람과 영원히 이별하는 일이에요. 永[영]은 영원함, 訣[결]은 이별과 관련돼요. 다시 만나는 상봉과 구별해요.",
-      "explanation_en": "영결: A final farewell to the deceased. 永[영] suggests permanence and 訣[결] parting. The funeral context distinguishes it from a reunion."
+      "explanation_en": "영결: A final farewell to the deceased. 永[영] suggests permanence and 訣[결] parting. The funeral context distinguishes it from a reunion.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-041",
@@ -3676,7 +3822,8 @@
         }
       ],
       "explanation_ko": "번화가(繁[번]華[화]街[가])는 사람과 가게가 많아 붐비는 거리예요. 繁[번]과 華[화]는 번성하고 화려한 모습, 街[가]는 거리와 관련돼요.",
-      "explanation_en": "번화가: A busy commercial district with many people and shops. 繁[번] and 華[화] suggest flourishing activity, and 街[가] means street."
+      "explanation_en": "번화가: A busy commercial district with many people and shops. 繁[번] and 華[화] suggest flourishing activity, and 街[가] means street.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-042",
@@ -3701,7 +3848,8 @@
         }
       ],
       "explanation_ko": "요배(遙[요]拜[배])는 멀리 떨어진 곳에서 그곳의 대상을 향해 절하는 일이에요. 遙[요]는 멀리, 拜[배]는 절함을 뜻해요. 직접 그곳에 가지 않았다는 점이 단서예요.",
-      "explanation_en": "요배: Bowing toward a distant place or object of reverence. 遙[요] means far away and 拜[배] bowing. The person remains at a distance."
+      "explanation_en": "요배: Bowing toward a distant place or object of reverence. 遙[요] means far away and 拜[배] bowing. The person remains at a distance.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-043",
@@ -3726,7 +3874,8 @@
         }
       ],
       "explanation_ko": "명산대천(名[명]山[산]大[대]川[천])은 이름난 산과 큰 강을 함께 이르는 말이에요. 名[명]은 이름남, 山[산]은 산, 大[대]는 큼, 川[천]은 강을 뜻해요.",
-      "explanation_en": "명산대천: Famous mountains and great rivers. 名[명] suggests fame, 山[산] means mountain, 大[대] great, and 川[천] river. Both kinds of landscape appear."
+      "explanation_en": "명산대천: Famous mountains and great rivers. 名[명] suggests fame, 山[산] means mountain, 大[대] great, and 川[천] river. Both kinds of landscape appear.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-044",
@@ -3751,7 +3900,8 @@
         }
       ],
       "explanation_ko": "응고(凝[응]固[고])는 액체 등이 굳어 고체 상태가 되는 일이에요. 凝[응]은 엉김, 固[고]는 굳음을 뜻해요. 녹는 용해나 기체가 되는 증발과 변화 방향이 달라요.",
-      "explanation_en": "응고: Solidification, the change into a solid state. 凝[응] relates to congealing and 固[고] to firmness. The wax hardens instead of melting or evaporating."
+      "explanation_en": "응고: Solidification, the change into a solid state. 凝[응] relates to congealing and 固[고] to firmness. The wax hardens instead of melting or evaporating.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-045",
@@ -3776,7 +3926,8 @@
         }
       ],
       "explanation_ko": "대뇌(大[대]腦[뇌])는 사람의 뇌에서 가장 큰 부분으로, 생각·기억·감각 처리 등에 관여해요. 大[대]는 큼, 腦[뇌]는 뇌를 뜻해요.",
-      "explanation_en": "대뇌: The cerebrum, the largest part of the human brain, involved in thought, memory, and sensory processing. 大[대] means large and 腦[뇌] brain."
+      "explanation_en": "대뇌: The cerebrum, the largest part of the human brain, involved in thought, memory, and sensory processing. 大[대] means large and 腦[뇌] brain.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-046",
@@ -3801,7 +3952,8 @@
         }
       ],
       "explanation_ko": "주방용(廚[주]房[방]用[용])은 주방에서 쓰기 위한 것을 뜻해요. 廚[주]와 房[방]은 부엌 공간, 用[용]은 쓰임과 관련돼요. 장소 자체가 아니라 용도를 나타내요.",
-      "explanation_en": "주방용: For kitchen use. 廚[주] and 房[방] refer to the kitchen space, and 用[용] to use. The expression states a purpose."
+      "explanation_en": "주방용: For kitchen use. 廚[주] and 房[방] refer to the kitchen space, and 用[용] to use. The expression states a purpose.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-047",
@@ -3826,7 +3978,8 @@
         }
       ],
       "explanation_ko": "알선자(斡[알]旋[선]者[자])는 일이나 관계가 성립하도록 중간에서 돕는 사람이에요. 알선은 중간에서 도와주는 일이고, 者[자]는 사람을 나타내요.",
-      "explanation_en": "알선자: An intermediary who helps an arrangement come about. 알선 is the act of facilitating an arrangement, and 者[자] marks a person."
+      "explanation_en": "알선자: An intermediary who helps an arrangement come about. 알선 is the act of facilitating an arrangement, and 者[자] marks a person.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-048",
@@ -3851,7 +4004,8 @@
         }
       ],
       "explanation_ko": "계고(稽[계]古[고])는 옛것을 연구하고 배우는 일이에요. 稽[계]는 상고하고 살핌, 古[고]는 옛것과 관련돼요. 미래를 미리 짐작하는 예측과 구별해요.",
-      "explanation_en": "계고: Studying and learning from antiquity. 稽[계] relates to examining and 古[고] to the old or ancient. The scholar looks to the past."
+      "explanation_en": "계고: Studying and learning from antiquity. 稽[계] relates to examining and 古[고] to the old or ancient. The scholar looks to the past.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-049",
@@ -3876,7 +4030,8 @@
         }
       ],
       "explanation_ko": "착호갑사(捉[착]虎[호]甲[갑]士[사])는 조선 시대에 호랑이를 잡는 일을 맡은 군사예요. 捉[착]은 잡음, 虎[호]는 호랑이, 甲[갑]과 士[사]는 무장한 군사와 관련돼요.",
-      "explanation_en": "착호갑사: Joseon soldiers assigned to hunt tigers. 捉[착] means catching, 虎[호] tiger, and 甲[갑] and 士[사] relate to armed soldiers."
+      "explanation_en": "착호갑사: Joseon soldiers assigned to hunt tigers. 捉[착] means catching, 虎[호] tiger, and 甲[갑] and 士[사] relate to armed soldiers.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-050",
@@ -3901,7 +4056,8 @@
         }
       ],
       "explanation_ko": "비하(卑[비]下[하])는 대상의 가치나 지위를 낮추어 평가하거나 대하는 일이에요. 卑[비]와 下[하]에는 낮음의 뜻이 있어요. 이 문맥에서는 작품을 깎아내리는 태도가 단서예요.",
-      "explanation_en": "비하: Belittling or disparaging something. 卑[비] and 下[하] carry senses of lowness. Here the speaker unfairly lowers the value of a colleague's work."
+      "explanation_en": "비하: Belittling or disparaging something. 卑[비] and 下[하] carry senses of lowness. Here the speaker unfairly lowers the value of a colleague's work.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-051",
@@ -3926,7 +4082,8 @@
         }
       ],
       "explanation_ko": "주말(週[주]末[말])은 한 주의 끝 무렵으로, 보통 토요일과 일요일을 가리켜요. 週[주]는 주, 末[말]은 끝을 뜻해요. 한 달의 끝인 월말과 구별해요.",
-      "explanation_en": "주말: The weekend, usually Saturday and Sunday. 週[주] means week and 末[말] end. This differs from 월말, the end of a month."
+      "explanation_en": "주말: The weekend, usually Saturday and Sunday. 週[주] means week and 末[말] end. This differs from 월말, the end of a month.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-052",
@@ -3951,7 +4108,8 @@
         }
       ],
       "explanation_ko": "연대(聯[연]隊[대])는 여러 대대 등을 묶어 이루는 군대의 편성 단위예요. 聯[연]은 연합, 隊[대]는 부대와 관련돼요. 함께 책임지는 연대(連[연]帶[대])와 구별해요.",
-      "explanation_en": "연대: A regiment, a military unit grouping battalions. 聯[연] relates to joining and 隊[대] to a unit. 연대 written 連[연]帶[대] means solidarity or shared responsibility."
+      "explanation_en": "연대: A regiment, a military unit grouping battalions. 聯[연] relates to joining and 隊[대] to a unit. 연대 written 連[연]帶[대] means solidarity or shared responsibility.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-053",
@@ -3976,7 +4134,8 @@
         }
       ],
       "explanation_ko": "등용(登[등]用[용])은 재능 있는 사람을 뽑아 직책이나 일을 맡기는 일이에요. 登[등]은 올림, 用[용]은 씀과 관련돼요. 직책을 스스로 그만두는 사임과 구별해요.",
-      "explanation_en": "등용: Appointing a capable person to a role. 登[등] suggests raising and 用[용] employing. The person receives a role rather than resigning from one."
+      "explanation_en": "등용: Appointing a capable person to a role. 登[등] suggests raising and 用[용] employing. The person receives a role rather than resigning from one.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-054",
@@ -4001,7 +4160,8 @@
         }
       ],
       "explanation_ko": "수의(獸[수]醫[의])는 동물의 질병을 진단하고 치료하는 의사를 뜻해요. 獸[수]는 짐승, 醫[의]는 의료와 관련돼요. 진료 대상이 동물이라는 점이 단서예요.",
-      "explanation_en": "수의: A veterinarian. 獸[수] relates to animals and 醫[의] to medicine. The animal patients identify the profession."
+      "explanation_en": "수의: A veterinarian. 獸[수] relates to animals and 醫[의] to medicine. The animal patients identify the profession.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-055",
@@ -4026,7 +4186,8 @@
         }
       ],
       "explanation_ko": "역병(疫[역]病[병])은 전염되어 퍼지는 병을 이르는 말이에요. 疫[역]은 전염병, 病[병]은 병과 관련돼요. 사람들 사이에 옮아 퍼졌다는 점이 단서예요.",
-      "explanation_en": "역병: An infectious disease that spreads. 疫[역] relates to epidemic disease and 病[병] to illness. Transmission between people is the clue."
+      "explanation_en": "역병: An infectious disease that spreads. 疫[역] relates to epidemic disease and 病[병] to illness. Transmission between people is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-056",
@@ -4051,7 +4212,8 @@
         }
       ],
       "explanation_ko": "고질적(痼[고]疾[질]的[적])은 오래 굳어져 고치기 어려운 성질을 나타내요. 痼[고]는 오래 굳어진 병과 관련되며, 문제나 습관에도 비유해 쓸 수 있어요.",
-      "explanation_en": "고질적: Chronic or deeply entrenched. 痼[고] relates to a persistent illness, and the expression can also describe longstanding problems or habits."
+      "explanation_en": "고질적: Chronic or deeply entrenched. 痼[고] relates to a persistent illness, and the expression can also describe longstanding problems or habits.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-057",
@@ -4076,7 +4238,8 @@
         }
       ],
       "explanation_ko": "둔재(鈍[둔]才[재])는 재주나 이해력이 부족하다고 여기는 사람을 낮잡아 이르는 말이에요. 鈍[둔]은 둔함, 才[재]는 재주와 관련돼요. 사람을 존중하는 표현은 아니에요.",
-      "explanation_en": "둔재: A disparaging term for someone considered slow or untalented. 鈍[둔] suggests dullness and 才[재] talent. It is not a respectful description."
+      "explanation_en": "둔재: A disparaging term for someone considered slow or untalented. 鈍[둔] suggests dullness and 才[재] talent. It is not a respectful description.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-058",
@@ -4101,7 +4264,8 @@
         }
       ],
       "explanation_ko": "간격(間[간]隔[격])은 공간이나 시간에서 서로 떨어져 있는 정도예요. 間[간]은 사이, 隔[격]은 떨어짐과 관련돼요. 여기서는 나무 사이의 거리가 단서예요.",
-      "explanation_en": "간격: A gap or interval in space or time. 間[간] means between and 隔[격] suggests separation. Here it is the spacing between trees."
+      "explanation_en": "간격: A gap or interval in space or time. 間[간] means between and 隔[격] suggests separation. Here it is the spacing between trees.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-059",
@@ -4126,7 +4290,8 @@
         }
       ],
       "explanation_ko": "선인(仙[선]人[인])은 전설이나 도교에서 신선으로 여기는 존재예요. 仙[선]은 신선을 뜻해요. 나이가 많은 보통 사람을 가리키는 노인과 구별해요.",
-      "explanation_en": "선인: An immortal in legend or Daoist tradition. 仙[선] refers to an immortal. The supernatural setting distinguishes this being from an ordinary elderly person."
+      "explanation_en": "선인: An immortal in legend or Daoist tradition. 仙[선] refers to an immortal. The supernatural setting distinguishes this being from an ordinary elderly person.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-060",
@@ -4151,7 +4316,8 @@
         }
       ],
       "explanation_ko": "우상(偶[우]像[상])은 숭배의 대상으로 삼는 형상이나 지나치게 떠받드는 사람을 뜻해요. 여기서는 실제 형상이 아니라 완벽한 존재처럼 여기는 사람을 가리켜요.",
-      "explanation_en": "우상: An idol, either an image of worship or a person excessively admired. Here the word refers to a person treated as if they were perfect."
+      "explanation_en": "우상: An idol, either an image of worship or a person excessively admired. Here the word refers to a person treated as if they were perfect.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-061",
@@ -4176,7 +4342,8 @@
         }
       ],
       "explanation_ko": "차륜(車[차]輪[륜])은 차의 바퀴를 뜻해요. 車[차]는 차, 輪[륜]은 바퀴예요. 창문을 뜻하는 차창이나 차를 보관하는 차고와 구별해요.",
-      "explanation_en": "차륜: A vehicle wheel. 車[차] means vehicle and 輪[륜] wheel. It names neither the window nor the building where the vehicle is kept."
+      "explanation_en": "차륜: A vehicle wheel. 車[차] means vehicle and 輪[륜] wheel. It names neither the window nor the building where the vehicle is kept.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-062",
@@ -4201,7 +4368,8 @@
         }
       ],
       "explanation_ko": "여정(旅[여]程[정])은 여행하는 길이나 그 일정이에요. 旅[여]는 여행, 程[정]은 길이나 과정과 관련돼요. 여행 서류인 여권과 구별해요.",
-      "explanation_en": "여정: A journey's route or itinerary. 旅[여] relates to travel and 程[정] to a course or route. It describes the journey rather than a passport."
+      "explanation_en": "여정: A journey's route or itinerary. 旅[여] relates to travel and 程[정] to a course or route. It describes the journey rather than a passport.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-063",
@@ -4226,7 +4394,8 @@
         }
       ],
       "explanation_ko": "상전벽해(桑[상]田[전]碧[벽]海[해])는 뽕나무밭이 푸른 바다가 된다는 말로, 세상이 몰라보게 크게 바뀜을 비유해요. 桑[상]과 田[전]은 뽕나무밭, 碧[벽]과 海[해]는 푸른 바다와 관련돼요.",
-      "explanation_en": "상전벽해: A complete transformation, pictured as a mulberry field becoming a blue sea. 桑[상] and 田[전] evoke the field; 碧[벽] and 海[해] the blue sea."
+      "explanation_en": "상전벽해: A complete transformation, pictured as a mulberry field becoming a blue sea. 桑[상] and 田[전] evoke the field; 碧[벽] and 海[해] the blue sea.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-064",
@@ -4251,7 +4420,8 @@
         }
       ],
       "explanation_ko": "이하(以[이]下[하])는 기준을 포함하여 그보다 적거나 낮음을 뜻해요. 以[이]와 下[하]가 쓰이며, ‘10명 이하’에는 10명도 포함돼요.",
-      "explanation_en": "이하: At or below a stated limit, including the limit itself. 以[이] and 下[하] form the expression. Thus '10명 이하' includes exactly ten people."
+      "explanation_en": "이하: At or below a stated limit, including the limit itself. 以[이] and 下[하] form the expression. Thus '10명 이하' includes exactly ten people.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-065",
@@ -4276,7 +4446,8 @@
         }
       ],
       "explanation_ko": "배제(排[배]除[제])는 받아들이지 않고 제외하거나 밀어내는 일이에요. 排[배]는 밀어냄, 除[제]는 덜어냄과 관련돼요. 대상에 넣는 포함과 구별해요.",
-      "explanation_en": "배제: Excluding or ruling something out. 排[배] suggests pushing away and 除[제] removing. The matters are left out, not included."
+      "explanation_en": "배제: Excluding or ruling something out. 排[배] suggests pushing away and 除[제] removing. The matters are left out, not included.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-066",
@@ -4301,7 +4472,8 @@
         }
       ],
       "explanation_ko": "사구(沙[사]丘[구])는 바람이 옮긴 모래가 쌓여 생긴 언덕이에요. 沙[사]는 모래, 丘[구]는 언덕을 뜻해요. 모래가 쌓였다는 점이 단서예요.",
-      "explanation_en": "사구: A sand dune formed by accumulated wind-blown sand. 沙[사] means sand and 丘[구] hill. The material and formation process are the clues."
+      "explanation_en": "사구: A sand dune formed by accumulated wind-blown sand. 沙[사] means sand and 丘[구] hill. The material and formation process are the clues.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-067",
@@ -4326,7 +4498,8 @@
         }
       ],
       "explanation_ko": "전용(專[전]用[용])은 특정한 대상이나 목적에만 사용하는 일이에요. 專[전]은 오로지, 用[용]은 사용을 뜻해요. 여러 용도로 쓰는 겸용과 구별해요.",
-      "explanation_en": "전용: Exclusive use for a particular person or purpose. 專[전] means exclusively and 用[용] use. The entrance is reserved for staff."
+      "explanation_en": "전용: Exclusive use for a particular person or purpose. 專[전] means exclusively and 用[용] use. The entrance is reserved for staff.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-068",
@@ -4351,7 +4524,8 @@
         }
       ],
       "explanation_ko": "요요(搖[요]搖[요])는 마음이나 사물이 자꾸 흔들려 안정되지 않은 상태를 나타내요. 搖[요]는 흔들림을 뜻해요. 멀다는 遙[요]나 쓸쓸하다는 寥[요]와 구별해요.",
-      "explanation_en": "요요: An unsettled or wavering state. 搖[요] means shaking. It differs from 遙[요], associated with distance, and 寥[요], associated with emptiness or solitude."
+      "explanation_en": "요요: An unsettled or wavering state. 搖[요] means shaking. It differs from 遙[요], associated with distance, and 寥[요], associated with emptiness or solitude.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-069",
@@ -4376,7 +4550,8 @@
         }
       ],
       "explanation_ko": "영걸(英[영]傑[걸])은 지혜와 용기, 재능이 매우 뛰어난 사람이에요. 英[영]과 傑[걸]은 뛰어남과 관련돼요. 평범한 사람을 뜻하는 범인(凡[범]人[인])과 구별해요.",
-      "explanation_en": "영걸: A person of exceptional talent, wisdom, and courage. 英[영] and 傑[걸] suggest distinction. 범인 written 凡[범]人[인] instead means an ordinary person."
+      "explanation_en": "영걸: A person of exceptional talent, wisdom, and courage. 英[영] and 傑[걸] suggest distinction. 범인 written 凡[범]人[인] instead means an ordinary person.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-070",
@@ -4401,7 +4576,8 @@
         }
       ],
       "explanation_ko": "교도소(矯[교]導[도]所[소])는 형을 선고받은 사람을 수용하고 교정·교육하는 시설이에요. 矯[교]와 導[도]는 바로잡고 이끄는 뜻, 所[소]는 장소와 관련돼요.",
-      "explanation_en": "교도소: A prison or correctional institution for sentenced people. 矯[교] and 導[도] relate to correcting and guiding, and 所[소] to a place."
+      "explanation_en": "교도소: A prison or correctional institution for sentenced people. 矯[교] and 導[도] relate to correcting and guiding, and 所[소] to a place.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-071",
@@ -4426,7 +4602,8 @@
         }
       ],
       "explanation_ko": "사계(四[사]季[계])는 봄·여름·가을·겨울의 네 계절이에요. 四[사]는 넷, 季[계]는 계절을 뜻해요. 네 방향을 뜻하는 사방과 구별해요.",
-      "explanation_en": "사계: The four seasons. 四[사] means four and 季[계] season. It refers to spring, summer, autumn, and winter together."
+      "explanation_en": "사계: The four seasons. 四[사] means four and 季[계] season. It refers to spring, summer, autumn, and winter together.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-072",
@@ -4451,7 +4628,8 @@
         }
       ],
       "explanation_ko": "육묘(育[육]苗[묘])는 옮겨 심을 모나 어린 나무를 기르는 일이에요. 育[육]은 기름, 苗[묘]는 모를 뜻해요. 씨를 뿌리는 파종이나 다 자란 작물을 거두는 수확과 구별해요.",
-      "explanation_en": "육묘: Raising seedlings for transplanting. 育[육] means nurturing and 苗[묘] seedling. This differs from sowing seeds or harvesting mature crops."
+      "explanation_en": "육묘: Raising seedlings for transplanting. 育[육] means nurturing and 苗[묘] seedling. This differs from sowing seeds or harvesting mature crops.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-073",
@@ -4476,7 +4654,8 @@
         }
       ],
       "explanation_ko": "경신(更[경]新[신])은 종전 기록이나 최고·최저 수치를 깨뜨려 새롭게 하는 일이에요. 更[경]과 新[신]은 새롭게 바꿈과 관련돼요. 기존 기록을 그대로 유지한 것이 아니에요.",
-      "explanation_en": "경신: Breaking a previous record or setting a new high or low. 更[경] and 新[신] relate to renewal. The previous best has been surpassed."
+      "explanation_en": "경신: Breaking a previous record or setting a new high or low. 更[경] and 新[신] relate to renewal. The previous best has been surpassed.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-074",
@@ -4501,7 +4680,8 @@
         }
       ],
       "explanation_ko": "통장(通[통]帳[장])은 금융 거래 내역 등을 적는 작은 장부예요. 帳[장]은 장부와 관련돼요. 이름을 찍는 도장과 달리 거래 내용을 기록해 두는 것이 단서예요.",
-      "explanation_en": "통장: A passbook recording financial transactions. 帳[장] relates to a ledger. The recorded deposits, withdrawals, and balance identify the booklet."
+      "explanation_en": "통장: A passbook recording financial transactions. 帳[장] relates to a ledger. The recorded deposits, withdrawals, and balance identify the booklet.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-075",
@@ -4526,7 +4706,8 @@
         }
       ],
       "explanation_ko": "모일(某[모]日[일])은 날짜를 구체적으로 밝히지 않은 날이에요. 某[모]는 구체적으로 밝히지 않는 대상을 나타내고, 日[일]은 날이에요. 오늘이나 내일처럼 정해진 시점과 구별해요.",
-      "explanation_en": "모일: An unspecified day. 某[모] marks something left unnamed and 日[일] means day. Unlike today or tomorrow, the date is not identified."
+      "explanation_en": "모일: An unspecified day. 某[모] marks something left unnamed and 日[일] means day. Unlike today or tomorrow, the date is not identified.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-076",
@@ -4551,7 +4732,8 @@
         }
       ],
       "explanation_ko": "기괴(奇[기]怪[괴])는 모습이나 일이 매우 이상하고 특이함을 뜻해요. 奇[기]와 怪[괴]는 이상하고 기이한 것과 관련돼요. 평범한 모습과 거리가 멀다는 점이 단서예요.",
-      "explanation_en": "기괴: A bizarre or grotesque quality. 奇[기] and 怪[괴] both suggest strangeness. The unusual, distorted shapes provide the clue."
+      "explanation_en": "기괴: A bizarre or grotesque quality. 奇[기] and 怪[괴] both suggest strangeness. The unusual, distorted shapes provide the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-077",
@@ -4576,7 +4758,8 @@
         }
       ],
       "explanation_ko": "저축(貯[저]蓄[축])은 돈이나 물건을 아껴 모아 두는 일이에요. 貯[저]는 저장함, 蓄[축]은 모아 둠과 관련돼요. 지금 써 버리는 소비나 낭비와 구별해요.",
-      "explanation_en": "저축: Saving money or goods for later. 貯[저] relates to storing and 蓄[축] to accumulating. The money is kept rather than spent."
+      "explanation_en": "저축: Saving money or goods for later. 貯[저] relates to storing and 蓄[축] to accumulating. The money is kept rather than spent.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-078",
@@ -4601,7 +4784,8 @@
         }
       ],
       "explanation_ko": "삼라만상(森[삼]羅[라]萬[만]象[상])은 우주에 존재하는 온갖 사물과 현상을 뜻해요. 萬[만]은 매우 많음, 象[상]은 사물의 모습이나 현상과 관련돼요. 숲이나 산과 강에만 한정되지 않아요.",
-      "explanation_en": "삼라만상: All things and phenomena in the universe. 萬[만] suggests countless things and 象[상] forms or phenomena. The scope extends beyond forests or landscapes."
+      "explanation_en": "삼라만상: All things and phenomena in the universe. 萬[만] suggests countless things and 象[상] forms or phenomena. The scope extends beyond forests or landscapes.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-079",
@@ -4626,7 +4810,8 @@
         }
       ],
       "explanation_ko": "쌍생아(雙[쌍]生[생]兒[아])는 한 번의 임신에서 함께 태어난 두 아이예요. 雙[쌍]은 둘이 한 쌍임, 生[생]은 태어남, 兒[아]는 아이를 뜻해요. 모든 형제가 쌍생아인 것은 아니에요.",
-      "explanation_en": "쌍생아: Twins, two children born from the same pregnancy. 雙[쌍] means a pair, 生[생] birth, and 兒[아] child. The shared pregnancy makes the term more specific than siblings."
+      "explanation_en": "쌍생아: Twins, two children born from the same pregnancy. 雙[쌍] means a pair, 生[생] birth, and 兒[아] child. The shared pregnancy makes the term more specific than siblings.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-080",
@@ -4651,7 +4836,8 @@
         }
       ],
       "explanation_ko": "혈연(血[혈]緣[연])은 같은 혈통으로 맺어진 친족 관계예요. 血[혈]은 피, 緣[연]은 관계나 인연을 뜻해요. 혼인으로 맺는 인연(姻[인]緣[연])과 구별해요.",
-      "explanation_en": "혈연: Kinship through shared ancestry. 血[혈] means blood and 緣[연] connection. It differs from a relationship formed through marriage, 姻[인]緣[연]."
+      "explanation_en": "혈연: Kinship through shared ancestry. 血[혈] means blood and 緣[연] connection. It differs from a relationship formed through marriage, 姻[인]緣[연].",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-081",
@@ -4676,7 +4862,8 @@
         }
       ],
       "explanation_ko": "근본(根[근]本[본])은 어떤 일이나 사물의 바탕이 되는 가장 기본적인 부분이에요. 根[근]과 本[본]은 뿌리와 바탕을 떠올리게 해요. 끝부분을 뜻하는 말단과 구별해요.",
-      "explanation_en": "근본: A root, foundation, or fundamental basis. 根[근] and 本[본] suggest roots and origins. The question concerns the basis, not an outer or terminal part."
+      "explanation_en": "근본: A root, foundation, or fundamental basis. 根[근] and 本[본] suggest roots and origins. The question concerns the basis, not an outer or terminal part.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-082",
@@ -4701,7 +4888,8 @@
         }
       ],
       "explanation_ko": "항등식(恒[항]等[등]式[식])은 변수의 허용된 모든 값에서 성립하는 등식이에요. 恒[항]은 한결같음, 等[등]은 같음, 式[식]은 식을 뜻해요. 어떤 값을 넣어도 양쪽이 같다는 점이 단서예요.",
-      "explanation_en": "항등식: A mathematical identity, true for every permitted value of its variable. 恒[항] suggests constancy, 等[등] equality, and 式[식] an expression. Both sides always agree here."
+      "explanation_en": "항등식: A mathematical identity, true for every permitted value of its variable. 恒[항] suggests constancy, 等[등] equality, and 式[식] an expression. Both sides always agree here.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-083",
@@ -4726,7 +4914,8 @@
         }
       ],
       "explanation_ko": "묘상(苗[묘]床[상])은 씨를 뿌려 모를 기르는 자리나 시설이에요. 苗[묘]는 모, 床[상]은 여기서 기르는 자리를 뜻해요. 꽃을 감상하는 화단과 목적이 달라요.",
-      "explanation_en": "묘상: A seedbed for raising seedlings. 苗[묘] means seedling and 床[상] here refers to a prepared bed. Its purpose is propagation before transplanting."
+      "explanation_en": "묘상: A seedbed for raising seedlings. 苗[묘] means seedling and 床[상] here refers to a prepared bed. Its purpose is propagation before transplanting.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-084",
@@ -4751,7 +4940,8 @@
         }
       ],
       "explanation_ko": "가설(架[가]設[설])은 다리나 전선 등의 시설을 설치하는 일이에요. 架[가]는 걸쳐 세움, 設[설]은 설치함과 관련돼요. 아직 검증되지 않은 설명인 가설(假[가]說[설])과 구별해요.",
-      "explanation_en": "가설: Erecting or installing a structure or facility. 架[가] suggests putting up and 設[설] installing. 가설 written 假[가]說[설] instead means a hypothesis."
+      "explanation_en": "가설: Erecting or installing a structure or facility. 架[가] suggests putting up and 設[설] installing. 가설 written 假[가]說[설] instead means a hypothesis.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-085",
@@ -4776,7 +4966,8 @@
         }
       ],
       "explanation_ko": "모방자(模[모]倣[방]者[자])는 다른 사람의 행동이나 작품 등을 따라 하는 사람이에요. 模[모]와 倣[방]은 본뜨거나 따름, 者[자]는 사람과 관련돼요.",
-      "explanation_en": "모방자: An imitator of another person's work or behavior. 模[모] and 倣[방] relate to copying, and 者[자] marks a person. Following the painter's style is the clue."
+      "explanation_en": "모방자: An imitator of another person's work or behavior. 模[모] and 倣[방] relate to copying, and 者[자] marks a person. Following the painter's style is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-086",
@@ -4801,7 +4992,8 @@
         }
       ],
       "explanation_ko": "옹위(擁[옹]衛[위])는 주위를 둘러싸서 지키고 호위하는 일이에요. 擁[옹]은 둘러쌈, 衛[위]는 지킴과 관련돼요. 여기서는 공격하려는 포위가 아니라 보호 목적이에요.",
-      "explanation_en": "옹위: Surrounding and protecting someone. 擁[옹] suggests surrounding and 衛[위] guarding. The purpose is protection, which distinguishes it from hostile encirclement."
+      "explanation_en": "옹위: Surrounding and protecting someone. 擁[옹] suggests surrounding and 衛[위] guarding. The purpose is protection, which distinguishes it from hostile encirclement.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-087",
@@ -4826,7 +5018,8 @@
         }
       ],
       "explanation_ko": "문구(文[문]具[구])는 글을 쓰거나 공부할 때 쓰는 용품이에요. 文[문]은 글, 具[구]는 도구와 관련돼요. 글의 구절을 뜻하는 문구(文[문]句[구])와 구별해요.",
-      "explanation_en": "문구: Stationery and writing supplies. 文[문] relates to writing and 具[구] to tools. 문구 written 文[문]句[구] instead means a phrase or wording."
+      "explanation_en": "문구: Stationery and writing supplies. 文[문] relates to writing and 具[구] to tools. 문구 written 文[문]句[구] instead means a phrase or wording.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-088",
@@ -4851,7 +5044,8 @@
         }
       ],
       "explanation_ko": "삭막(索[삭]寞[막])은 쓸쓸하고 메마른 분위기를 뜻해요. 이 단어의 索[삭]과 寞[막]은 쓸쓸함과 관련돼요. 화려하거나 풍요로운 모습과 구별해요.",
-      "explanation_en": "삭막: Bleakness or barrenness. In this word, 索[삭] and 寞[막] relate to desolation. The deserted houses and dry ground create this atmosphere."
+      "explanation_en": "삭막: Bleakness or barrenness. In this word, 索[삭] and 寞[막] relate to desolation. The deserted houses and dry ground create this atmosphere.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-089",
@@ -4876,7 +5070,8 @@
         }
       ],
       "explanation_ko": "곡성(哭[곡]聲[성])은 소리 내어 우는 소리예요. 哭[곡]은 소리 내어 욺, 聲[성]은 소리예요. 천둥 소리인 뇌성이나 총소리인 총성과 구별해요.",
-      "explanation_en": "곡성: The sound of crying or wailing. 哭[곡] means crying aloud and 聲[성] sound. The people are weeping, unlike thunder or gunfire."
+      "explanation_en": "곡성: The sound of crying or wailing. 哭[곡] means crying aloud and 聲[성] sound. The people are weeping, unlike thunder or gunfire.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-090",
@@ -4901,7 +5096,8 @@
         }
       ],
       "explanation_ko": "영일(寧[영]日[일])은 일이나 걱정에 시달리지 않고 평안하게 지내는 날이에요. 寧[영]은 편안함, 日[일]은 날을 뜻해요. ‘영일이 없다’처럼 문어에서 쓰여요.",
-      "explanation_en": "영일: A peaceful day free from troubles. 寧[영] means peaceful and 日[일] day. It appears in literary expressions such as '영일이 없다,' having no respite."
+      "explanation_en": "영일: A peaceful day free from troubles. 寧[영] means peaceful and 日[일] day. It appears in literary expressions such as '영일이 없다,' having no respite.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-091",
@@ -4926,7 +5122,8 @@
         }
       ],
       "explanation_ko": "금석(今[금]昔[석])은 지금과 옛날을 아울러 이르는 말이에요. 今[금]은 지금, 昔[석]은 옛날을 뜻해요. 앞으로를 가리키는 금후와 구별해요.",
-      "explanation_en": "금석: The present and the past together. 今[금] means now and 昔[석] long ago. 금후 instead refers to the future."
+      "explanation_en": "금석: The present and the past together. 今[금] means now and 昔[석] long ago. 금후 instead refers to the future.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-092",
@@ -4951,7 +5148,8 @@
         }
       ],
       "explanation_ko": "천마총(天[천]馬[마]塚[총])은 경주에 있는 신라 시대 무덤의 이름이에요. 天[천]과 馬[마]는 하늘의 말, 塚[총]은 무덤을 뜻해요. 무덤에서 나온 말 그림이 이름을 이해하는 단서예요.",
-      "explanation_en": "천마총: Cheonmachong, a Silla tomb in Gyeongju. 天[천] and 馬[마] evoke a heavenly horse, and 塚[총] means tomb. The horse painting helps explain its name."
+      "explanation_en": "천마총: Cheonmachong, a Silla tomb in Gyeongju. 天[천] and 馬[마] evoke a heavenly horse, and 塚[총] means tomb. The horse painting helps explain its name.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-093",
@@ -4976,7 +5174,8 @@
         }
       ],
       "explanation_ko": "외생(外[외]甥[생])은 이 문맥에서 누이의 아들을 가리키는 옛 친족 표현이에요. 甥[생]은 생질과 관련돼요. 어머니의 남자 형제인 외숙이나 자녀의 아들인 손자와 구별해요.",
-      "explanation_en": "외생: In this context, an older kinship term for one's sister's son. 甥[생] relates to a nephew. The stated relationship distinguishes him from an uncle or grandson."
+      "explanation_en": "외생: In this context, an older kinship term for one's sister's son. 甥[생] relates to a nephew. The stated relationship distinguishes him from an uncle or grandson.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-094",
@@ -5001,7 +5200,8 @@
         }
       ],
       "explanation_ko": "견사(絹[견]絲[사])는 비단을 짜는 데 쓰는 명주실이에요. 絹[견]은 비단, 絲[사]는 실을 뜻해요. 목화에서 얻는 면사와 재료가 달라요.",
-      "explanation_en": "견사: Silk thread or yarn. 絹[견] means silk and 絲[사] thread. It differs in material from cotton yarn, 면사."
+      "explanation_en": "견사: Silk thread or yarn. 絹[견] means silk and 絲[사] thread. It differs in material from cotton yarn, 면사.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-095",
@@ -5026,7 +5226,8 @@
         }
       ],
       "explanation_ko": "귀가(歸[귀]家[가])는 집으로 돌아가는 일이에요. 歸[귀]는 돌아감, 家[가]는 집을 뜻해요. 학교로 가는 등교나 집 밖에서 자는 외박과 구별해요.",
-      "explanation_en": "귀가: Returning home. 歸[귀] means returning and 家[가] home. The destination distinguishes it from going to school or staying out overnight."
+      "explanation_en": "귀가: Returning home. 歸[귀] means returning and 家[가] home. The destination distinguishes it from going to school or staying out overnight.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-096",
@@ -5051,7 +5252,8 @@
         }
       ],
       "explanation_ko": "원천우인(怨[원]天[천]尤[우]人[인])은 잘못된 처지를 하늘이나 다른 사람의 탓으로 돌리는 태도예요. 怨[원]과 尤[우]는 원망하고 탓함, 天[천]과 人[인]은 하늘과 사람을 뜻해요.",
-      "explanation_en": "원천우인: Blaming heaven or other people for one's troubles. 怨[원] and 尤[우] relate to resentment and blame, while 天[천] and 人[인] mean heaven and people."
+      "explanation_en": "원천우인: Blaming heaven or other people for one's troubles. 怨[원] and 尤[우] relate to resentment and blame, while 天[천] and 人[인] mean heaven and people.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-002-097",
@@ -5076,7 +5278,8 @@
         }
       ],
       "explanation_ko": "신호(信[신]號[호])는 정해진 방식으로 뜻이나 정보를 알리는 표시예요. 號[호]는 표시나 부름과 관련돼요. 신음하며 부르는 신호(呻[신]呼[호])와 구별해요.",
-      "explanation_en": "신호: A signal conveying information in an agreed way. 號[호] relates to a sign or call. 신호 written 呻[신]呼[호] instead concerns groaning or crying out."
+      "explanation_en": "신호: A signal conveying information in an agreed way. 號[호] relates to a sign or call. 신호 written 呻[신]呼[호] instead concerns groaning or crying out.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-002-098",
@@ -5101,7 +5304,8 @@
         }
       ],
       "explanation_ko": "계통(系[계]統[통])은 같은 뿌리에서 이어진 갈래나 일정한 질서로 연결된 조직을 뜻해요. 系[계]는 이어진 줄기, 統[통]은 연결된 큰 흐름과 관련돼요. 이 문맥에서는 공통 기원이 단서예요.",
-      "explanation_en": "계통: A lineage or connected system. 系[계] suggests a connected line and 統[통] an overall continuity. Here the shared origin identifies the meaning."
+      "explanation_en": "계통: A lineage or connected system. 系[계] suggests a connected line and 統[통] an overall continuity. Here the shared origin identifies the meaning.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-099",
@@ -5126,7 +5330,8 @@
         }
       ],
       "explanation_ko": "연대(連[연]帶[대])는 공동의 목적을 위해 힘을 합치거나 함께 책임을 지는 일이에요. 連[연]은 이음, 帶[대]는 연결하는 띠를 떠올리게 해요. 군대 단위인 연대(聯[연]隊[대])와 구별해요.",
-      "explanation_en": "연대: Solidarity or shared responsibility for a common purpose. 連[연] suggests connection and 帶[대] a binding band. 연대 written 聯[연]隊[대] is a military regiment."
+      "explanation_en": "연대: Solidarity or shared responsibility for a common purpose. 連[연] suggests connection and 帶[대] a binding band. 연대 written 聯[연]隊[대] is a military regiment.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-002-100",
@@ -5151,7 +5356,8 @@
         }
       ],
       "explanation_ko": "양서(諒[양]恕[서])는 남의 사정을 헤아려 용서하는 일이에요. 諒[양]은 헤아림, 恕[서]는 용서와 관련돼요. 잘못을 꾸짖는 질책과 구별해요.",
-      "explanation_en": "양서: Forgiving someone with an understanding of their circumstances. 諒[양] relates to understanding and 恕[서] forgiveness. Considering the explanation leads to pardon."
+      "explanation_en": "양서: Forgiving someone with an understanding of their circumstances. 諒[양] relates to understanding and 恕[서] forgiveness. Considering the explanation leads to pardon.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-001",
@@ -5176,7 +5382,8 @@
         }
       ],
       "explanation_ko": "벽화(壁[벽]畫[화])는 벽에 그린 그림이에요. 壁[벽]은 벽, 畫[화]는 그림을 뜻해요. 그림을 전시하는 장소인 화랑과 구별해요.",
-      "explanation_en": "벽화: A mural or wall painting. 壁[벽] means wall and 畫[화] picture. It names the painting, not the gallery where art is displayed."
+      "explanation_en": "벽화: A mural or wall painting. 壁[벽] means wall and 畫[화] picture. It names the painting, not the gallery where art is displayed.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-002",
@@ -5201,7 +5408,8 @@
         }
       ],
       "explanation_ko": "내손(乃[내]孫[손])은 그 사람의 손자를 가리키던 문어적 표현이에요. 孫[손]은 손자를 뜻해요. 할아버지를 가리키는 내조나 여자 손자녀인 손녀와 구별해요.",
-      "explanation_en": "내손: An older literary term for that person's grandson. 孫[손] means grandson. The generation and relationship distinguish it from a grandfather or granddaughter."
+      "explanation_en": "내손: An older literary term for that person's grandson. 孫[손] means grandson. The generation and relationship distinguish it from a grandfather or granddaughter.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-003",
@@ -5226,7 +5434,8 @@
         }
       ],
       "explanation_ko": "철인(哲[철]人[인])은 지혜가 있고 사리에 밝은 사람이에요. 哲[철]은 밝은 지혜, 人[인]은 사람과 관련돼요. 현명하게 판단한다는 점이 단서예요.",
-      "explanation_en": "철인: A wise thinker or sage. 哲[철] relates to wisdom and 人[인] to a person. Sound judgment identifies the intended meaning."
+      "explanation_en": "철인: A wise thinker or sage. 哲[철] relates to wisdom and 人[인] to a person. Sound judgment identifies the intended meaning.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-004",
@@ -5251,7 +5460,8 @@
         }
       ],
       "explanation_ko": "존경(尊[존]敬[경])은 다른 사람의 인격이나 업적을 높이 평가하고 공경하는 마음이에요. 尊[존]과 敬[경]은 높이고 공경함과 관련돼요.",
-      "explanation_en": "존경: Respect or admiration for another person's character or achievements. 尊[존] and 敬[경] relate to honoring and respecting. The students' high regard is the clue."
+      "explanation_en": "존경: Respect or admiration for another person's character or achievements. 尊[존] and 敬[경] relate to honoring and respecting. The students' high regard is the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-005",
@@ -5276,7 +5486,8 @@
         }
       ],
       "explanation_ko": "창작(創[창]作[작])은 새로운 작품을 만들어 내는 일이에요. 創[창]은 새로 만듦, 作[작]은 지음을 뜻해요. 기존 작품을 따라 하는 모방과 구별해요.",
-      "explanation_en": "창작: Creating an original work. 創[창] suggests originating and 作[작] making. Inventing a new story distinguishes it from imitation."
+      "explanation_en": "창작: Creating an original work. 創[창] suggests originating and 作[작] making. Inventing a new story distinguishes it from imitation.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-006",
@@ -5301,7 +5512,8 @@
         }
       ],
       "explanation_ko": "신종(晨[신]鐘[종])은 새벽에 울리는 종을 뜻해요. 晨[신]은 새벽, 鐘[종]은 종이에요. 종을 매달아 둔 건물인 종루와 구별해요.",
-      "explanation_en": "신종: A bell rung at dawn. 晨[신] means dawn and 鐘[종] bell. It names the bell, not the tower that houses it."
+      "explanation_en": "신종: A bell rung at dawn. 晨[신] means dawn and 鐘[종] bell. It names the bell, not the tower that houses it.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-007",
@@ -5326,7 +5538,8 @@
         }
       ],
       "explanation_ko": "사면(斜[사]面[면])은 비스듬하게 기울어진 면이나 땅이에요. 斜[사]는 기울어짐, 面[면]은 면을 뜻해요. 선을 뜻하는 사선과 달리 넓이를 가진 면이에요.",
-      "explanation_en": "사면: An inclined surface or slope. 斜[사] means slanting and 面[면] surface. Unlike a slanted line, it has an area."
+      "explanation_en": "사면: An inclined surface or slope. 斜[사] means slanting and 面[면] surface. Unlike a slanted line, it has an area.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-008",
@@ -5351,7 +5564,8 @@
         }
       ],
       "explanation_ko": "짐량(斟[짐]量[량])은 사정을 자세히 헤아리는 일이에요. 斟[짐]과 量[량]은 헤아림과 관련돼요. 여기서는 땅을 재는 측량이 아니라 사람의 형편을 살펴요.",
-      "explanation_en": "짐량: Careful consideration of circumstances. 斟[짐] and 量[량] relate to weighing or considering. Here the object is someone's situation, not physical measurements."
+      "explanation_en": "짐량: Careful consideration of circumstances. 斟[짐] and 量[량] relate to weighing or considering. Here the object is someone's situation, not physical measurements.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-009",
@@ -5376,7 +5590,8 @@
         }
       ],
       "explanation_ko": "게시판(揭[게]示[시]板[판])은 알릴 내용을 붙이거나 올리는 판이에요. 揭[게]와 示[시]는 내걸어 보임, 板[판]은 판을 뜻해요.",
-      "explanation_en": "게시판: A noticeboard. 揭[게] and 示[시] relate to displaying information, and 板[판] means board. The posted announcements identify its purpose."
+      "explanation_en": "게시판: A noticeboard. 揭[게] and 示[시] relate to displaying information, and 板[판] means board. The posted announcements identify its purpose.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-010",
@@ -5401,7 +5616,8 @@
         }
       ],
       "explanation_ko": "총장(總[총]長[장])은 대학이나 특정 기관의 전체 업무를 맡는 책임자예요. 總[총]은 전체, 長[장]은 우두머리와 관련돼요. 여기서는 대학을 이끄는 사람을 가리켜요.",
-      "explanation_en": "총장: A university president or institutional head. 總[총] relates to the whole and 長[장] to a leader. The university setting determines the role."
+      "explanation_en": "총장: A university president or institutional head. 總[총] relates to the whole and 長[장] to a leader. The university setting determines the role.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-011",
@@ -5426,7 +5642,8 @@
         }
       ],
       "explanation_ko": "조부(祖[조]父[부])는 아버지나 어머니의 아버지인 할아버지예요. 祖[조]는 윗대 조상, 父[부]는 아버지와 관련돼요. 아버지의 형제인 백부·숙부와 세대가 달라요.",
-      "explanation_en": "조부: A grandfather, the father of either parent. 祖[조] relates to ancestry and 父[부] to a father. A grandfather is a generation above the father's brothers."
+      "explanation_en": "조부: A grandfather, the father of either parent. 祖[조] relates to ancestry and 父[부] to a father. A grandfather is a generation above the father's brothers.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-012",
@@ -5451,7 +5668,8 @@
         }
       ],
       "explanation_ko": "패류(貝[패]類[류])는 조개나 고둥 따위를 통틀어 이르는 말이에요. 貝[패]는 조개, 類[류]는 종류를 뜻해요. 물고기 무리인 어류와 구별해요.",
-      "explanation_en": "패류: Shellfish such as clams, mussels, and snails. 貝[패] relates to shellfish and 類[류] to a category. This group differs from fish."
+      "explanation_en": "패류: Shellfish such as clams, mussels, and snails. 貝[패] relates to shellfish and 類[류] to a category. This group differs from fish.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-013",
@@ -5476,7 +5694,8 @@
         }
       ],
       "explanation_ko": "분노(憤[분]怒[노])는 분하고 화가 나는 감정이에요. 憤[분]과 怒[노]는 분함과 성냄에 관련돼요. 부당한 대우 때문에 화가 났다는 점이 단서예요.",
-      "explanation_en": "분노: Anger or indignation. 憤[분] and 怒[노] relate to resentment and anger. The unfair treatment prompts the feeling."
+      "explanation_en": "분노: Anger or indignation. 憤[분] and 怒[노] relate to resentment and anger. The unfair treatment prompts the feeling.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-014",
@@ -5501,7 +5720,8 @@
         }
       ],
       "explanation_ko": "첨삭(添[첨]削[삭])은 글의 내용을 더하거나 덜어 고치는 일이에요. 添[첨]은 더함, 削[삭]은 깎아 냄을 뜻해요. 그대로 베껴 쓰는 필사와 구별해요.",
-      "explanation_en": "첨삭: Editing by adding and deleting. 添[첨] means adding and 削[삭] removing. Both kinds of revision appear in the example."
+      "explanation_en": "첨삭: Editing by adding and deleting. 添[첨] means adding and 削[삭] removing. Both kinds of revision appear in the example.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-015",
@@ -5526,7 +5746,8 @@
         }
       ],
       "explanation_ko": "표절행위(剽[표]竊[절]行[행]爲[위])는 다른 사람의 창작을 몰래 베끼는 행동이에요. 剽[표]와 竊[절]은 훔침, 行[행]과 爲[위]는 행동과 관련돼요. 새 작품을 만드는 창작과 구별해요.",
-      "explanation_en": "표절행위: An act of plagiarism, copying another person's creation and presenting it as one's own. 剽[표] and 竊[절] relate to stealing; 行[행] and 爲[위] to an act."
+      "explanation_en": "표절행위: An act of plagiarism, copying another person's creation and presenting it as one's own. 剽[표] and 竊[절] relate to stealing; 行[행] and 爲[위] to an act.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-016",
@@ -5551,7 +5772,8 @@
         }
       ],
       "explanation_ko": "관천(貫[관]穿[천])은 꿰뚫고 지나가는 일이에요. 貫[관]과 穿[천]은 뚫고 통함과 관련돼요. 판에 막히거나 멈춘 것이 아니라 반대편으로 나왔다는 점이 단서예요.",
-      "explanation_en": "관천: Piercing or passing through something. 貫[관] and 穿[천] relate to penetration. The arrow emerges on the other side instead of being stopped."
+      "explanation_en": "관천: Piercing or passing through something. 貫[관] and 穿[천] relate to penetration. The arrow emerges on the other side instead of being stopped.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-017",
@@ -5576,7 +5798,8 @@
         }
       ],
       "explanation_ko": "불구(不[불]拘[구])는 어떤 조건이나 사정에 얽매이지 않음을 뜻해요. 不[불]은 부정, 拘[구]는 얽매임과 관련돼요. ‘비에도 불구하고’는 비가 왔지만이라는 뜻이에요.",
-      "explanation_en": "불구: Disregard of a condition, as in '비에도 불구하고,' despite the rain. 不[불] negates 拘[구], being bound by a condition."
+      "explanation_en": "불구: Disregard of a condition, as in '비에도 불구하고,' despite the rain. 不[불] negates 拘[구], being bound by a condition.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-018",
@@ -5601,7 +5824,8 @@
         }
       ],
       "explanation_ko": "연재(連[연]載[재])는 글이나 그림을 여러 차례 이어서 싣는 일이에요. 連[연]은 이어짐, 載[재]는 실음을 뜻해요. 한 번 적는 기재와 달리 연속해서 나누어 실어요.",
-      "explanation_en": "연재: Publishing in successive installments. 連[연] means continuing and 載[재] carrying or publishing. The story appears across several issues."
+      "explanation_en": "연재: Publishing in successive installments. 連[연] means continuing and 載[재] carrying or publishing. The story appears across several issues.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-019",
@@ -5626,7 +5850,8 @@
         }
       ],
       "explanation_ko": "증여(贈[증]與[여])는 재산이나 물건을 대가 없이 다른 사람에게 주는 일이에요. 贈[증]과 與[여]는 줌과 관련돼요. 나중에 돌려받는 대여와 구별해요.",
-      "explanation_en": "증여: Giving property to someone without payment. 贈[증] and 與[여] relate to giving. Unlike a loan, the item is not meant to be returned."
+      "explanation_en": "증여: Giving property to someone without payment. 贈[증] and 與[여] relate to giving. Unlike a loan, the item is not meant to be returned.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-020",
@@ -5651,7 +5876,8 @@
         }
       ],
       "explanation_ko": "서출(庶[서]出[출])은 옛 신분 제도에서 첩에게서 태어난 일이나 그런 자녀를 이르던 말이에요. 出[출]은 여기서 태어남과 관련돼요. 과거의 신분 구분을 설명하는 표현이에요.",
-      "explanation_en": "서출: A historical term for birth to a concubine or a child of such birth. 出[출] here relates to birth. The word describes a category in an old status system."
+      "explanation_en": "서출: A historical term for birth to a concubine or a child of such birth. 出[출] here relates to birth. The word describes a category in an old status system.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-021",
@@ -5676,7 +5902,8 @@
         }
       ],
       "explanation_ko": "규찰(糾[규]察[찰])은 질서나 규칙을 어기는 일이 있는지 살펴 단속하는 일이에요. 糾[규]는 바로잡음, 察[찰]은 살핌과 관련돼요. 현장에서 살피고 단속했다는 점이 단서예요.",
-      "explanation_en": "규찰: Inspecting and enforcing order. 糾[규] relates to correcting and 察[찰] to examining. Staff actively check for violations on site."
+      "explanation_en": "규찰: Inspecting and enforcing order. 糾[규] relates to correcting and 察[찰] to examining. Staff actively check for violations on site.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-022",
@@ -5701,7 +5928,8 @@
         }
       ],
       "explanation_ko": "교환(交[교]換[환])은 서로 가진 것을 주고받거나 다른 것으로 바꾸는 일이에요. 交[교]는 서로 오감, 換[환]은 바꿈과 관련돼요. 양쪽이 물건을 주고받는 것이 단서예요.",
-      "explanation_en": "교환: An exchange. 交[교] suggests mutual interaction and 換[환] changing. Each person gives one item and receives another."
+      "explanation_en": "교환: An exchange. 交[교] suggests mutual interaction and 換[환] changing. Each person gives one item and receives another.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-023",
@@ -5726,7 +5954,8 @@
         }
       ],
       "explanation_ko": "맹렬(猛[맹]烈[렬])은 기세나 활동이 매우 사납고 거셈을 뜻해요. 猛[맹]은 사나움, 烈[렬]은 세참과 관련돼요. 약하고 느슨한 상태와 구별해요.",
-      "explanation_en": "맹렬: Fierce or vigorous intensity. 猛[맹] suggests fierceness and 烈[렬] intensity. The powerful wind provides the clue."
+      "explanation_en": "맹렬: Fierce or vigorous intensity. 猛[맹] suggests fierceness and 烈[렬] intensity. The powerful wind provides the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-024",
@@ -5751,7 +5980,8 @@
         }
       ],
       "explanation_ko": "종돈(種[종]豚[돈])은 번식을 위해 기르는 씨돼지예요. 種[종]은 씨나 번식, 豚[돈]은 돼지와 관련돼요. 어린 돼지인 자돈과 달리 사육 목적을 나타내요.",
-      "explanation_en": "종돈: A pig kept for breeding. 種[종] relates to breeding stock and 豚[돈] to a pig. The term identifies its purpose, not its age."
+      "explanation_en": "종돈: A pig kept for breeding. 種[종] relates to breeding stock and 豚[돈] to a pig. The term identifies its purpose, not its age.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-025",
@@ -5776,7 +6006,8 @@
         }
       ],
       "explanation_ko": "결과(結[결]果[과])는 일이나 과정이 끝난 뒤에 생긴 상태나 성과예요. 結[결]은 맺음, 果[과]는 열매와 관련돼요. 일을 일으킨 원인과 구별해요.",
-      "explanation_en": "결과: A result or outcome. 結[결] suggests coming to a conclusion and 果[과] a fruit or result. It follows the process rather than causing it."
+      "explanation_en": "결과: A result or outcome. 結[결] suggests coming to a conclusion and 果[과] a fruit or result. It follows the process rather than causing it.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-026",
@@ -5801,7 +6032,8 @@
         }
       ],
       "explanation_ko": "비공식(非[비]公[공]式[식])은 공적인 절차나 형식을 갖추어 인정된 것이 아님을 뜻해요. 非[비]가 공식이라는 뜻을 부정해요. 비공식이라고 해서 반드시 비밀인 것은 아니에요.",
-      "explanation_en": "비공식: Unofficial or informal status. 非[비] negates the idea of being official. An informal gathering need not be secret."
+      "explanation_en": "비공식: Unofficial or informal status. 非[비] negates the idea of being official. An informal gathering need not be secret.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-027",
@@ -5826,7 +6058,8 @@
         }
       ],
       "explanation_ko": "황남대총(皇[황]南[남]大[대]塚[총])은 경주 황남동에 있는 큰 신라 무덤이에요. 남북의 두 봉분이 이어져 있어요. 大[대]는 큼, 塚[총]은 무덤을 뜻하며, 황남동이라는 위치도 이름의 단서예요.",
-      "explanation_en": "황남대총: Hwangnamdaechong, a large Silla tomb in Gyeongju with adjoining southern and northern mounds. 大[대] means large and 塚[총] tomb; the location also helps explain the name."
+      "explanation_en": "황남대총: Hwangnamdaechong, a large Silla tomb in Gyeongju with adjoining southern and northern mounds. 大[대] means large and 塚[총] tomb; the location also helps explain the name.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-028",
@@ -5851,7 +6084,8 @@
         }
       ],
       "explanation_ko": "도원(桃[도]園[원])은 복숭아나무를 심어 놓은 동산이나 과수원이에요. 桃[도]는 복숭아, 園[원]은 동산을 뜻해요. 배나무를 심은 이원과 구별해요.",
-      "explanation_en": "도원: A peach garden or orchard. 桃[도] means peach and 園[원] garden. The kind of tree distinguishes it from a pear orchard."
+      "explanation_en": "도원: A peach garden or orchard. 桃[도] means peach and 園[원] garden. The kind of tree distinguishes it from a pear orchard.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-029",
@@ -5876,7 +6110,8 @@
         }
       ],
       "explanation_ko": "포화상태(飽[포]和[화]狀[상]態[태])는 더 이상 수용하기 어려울 만큼 가득 찬 상태예요. 飽[포]는 가득 참과 관련돼요. 부족한 결핍이나 잠시 잠잠해진 소강상태와 구별해요.",
-      "explanation_en": "포화상태: A state of saturation, with no capacity for more. 飽[포] relates to fullness. The lack of available space is the clue."
+      "explanation_en": "포화상태: A state of saturation, with no capacity for more. 飽[포] relates to fullness. The lack of available space is the clue.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-030",
@@ -5901,7 +6136,8 @@
         }
       ],
       "explanation_ko": "금회(襟[금]懷[회])는 마음속에 품고 있는 생각이나 뜻이에요. 懷[회]는 품음과 관련돼요. 옷의 실제 품속을 가리키는 회중과 달리 여기서는 속마음을 뜻해요.",
-      "explanation_en": "금회: Inner thoughts and feelings. 懷[회] relates to holding within. Here the meaning is figurative, unlike the physical space inside one's clothing."
+      "explanation_en": "금회: Inner thoughts and feelings. 懷[회] relates to holding within. Here the meaning is figurative, unlike the physical space inside one's clothing.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-031",
@@ -5926,7 +6162,8 @@
         }
       ],
       "explanation_ko": "찬부(贊[찬]否[부])는 찬성과 반대를 아울러 이르는 말이에요. 贊[찬]은 찬성, 否[부]는 반대나 부정을 뜻해요. 어느 한쪽 의견만 가리키지 않아요.",
-      "explanation_en": "찬부: Approval and disapproval together. 贊[찬] means support and 否[부] opposition or negation. The expression covers both sides."
+      "explanation_en": "찬부: Approval and disapproval together. 贊[찬] means support and 否[부] opposition or negation. The expression covers both sides.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-032",
@@ -5951,7 +6188,8 @@
         }
       ],
       "explanation_ko": "반성(反[반]省[성])은 자신의 말과 행동을 돌아보며 잘못을 살피는 일이에요. 反[반]은 돌이킴, 省[성]은 살핌과 관련돼요. 남을 공격하거나 변명하는 것과 구별해요.",
-      "explanation_en": "반성: Reflection on one's own conduct and mistakes. 反[반] suggests turning back and 省[성] examining. Minsu considers his own fault."
+      "explanation_en": "반성: Reflection on one's own conduct and mistakes. 反[반] suggests turning back and 省[성] examining. Minsu considers his own fault.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-033",
@@ -5976,7 +6214,8 @@
         }
       ],
       "explanation_ko": "포류지질(蒲[포]柳[류]之[지]質[질])은 갯버들에 빗대어 몸이 약하거나 일찍 쇠약해진 체질을 이르는 말이에요. 蒲[포]와 柳[류]는 여기서 갯버들, 質[질]은 체질과 관련돼요.",
-      "explanation_en": "포류지질: A frail or prematurely weakened constitution, figuratively compared to a willow. 蒲[포] and 柳[류] refer here to the willow, and 質[질] to constitution."
+      "explanation_en": "포류지질: A frail or prematurely weakened constitution, figuratively compared to a willow. 蒲[포] and 柳[류] refer here to the willow, and 質[질] to constitution.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-034",
@@ -6001,7 +6240,8 @@
         }
       ],
       "explanation_ko": "군창(軍[군]倉[창])은 군대의 곡식과 물자를 보관하던 창고예요. 軍[군]은 군대, 倉[창]은 창고를 뜻해요. 저장하는 식량인 군량과 저장 장소를 구별해요.",
-      "explanation_en": "군창: A military storehouse. 軍[군] means military and 倉[창] warehouse. The building differs from 군량, the food supplies stored in it."
+      "explanation_en": "군창: A military storehouse. 軍[군] means military and 倉[창] warehouse. The building differs from 군량, the food supplies stored in it.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-035",
@@ -6026,7 +6266,8 @@
         }
       ],
       "explanation_ko": "총계(總[총]計[계])는 전부 합한 수예요. 總[총]은 전체, 計[계]는 셈과 관련돼요. 가장 큰 한 값인 최대치나 평균과 구별해요.",
-      "explanation_en": "총계: A grand total. 總[총] means overall and 計[계] relates to counting. Thirty is the sum, not the largest department size or the average."
+      "explanation_en": "총계: A grand total. 總[총] means overall and 計[계] relates to counting. Thirty is the sum, not the largest department size or the average.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-036",
@@ -6051,7 +6292,8 @@
         }
       ],
       "explanation_ko": "주동(主[주]棟[동])은 여러 건물 가운데 중심이 되는 건물이에요. 主[주]는 중심, 棟[동]은 건물과 관련돼요. 건물의 한쪽 벽인 외벽과 구별해요.",
-      "explanation_en": "주동: The main building in a group. 主[주] suggests the principal element and 棟[동] a building. The question concerns a building, not one of its walls."
+      "explanation_en": "주동: The main building in a group. 主[주] suggests the principal element and 棟[동] a building. The question concerns a building, not one of its walls.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-037",
@@ -6076,7 +6318,8 @@
         }
       ],
       "explanation_ko": "원인(原[원]因[인])은 어떤 결과를 일어나게 한 까닭이에요. 因[인]은 일이 생기게 한 바탕이나 까닭과 관련돼요. 발생한 결과를 보고 그 앞선 이유를 찾고 있어요.",
-      "explanation_en": "원인: A cause that brings about a result. 因[인] relates to the reason behind something. The broken wire explains the stoppage."
+      "explanation_en": "원인: A cause that brings about a result. 因[인] relates to the reason behind something. The broken wire explains the stoppage.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-038",
@@ -6101,7 +6344,8 @@
         }
       ],
       "explanation_ko": "합헌(合[합]憲[헌])은 헌법에 들어맞음을 뜻해요. 合[합]은 맞음, 憲[헌]은 헌법과 관련돼요. 헌법에 어긋나는 위헌과 구별해요.",
-      "explanation_en": "합헌: Constitutionality, or conformity with the constitution. 合[합] relates to agreement and 憲[헌] to the constitution. 위헌 expresses the opposite."
+      "explanation_en": "합헌: Constitutionality, or conformity with the constitution. 合[합] relates to agreement and 憲[헌] to the constitution. 위헌 expresses the opposite.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-039",
@@ -6126,7 +6370,8 @@
         }
       ],
       "explanation_ko": "수묵화(水[수]墨[묵]畫[화])는 먹의 짙고 옅음을 이용하여 그린 그림이에요. 水[수]는 물, 墨[묵]은 먹, 畫[화]는 그림을 뜻해요. 먹의 농도 차이가 단서예요.",
-      "explanation_en": "수묵화: An ink-wash painting. 水[수] means water, 墨[묵] ink, and 畫[화] painting. Varying the ink's dilution creates the tones."
+      "explanation_en": "수묵화: An ink-wash painting. 水[수] means water, 墨[묵] ink, and 畫[화] painting. Varying the ink's dilution creates the tones.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-040",
@@ -6151,7 +6396,8 @@
         }
       ],
       "explanation_ko": "업적(業[업]績[적])은 어떤 일에서 이루어 낸 중요한 성과예요. 業[업]은 일, 績[적]은 성과와 관련돼요. 맡은 일 자체인 업무와 달리 이루어 낸 결과에 초점을 둬요.",
-      "explanation_en": "업적: Notable achievements in a field. 業[업] relates to work and 績[적] to accomplishment. The focus is what was achieved, not routine duties."
+      "explanation_en": "업적: Notable achievements in a field. 業[업] relates to work and 績[적] to accomplishment. The focus is what was achieved, not routine duties.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-041",
@@ -6176,7 +6422,8 @@
         }
       ],
       "explanation_ko": "예속민(隷[예]屬[속]民[민])은 다른 집단이나 지배자에게 매여 지배받는 사람들이에요. 隷[예]와 屬[속]은 매여 속함, 民[민]은 사람들을 뜻해요. 지배하는 쪽과 지배받는 쪽을 구별해요.",
-      "explanation_en": "예속민: People subject to a ruling group or master. 隷[예] and 屬[속] suggest subjection, and 民[민] people. They are the ruled, not the rulers."
+      "explanation_en": "예속민: People subject to a ruling group or master. 隷[예] and 屬[속] suggest subjection, and 民[민] people. They are the ruled, not the rulers.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-042",
@@ -6201,7 +6448,8 @@
         }
       ],
       "explanation_ko": "화폭(畫[화]幅[폭])은 그림을 그리는 면이나 한 폭의 그림을 뜻해요. 畫[화]는 그림, 幅[폭]은 폭이나 너비와 관련돼요. 화가나 전시장을 가리키지 않아요.",
-      "explanation_en": "화폭: A picture surface or a painting. 畫[화] means picture and 幅[폭] relates to a breadth or panel. The word refers to the surface, not the artist or gallery."
+      "explanation_en": "화폭: A picture surface or a painting. 畫[화] means picture and 幅[폭] relates to a breadth or panel. The word refers to the surface, not the artist or gallery.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-043",
@@ -6226,7 +6474,8 @@
         }
       ],
       "explanation_ko": "분재(盆[분]栽[재])는 화분에 나무를 심어 작고 아름답게 가꾸는 일이나 그 나무예요. 盆[분]은 그릇, 栽[재]는 심음을 뜻해요. 나무를 담는 화분 자체와는 달라요.",
-      "explanation_en": "분재: Cultivating a miniature tree in a pot, or the tree itself. 盆[분] means a container and 栽[재] planting. It is more than the pot alone."
+      "explanation_en": "분재: Cultivating a miniature tree in a pot, or the tree itself. 盆[분] means a container and 栽[재] planting. It is more than the pot alone.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-044",
@@ -6251,7 +6500,8 @@
         }
       ],
       "explanation_ko": "우매(愚[우]昧[매])는 사리에 어둡고 어리석음을 뜻해요. 愚[우]는 어리석음, 昧[매]는 어두움과 관련돼요. 사리를 밝게 이해하는 명철과 구별해요.",
-      "explanation_en": "우매: Ignorance or lack of understanding. 愚[우] relates to foolishness and 昧[매] to obscurity. It contrasts with clear discernment."
+      "explanation_en": "우매: Ignorance or lack of understanding. 愚[우] relates to foolishness and 昧[매] to obscurity. It contrasts with clear discernment.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-045",
@@ -6276,7 +6526,8 @@
         }
       ],
       "explanation_ko": "위반(違[위]反[반])은 정해진 규칙이나 약속을 어기는 일이에요. 違[위]는 어긋남, 反[반]은 거스름과 관련돼요. 약속을 지키는 준수나 이행과 구별해요.",
-      "explanation_en": "위반: Violation of a rule or agreement. 違[위] suggests going against and 反[반] opposition. The agreement is broken rather than observed."
+      "explanation_en": "위반: Violation of a rule or agreement. 違[위] suggests going against and 反[반] opposition. The agreement is broken rather than observed.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-046",
@@ -6301,7 +6552,8 @@
         }
       ],
       "explanation_ko": "계율(戒[계]律[율])은 종교 생활이나 수행에서 지켜야 하는 규범이에요. 戒[계]는 경계하고 삼감, 律[율]은 규범과 관련돼요. 음악의 선율이나 시의 운율과 구별해요.",
-      "explanation_en": "계율: Religious precepts or disciplinary rules. 戒[계] relates to restraint and 律[율] to rules. The religious context distinguishes it from musical or poetic patterns."
+      "explanation_en": "계율: Religious precepts or disciplinary rules. 戒[계] relates to restraint and 律[율] to rules. The religious context distinguishes it from musical or poetic patterns.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-047",
@@ -6326,7 +6578,8 @@
         }
       ],
       "explanation_ko": "서적(書[서]籍[적])은 책을 통틀어 이르는 말이에요. 書[서]와 籍[적]은 책이나 기록과 관련돼요. 책을 꽂는 선반인 서가와 구별해요.",
-      "explanation_en": "서적: Books or written volumes collectively. 書[서] and 籍[적] relate to books and records. It names the books rather than their shelves."
+      "explanation_en": "서적: Books or written volumes collectively. 書[서] and 籍[적] relate to books and records. It names the books rather than their shelves.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-048",
@@ -6351,7 +6604,8 @@
         }
       ],
       "explanation_ko": "연락망(連[연]絡[락]網[망])은 여러 사람이 소식을 주고받도록 이어진 체계예요. 連[연]과 絡[락]은 연결, 網[망]은 그물과 관련돼요. 한 사람의 연락처보다 넓은 연결 구조예요.",
-      "explanation_en": "연락망: A communication network. 連[연] and 絡[락] suggest connection, and 網[망] a net. The organized links go beyond a single contact address."
+      "explanation_en": "연락망: A communication network. 連[연] and 絡[락] suggest connection, and 網[망] a net. The organized links go beyond a single contact address.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-049",
@@ -6376,7 +6630,8 @@
         }
       ],
       "explanation_ko": "접근(接[접]近[근])은 어떤 대상에 가까이 가는 일이에요. 接[접]은 닿음, 近[근]은 가까움을 뜻해요. 여기서는 항구와 배 사이의 거리가 줄어드는 것이 단서예요.",
-      "explanation_en": "접근: Approaching or moving closer. 接[접] relates to contact and 近[근] to nearness. The distance to the harbor is decreasing."
+      "explanation_en": "접근: Approaching or moving closer. 接[접] relates to contact and 近[근] to nearness. The distance to the harbor is decreasing.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-050",
@@ -6401,7 +6656,8 @@
         }
       ],
       "explanation_ko": "군림(君[군]臨[림])은 높은 지위에서 남을 지배하거나 영향력을 행사하는 일이에요. 君[군]은 임금, 臨[림]은 높은 곳에서 대함과 관련돼요. 명령에 따르는 복종과 구별해요.",
-      "explanation_en": "군림: Dominating others from a superior position. 君[군] relates to a ruler and 臨[림] to presiding over. This is exercising authority, not obeying it."
+      "explanation_en": "군림: Dominating others from a superior position. 君[군] relates to a ruler and 臨[림] to presiding over. This is exercising authority, not obeying it.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-051",
@@ -6426,7 +6682,8 @@
         }
       ],
       "explanation_ko": "의탁(依[의]托[탁])은 다른 사람이나 대상에 몸이나 일을 맡기고 의지하는 일이에요. 依[의]는 의지함, 托[탁]은 맡김과 관련돼요.",
-      "explanation_en": "의탁: Relying on someone by entrusting oneself or one's affairs to them. 依[의] means depending on and 托[탁] entrusting. The shelter and support are the clues."
+      "explanation_en": "의탁: Relying on someone by entrusting oneself or one's affairs to them. 依[의] means depending on and 托[탁] entrusting. The shelter and support are the clues.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-052",
@@ -6451,7 +6708,8 @@
         }
       ],
       "explanation_ko": "질서(姪[질]壻[서])는 조카딸의 남편을 뜻해요. 姪[질]은 조카, 壻[서]는 사위를 뜻하는 글자예요. 차례나 규칙적인 상태를 뜻하는 질서(秩[질]序[서])와 구별해요.",
-      "explanation_en": "질서: A niece's husband. 姪[질] relates to a niece or nephew and 壻[서] to a son-in-law. 질서 written 秩[질]序[서] instead means order."
+      "explanation_en": "질서: A niece's husband. 姪[질] relates to a niece or nephew and 壻[서] to a son-in-law. 질서 written 秩[질]序[서] instead means order.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-053",
@@ -6476,7 +6734,8 @@
         }
       ],
       "explanation_ko": "고뇌(苦[고]惱[뇌])는 마음속에서 깊이 괴로워하고 고민하는 일이나 그런 괴로움이에요. 苦[고]는 괴로움, 惱[뇌]는 번민과 관련돼요.",
-      "explanation_en": "고뇌: Mental anguish or torment. 苦[고] relates to suffering and 惱[뇌] to distress. The struggle takes place within the person's mind."
+      "explanation_en": "고뇌: Mental anguish or torment. 苦[고] relates to suffering and 惱[뇌] to distress. The struggle takes place within the person's mind.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-054",
@@ -6501,7 +6760,8 @@
         }
       ],
       "explanation_ko": "성군(聖[성]君[군])은 지혜롭고 어진 정치를 베푸는 임금을 높여 이르는 말이에요. 聖[성]은 뛰어나고 어짊, 君[군]은 임금과 관련돼요. 폭정을 하는 폭군과 구별해요.",
-      "explanation_en": "성군: A wise and benevolent ruler. 聖[성] suggests wisdom and virtue, and 君[군] means ruler. The praise contrasts with the meaning of tyrant."
+      "explanation_en": "성군: A wise and benevolent ruler. 聖[성] suggests wisdom and virtue, and 君[군] means ruler. The praise contrasts with the meaning of tyrant.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-055",
@@ -6526,7 +6786,8 @@
         }
       ],
       "explanation_ko": "선택(選[선]擇[택])은 여러 가지 가운데 알맞은 것을 골라 정하는 일이에요. 選[선]과 擇[택]은 모두 고름과 관련돼요. 비교한 뒤 하나로 정했다는 점이 단서예요.",
-      "explanation_en": "선택: Choosing among several possibilities. 選[선] and 擇[택] both relate to selection. A single option has been chosen after comparison."
+      "explanation_en": "선택: Choosing among several possibilities. 選[선] and 擇[택] both relate to selection. A single option has been chosen after comparison.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-056",
@@ -6551,7 +6812,8 @@
         }
       ],
       "explanation_ko": "비명(悲[비]鳴[명])은 놀라거나 고통스러워 크게 외치는 소리예요. 悲[비]와 鳴[명]은 슬픔이나 울음과 관련돼요. 비석에 새긴 글인 비명(碑[비]銘[명])과 구별해요.",
-      "explanation_en": "비명: A scream or cry of distress. 悲[비] and 鳴[명] relate to sorrow and crying. 비명 written 碑[비]銘[명] is an inscription on a monument."
+      "explanation_en": "비명: A scream or cry of distress. 悲[비] and 鳴[명] relate to sorrow and crying. 비명 written 碑[비]銘[명] is an inscription on a monument.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-057",
@@ -6576,7 +6838,8 @@
         }
       ],
       "explanation_ko": "숭고(崇[숭]高[고])는 뜻이나 정신이 높고 고결함을 뜻해요. 崇[숭]과 高[고]는 높음과 관련돼요. 물리적인 키가 아니라 정신이나 뜻의 품격을 나타내요.",
-      "explanation_en": "숭고: Nobility or elevation of spirit and purpose. 崇[숭] and 高[고] relate to height. Here the elevation is moral or spiritual rather than physical."
+      "explanation_en": "숭고: Nobility or elevation of spirit and purpose. 崇[숭] and 高[고] relate to height. Here the elevation is moral or spiritual rather than physical.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-058",
@@ -6601,7 +6864,8 @@
         }
       ],
       "explanation_ko": "명칭(名[명]稱[칭])은 사물이나 대상을 가리켜 부르는 이름이에요. 名[명]은 이름, 稱[칭]은 부름을 뜻해요. 여러 이름을 적은 목록인 명단과 구별해요.",
-      "explanation_en": "명칭: A name or designation. 名[명] means name and 稱[칭] calling. It names the object, rather than a list of names."
+      "explanation_en": "명칭: A name or designation. 名[명] means name and 稱[칭] calling. It names the object, rather than a list of names.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-059",
@@ -6626,7 +6890,8 @@
         }
       ],
       "explanation_ko": "계류(溪[계]流[류])는 산골짜기를 따라 흐르는 물이에요. 溪[계]는 시내, 流[류]는 흐름을 뜻해요. 배를 매어 두는 계류(繫[계]留[류])와 구별해요.",
-      "explanation_en": "계류: A mountain stream. 溪[계] means stream and 流[류] flow. 계류 written 繫[계]留[류] instead refers to mooring or securing something."
+      "explanation_en": "계류: A mountain stream. 溪[계] means stream and 流[류] flow. 계류 written 繫[계]留[류] instead refers to mooring or securing something.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-060",
@@ -6651,7 +6916,8 @@
         }
       ],
       "explanation_ko": "업무(業[업]務[무])는 직장이나 기관에서 맡아 처리하는 일이에요. 業[업]은 일, 務[무]는 힘써 맡는 일과 관련돼요. 일을 쉬는 휴가나 여가와 구별해요.",
-      "explanation_en": "업무: Work duties or business tasks. 業[업] and 務[무] relate to work and duties. These are assigned tasks, not time off."
+      "explanation_en": "업무: Work duties or business tasks. 業[업] and 務[무] relate to work and duties. These are assigned tasks, not time off.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-061",
@@ -6676,7 +6942,8 @@
         }
       ],
       "explanation_ko": "유폐(幽[유]閉[폐])는 깊숙한 곳에 가두어 밖으로 나오지 못하게 하는 일이에요. 幽[유]는 깊숙함, 閉[폐]는 닫음과 관련돼요. 스스로 물러나 사는 은거와 구별해요.",
-      "explanation_en": "유폐: Confinement in a secluded place. 幽[유] suggests seclusion and 閉[폐] closing. The person is forcibly confined, unlike voluntary withdrawal from public life."
+      "explanation_en": "유폐: Confinement in a secluded place. 幽[유] suggests seclusion and 閉[폐] closing. The person is forcibly confined, unlike voluntary withdrawal from public life.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-062",
@@ -6701,7 +6968,8 @@
         }
       ],
       "explanation_ko": "재신(宰[재]臣[신])은 재상의 지위에 있는 신하를 이르는 옛말이에요. 宰[재]는 다스림, 臣[신]은 신하를 뜻해요. 조정에서 맡은 높은 지위가 단서예요.",
-      "explanation_en": "재신: An old term for a minister of high rank. 宰[재] relates to governing and 臣[신] to a minister or subject. The court position identifies the word."
+      "explanation_en": "재신: An old term for a minister of high rank. 宰[재] relates to governing and 臣[신] to a minister or subject. The court position identifies the word.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-063",
@@ -6726,7 +6994,8 @@
         }
       ],
       "explanation_ko": "이력서(履[이]歷[력]書[서])는 학력과 경력 등 자신이 거쳐 온 사항을 적은 문서예요. 履[이]와 歷[력]은 거쳐 온 이력, 書[서]는 문서와 관련돼요.",
-      "explanation_en": "이력서: A resume or curriculum vitae. 履[이] and 歷[력] relate to one's experience and history, and 書[서] to a document. Education and employment are the clues."
+      "explanation_en": "이력서: A resume or curriculum vitae. 履[이] and 歷[력] relate to one's experience and history, and 書[서] to a document. Education and employment are the clues.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-064",
@@ -6751,7 +7020,8 @@
         }
       ],
       "explanation_ko": "강단(講[강]壇[단])은 강의나 강연을 할 때 올라서는 높게 만든 자리예요. 講[강]은 강의함, 壇[단]은 단을 뜻해요. 굳센 결단을 뜻하는 강단(剛[강]斷[단])과 구별해요.",
-      "explanation_en": "강단: A raised platform for lecturing. 講[강] relates to a lecture and 壇[단] to a platform. 강단 written 剛[강]斷[단] means firmness or decisive resolve."
+      "explanation_en": "강단: A raised platform for lecturing. 講[강] relates to a lecture and 壇[단] to a platform. 강단 written 剛[강]斷[단] means firmness or decisive resolve.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-065",
@@ -6776,7 +7046,8 @@
         }
       ],
       "explanation_ko": "검소(儉[검]素[소])는 사치하지 않고 수수하며 낭비가 적은 생활 태도예요. 儉[검]은 아낌, 素[소]는 꾸밈없음과 관련돼요.",
-      "explanation_en": "검소: Frugality and simplicity. 儉[검] relates to thrift and 素[소] to plainness. Buying only necessities provides the clue."
+      "explanation_en": "검소: Frugality and simplicity. 儉[검] relates to thrift and 素[소] to plainness. Buying only necessities provides the clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-066",
@@ -6801,7 +7072,8 @@
         }
       ],
       "explanation_ko": "점포(店[점]鋪[포])는 물건을 팔거나 영업을 하는 장소예요. 店[점]과 鋪[포]는 가게와 관련돼요. 물건을 보관하는 창고와 달리 손님을 상대로 영업해요.",
-      "explanation_en": "점포: A store or business premises. 店[점] and 鋪[포] relate to shops. Selling to customers distinguishes the place from a warehouse."
+      "explanation_en": "점포: A store or business premises. 店[점] and 鋪[포] relate to shops. Selling to customers distinguishes the place from a warehouse.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-067",
@@ -6826,7 +7098,8 @@
         }
       ],
       "explanation_ko": "정초(定[정]礎[초])는 건축이나 사업의 기초를 놓는 일이에요. 定[정]은 정함, 礎[초]는 주춧돌이나 기초를 뜻해요. 건물을 없애는 철거와 구별해요.",
-      "explanation_en": "정초: Laying a foundation for construction or an undertaking. 定[정] relates to establishing and 礎[초] to a foundation stone. The work is beginning, not being demolished."
+      "explanation_en": "정초: Laying a foundation for construction or an undertaking. 定[정] relates to establishing and 礎[초] to a foundation stone. The work is beginning, not being demolished.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-068",
@@ -6851,7 +7124,8 @@
         }
       ],
       "explanation_ko": "잠정(暫[잠]定[정])은 뒤에 바뀔 수 있도록 임시로 정하는 일이에요. 暫[잠]은 잠깐, 定[정]은 정함을 뜻해요. 최종적으로 확정한 상태와 구별해요.",
-      "explanation_en": "잠정: A provisional determination. 暫[잠] means temporary and 定[정] setting. The arrangement remains open to change."
+      "explanation_en": "잠정: A provisional determination. 暫[잠] means temporary and 定[정] setting. The arrangement remains open to change.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-069",
@@ -6876,7 +7150,8 @@
         }
       ],
       "explanation_ko": "농담(弄[농]談[담])은 재미로 하거나 실없이 놀리는 말이에요. 弄[농]은 장난함, 談[담]은 말을 뜻해요. 색의 짙고 옅음인 농담(濃[농]淡[담])과 구별해요.",
-      "explanation_en": "농담: A joke or playful remark. 弄[농] relates to play and 談[담] to speech. 농담 written 濃[농]淡[담] means variations in color intensity."
+      "explanation_en": "농담: A joke or playful remark. 弄[농] relates to play and 談[담] to speech. 농담 written 濃[농]淡[담] means variations in color intensity.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-070",
@@ -6901,7 +7176,8 @@
         }
       ],
       "explanation_ko": "석굴(石[석]窟[굴])은 바위에 자연적으로 생기거나 사람이 판 굴이에요. 石[석]은 돌, 窟[굴]은 굴을 뜻해요. 돌로 만든 다리인 석교와 구별해요.",
-      "explanation_en": "석굴: A rock cave or rock-cut grotto. 石[석] means stone and 窟[굴] cave. The hollow interior distinguishes it from a stone bridge."
+      "explanation_en": "석굴: A rock cave or rock-cut grotto. 石[석] means stone and 窟[굴] cave. The hollow interior distinguishes it from a stone bridge.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-071",
@@ -6926,7 +7202,8 @@
         }
       ],
       "explanation_ko": "언감생심(焉[언]敢[감]生[생]心[심])은 감히 그런 생각을 품을 수 없거나 그런 마음이 전혀 없음을 이르는 말이에요. 敢[감]은 감히 함, 生[생]과 心[심]은 마음을 일으킴과 관련돼요.",
-      "explanation_en": "언감생심: Not daring even to entertain a thought, or having no such intention. 敢[감] relates to daring, and 生[생] and 心[심] to a thought arising."
+      "explanation_en": "언감생심: Not daring even to entertain a thought, or having no such intention. 敢[감] relates to daring, and 生[생] and 心[심] to a thought arising.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-072",
@@ -6951,7 +7228,8 @@
         }
       ],
       "explanation_ko": "이기(利[이]己[기])는 자신의 이익을 앞세우거나 꾀하는 일이에요. 利[이]는 이익, 己[기]는 자기를 뜻해요. 자기를 이기는 극기나 공동의 이익인 공익과 구별해요.",
-      "explanation_en": "이기: Pursuing one's own interests. 利[이] means benefit and 己[기] oneself. The focus is personal gain rather than self-restraint or public benefit."
+      "explanation_en": "이기: Pursuing one's own interests. 利[이] means benefit and 己[기] oneself. The focus is personal gain rather than self-restraint or public benefit.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-073",
@@ -6976,7 +7254,8 @@
         }
       ],
       "explanation_ko": "현미경(顯[현]微[미]鏡[경])은 아주 작은 대상을 확대해 관찰하는 기구예요. 顯[현]은 드러냄, 微[미]는 작음, 鏡[경]은 거울이나 광학 기구와 관련돼요. 멀리 있는 대상을 보는 망원경과 구별해요.",
-      "explanation_en": "현미경: A microscope. 顯[현] relates to revealing, 微[미] to smallness, and 鏡[경] to an optical instrument. It enlarges tiny objects rather than distant ones."
+      "explanation_en": "현미경: A microscope. 顯[현] relates to revealing, 微[미] to smallness, and 鏡[경] to an optical instrument. It enlarges tiny objects rather than distant ones.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-074",
@@ -7001,7 +7280,8 @@
         }
       ],
       "explanation_ko": "개념(槪[개]念[념])은 대상의 공통된 성질을 묶어 이해한 생각이에요. 念[념]은 생각과 관련돼요. 개별 사례나 이름 자체보다 일반적인 성질을 이해하는 데 초점이 있어요.",
-      "explanation_en": "개념: A concept formed by understanding shared properties. 念[념] relates to thought. The focus is a general idea rather than one example or its name."
+      "explanation_en": "개념: A concept formed by understanding shared properties. 念[념] relates to thought. The focus is a general idea rather than one example or its name.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-075",
@@ -7026,7 +7306,8 @@
         }
       ],
       "explanation_ko": "문단(文[문]壇[단])은 문학 작품을 창작하는 사람들이 활동하는 사회예요. 文[문]은 문학, 壇[단]은 여기서 활동하는 무대를 나타내요. 글의 단락인 문단(文[문]段[단])과 구별해요.",
-      "explanation_en": "문단: The literary world. 文[문] relates to literature and 壇[단] here to an arena of activity. 문단 written 文[문]段[단] instead means a paragraph."
+      "explanation_en": "문단: The literary world. 文[문] relates to literature and 壇[단] here to an arena of activity. 문단 written 文[문]段[단] instead means a paragraph.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-076",
@@ -7051,7 +7332,8 @@
         }
       ],
       "explanation_ko": "무계(無[무]稽[계])는 근거가 없고 이치에 맞지 않음을 뜻해요. 無[무]는 없음, 稽[계]는 상고하여 살핌과 관련돼요. ‘황당무계’에도 쓰이는 말이에요.",
-      "explanation_en": "무계: Groundlessness or lack of reasonable basis. 無[무] means absence and 稽[계] relates to examination. The word also appears in 황당무계."
+      "explanation_en": "무계: Groundlessness or lack of reasonable basis. 無[무] means absence and 稽[계] relates to examination. The word also appears in 황당무계.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-077",
@@ -7076,7 +7358,8 @@
         }
       ],
       "explanation_ko": "하위(何[하]謂[위])는 한문에서 무엇을 이르는가를 묻는 표현이에요. 何[하]는 무엇, 謂[위]는 이름이나 뜻을 말함과 관련돼요. 낱말의 의미를 묻는 문맥이 단서예요.",
-      "explanation_en": "하위: A classical question asking what something means. 何[하] means what and 謂[위] relates to saying or meaning. The question seeks an explanation."
+      "explanation_en": "하위: A classical question asking what something means. 何[하] means what and 謂[위] relates to saying or meaning. The question seeks an explanation.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-078",
@@ -7101,7 +7384,8 @@
         }
       ],
       "explanation_ko": "희작(戲[희]作[작])은 장난삼아 작품을 만들거나 그렇게 만든 작품을 뜻해요. 戲[희]는 놀이, 作[작]은 지음을 뜻해요. 작품을 만든 가벼운 목적이 단서예요.",
-      "explanation_en": "희작: A playful composition, or creating one for fun. 戲[희] means play and 作[작] making. The lighthearted purpose identifies the expression."
+      "explanation_en": "희작: A playful composition, or creating one for fun. 戲[희] means play and 作[작] making. The lighthearted purpose identifies the expression.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-079",
@@ -7126,7 +7410,8 @@
         }
       ],
       "explanation_ko": "경고(警[경]告[고])는 위험이나 잘못을 알리고 조심하도록 주의를 주는 일이에요. 警[경]은 경계함, 告[고]는 알림을 뜻해요. 조심하라는 안내가 단서예요.",
-      "explanation_en": "경고: A warning or caution. 警[경] relates to alertness and 告[고] to informing. The guide makes people aware of a danger."
+      "explanation_en": "경고: A warning or caution. 警[경] relates to alertness and 告[고] to informing. The guide makes people aware of a danger.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-080",
@@ -7151,7 +7436,8 @@
         }
       ],
       "explanation_ko": "은거(隱[은]居[거])는 세상일에서 물러나 드러나지 않게 지내는 일이에요. 隱[은]은 숨음, 居[거]는 삶이나 거주를 뜻해요. 관직에 나가는 출사와 구별해요.",
-      "explanation_en": "은거: Living in seclusion after withdrawing from public affairs. 隱[은] relates to concealment and 居[거] to living. The scholar steps away from official life."
+      "explanation_en": "은거: Living in seclusion after withdrawing from public affairs. 隱[은] relates to concealment and 居[거] to living. The scholar steps away from official life.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-081",
@@ -7176,7 +7462,8 @@
         }
       ],
       "explanation_ko": "순환기(循[순]環[환]器[기])는 혈액이나 림프가 몸 안을 돌게 하는 기관들이에요. 循[순]과 環[환]은 돌고 이어짐, 器[기]는 기관과 관련돼요. 심장과 혈관이 문맥의 단서예요.",
-      "explanation_en": "순환기: The organs that circulate blood or lymph, including the heart and vessels. 循[순] and 環[환] relate to circulation, and 器[기] to an organ."
+      "explanation_en": "순환기: The organs that circulate blood or lymph, including the heart and vessels. 循[순] and 環[환] relate to circulation, and 器[기] to an organ.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-082",
@@ -7201,7 +7488,8 @@
         }
       ],
       "explanation_ko": "우체국(郵[우]遞[체]局[국])은 편지와 소포 등 우편 업무를 맡는 기관이에요. 郵[우]와 遞[체]는 우편 전달, 局[국]은 기관과 관련돼요.",
-      "explanation_en": "우체국: A post office. 郵[우] and 遞[체] relate to postal delivery, and 局[국] to an office. Letters and parcels identify the institution."
+      "explanation_en": "우체국: A post office. 郵[우] and 遞[체] relate to postal delivery, and 局[국] to an office. Letters and parcels identify the institution.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-083",
@@ -7226,7 +7514,8 @@
         }
       ],
       "explanation_ko": "청년(靑[청]年[년])은 젊은 나이의 사람을 뜻해요. 靑[청]은 푸름이나 젊음, 年[년]은 나이와 관련돼요. 젊은 시기에 사회생활을 시작한다는 문맥이 단서예요.",
-      "explanation_en": "청년: A young adult. 靑[청] suggests youth and 年[년] age. Beginning adult life is the contextual clue."
+      "explanation_en": "청년: A young adult. 靑[청] suggests youth and 年[년] age. Beginning adult life is the contextual clue.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-084",
@@ -7251,7 +7540,8 @@
         }
       ],
       "explanation_ko": "맹동(萌[맹]動[동])은 어떤 기운이나 움직임이 처음 일어남을 뜻해요. 萌[맹]은 싹틈, 動[동]은 움직임이에요. 이미 쇠퇴하거나 멈춘 상태와 구별해요.",
-      "explanation_en": "맹동: The first stirrings of a movement or feeling. 萌[맹] means sprouting and 動[동] movement. The activity is just beginning to emerge."
+      "explanation_en": "맹동: The first stirrings of a movement or feeling. 萌[맹] means sprouting and 動[동] movement. The activity is just beginning to emerge.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-085",
@@ -7276,7 +7566,8 @@
         }
       ],
       "explanation_ko": "오추마(烏[오]騅[추]馬[마])는 중국 고사에서 항우가 타던 말의 이름이에요. 烏[오]는 검은빛, 騅[추]는 말의 한 종류, 馬[마]는 말을 뜻해요. 기마대처럼 사람들의 집단을 가리키지 않아요.",
-      "explanation_en": "오추마: Wuzhui, the horse associated with Xiang Yu in historical tradition. 烏[오] suggests black, 騅[추] a kind of horse, and 馬[마] horse. This is a name, not a mounted troop."
+      "explanation_en": "오추마: Wuzhui, the horse associated with Xiang Yu in historical tradition. 烏[오] suggests black, 騅[추] a kind of horse, and 馬[마] horse. This is a name, not a mounted troop.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-086",
@@ -7301,7 +7592,8 @@
         }
       ],
       "explanation_ko": "봉행(奉[봉]行[행])은 명령이나 뜻을 받들어 실행하거나 예법에 따라 의식을 치르는 일이에요. 奉[봉]은 받듦, 行[행]은 행함이에요. 여기서는 의식을 치른다는 뜻으로 쓰였어요.",
-      "explanation_en": "봉행: Carrying out an order or conducting a ceremony. 奉[봉] relates to respectful observance and 行[행] to carrying out. Here it refers to a ritual."
+      "explanation_en": "봉행: Carrying out an order or conducting a ceremony. 奉[봉] relates to respectful observance and 行[행] to carrying out. Here it refers to a ritual.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-087",
@@ -7326,7 +7618,8 @@
         }
       ],
       "explanation_ko": "초상화(肖[초]像[상]畫[화])는 사람의 얼굴이나 모습을 그린 그림이에요. 肖[초]는 닮음, 像[상]은 모습, 畫[화]는 그림을 뜻해요. 사람이 그림의 대상이라는 점이 단서예요.",
-      "explanation_en": "초상화: A portrait. 肖[초] relates to likeness, 像[상] to an image, and 畫[화] to painting. A person's appearance is the subject."
+      "explanation_en": "초상화: A portrait. 肖[초] relates to likeness, 像[상] to an image, and 畫[화] to painting. A person's appearance is the subject.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-088",
@@ -7351,7 +7644,8 @@
         }
       ],
       "explanation_ko": "만방(萬[만]邦[방])은 세상의 모든 나라를 뜻해요. 萬[만]은 매우 많거나 모두임, 邦[방]은 나라와 관련돼요. 우호적인 나라만을 뜻하는 우방보다 범위가 넓어요.",
-      "explanation_en": "만방: All nations of the world. 萬[만] suggests all or countless, and 邦[방] means nation. The scope is broader than friendly countries alone."
+      "explanation_en": "만방: All nations of the world. 萬[만] suggests all or countless, and 邦[방] means nation. The scope is broader than friendly countries alone.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-089",
@@ -7376,7 +7670,8 @@
         }
       ],
       "explanation_ko": "약품(藥[약]品[품])은 병의 예방이나 치료 등에 쓰는 물질이나 제제예요. 藥[약]은 약, 品[품]은 물품과 관련돼요. 물건의 쓰임이 단서예요.",
-      "explanation_en": "약품: A medicinal substance or preparation. 藥[약] means medicine and 品[품] an item or product. Its medical purpose identifies the category."
+      "explanation_en": "약품: A medicinal substance or preparation. 藥[약] means medicine and 品[품] an item or product. Its medical purpose identifies the category.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-090",
@@ -7401,7 +7696,8 @@
         }
       ],
       "explanation_ko": "마제석기(磨[마]製[제]石[석]器[기])는 돌을 갈아서 만든 도구예요. 磨[마]는 갊, 製[제]는 만듦, 石[석]은 돌, 器[기]는 도구를 뜻해요. 재료와 만드는 방법이 함께 단서가 돼요.",
-      "explanation_en": "마제석기: A ground-stone tool. 磨[마] means grinding, 製[제] making, 石[석] stone, and 器[기] tool. Both the material and manufacturing method identify it."
+      "explanation_en": "마제석기: A ground-stone tool. 磨[마] means grinding, 製[제] making, 石[석] stone, and 器[기] tool. Both the material and manufacturing method identify it.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-091",
@@ -7426,7 +7722,8 @@
         }
       ],
       "explanation_ko": "압권(壓[압]卷[권])은 여러 작품이나 장면 가운데 가장 뛰어나거나 인상적인 부분이에요. 壓[압]은 누름, 卷[권]은 책의 권과 관련되지만, 지금은 공연의 두드러진 장면에도 써요.",
-      "explanation_en": "압권: The outstanding work or highlight among others. Although 壓[압] and 卷[권] evoke surpassing other written works, the word also applies to a memorable performance scene."
+      "explanation_en": "압권: The outstanding work or highlight among others. Although 壓[압] and 卷[권] evoke surpassing other written works, the word also applies to a memorable performance scene.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-092",
@@ -7451,7 +7748,8 @@
         }
       ],
       "explanation_ko": "수확기(收[수]穫[확]期[기])는 농작물을 거두어들이는 시기예요. 收[수]와 穫[확]은 거둠, 期[기]는 시기를 뜻해요. 파종기의 機[기]는 기계를 뜻하는 다른 글자예요.",
-      "explanation_en": "수확기: The harvest season. 收[수] and 穫[확] relate to gathering crops, and 期[기] to a period. 機[기] in 파종기 instead refers to a sowing machine."
+      "explanation_en": "수확기: The harvest season. 收[수] and 穫[확] relate to gathering crops, and 期[기] to a period. 機[기] in 파종기 instead refers to a sowing machine.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-093",
@@ -7476,7 +7774,8 @@
         }
       ],
       "explanation_ko": "아열대(亞[아]熱[열]帶[대])는 열대와 온대 사이에 자리한 기후대예요. 亞[아]는 다음이나 가까움, 熱[열]은 더움, 帶[대]는 구역과 관련돼요. 열대와 구별되는 중간 위치가 단서예요.",
-      "explanation_en": "아열대: The subtropical zone, between the tropical and temperate zones. 亞[아] suggests proximity or a secondary position, 熱[열] heat, and 帶[대] a zone."
+      "explanation_en": "아열대: The subtropical zone, between the tropical and temperate zones. 亞[아] suggests proximity or a secondary position, 熱[열] heat, and 帶[대] a zone.",
+      "difficulty": "medium"
     },
     {
       "id": "batch-003-094",
@@ -7501,7 +7800,8 @@
         }
       ],
       "explanation_ko": "효시론(嚆[효]矢[시]論[론])은 특정 작품이나 인물을 어떤 분야의 최초로 보는 학설이에요. 효시는 시작을 뜻하고 論[론]은 논의나 학설을 나타내요. 첫 작품 자체인 효시작과 그에 관한 견해를 구별해요.",
-      "explanation_en": "효시론: A theory identifying a work or person as the first in a field. 효시 means a beginning and 論[론] a theory or discussion. The expression names the claim, not the work itself."
+      "explanation_en": "효시론: A theory identifying a work or person as the first in a field. 효시 means a beginning and 論[론] a theory or discussion. The expression names the claim, not the work itself.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-095",
@@ -7526,7 +7826,8 @@
         }
       ],
       "explanation_ko": "정보(情[정]報[보])는 판단이나 활동에 도움이 되는 사실·자료·소식이에요. 情[정]은 사정이나 내용, 報[보]는 알림과 관련돼요. 시간표와 노선이 판단의 자료가 돼요.",
-      "explanation_en": "정보: Information useful for decisions or activities. 情[정] relates to circumstances or content and 報[보] to reporting. The traveler uses these details to decide."
+      "explanation_en": "정보: Information useful for decisions or activities. 情[정] relates to circumstances or content and 報[보] to reporting. The traveler uses these details to decide.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-096",
@@ -7551,7 +7852,8 @@
         }
       ],
       "explanation_ko": "회중(懷[회]中[중])은 옷의 가슴 안쪽이나 품속이에요. 懷[회]는 품, 中[중]은 안을 뜻해요. 이 문맥에서는 생각이 아니라 물건을 넣는 실제 위치예요.",
-      "explanation_en": "회중: Inside one's bosom or the front of one's clothing. 懷[회] means bosom and 中[중] inside. The letter occupies a physical space."
+      "explanation_en": "회중: Inside one's bosom or the front of one's clothing. 懷[회] means bosom and 中[중] inside. The letter occupies a physical space.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-097",
@@ -7576,7 +7878,8 @@
         }
       ],
       "explanation_ko": "태양(太[태]陽[양])은 지구가 그 둘레를 도는 별인 해예요. 太[태]는 큼, 陽[양]은 볕과 관련돼요. 스스로 빛을 내는 별이라는 점에서 행성이나 위성과 구별해요.",
-      "explanation_en": "태양: The Sun, the star Earth orbits. 太[태] relates to greatness and 陽[양] to sunlight. A star produces its own light, unlike a planet or satellite."
+      "explanation_en": "태양: The Sun, the star Earth orbits. 太[태] relates to greatness and 陽[양] to sunlight. A star produces its own light, unlike a planet or satellite.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-098",
@@ -7601,7 +7904,8 @@
         }
       ],
       "explanation_ko": "충격(衝[충]擊[격])은 세게 부딪치며 가해지는 힘이나 갑작스러운 일로 받는 마음의 동요예요. 衝[충]은 부딪침, 擊[격]은 침과 관련돼요. 여기서는 물리적으로 부딪친 힘을 뜻해요.",
-      "explanation_en": "충격: An impact, or a psychological shock in another context. 衝[충] relates to collision and 擊[격] to striking. Here the meaning is physical."
+      "explanation_en": "충격: An impact, or a psychological shock in another context. 衝[충] relates to collision and 擊[격] to striking. Here the meaning is physical.",
+      "difficulty": "easy"
     },
     {
       "id": "batch-003-099",
@@ -7626,7 +7930,8 @@
         }
       ],
       "explanation_ko": "마멸(磨[마]滅[멸])은 갈리거나 닳아서 줄어들거나 없어지는 현상이에요. 磨[마]는 갊, 滅[멸]은 없어짐을 뜻해요. 반복된 마찰 때문에 표면이 줄었다는 점이 단서예요.",
-      "explanation_en": "마멸: Wearing away through abrasion. 磨[마] means grinding and 滅[멸] disappearing. Repeated contact gradually removes material."
+      "explanation_en": "마멸: Wearing away through abrasion. 磨[마] means grinding and 滅[멸] disappearing. Repeated contact gradually removes material.",
+      "difficulty": "hard"
     },
     {
       "id": "batch-003-100",
@@ -7651,7 +7956,8 @@
         }
       ],
       "explanation_ko": "심인 광고(尋[심]人[인]廣[광]告[고])는 행방을 모르는 사람을 찾기 위해 내는 광고예요. 尋[심]은 찾음, 人[인]은 사람을 뜻해요. 상품을 알리는 목적이 아니라 사람을 찾는 목적이에요.",
-      "explanation_en": "심인 광고: A notice seeking information about a missing person. 尋[심] means searching and 人[인] person. Its purpose is to find someone, not promote a product."
+      "explanation_en": "심인 광고: A notice seeking information about a missing person. 尋[심] means searching and 人[인] person. Its purpose is to find someone, not promote a product.",
+      "difficulty": "hard"
     }
   ]
 }
