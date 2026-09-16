@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -188,14 +189,14 @@ func TestBootstrapAndRevalidation(t *testing.T) {
 }
 
 func TestNeighborhoodAPI(t *testing.T) {
-	_, _, app := testApp(t)
+	g, _, app := testApp(t)
 	response := httptest.NewRecorder()
 	app.ServeHTTP(response, httptest.NewRequest("GET", "/api/neighborhood?q="+url.QueryEscape("感覺"), nil))
 	var network graph.Neighborhood
 	if err := json.Unmarshal(response.Body.Bytes(), &network); err != nil {
 		t.Fatal(err)
 	}
-	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || len(network.Words) != 20 || len(network.Characters) != 26 {
+	if len(network.Roots) != 2 || network.Roots[0] != "感" || network.Roots[1] != "覺" || !reflect.DeepEqual(network, g.Neighborhood("感覺")) {
 		t.Fatalf("incorrect network response: %+v", network)
 	}
 	response = httptest.NewRecorder()

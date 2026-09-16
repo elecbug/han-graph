@@ -3,6 +3,7 @@ package graph
 import (
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -15,15 +16,19 @@ func TestNeighborhood(t *testing.T) {
 	if !reflect.DeepEqual(n.Roots, []string{"感", "覺"}) {
 		t.Fatalf("missing word components: %+v", n.Roots)
 	}
-	wanted := map[string]bool{"感覺": true, "感情": true, "感謝": true, "感動": true, "共感": true, "視覺": true, "聽覺": true, "自覺": true, "覺悟": true, "感慨": true, "感慨無量": true, "感激": true, "自愧感": true, "鈍感": true, "淸涼感": true, "諒解覺書": true, "感銘": true, "侮辱感": true, "侮蔑感": true, "敏感": true}
-	for _, word := range n.Words {
-		if !wanted[word.Hanja] {
-			t.Errorf("unexpected or duplicated word: %s", word.Hanja)
+	var wanted []Word
+	wantedCharacters := map[string]bool{"感": true, "覺": true}
+	// Scan the source words independently of the reverse index used by Neighborhood.
+	for _, word := range g.words {
+		if strings.ContainsAny(word.Hanja, "感覺") {
+			wanted = append(wanted, word)
+			for _, glyph := range word.Components {
+				wantedCharacters[glyph] = true
+			}
 		}
-		delete(wanted, word.Hanja)
 	}
-	if len(wanted) > 0 {
-		t.Fatalf("truncated neighborhood: %+v", wanted)
+	if !reflect.DeepEqual(n.Words, wanted) {
+		t.Fatalf("incorrect neighborhood words: got %+v, want %+v", n.Words, wanted)
 	}
 	characters := map[string]bool{}
 	for _, character := range n.Characters {
@@ -32,7 +37,10 @@ func TestNeighborhood(t *testing.T) {
 		}
 		characters[character.Hanja] = true
 	}
-	if len(characters) != 26 || !characters["情"] || !characters["視"] || !characters["慨"] || !characters["激"] || !characters["愧"] || !characters["鈍"] || characters["監"] || characters["勵"] || characters["羞"] || characters["愚"] || !characters["淸"] || !characters["涼"] || !characters["諒"] || !characters["解"] || !characters["書"] || characters["荒"] || characters["恕"] || !characters["銘"] || characters["碑"] || characters["墓"] || !characters["侮"] || !characters["辱"] || !characters["蔑"] || characters["輕"] || !characters["敏"] || characters["銳"] || characters["機"] {
+	if !reflect.DeepEqual(characters, wantedCharacters) {
+		t.Fatalf("incorrect neighborhood characters: got %+v, want %+v", characters, wantedCharacters)
+	}
+	if !characters["情"] || !characters["視"] || !characters["慨"] || !characters["激"] || !characters["愧"] || !characters["鈍"] || characters["監"] || characters["勵"] || characters["羞"] || characters["愚"] || !characters["淸"] || !characters["涼"] || !characters["諒"] || !characters["解"] || !characters["書"] || characters["荒"] || characters["恕"] || !characters["銘"] || characters["碑"] || characters["墓"] || !characters["侮"] || !characters["辱"] || !characters["蔑"] || characters["輕"] || !characters["敏"] || characters["銳"] || characters["機"] {
 		t.Fatalf("incorrect one-hop boundary: %+v", characters)
 	}
 	// A longer word retains all of its components, including more distant

@@ -425,3 +425,7 @@
 {"type": "meta", "id": "ral", "sound_ko": "랄", "sound_en": "ral"}
 {"type": "meta", "id": "ge", "sound_ko": "게", "sound_en": "ge"}
 {"type": "meta", "id": "ul", "sound_ko": "울", "sound_en": "ul"}
+{"type": "meta", "id": "heun", "sound_ko": "흔", "sound_en": "heun"}
+{"type": "meta", "id": "chwal", "sound_ko": "촬", "sound_en": "chwal"}
+{"type": "meta", "id": "seom", "sound_ko": "섬", "sound_en": "seom"}
+{"type": "meta", "id": "nik", "sound_ko": "닉", "sound_en": "nik"}
