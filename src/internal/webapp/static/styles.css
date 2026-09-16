@@ -1257,12 +1257,6 @@ main:focus {
   font-size:19px;
   font-weight:600
 }
-.option .option-hanja {
-  font-family:var(--serif);
-  letter-spacing:3px;
-  color:#85936f;
-  font-size:21px
-}
 .option small {
   font-size:10px;
   color:var(--muted)
@@ -1697,9 +1691,6 @@ main:focus {
   }
   .option strong {
     font-size:16px
-  }
-  .option .option-hanja {
-    font-size:19px
   }
   .option small {
     font-size:9px

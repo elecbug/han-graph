@@ -73,10 +73,16 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 		}
 		ids[q.ID] = true
 		options := make(map[WordRef]bool)
+		labels := make(map[string]bool)
 		for _, option := range q.Options {
 			if options[option] {
 				return fail("duplicate option")
 			}
+			label := strings.Join(strings.Fields(option.Word), "")
+			if labels[label] {
+				return fail("options must use distinct Korean words; homonyms are not allowed")
+			}
+			labels[label] = true
 			options[option] = true
 			found := false
 			for _, word := range g.FindWords(option.Word) {

@@ -155,8 +155,8 @@
           "hanja": "作家"
         }
       ],
-      "explanation_ko": "書[서]는 ‘책·글’, 架[가]는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 소리가 같은 家[가]와 架[가]를 구분해 보세요.",
-      "explanation_en": "書[서] relates to books or writing; 架[가] relates to a frame or rack. 서가 is a bookshelf. Notice that 家[가] and 架[가] share the sound 가 but contribute different meanings.",
+      "explanation_ko": "書[서]는 ‘책·글’, 架[가]는 물건을 올려놓는 틀과 관련돼요. 책을 꽂아 두는 선반이 서가예요. 책을 올려놓는 용도를 문맥의 단서로 살펴보세요.",
+      "explanation_en": "書[서] relates to books or writing, and 架[가] to a frame or stand. 서가 is a bookshelf. Its purpose of holding books is the context clue.",
       "difficulty": "easy"
     },
     {
@@ -473,7 +473,7 @@
     },
     {
       "id": "batch-001-013",
-      "prompt_ko": "실내 예식에 들어가기 전에 안내에 따라 쓰고 있던 모자를 벗었어요. 이 행동에 맞는 한자어는 무엇일까요?",
+      "prompt_ko": "실내 예식에 들어가기 전에 안내에 따라 쓰고 있던 모자를 벗었어요. 이 행동을 나타내는 단어는 무엇일까요?",
       "prompt_en": "Following the instructions before an indoor ceremony, a person removed their hat. Which word describes this action?",
       "answer": {
         "word": "탈모",
@@ -481,20 +481,20 @@
       },
       "options": [
         {
-          "word": "탈모",
-          "hanja": "脫毛"
+          "word": "포장",
+          "hanja": "包裝"
         },
         {
-          "word": "제모",
-          "hanja": "制帽"
+          "word": "부착",
+          "hanja": "附着"
         },
         {
           "word": "탈모",
           "hanja": "脫帽"
         }
       ],
-      "explanation_ko": "이 문맥의 탈모(脫[탈]帽[모])는 모자를 벗는 일이에요. 머리카락이 빠지는 탈모와 소리는 같지만, 모자를 벗었다는 문맥으로 구별해요.",
-      "explanation_en": "Here 탈모 means taking off a hat. It sounds the same as the word for hair loss, but removing a hat is the distinguishing clue.",
+      "explanation_ko": "탈모(脫[탈]帽[모])는 쓰고 있던 모자를 벗는 일이에요. 안내에 따라 모자를 벗었다는 행동이 정답의 단서예요.",
+      "explanation_en": "탈모 means taking off a hat. The instruction to remove the hat is the context clue.",
       "difficulty": "hard"
     },
     {
@@ -545,8 +545,8 @@
           "hanja": "石鏃"
         }
       ],
-      "explanation_ko": "이 문맥의 유시(流[유]矢[시])는 어디서 날아왔는지 분명하지 않거나 목표를 벗어난 화살이에요. 시간을 나타내는 같은 소리의 단어와 구별해요.",
-      "explanation_en": "Here 유시 means a stray arrow with an unclear origin or one that has missed its target. It is different from the identically pronounced term for a time of day.",
+      "explanation_ko": "유시(流[유]矢[시])는 어디서 날아왔는지 분명하지 않거나 목표를 벗어난 화살이에요. 병사가 피한 것이 화살 전체라는 점과 날아온 곳을 알 수 없었다는 점이 단서예요.",
+      "explanation_en": "유시 means a stray arrow with an unclear origin or one that has missed its target. The soldier avoids the whole arrow and cannot tell where it came from.",
       "difficulty": "hard"
     },
     {
@@ -645,12 +645,12 @@
           "hanja": "疾走"
         },
         {
-          "word": "소요",
-          "hanja": "騷擾"
+          "word": "등산",
+          "hanja": "登山"
         }
       ],
-      "explanation_ko": "이 문맥의 소요(逍[소]遙[요])는 일정한 목적 없이 자유롭게 거니는 일이에요. 여러 사람이 떠들며 질서를 어지럽히는 소요와는 다른 말이에요.",
-      "explanation_en": "Here 소요 means strolling freely at leisure. It differs from the identically pronounced word for a noisy disturbance of public order.",
+      "explanation_ko": "소요(逍[소]遙[요])는 일정한 목적 없이 자유롭게 거니는 일이에요. 목적지를 정하지 않고 숲길을 천천히 걸었다는 내용이 단서예요.",
+      "explanation_en": "소요 means strolling freely at leisure. Walking slowly without a fixed destination is the clue; 질주 is running fast and 등산 is climbing a mountain.",
       "difficulty": "hard"
     },
     {
@@ -889,8 +889,8 @@
     },
     {
       "id": "batch-001-029",
-      "prompt_ko": "문어적인 글에서 단순히 ‘그 뒤’가 아니라 ‘그 일을 마친 다음에야 비로소’라는 관계를 나타내려고 해요. 알맞은 한자 표기는 무엇일까요?",
-      "prompt_en": "In a literary text, the writer wants to express only after something is completed, rather than simply later. Which word and character combination fits?",
+      "prompt_ko": "문어적인 글에서 준비를 모두 마친 다음에야 비로소 출발했다고 했어요. 준비와 출발의 이런 순서를 나타내는 말은 무엇일까요?",
+      "prompt_en": "A literary passage says that someone departed only after all preparations were complete. Which word expresses this sequence?",
       "answer": {
         "word": "이후",
         "hanja": "而後"
@@ -901,16 +901,16 @@
           "hanja": "以前"
         },
         {
-          "word": "이후",
-          "hanja": "以後"
+          "word": "동시",
+          "hanja": "同時"
         },
         {
           "word": "이후",
           "hanja": "而後"
         }
       ],
-      "explanation_ko": "여기서는 ‘그다음에야 비로소’라는 뜻의 이후(而[이]後[후])가 맞아요. 시간상 뒤를 넓게 가리키는 같은 소리의 단어와 의미를 구별해요.",
-      "explanation_en": "The intended 이후 expresses only after a preceding event has happened. It is distinguished from the identically pronounced term that broadly means afterward.",
+      "explanation_ko": "이후(而[이]後[후])는 여기서 어떤 일이 이루어진 다음에야 비로소라는 순서를 나타내요. 준비를 모두 마친 뒤에 출발했다는 문맥이 단서예요.",
+      "explanation_en": "이후 here expresses only after a preceding event has happened. Finishing all preparations before departure provides the clue.",
       "difficulty": "hard"
     },
     {
@@ -1417,8 +1417,8 @@
       },
       "options": [
         {
-          "word": "반원",
-          "hanja": "半圓"
+          "word": "관객",
+          "hanja": "觀客"
         },
         {
           "word": "반원",
@@ -1429,8 +1429,8 @@
           "hanja": "班長"
         }
       ],
-      "explanation_ko": "반원(班[반]員[원])은 같은 학급이나 작업반 등에 속한 구성원이에요. 반장은 대표의 직책이고, 반원은 반에 속한 사람을 두루 가리켜요.",
-      "explanation_en": "반원 means a member of a class or working group. 반장 is the leader's position, while 반원 includes the group's members generally.",
+      "explanation_ko": "반원(班[반]員[원])은 같은 학급이나 작업반 등에 속한 구성원이에요. 반장은 대표의 직책이고, 반원은 대표를 포함해 반에 속한 사람을 두루 가리켜요.",
+      "explanation_en": "반원 means a member of a class or working group. 반장 is the leader, while 반원 refers to the members generally, including the leader.",
       "difficulty": "easy"
     },
     {
@@ -1469,8 +1469,8 @@
       },
       "options": [
         {
-          "word": "양육",
-          "hanja": "羊肉"
+          "word": "방목",
+          "hanja": "放牧"
         },
         {
           "word": "교육",
@@ -1481,8 +1481,8 @@
           "hanja": "養育"
         }
       ],
-      "explanation_ko": "양육(養[양]育[육])은 아이 등을 보살펴 기르는 일이에요. 지식을 가르치는 활동만이 아니라 생활을 돌보며 성장하도록 돕는 일을 포함해요.",
-      "explanation_en": "양육 means raising and caring for a child. It includes everyday care and support for growth, beyond teaching knowledge alone.",
+      "explanation_ko": "양육(養[양]育[육])은 아이 등을 보살펴 기르는 일이에요. 밥을 먹이고 아플 때 돌보며 성장하도록 돕는다는 생활 속 단서를 살펴보세요.",
+      "explanation_en": "양육 means raising and caring for a child. Feeding the child and caring for them as they grow are the everyday-care clues.",
       "difficulty": "easy"
     },
     {
@@ -1729,8 +1729,8 @@
       },
       "options": [
         {
-          "word": "도장",
-          "hanja": "圖章"
+          "word": "창고",
+          "hanja": "倉庫"
         },
         {
           "word": "목장",
@@ -1741,8 +1741,8 @@
           "hanja": "屠場"
         }
       ],
-      "explanation_ko": "이 문맥의 도장(屠[도]場[장])은 가축을 잡는 곳을 줄여 이르는 말이에요. 문서에 찍는 도장이나 가축을 기르는 목장과 구별해요.",
-      "explanation_en": "Here 도장 is an abbreviated term for a slaughterhouse. It differs from a stamp or seal and from a farm where livestock are raised.",
+      "explanation_ko": "도장(屠[도]場[장])은 가축을 잡는 곳을 줄여 이르는 말이에요. 가축을 기르는 목장과 물건을 보관하는 창고의 용도를 함께 비교해 보세요.",
+      "explanation_en": "도장 is an abbreviated term for a slaughterhouse. Compare its purpose with 목장, where livestock are raised, and 창고, where goods are stored.",
       "difficulty": "hard"
     },
     {
@@ -2179,12 +2179,12 @@
           "hanja": "市井"
         },
         {
-          "word": "시정",
-          "hanja": "是正"
+          "word": "산촌",
+          "hanja": "山村"
         }
       ],
-      "explanation_ko": "이 문맥의 시정(市[시]井[정])은 사람들이 모여 사는 거리나 저자예요. 잘못을 바로잡는다는 뜻의 시정과는 다른 말이에요.",
-      "explanation_en": "Here 시정 refers to a marketplace or the streets of everyday town life. It differs from the identically pronounced word meaning correction.",
+      "explanation_ko": "시정(市[시]井[정])은 사람들이 모여 사는 거리나 저자를 뜻해요. 평범한 사람들이 물건을 사고팔며 살아가는 모습이 단서예요.",
+      "explanation_en": "시정 refers to a marketplace or the streets of everyday town life. Ordinary people living and trading there provide the clue.",
       "difficulty": "hard"
     },
     {
@@ -2721,16 +2721,16 @@
           "hanja": "硯臺"
         },
         {
-          "word": "연대",
-          "hanja": "連帶"
+          "word": "연적",
+          "hanja": "硯滴"
         },
         {
           "word": "서가",
           "hanja": "書架"
         }
       ],
-      "explanation_ko": "이 문맥의 연대(硯[연]臺[대])는 벼루를 올려놓는 받침이나 대예요. 서로 힘을 합한다는 뜻의 같은 소리의 단어와 구별해요.",
-      "explanation_en": "Here 연대 means an inkstone stand. It differs from the identically pronounced word for solidarity.",
+      "explanation_ko": "연대(硯[연]臺[대])는 벼루를 올려놓는 받침이나 대예요. 연적은 벼루에 물을 따르는 작은 그릇이고, 서가는 책을 올려두는 틀이에요.",
+      "explanation_en": "연대 is an inkstone stand. 연적 is a small vessel for pouring water onto an inkstone, and 서가 is a bookshelf.",
       "difficulty": "hard"
     },
     {
@@ -2977,8 +2977,8 @@
       },
       "options": [
         {
-          "word": "시가",
-          "hanja": "媤家"
+          "word": "농촌",
+          "hanja": "農村"
         },
         {
           "word": "시청",
@@ -2989,8 +2989,8 @@
           "hanja": "市街"
         }
       ],
-      "explanation_ko": "시가(市[시]街[가])는 집과 가게가 밀집한 도시의 거리나 구역이에요. 市[시]와 街[가]가 도시와 거리를 가리켜요. 같은 소리의 시가(媤[시]家[가])는 남편의 집안이에요.",
-      "explanation_en": "시가: An urban area of closely packed streets and buildings. 市[시] and 街[가] point to a city and its streets. 시가 written 媤[시]家[가] instead means a husband's family.",
+      "explanation_ko": "시가(市[시]街[가])는 집과 가게가 밀집한 도시의 거리나 구역이에요. 도시의 여러 거리가 펼쳐져 있다는 문맥이 단서예요.",
+      "explanation_en": "시가 is an urban area of closely packed streets and buildings. The view of many city streets is the clue, while 시청 names the city administration or its building.",
       "difficulty": "medium"
     },
     {
@@ -3055,8 +3055,8 @@
       },
       "options": [
         {
-          "word": "분장",
-          "hanja": "分掌"
+          "word": "포장",
+          "hanja": "包裝"
         },
         {
           "word": "무장",
@@ -3067,8 +3067,8 @@
           "hanja": "扮裝"
         }
       ],
-      "explanation_ko": "분장(扮[분]裝[장])은 배역이나 목적에 맞게 얼굴과 차림을 꾸미는 일이에요. 扮[분]과 裝[장]은 꾸밈과 관련돼요. 업무를 나누어 맡는 분장(分[분]掌[장])과 구별해요.",
-      "explanation_en": "분장: Making up and dressing for a role. 扮[분] and 裝[장] relate to dressing or adorning. 분장 written 分[분]掌[장] means dividing responsibilities.",
+      "explanation_ko": "분장(扮[분]裝[장])은 배역이나 목적에 맞게 얼굴과 차림을 꾸미는 일이에요. 배우가 노인 역할에 맞춰 주름과 가발로 모습을 바꿨다는 점이 단서예요.",
+      "explanation_en": "분장 means making up and dressing for a role. The actor changes their appearance with wrinkles and a wig to portray an elderly character.",
       "difficulty": "medium"
     },
     {
@@ -3137,16 +3137,16 @@
           "hanja": "伯爵"
         },
         {
-          "word": "공작",
-          "hanja": "孔雀"
+          "word": "후작",
+          "hanja": "侯爵"
         },
         {
           "word": "공작",
           "hanja": "公爵"
         }
       ],
-      "explanation_ko": "공작(公[공]爵[작])은 오등작 제도에서 가장 높은 귀족 작위예요. 爵[작]은 작위를 뜻해요. 화려한 깃을 가진 새인 공작(孔[공]雀[작])과 한자도 뜻도 달라요.",
-      "explanation_en": "공작: The highest rank in the five-rank nobility system, commonly translated as duke. 爵[작] means a noble title. 공작 written 孔[공]雀[작] is a peacock.",
+      "explanation_ko": "공작(公[공]爵[작])은 오등작 제도에서 가장 높은 귀족 작위예요. 이 제도에서 후작은 둘째, 백작은 셋째 등급이에요.",
+      "explanation_en": "공작 is the highest title in the five-rank nobility system. In that system, 후작 is second and 백작 is third.",
       "difficulty": "hard"
     },
     {
@@ -3263,20 +3263,20 @@
       },
       "options": [
         {
-          "word": "정수",
-          "hanja": "井水"
+          "word": "장식",
+          "hanja": "裝飾"
         },
         {
           "word": "정수",
           "hanja": "精粹"
         },
         {
-          "word": "정수",
-          "hanja": "淨水"
+          "word": "명예",
+          "hanja": "名譽"
         }
       ],
-      "explanation_ko": "정수(精[정]粹[수])는 가장 순수하고 핵심적인 부분을 뜻해요. 精[정]과 粹[수]는 순수하고 정제된 것과 관련돼요. 물을 뜻하는 다른 한자의 정수와 구별해요.",
-      "explanation_en": "정수: The quintessence, or purest essential part. 精[정] and 粹[수] suggest purity and refinement. Other words pronounced 정수 concern water.",
+      "explanation_ko": "정수(精[정]粹[수])는 가장 순수하고 핵심적인 부분이에요. 짧은 시에 시인이 추구한 아름다움의 핵심이 담겼다는 평가가 단서예요.",
+      "explanation_en": "정수 means the purest, most essential part. The critic says the short poem captures the core of the poet's artistic vision.",
       "difficulty": "hard"
     },
     {
@@ -3497,8 +3497,8 @@
       },
       "options": [
         {
-          "word": "옥토",
-          "hanja": "沃土"
+          "word": "선녀",
+          "hanja": "仙女"
         },
         {
           "word": "옥토",
@@ -3509,8 +3509,8 @@
           "hanja": "太陽"
         }
       ],
-      "explanation_ko": "옥토(玉[옥]兔[토])는 달 속에 산다고 여기는 전설의 토끼예요. 兔[토]는 토끼를 뜻해요. 기름진 땅을 뜻하는 옥토(沃[옥]土[토])와 구별해요.",
-      "explanation_en": "옥토: The mythical rabbit believed to live on the moon. 兔[토] means rabbit. 옥토 written 沃[옥]土[토] instead means fertile land.",
+      "explanation_ko": "옥토(玉[옥]兔[토])는 달 속에 산다고 여기는 전설의 토끼예요. 달에서 절구질하는 토끼라는 이야기 속 모습이 단서예요.",
+      "explanation_en": "옥토 is the mythical rabbit believed to live on the moon. The rabbit pounding with a pestle in the tale is the clue.",
       "difficulty": "hard"
     },
     {
@@ -4099,16 +4099,16 @@
           "hanja": "聯隊"
         },
         {
-          "word": "연대",
-          "hanja": "連帶"
+          "word": "군량",
+          "hanja": "軍糧"
         },
         {
-          "word": "연대",
-          "hanja": "硯臺"
+          "word": "군창",
+          "hanja": "軍倉"
         }
       ],
-      "explanation_ko": "연대(聯[연]隊[대])는 여러 대대 등을 묶어 이루는 군대의 편성 단위예요. 聯[연]은 연합, 隊[대]는 부대와 관련돼요. 함께 책임지는 연대(連[연]帶[대])와 구별해요.",
-      "explanation_en": "연대: A regiment, a military unit grouping battalions. 聯[연] relates to joining and 隊[대] to a unit. 연대 written 連[연]帶[대] means solidarity or shared responsibility.",
+      "explanation_ko": "연대(聯[연]隊[대])는 여러 대대 등을 묶어 이루는 군대의 편성 단위예요. 군량은 군대의 식량, 군창은 군대의 물자를 보관하는 창고예요.",
+      "explanation_en": "연대 is a regiment, a military unit grouping battalions. 군량 is military food supplies, while 군창 is a military storehouse.",
       "difficulty": "hard"
     },
     {
@@ -4503,28 +4503,28 @@
     },
     {
       "id": "batch-002-068",
-      "prompt_ko": "옛 문장을 읽는데, 큰일을 앞둔 사람의 마음이 자꾸 흔들려 안정되지 않는다고 했어요. 이 상태를 나타내는 ‘요요’의 한자는 어느 것일까요?",
-      "prompt_en": "An old passage describes someone's mind repeatedly wavering before an important event. Which spelling of 요요 expresses this unsettled state?",
+      "prompt_ko": "옛 문장에서 큰일을 앞둔 사람의 마음이 자꾸 흔들려 안정되지 않는다고 했어요. 이 상태를 나타내는 말은 무엇일까요?",
+      "prompt_en": "An old passage describes someone's mind repeatedly wavering before an important event. Which word expresses this unsettled state?",
       "answer": {
         "word": "요요",
         "hanja": "搖搖"
       },
       "options": [
         {
-          "word": "요요",
-          "hanja": "遙遙"
+          "word": "평온",
+          "hanja": "平穩"
         },
         {
           "word": "요요",
           "hanja": "搖搖"
         },
         {
-          "word": "요요",
-          "hanja": "寥寥"
+          "word": "안정",
+          "hanja": "安靜"
         }
       ],
-      "explanation_ko": "요요(搖[요]搖[요])는 마음이나 사물이 자꾸 흔들려 안정되지 않은 상태를 나타내요. 搖[요]는 흔들림을 뜻해요. 멀다는 遙[요]나 쓸쓸하다는 寥[요]와 구별해요.",
-      "explanation_en": "요요: An unsettled or wavering state. 搖[요] means shaking. It differs from 遙[요], associated with distance, and 寥[요], associated with emptiness or solitude.",
+      "explanation_ko": "요요(搖[요]搖[요])는 마음이나 사물이 자꾸 흔들려 안정되지 않은 상태를 나타내요. 큰일을 앞두고 마음이 흔들린다는 문장의 단서를 살펴보세요.",
+      "explanation_en": "요요 describes an unsettled or wavering state. The mind repeatedly wavering before an important event is the context clue.",
       "difficulty": "hard"
     },
     {
@@ -4927,8 +4927,8 @@
       },
       "options": [
         {
-          "word": "가설",
-          "hanja": "假說"
+          "word": "점검",
+          "hanja": "點檢"
         },
         {
           "word": "철거",
@@ -4939,8 +4939,8 @@
           "hanja": "架設"
         }
       ],
-      "explanation_ko": "가설(架[가]設[설])은 다리나 전선 등의 시설을 설치하는 일이에요. 架[가]는 걸쳐 세움, 設[설]은 설치함과 관련돼요. 아직 검증되지 않은 설명인 가설(假[가]說[설])과 구별해요.",
-      "explanation_en": "가설: Erecting or installing a structure or facility. 架[가] suggests putting up and 設[설] installing. 가설 written 假[가]說[설] instead means a hypothesis.",
+      "explanation_ko": "가설(架[가]設[설])은 다리나 전선 등의 시설을 설치하는 일이에요. 골짜기 양쪽을 잇도록 다리를 새로 설치하는 행동이 단서예요.",
+      "explanation_en": "가설 means erecting or installing a structure such as a bridge or wires. Installing the bridge is the clue; 점검 is inspection and 철거 is removal.",
       "difficulty": "medium"
     },
     {
@@ -5005,8 +5005,8 @@
       },
       "options": [
         {
-          "word": "문구",
-          "hanja": "文句"
+          "word": "식기",
+          "hanja": "食器"
         },
         {
           "word": "가구",
@@ -5017,8 +5017,8 @@
           "hanja": "文具"
         }
       ],
-      "explanation_ko": "문구(文[문]具[구])는 글을 쓰거나 공부할 때 쓰는 용품이에요. 文[문]은 글, 具[구]는 도구와 관련돼요. 글의 구절을 뜻하는 문구(文[문]句[구])와 구별해요.",
-      "explanation_en": "문구: Stationery and writing supplies. 文[문] relates to writing and 具[구] to tools. 문구 written 文[문]句[구] instead means a phrase or wording.",
+      "explanation_ko": "문구(文[문]具[구])는 글을 쓰거나 공부할 때 쓰는 용품이에요. 공책과 연필, 지우개를 함께 묶는 공통된 용도가 단서예요.",
+      "explanation_en": "문구 means stationery and writing supplies. Notebooks, pencils, and erasers share the purpose of writing and studying.",
       "difficulty": "easy"
     },
     {
@@ -5273,12 +5273,12 @@
           "hanja": "信賴"
         },
         {
-          "word": "신호",
-          "hanja": "呻呼"
+          "word": "소음",
+          "hanja": "騷音"
         }
       ],
-      "explanation_ko": "신호(信[신]號[호])는 정해진 방식으로 뜻이나 정보를 알리는 표시예요. 號[호]는 표시나 부름과 관련돼요. 신음하며 부르는 신호(呻[신]呼[호])와 구별해요.",
-      "explanation_en": "신호: A signal conveying information in an agreed way. 號[호] relates to a sign or call. 신호 written 呻[신]呼[호] instead concerns groaning or crying out.",
+      "explanation_ko": "신호(信[신]號[호])는 정해진 방식으로 뜻이나 정보를 알리는 표시예요. 짧은 휘슬 소리가 출발을 뜻하도록 미리 약속했다는 점이 단서예요.",
+      "explanation_en": "신호 is a signal conveying information in an agreed way. Everyone agreed in advance that one short whistle would mean start.",
       "difficulty": "easy"
     },
     {
@@ -5317,20 +5317,20 @@
       },
       "options": [
         {
-          "word": "연대",
-          "hanja": "聯隊"
+          "word": "고립",
+          "hanja": "孤立"
         },
         {
-          "word": "연대",
-          "hanja": "硯臺"
+          "word": "경쟁",
+          "hanja": "競爭"
         },
         {
           "word": "연대",
           "hanja": "連帶"
         }
       ],
-      "explanation_ko": "연대(連[연]帶[대])는 공동의 목적을 위해 힘을 합치거나 함께 책임을 지는 일이에요. 連[연]은 이음, 帶[대]는 연결하는 띠를 떠올리게 해요. 군대 단위인 연대(聯[연]隊[대])와 구별해요.",
-      "explanation_en": "연대: Solidarity or shared responsibility for a common purpose. 連[연] suggests connection and 帶[대] a binding band. 연대 written 聯[연]隊[대] is a military regiment.",
+      "explanation_ko": "연대(連[연]帶[대])는 공동의 목적을 위해 힘을 합치거나 함께 책임을 지는 일이에요. 주민들이 서로 돕고 책임을 나누기로 했다는 내용이 단서예요.",
+      "explanation_en": "연대 means solidarity or shared responsibility for a common purpose. The residents support one another and agree to share responsibility.",
       "difficulty": "medium"
     },
     {
@@ -6699,16 +6699,16 @@
           "hanja": "姪壻"
         },
         {
-          "word": "질서",
-          "hanja": "秩序"
+          "word": "질부",
+          "hanja": "姪婦"
         },
         {
           "word": "질녀",
           "hanja": "姪女"
         }
       ],
-      "explanation_ko": "질서(姪[질]壻[서])는 조카딸의 남편을 뜻해요. 姪[질]은 조카, 壻[서]는 사위를 뜻하는 글자예요. 차례나 규칙적인 상태를 뜻하는 질서(秩[질]序[서])와 구별해요.",
-      "explanation_en": "질서: A niece's husband. 姪[질] relates to a niece or nephew and 壻[서] to a son-in-law. 질서 written 秩[질]序[서] instead means order.",
+      "explanation_ko": "질서(姪[질]壻[서])는 조카딸의 남편이에요. 질녀는 조카딸, 질부는 조카의 아내를 가리켜요. 소개한 사람이 조카딸과 결혼한 남편이라는 관계를 살펴보세요.",
+      "explanation_en": "질서 means a niece's husband. 질녀 means niece, and 질부 means a nephew's wife. The person being introduced is married to the speaker's niece.",
       "difficulty": "hard"
     },
     {
@@ -6799,8 +6799,8 @@
       },
       "options": [
         {
-          "word": "비명",
-          "hanja": "碑銘"
+          "word": "환호",
+          "hanja": "歡呼"
         },
         {
           "word": "비명",
@@ -6811,8 +6811,8 @@
           "hanja": "共鳴"
         }
       ],
-      "explanation_ko": "비명(悲[비]鳴[명])은 놀라거나 고통스러워 크게 외치는 소리예요. 悲[비]와 鳴[명]은 슬픔이나 울음과 관련돼요. 비석에 새긴 글인 비명(碑[비]銘[명])과 구별해요.",
-      "explanation_en": "비명: A scream or cry of distress. 悲[비] and 鳴[명] relate to sorrow and crying. 비명 written 碑[비]銘[명] is an inscription on a monument.",
+      "explanation_ko": "비명(悲[비]鳴[명])은 놀라거나 고통스러워 크게 외치는 소리예요. 갑자기 나타난 그림자에 놀라 소리를 질렀다는 상황이 단서예요.",
+      "explanation_en": "비명 means a scream or cry of distress. The sudden shadow startles the person into crying out.",
       "difficulty": "easy"
     },
     {
@@ -6877,8 +6877,8 @@
       },
       "options": [
         {
-          "word": "계류",
-          "hanja": "繫留"
+          "word": "호수",
+          "hanja": "湖水"
         },
         {
           "word": "계류",
@@ -6889,8 +6889,8 @@
           "hanja": "暖流"
         }
       ],
-      "explanation_ko": "계류(溪[계]流[류])는 산골짜기를 따라 흐르는 물이에요. 溪[계]는 시내, 流[류]는 흐름을 뜻해요. 배를 매어 두는 계류(繫[계]留[류])와 구별해요.",
-      "explanation_en": "계류: A mountain stream. 溪[계] means stream and 流[류] flow. 계류 written 繫[계]留[류] instead refers to mooring or securing something.",
+      "explanation_ko": "계류(溪[계]流[류])는 산골짜기를 따라 흐르는 물이에요. 등산길 옆 골짜기의 흐르는 물이라는 위치와 모습을 함께 살펴보세요.",
+      "explanation_en": "계류 means a mountain stream. Both the mountain-valley location and the flowing water are clues; 호수 is a lake and 난류 is a warm ocean current.",
       "difficulty": "hard"
     },
     {
@@ -7011,16 +7011,16 @@
           "hanja": "講壇"
         },
         {
-          "word": "강단",
-          "hanja": "剛斷"
+          "word": "좌석",
+          "hanja": "座席"
         },
         {
           "word": "화단",
           "hanja": "花壇"
         }
       ],
-      "explanation_ko": "강단(講[강]壇[단])은 강의나 강연을 할 때 올라서는 높게 만든 자리예요. 講[강]은 강의함, 壇[단]은 단을 뜻해요. 굳센 결단을 뜻하는 강단(剛[강]斷[단])과 구별해요.",
-      "explanation_en": "강단: A raised platform for lecturing. 講[강] relates to a lecture and 壇[단] to a platform. 강단 written 剛[강]斷[단] means firmness or decisive resolve.",
+      "explanation_ko": "강단(講[강]壇[단])은 강의나 강연을 할 때 올라서는 높게 만든 자리예요. 교수가 학생들 앞에서 강의하도록 높여 놓은 곳이라는 설명이 단서예요.",
+      "explanation_en": "강단 is a raised platform for lecturing. The elevated place from which the professor addresses the students is the clue.",
       "difficulty": "easy"
     },
     {
@@ -7137,8 +7137,8 @@
       },
       "options": [
         {
-          "word": "농담",
-          "hanja": "濃淡"
+          "word": "비평",
+          "hanja": "批評"
         },
         {
           "word": "상담",
@@ -7149,8 +7149,8 @@
           "hanja": "弄談"
         }
       ],
-      "explanation_ko": "농담(弄[농]談[담])은 재미로 하거나 실없이 놀리는 말이에요. 弄[농]은 장난함, 談[담]은 말을 뜻해요. 색의 짙고 옅음인 농담(濃[농]淡[담])과 구별해요.",
-      "explanation_en": "농담: A joke or playful remark. 弄[농] relates to play and 談[담] to speech. 농담 written 濃[농]淡[담] means variations in color intensity.",
+      "explanation_ko": "농담(弄[농]談[담])은 재미로 하거나 실없이 놀리는 말이에요. 친구가 분위기를 즐겁게 하려고 재미있는 말을 했다는 의도가 단서예요.",
+      "explanation_en": "농담 means a joke or playful remark. The friend intends to make the atmosphere cheerful with something amusing.",
       "difficulty": "easy"
     },
     {
@@ -7293,20 +7293,20 @@
       },
       "options": [
         {
-          "word": "문단",
-          "hanja": "文段"
+          "word": "학계",
+          "hanja": "學界"
         },
         {
-          "word": "화단",
-          "hanja": "花壇"
+          "word": "관객",
+          "hanja": "觀客"
         },
         {
           "word": "문단",
           "hanja": "文壇"
         }
       ],
-      "explanation_ko": "문단(文[문]壇[단])은 문학 작품을 창작하는 사람들이 활동하는 사회예요. 文[문]은 문학, 壇[단]은 여기서 활동하는 무대를 나타내요. 글의 단락인 문단(文[문]段[단])과 구별해요.",
-      "explanation_en": "문단: The literary world. 文[문] relates to literature and 壇[단] here to an arena of activity. 문단 written 文[문]段[단] instead means a paragraph.",
+      "explanation_ko": "문단(文[문]壇[단])은 문학 작품을 창작하는 사람들이 활동하는 사회예요. 소설가와 작가, 비평가가 작품을 중심으로 활동한다는 내용이 단서예요.",
+      "explanation_en": "문단 means the literary world. Novelists, other writers, and critics taking part in literary activity provide the clue.",
       "difficulty": "hard"
     },
     {

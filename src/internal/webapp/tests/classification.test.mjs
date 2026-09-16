@@ -37,7 +37,8 @@ test('graph categories have visible text, distinct classes and accessible labels
   for(const edge of layout.edges) assert.equal(edge.height,60);
 });
 
-const questions=Array.from({length:36},(_,i)=>({id:`q-${i}`,difficulty:['easy','medium','hard'][i%3],word_level:i<18?'normal':'classical',answer:i%2?classical:normal,options:[normal,classical]}));
+const quizWords=[{word:'가격',hanja:'價格'},{word:'내손',hanja:'乃孫'}];
+const questions=Array.from({length:36},(_,i)=>({id:`q-${i}`,difficulty:['easy','medium','hard'][i%3],word_level:i<18?'normal':'classical',answer:quizWords[i<18?0:1],options:quizWords}));
 test('practice combines difficulty and category before sampling and retains settings through grading',()=>{
   const before=JSON.stringify(questions);
   for(const difficulty of ['all','easy','medium','hard']) for(const level of ['all','normal','classical']) {
