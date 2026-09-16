@@ -125,7 +125,7 @@
 {"type": "character", "id": "go-003", "hanja": "故", "meaning_ko": ["옛", "연고", "까닭", "사고", "일부러"], "meaning_en": ["old", "cause", "incident", "deliberately"]}
 {"type": "character", "id": "go-004", "hanja": "考", "meaning_ko": ["상고하다", "생각하다", "살피다"], "meaning_en": ["to consider", "to examine"]}
 {"type": "character", "id": "go-005", "hanja": "苦", "meaning_ko": ["쓰다", "괴롭다"], "meaning_en": ["bitter", "painful"]}
-{"type": "character", "id": "go-006", "hanja": "高", "meaning_ko": ["높다"], "meaning_en": ["high", "tall"]}
+{"type": "character", "id": "go-006", "hanja": "高", "meaning_ko": ["높다", "총량", "액수"], "meaning_en": ["high", "tall", "total amount", "sum"]}
 {"type": "character", "id": "go-100", "hanja": "姑", "meaning_ko": ["시어미", "고모", "잠시"], "meaning_en": ["mother-in-law", "paternal aunt", "for the time being"]}
 {"type": "character", "id": "go-101", "hanja": "孤", "meaning_ko": ["외롭다", "홀로", "부모를 잃은 아이"], "meaning_en": ["lonely", "orphan", "alone"]}
 {"type": "character", "id": "go-102", "hanja": "庫", "meaning_ko": ["곳집", "창고"], "meaning_en": ["warehouse", "storehouse"]}
@@ -394,7 +394,7 @@
 {"type": "character", "id": "rang-000", "hanja": "浪", "meaning_ko": ["물결", "떠돌다", "함부로 하다"], "meaning_en": ["wave", "to wander", "to act recklessly"]}
 {"type": "character", "id": "rang-001", "hanja": "郞", "meaning_ko": ["사내", "관리"], "meaning_en": ["young man", "official"]}
 {"type": "character", "id": "rang-100", "hanja": "廊", "meaning_ko": ["복도", "곁채"], "meaning_en": ["corridor", "hallway", "side building"]}
-{"type": "character", "id": "rae-000", "hanja": "來", "meaning_ko": ["오다"], "meaning_en": ["to come"]}
+{"type": "character", "id": "rae-000", "hanja": "來", "meaning_ko": ["오다", "어조사"], "meaning_en": ["to come", "Classical Chinese particle"]}
 {"type": "character", "id": "raeng-000", "hanja": "冷", "meaning_ko": ["차갑다"], "meaning_en": ["cold", "cool"]}
 {"type": "character", "id": "ryak-100", "hanja": "掠", "meaning_ko": ["노략질하다"], "meaning_en": ["to plunder", "to raid"]}
 {"type": "character", "id": "ryak-101", "hanja": "略", "meaning_ko": ["다스리다", "간략하다", "줄이다", "빼앗다"], "meaning_en": ["strategy", "brief", "to omit", "to seize"]}
@@ -982,7 +982,7 @@
 {"type": "character", "id": "ya-100", "hanja": "耶", "meaning_ko": ["어조사", "음역에 쓰이다"], "meaning_en": ["interrogative particle", "used in transliterations"]}
 {"type": "character", "id": "yak-000", "hanja": "弱", "meaning_ko": ["약하다"], "meaning_en": ["weak"]}
 {"type": "character", "id": "yak-001", "hanja": "約", "meaning_ko": ["약속하다", "줄이다"], "meaning_en": ["promise", "agreement", "to reduce"]}
-{"type": "character", "id": "yak-002", "hanja": "若", "meaning_ko": ["같다"], "meaning_en": ["like", "if"]}
+{"type": "character", "id": "yak-002", "hanja": "若", "meaning_ko": ["같다", "너", "그대"], "meaning_en": ["like", "if", "you in Classical Chinese"]}
 {"type": "character", "id": "yak-003", "hanja": "藥", "meaning_ko": ["약"], "meaning_en": ["medicine"]}
 {"type": "character", "id": "yak-100", "hanja": "躍", "meaning_ko": ["뛰다"], "meaning_en": ["to leap", "to jump"]}
 {"type": "character", "id": "yang-000", "hanja": "揚", "meaning_ko": ["오르다", "날리다"], "meaning_en": ["to raise", "to spread"]}
@@ -1154,7 +1154,7 @@
 {"type": "character", "id": "yu-103", "hanja": "悠", "meaning_ko": ["멀다"], "meaning_en": ["distant", "leisurely"]}
 {"type": "character", "id": "yu-104", "hanja": "惟", "meaning_ko": ["생각하다", "오직"], "meaning_en": ["to think", "think", "only"]}
 {"type": "character", "id": "yu-105", "hanja": "愈", "meaning_ko": ["낫다", "더욱"], "meaning_en": ["to recover", "better", "more; increasingly"]}
-{"type": "character", "id": "yu-106", "hanja": "維", "meaning_ko": ["매다", "실", "어조사"], "meaning_en": ["to tie", "to maintain", "fiber", "grammatical particle"]}
+{"type": "character", "id": "yu-106", "hanja": "維", "meaning_ko": ["매다", "실", "어조사"], "meaning_en": ["to tie", "to maintain", "fiber", "grammatical particle", "Classical Chinese function word"]}
 {"type": "character", "id": "yu-107", "hanja": "裕", "meaning_ko": ["넉넉하다"], "meaning_en": ["abundant", "wealthy"]}
 {"type": "character", "id": "yu-108", "hanja": "誘", "meaning_ko": ["꾀다"], "meaning_en": ["to entice", "to induce"]}
 {"type": "character", "id": "yuk-000", "hanja": "肉", "meaning_ko": ["고기"], "meaning_en": ["meat", "flesh"]}
@@ -1402,7 +1402,7 @@
 {"type": "character", "id": "jeung-103", "hanja": "贈", "meaning_ko": ["보내다", "주다"], "meaning_en": ["to present", "to give"]}
 {"type": "character", "id": "ji-000", "hanja": "之", "meaning_ko": ["가다"], "meaning_en": ["to go", "of"]}
 {"type": "character", "id": "ji-001", "hanja": "只", "meaning_ko": ["다만"], "meaning_en": ["only"]}
-{"type": "character", "id": "ji-002", "hanja": "地", "meaning_ko": ["땅"], "meaning_en": ["earth", "land"]}
+{"type": "character", "id": "ji-002", "hanja": "地", "meaning_ko": ["땅", "부사적 표현에 쓰는 글자"], "meaning_en": ["earth", "land", "character used in adverbial expressions"]}
 {"type": "character", "id": "ji-003", "hanja": "志", "meaning_ko": ["뜻"], "meaning_en": ["will", "intention"]}
 {"type": "character", "id": "ji-004", "hanja": "持", "meaning_ko": ["가지다"], "meaning_en": ["to hold", "to possess"]}
 {"type": "character", "id": "ji-005", "hanja": "指", "meaning_ko": ["손가락", "가리키다"], "meaning_en": ["finger", "to point"]}
@@ -1622,7 +1622,7 @@
 {"type": "character", "id": "pye-000", "hanja": "閉", "meaning_ko": ["닫다"], "meaning_en": ["to close"]}
 {"type": "character", "id": "pye-100", "hanja": "幣", "meaning_ko": ["비단", "화폐"], "meaning_en": ["currency", "silk", "money"]}
 {"type": "character", "id": "pye-101", "hanja": "廢", "meaning_ko": ["폐하다"], "meaning_en": ["to abolish", "waste"]}
-{"type": "character", "id": "pye-102", "hanja": "弊", "meaning_ko": ["폐단"], "meaning_en": ["evil", "abuse"]}
+{"type": "character", "id": "pye-102", "hanja": "弊", "meaning_ko": ["폐단", "해지다", "쇠약하다"], "meaning_en": ["evil", "abuse", "wear out", "be weakened"]}
 {"type": "character", "id": "pye-103", "hanja": "肺", "meaning_ko": ["허파"], "meaning_en": ["lung"]}
 {"type": "character", "id": "pye-104", "hanja": "蔽", "meaning_ko": ["덮다"], "meaning_en": ["to cover", "to conceal"]}
 {"type": "character", "id": "po-000", "hanja": "布", "meaning_ko": ["베"], "meaning_en": ["cloth", "to spread"]}
@@ -1630,14 +1630,14 @@
 {"type": "character", "id": "po-100", "hanja": "包", "meaning_ko": ["싸다"], "meaning_en": ["to wrap", "package"]}
 {"type": "character", "id": "po-101", "hanja": "捕", "meaning_ko": ["사로잡다"], "meaning_en": ["to catch", "to capture"]}
 {"type": "character", "id": "po-102", "hanja": "浦", "meaning_ko": ["물가"], "meaning_en": ["shore", "beach"]}
-{"type": "character", "id": "po-103", "hanja": "胞", "meaning_ko": ["태보"], "meaning_en": ["placenta", "cell"]}
+{"type": "character", "id": "po-103", "hanja": "胞", "meaning_ko": ["태보", "세포", "동포"], "meaning_en": ["placenta", "cell", "compatriot"]}
 {"type": "character", "id": "po-104", "hanja": "飽", "meaning_ko": ["배부르다"], "meaning_en": ["full", "satiated"]}
 {"type": "character", "id": "pok-000", "hanja": "暴", "meaning_ko": ["사납다"], "meaning_en": ["violent", "violent"]}
 {"type": "character", "id": "pok-100", "hanja": "幅", "meaning_ko": ["너비"], "meaning_en": ["width", "breadth"]}
 {"type": "character", "id": "pok-101", "hanja": "爆", "meaning_ko": ["터지다"], "meaning_en": ["to explode"]}
 {"type": "character", "id": "pyo-000", "hanja": "表", "meaning_ko": ["겉", "나타내다"], "meaning_en": ["surface", "to express"]}
 {"type": "character", "id": "pyo-100", "hanja": "標", "meaning_ko": ["표"], "meaning_en": ["mark", "sign"]}
-{"type": "character", "id": "pyo-101", "hanja": "漂", "meaning_ko": ["떠돌다"], "meaning_en": ["to drift"]}
+{"type": "character", "id": "pyo-101", "hanja": "漂", "meaning_ko": ["떠돌다", "빨다", "표백하다"], "meaning_en": ["to drift", "wash", "bleach"]}
 {"type": "character", "id": "pyo-102", "hanja": "票", "meaning_ko": ["표"], "meaning_en": ["ticket", "vote"]}
 {"type": "character", "id": "pum-000", "hanja": "品", "meaning_ko": ["물건"], "meaning_en": ["goods", "quality"]}
 {"type": "character", "id": "pung-000", "hanja": "豐", "meaning_ko": ["풍년"], "meaning_en": ["abundant", "rich harvest"]}
@@ -1661,7 +1661,7 @@
 {"type": "character", "id": "hak-100", "hanja": "鶴", "meaning_ko": ["학"], "meaning_en": ["crane"]}
 {"type": "character", "id": "han-000", "hanja": "寒", "meaning_ko": ["차다"], "meaning_en": ["cold"]}
 {"type": "character", "id": "han-001", "hanja": "恨", "meaning_ko": ["한"], "meaning_en": ["resentment", "regret"]}
-{"type": "character", "id": "han-002", "hanja": "漢", "meaning_ko": ["한수"], "meaning_en": ["Han River", "Chinese"]}
+{"type": "character", "id": "han-002", "hanja": "漢", "meaning_ko": ["한수", "한자", "한족"], "meaning_en": ["Han River", "Chinese", "Chinese writing", "Han Chinese"]}
 {"type": "character", "id": "han-003", "hanja": "閑", "meaning_ko": ["막다", "한가하다"], "meaning_en": ["idle", "quiet"]}
 {"type": "character", "id": "han-004", "hanja": "限", "meaning_ko": ["한계"], "meaning_en": ["limit"]}
 {"type": "character", "id": "han-005", "hanja": "韓", "meaning_ko": ["나라 이름"], "meaning_en": ["Korea"]}
@@ -1682,9 +1682,9 @@
 {"type": "character", "id": "hae-001", "hanja": "害", "meaning_ko": ["해치다"], "meaning_en": ["to harm"]}
 {"type": "character", "id": "hae-002", "hanja": "海", "meaning_ko": ["바다"], "meaning_en": ["sea", "ocean"]}
 {"type": "character", "id": "hae-003", "hanja": "解", "meaning_ko": ["풀다"], "meaning_en": ["to solve", "to untie"]}
-{"type": "character", "id": "hae-100", "hanja": "奚", "meaning_ko": ["어찌"], "meaning_en": ["why", "what"]}
+{"type": "character", "id": "hae-100", "hanja": "奚", "meaning_ko": ["어찌", "종", "옛 민족 이름"], "meaning_en": ["why", "what", "servant", "name of an ancient people"]}
 {"type": "character", "id": "hae-101", "hanja": "該", "meaning_ko": ["그", "갖추다", "널리 통하다"], "meaning_en": ["the said", "to comprise", "to be broadly versed"]}
-{"type": "character", "id": "haek-100", "hanja": "核", "meaning_ko": ["씨"], "meaning_en": ["core", "nucleus"]}
+{"type": "character", "id": "haek-100", "hanja": "核", "meaning_ko": ["씨", "핵", "중심"], "meaning_en": ["core", "nucleus"]}
 {"type": "character", "id": "haeng-000", "hanja": "幸", "meaning_ko": ["다행"], "meaning_en": ["fortune", "luck"]}
 {"type": "character", "id": "haeng-001", "hanja": "行", "meaning_ko": ["다니다", "영업 기관"], "meaning_en": ["to go", "conduct", "business establishment"]}
 {"type": "character", "id": "hyang-000", "hanja": "向", "meaning_ko": ["향하다"], "meaning_en": ["to face", "toward"]}
@@ -1696,14 +1696,14 @@
 {"type": "character", "id": "heo-001", "hanja": "許", "meaning_ko": ["허락하다"], "meaning_en": ["to permit", "to allow"]}
 {"type": "character", "id": "heon-100", "hanja": "憲", "meaning_ko": ["법"], "meaning_en": ["constitution", "law"]}
 {"type": "character", "id": "heon-101", "hanja": "獻", "meaning_ko": ["바치다"], "meaning_en": ["to offer", "to dedicate"]}
-{"type": "character", "id": "heon-102", "hanja": "軒", "meaning_ko": ["추녀"], "meaning_en": ["eaves", "carriage"]}
+{"type": "character", "id": "heon-102", "hanja": "軒", "meaning_ko": ["추녀", "마루", "높다", "높은 수레"], "meaning_en": ["eaves", "carriage", "veranda", "lofty", "high carriage"]}
 {"type": "character", "id": "heom-100", "hanja": "險", "meaning_ko": ["험하다"], "meaning_en": ["dangerous", "steep"]}
 {"type": "character", "id": "heom-101", "hanja": "驗", "meaning_ko": ["시험하다"], "meaning_en": ["to test", "to verify"]}
 {"type": "character", "id": "hyeok-000", "hanja": "革", "meaning_ko": ["가죽"], "meaning_en": ["leather", "reform"]}
 {"type": "character", "id": "hyeon-000", "hanja": "現", "meaning_ko": ["나타나다"], "meaning_en": ["to appear", "present"]}
 {"type": "character", "id": "hyeon-001", "hanja": "賢", "meaning_ko": ["어질다"], "meaning_en": ["wise", "virtuous"]}
 {"type": "character", "id": "hyeon-100", "hanja": "懸", "meaning_ko": ["매달다"], "meaning_en": ["to hang"]}
-{"type": "character", "id": "hyeon-101", "hanja": "玄", "meaning_ko": ["검다"], "meaning_en": ["black", "mysterious"]}
+{"type": "character", "id": "hyeon-101", "hanja": "玄", "meaning_ko": ["검다", "깊고 오묘하다"], "meaning_en": ["black", "mysterious", "profound"]}
 {"type": "character", "id": "hyeon-102", "hanja": "絃", "meaning_ko": ["악기 줄"], "meaning_en": ["string", "cord"]}
 {"type": "character", "id": "hyeon-103", "hanja": "縣", "meaning_ko": ["고을"], "meaning_en": ["county", "district"]}
 {"type": "character", "id": "hyeon-104", "hanja": "顯", "meaning_ko": ["나타나다"], "meaning_en": ["to reveal", "obvious"]}
@@ -1716,7 +1716,7 @@
 {"type": "character", "id": "hyeong-001", "hanja": "刑", "meaning_ko": ["형벌"], "meaning_en": ["punishment"]}
 {"type": "character", "id": "hyeong-002", "hanja": "形", "meaning_ko": ["모양"], "meaning_en": ["shape", "form"]}
 {"type": "character", "id": "hyeong-100", "hanja": "亨", "meaning_ko": ["형통하다"], "meaning_en": ["prosperous", "smooth"]}
-{"type": "character", "id": "hyeong-101", "hanja": "螢", "meaning_ko": ["반디"], "meaning_en": ["firefly"]}
+{"type": "character", "id": "hyeong-101", "hanja": "螢", "meaning_ko": ["반디", "형광 관련 용어에 쓰는 글자"], "meaning_en": ["firefly", "character used in terms for fluorescence"]}
 {"type": "character", "id": "hyeong-102", "hanja": "衡", "meaning_ko": ["저울대"], "meaning_en": ["balance beam", "to weigh"]}
 {"type": "character", "id": "hye-000", "hanja": "惠", "meaning_ko": ["은혜"], "meaning_en": ["grace", "favor"]}
 {"type": "character", "id": "hye-100", "hanja": "兮", "meaning_ko": ["어조사"], "meaning_en": ["exclamatory particle"]}
@@ -1729,7 +1729,7 @@
 {"type": "character", "id": "ho-005", "hanja": "虎", "meaning_ko": ["범"], "meaning_en": ["tiger"]}
 {"type": "character", "id": "ho-006", "hanja": "號", "meaning_ko": ["부르짖다", "표시"], "meaning_en": ["name", "to cry out", "sign", "symbol"]}
 {"type": "character", "id": "ho-100", "hanja": "互", "meaning_ko": ["서로"], "meaning_en": ["mutual", "each other"]}
-{"type": "character", "id": "ho-101", "hanja": "毫", "meaning_ko": ["가는 털"], "meaning_en": ["fine hair", "tiny amount"]}
+{"type": "character", "id": "ho-101", "hanja": "毫", "meaning_ko": ["가는 털", "붓", "아주 적다"], "meaning_en": ["fine hair", "tiny amount", "writing brush", "minute"]}
 {"type": "character", "id": "ho-102", "hanja": "浩", "meaning_ko": ["크다"], "meaning_en": ["vast", "great"]}
 {"type": "character", "id": "ho-103", "hanja": "胡", "meaning_ko": ["오랑캐"], "meaning_en": ["barbarian", "reckless"]}
 {"type": "character", "id": "ho-104", "hanja": "護", "meaning_ko": ["보호하다"], "meaning_en": ["to protect"]}
@@ -1744,7 +1744,7 @@
 {"type": "character", "id": "hong-000", "hanja": "紅", "meaning_ko": ["붉다"], "meaning_en": ["red"]}
 {"type": "character", "id": "hong-100", "hanja": "弘", "meaning_ko": ["넓다"], "meaning_en": ["broad", "vast"]}
 {"type": "character", "id": "hong-101", "hanja": "洪", "meaning_ko": ["큰물"], "meaning_en": ["flood", "vast"]}
-{"type": "character", "id": "hong-102", "hanja": "鴻", "meaning_ko": ["큰 기러기"], "meaning_en": ["large wild goose", "great"]}
+{"type": "character", "id": "hong-102", "hanja": "鴻", "meaning_ko": ["큰 기러기", "크다"], "meaning_en": ["large wild goose", "great"]}
 {"type": "character", "id": "hwa-000", "hanja": "化", "meaning_ko": ["되다", "변하다"], "meaning_en": ["to change", "to transform"]}
 {"type": "character", "id": "hwa-001", "hanja": "和", "meaning_ko": ["화하다"], "meaning_en": ["peace", "harmony"]}
 {"type": "character", "id": "hwa-002", "hanja": "火", "meaning_ko": ["불"], "meaning_en": ["fire"]}
@@ -1775,15 +1775,15 @@
 {"type": "character", "id": "hoe-101", "hanja": "懷", "meaning_ko": ["품다"], "meaning_en": ["to embrace", "bosom"]}
 {"type": "character", "id": "hoek-100", "hanja": "劃", "meaning_ko": ["긋다"], "meaning_en": ["to draw lines", "plan"]}
 {"type": "character", "id": "hoek-101", "hanja": "獲", "meaning_ko": ["얻다"], "meaning_en": ["to obtain", "capture"]}
-{"type": "character", "id": "hoeng-100", "hanja": "橫", "meaning_ko": ["가로"], "meaning_en": ["horizontal", "across"]}
+{"type": "character", "id": "hoeng-100", "hanja": "橫", "meaning_ko": ["가로", "멋대로 하다"], "meaning_en": ["horizontal", "across", "act arbitrarily"]}
 {"type": "character", "id": "hyo-000", "hanja": "孝", "meaning_ko": ["효도"], "meaning_en": ["filial piety"]}
 {"type": "character", "id": "hyo-001", "hanja": "效", "meaning_ko": ["본받다"], "meaning_en": ["effect", "to imitate"]}
-{"type": "character", "id": "hyo-100", "hanja": "曉", "meaning_ko": ["새벽"], "meaning_en": ["dawn", "to know"]}
+{"type": "character", "id": "hyo-100", "hanja": "曉", "meaning_ko": ["새벽", "깨닫다", "깨우치다"], "meaning_en": ["dawn", "to know", "understand", "enlighten"]}
 {"type": "character", "id": "hu-000", "hanja": "厚", "meaning_ko": ["두텁다"], "meaning_en": ["thick", "kind"]}
 {"type": "character", "id": "hu-001", "hanja": "後", "meaning_ko": ["뒤"], "meaning_en": ["after", "behind"]}
 {"type": "character", "id": "hu-100", "hanja": "侯", "meaning_ko": ["제후"], "meaning_en": ["feudal lord", "marquis"]}
 {"type": "character", "id": "hu-101", "hanja": "候", "meaning_ko": ["기후", "기다리다"], "meaning_en": ["climate", "to wait"]}
-{"type": "character", "id": "hun-000", "hanja": "訓", "meaning_ko": ["가르치다"], "meaning_en": ["instruction", "to teach"]}
+{"type": "character", "id": "hun-000", "hanja": "訓", "meaning_ko": ["가르치다", "한자의 뜻"], "meaning_en": ["instruction", "to teach", "meaning of a Chinese character"]}
 {"type": "character", "id": "hwe-100", "hanja": "毁", "meaning_ko": ["헐다"], "meaning_en": ["to destroy", "to ruin"]}
 {"type": "character", "id": "hwi-100", "hanja": "揮", "meaning_ko": ["휘두르다"], "meaning_en": ["to wave", "to command"]}
 {"type": "character", "id": "hwi-101", "hanja": "輝", "meaning_ko": ["빛나다"], "meaning_en": ["to shine", "brilliance"]}
@@ -1796,7 +1796,7 @@
 {"type": "character", "id": "heung-000", "hanja": "興", "meaning_ko": ["일어나다", "흥하다"], "meaning_en": ["to rise", "prosperity"]}
 {"type": "character", "id": "hui-000", "hanja": "喜", "meaning_ko": ["기쁘다"], "meaning_en": ["joy", "happy"]}
 {"type": "character", "id": "hui-001", "hanja": "希", "meaning_ko": ["바라다"], "meaning_en": ["hope", "rare"]}
-{"type": "character", "id": "hui-100", "hanja": "戲", "meaning_ko": ["놀이"], "meaning_en": ["play", "game"]}
+{"type": "character", "id": "hui-100", "hanja": "戲", "meaning_ko": ["놀이", "연극"], "meaning_en": ["play", "game", "drama"]}
 {"type": "character", "id": "hui-101", "hanja": "稀", "meaning_ko": ["드물다"], "meaning_en": ["rare", "sparse"]}
 {"type": "character", "id": "gyeol-200", "hanja": "訣", "meaning_ko": ["이별하다", "비결", "요령"], "meaning_en": ["farewell", "secret", "key method", "knack"]}
 {"type": "character", "id": "geun-200", "hanja": "筋", "meaning_ko": ["힘줄"], "meaning_en": ["muscle", "tendon"]}
@@ -2202,3 +2202,40 @@
 {"type": "character", "id": "so-204", "hanja": "沼", "meaning_ko": ["늪"], "meaning_en": ["marsh"]}
 {"type": "character", "id": "gu-203", "hanja": "嘔", "meaning_ko": ["게우다"], "meaning_en": ["to vomit"]}
 {"type": "character", "id": "sa-202", "hanja": "瀉", "meaning_ko": ["쏟다", "설사하다"], "meaning_en": ["to pour out", "to have diarrhea"]}
+{"type": "character", "id": "bae-201", "hanja": "北", "meaning_ko": ["달아나다", "패하다"], "meaning_en": ["flee", "be defeated"]}
+{"type": "character", "id": "chong-200", "hanja": "塚", "meaning_ko": ["무덤"], "meaning_en": ["burial mound"]}
+{"type": "character", "id": "jip-200", "hanja": "輯", "meaning_ko": ["모으다", "엮다"], "meaning_en": ["collect", "compile"]}
+{"type": "character", "id": "chan-202", "hanja": "纂", "meaning_ko": ["모으다", "엮다"], "meaning_en": ["compile"]}
+{"type": "character", "id": "baek-201", "hanja": "帛", "meaning_ko": ["비단"], "meaning_en": ["silk"]}
+{"type": "character", "id": "heo-200", "hanja": "墟", "meaning_ko": ["터", "폐허"], "meaning_en": ["site", "ruins"]}
+{"type": "character", "id": "cha-203", "hanja": "遮", "meaning_ko": ["가리다", "막다"], "meaning_en": ["shield", "block"]}
+{"type": "character", "id": "eom-200", "hanja": "掩", "meaning_ko": ["가리다", "덮다"], "meaning_en": ["conceal", "cover"]}
+{"type": "character", "id": "gim-200", "hanja": "金", "meaning_ko": ["성씨", "지명에 쓰는 독음"], "meaning_en": ["surname Kim", "reading used in place names"]}
+{"type": "character", "id": "gyo-201", "hanja": "僑", "meaning_ko": ["타향에 살다"], "meaning_en": ["reside abroad"]}
+{"type": "character", "id": "ji-203", "hanja": "識", "meaning_ko": ["표지", "기록하다"], "meaning_en": ["mark", "record"]}
+{"type": "character", "id": "yo-205", "hanja": "饒", "meaning_ko": ["넉넉하다"], "meaning_en": ["abundant"]}
+{"type": "character", "id": "bu-203", "hanja": "膚", "meaning_ko": ["살갗"], "meaning_en": ["skin"]}
+{"type": "character", "id": "bal-201", "hanja": "魃", "meaning_ko": ["가뭄", "가뭄 귀신"], "meaning_en": ["drought", "drought spirit"]}
+{"type": "character", "id": "jeong-205", "hanja": "穽", "meaning_ko": ["구덩이", "함정"], "meaning_en": ["pit", "trap"]}
+{"type": "character", "id": "yeo-202", "hanja": "閭", "meaning_ko": ["마을", "마을 어귀"], "meaning_en": ["village", "village gate"]}
+{"type": "character", "id": "yung-201", "hanja": "融", "meaning_ko": ["녹다", "합하다"], "meaning_en": ["melt", "fuse"]}
+{"type": "character", "id": "ga-201", "hanja": "嘉", "meaning_ko": ["아름답다", "기리다"], "meaning_en": ["excellent", "praise"]}
+{"type": "character", "id": "yeong-207", "hanja": "穎", "meaning_ko": ["이삭", "뛰어나다"], "meaning_en": ["ear of grain", "outstanding"]}
+{"type": "character", "id": "yeok-202", "hanja": "力", "meaning_ko": ["힘"], "meaning_en": ["strength"]}
+{"type": "character", "id": "chu-201", "hanja": "騅", "meaning_ko": ["검푸른 말", "항우의 말 이름"], "meaning_en": ["dark piebald horse", "Xiang Yu's steed"]}
+{"type": "character", "id": "u-200", "hanja": "虞", "meaning_ko": ["헤아리다", "우나라", "성씨"], "meaning_en": ["consider", "ancient state of Yu", "surname Yu"]}
+{"type": "character", "id": "yeol-204", "hanja": "說", "meaning_ko": ["기쁘다"], "meaning_en": ["be pleased"]}
+{"type": "character", "id": "ban-200", "hanja": "畔", "meaning_ko": ["가장자리", "밭두둑"], "meaning_en": ["edge", "field ridge"]}
+{"type": "character", "id": "ri-200", "hanja": "釐", "meaning_ko": ["작은 단위", "다스리다"], "meaning_en": ["small unit", "govern"]}
+{"type": "character", "id": "han-200", "hanja": "瀚", "meaning_ko": ["넓다"], "meaning_en": ["vast"]}
+{"type": "character", "id": "du-200", "hanja": "桃", "meaning_ko": ["복숭아", "호두에서 쓰이는 변한 독음"], "meaning_en": ["peach", "altered reading in the word for walnut"]}
+{"type": "character", "id": "i-211", "hanja": "離", "meaning_ko": ["떠나다", "헤어지다"], "meaning_en": ["leave", "separate"]}
+{"type": "character", "id": "baek-202", "hanja": "魄", "meaning_ko": ["넋"], "meaning_en": ["soul"]}
+{"type": "character", "id": "gok-200", "hanja": "鵠", "meaning_ko": ["고니"], "meaning_en": ["swan"]}
+{"type": "character", "id": "hu-201", "hanja": "后", "meaning_ko": ["임금", "왕비"], "meaning_en": ["ruler", "queen consort"]}
+{"type": "character", "id": "mu-201", "hanja": "蕪", "meaning_ko": ["풀이 우거지다", "거칠다"], "meaning_en": ["overgrown", "uncultivated"]}
+{"type": "character", "id": "po-208", "hanja": "暴", "meaning_ko": ["사납다"], "meaning_en": ["violent"]}
+{"type": "character", "id": "bang-201", "hanja": "謗", "meaning_ko": ["헐뜯다"], "meaning_en": ["slander"]}
+{"type": "character", "id": "hwang-203", "hanja": "煌", "meaning_ko": ["빛나다"], "meaning_en": ["shine"]}
+{"type": "character", "id": "chan-203", "hanja": "燦", "meaning_ko": ["빛나다", "찬란하다"], "meaning_en": ["brilliant", "radiant"]}
+{"type": "character", "id": "geum-200", "hanja": "襟", "meaning_ko": ["옷깃", "마음"], "meaning_en": ["collar", "heart"]}
