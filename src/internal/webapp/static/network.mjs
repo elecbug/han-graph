@@ -38,10 +38,7 @@ export function layoutNetwork(network, selected) {
     width:Math.max(92, Math.max([...word.word].length,[...word.hanja].length)*15+26), height:60,
   }));
   const angle = index => rootList.length===2 ? Math.PI+index*Math.PI : -Math.PI/2+index*2*Math.PI/rootList.length;
-  rootList.forEach((glyph,index) => {
-    const node=byGlyph.get(glyph), radius=rootList.length===1 ? 0 : rootList.length===2 ? 160 : 210;
-    Object.assign(node,{x:Math.cos(angle(index))*radius,y:Math.sin(angle(index))*radius,fixed:true});
-  });
+  const barbell=rootList.length===2;
   const groups = rootList.map(() => []);
   for (const node of nodes.filter(node=>!node.root)) {
     const touching=edges.filter(edge=>edge.glyphs.includes(node.hanja));
@@ -62,12 +59,20 @@ export function layoutNetwork(network, selected) {
     for(const node of group)visit(node);
     group.splice(0,group.length,...ordered);
   });
+  // Leave a clear bridge for the selected word, with a broad elliptical lobe
+  // around each root. Larger neighborhoods need more room on both sides.
+  const radii=groups.map(group=>270+Math.max(0,group.length-5)*(barbell?6:16));
+  const bridge=barbell?Math.max(360,Math.max(...radii)*1.25*Math.SQRT1_2+140):0;
+  rootList.forEach((glyph,index)=>{
+    const radius=rootList.length===1?0:barbell?bridge:210;
+    Object.assign(byGlyph.get(glyph),{x:Math.cos(angle(index))*radius,y:Math.sin(angle(index))*radius,fixed:true});
+  });
   groups.forEach((group,index) => group.forEach((node,i) => {
     const root=byGlyph.get(rootList[index]);
-    const spread=rootList.length===1 ? 2*Math.PI : Math.PI*0.85;
+    const spread=rootList.length===1 ? 2*Math.PI : barbell ? Math.PI*1.5 : Math.PI*0.85;
     const theta=angle(index)+(group.length===1 ? 0 : (i/(group.length-(rootList.length===1 ? 0 : 1))-0.5)*spread);
-    const radius=270+Math.max(0,group.length-5)*16;
-    Object.assign(node,{x:root.x+Math.cos(theta)*radius,y:root.y+Math.sin(theta)*radius});
+    const radius=radii[index];
+    Object.assign(node,{x:root.x+Math.cos(theta)*radius*(barbell?1.25:1),y:root.y+Math.sin(theta)*radius*(barbell?0.8:1)});
   }));
   edges.forEach(edge => {
     const ends=edge.glyphs.map(glyph=>byGlyph.get(glyph));
@@ -105,7 +110,12 @@ export function layoutNetwork(network, selected) {
   }
   const particles=[...nodes,...edges];
   particles.forEach(p=>{p.homeX=p.x;p.homeY=p.y;});
-  const links=edges.flatMap(edge=>edge.glyphs.map(glyph=>[edge,byGlyph.get(glyph)]));
+  // Preserve the lobe spacing during relaxation instead of pulling every
+  // connection back to the same short length.
+  const links=edges.flatMap(edge=>edge.glyphs.map(glyph=>{
+    const node=byGlyph.get(glyph);
+    return [edge,node,barbell?Math.max(135,Math.hypot(edge.x-node.x,edge.y-node.y)):135];
+  }));
   for(let iteration=0;iteration<240;iteration++) {
     particles.forEach(p=>{p.fx=(p.homeX-p.x)*0.014;p.fy=(p.homeY-p.y)*0.014;});
     for(let i=0;i<particles.length;i++) for(let j=i+1;j<particles.length;j++) {
@@ -122,9 +132,9 @@ export function layoutNetwork(network, selected) {
         else {const push=Math.sign(dy)*overlapY*0.65;a.fy-=push;b.fy+=push;}
       }
     }
-    for(const [a,b] of links) {
+    for(const [a,b,length] of links) {
       const dx=b.x-a.x, dy=b.y-a.y, distance=Math.max(1,Math.hypot(dx,dy));
-      const force=(distance-135)*0.045;
+      const force=(distance-length)*0.045;
       a.fx+=dx/distance*force;a.fy+=dy/distance*force;
       b.fx-=dx/distance*force;b.fy-=dy/distance*force;
     }
