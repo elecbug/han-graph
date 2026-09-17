@@ -900,6 +900,20 @@ main:focus {
   font-size:13px;
   fill:#78866a
 }
+.word-hanja .form-hangul {
+  font-family:var(--font);
+  font-size:.72em;
+  font-weight:400;
+  color:var(--muted)
+}
+.word-hanja .form-hanja,.edge-hanja .form-hanja {
+  font-weight:700
+}
+.edge-hanja .form-hangul {
+  font-family:var(--font);
+  font-weight:400;
+  opacity:.85
+}
 .network-edge.current rect {
   fill:#385e43;
   stroke:#385e43

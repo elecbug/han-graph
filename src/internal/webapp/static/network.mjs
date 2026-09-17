@@ -1,6 +1,19 @@
 import {wordKey, WORD_LEVELS} from './learning.mjs';
 import {routeNetwork, roundedPath} from './network-routing.mjs';
 
+// Keep the written Korean portions of a mixed word visible without inventing
+// character nodes for them. Adjacent portions share one typographic treatment.
+export function wordFormParts(word) {
+  const glyphs=new Set(word.components), parts=[];
+  for(const text of word.hanja) {
+    const hanja=glyphs.has(text), previous=parts.at(-1);
+    if(previous?.hanja===hanja)previous.text+=text;
+    else parts.push({text,hanja});
+  }
+  return parts;
+}
+export const isMixedWord=word=>word.components.length>0 && /[가-힣]/u.test(word.hanja);
+
 // Preserve root characters for context, but prune unrelated leaves and words.
 export function filterNetwork(network, level='all') {
   if (!WORD_LEVELS.includes(level)) throw new RangeError('Invalid word category');
@@ -56,11 +69,10 @@ export function layoutNetwork(network, selected) {
     const radius=270+Math.max(0,group.length-5)*16;
     Object.assign(node,{x:root.x+Math.cos(theta)*radius,y:root.y+Math.sin(theta)*radius});
   }));
-  edges.forEach((edge,index) => {
+  edges.forEach(edge => {
     const ends=edge.glyphs.map(glyph=>byGlyph.get(glyph));
     edge.x=ends.reduce((sum,node)=>sum+node.x,0)/ends.length;
     edge.y=ends.reduce((sum,node)=>sum+node.y,0)/ends.length;
-    if(ends.length===1) {edge.x+=155;edge.y+=index*65-60;}
     edge.fixed=edge.current;
   });
   const parallel=new Map();
@@ -68,6 +80,20 @@ export function layoutNetwork(network, selected) {
     const key=JSON.stringify([...edge.glyphs].sort());
     if(!parallel.has(key))parallel.set(key,[]);
     parallel.get(key).push(edge);
+  }
+  // A one-character word is a leaf at its character, including mixed words
+  // such as 검은色. Its position depends only on siblings at that character,
+  // never on its index among all words (which created long dangling branches).
+  for(const group of parallel.values())if(group[0].glyphs.length===1) {
+    const node=byGlyph.get(group[0].glyphs[0]);
+    const ordered=[...group].sort((a,b)=>Number(b.current)-Number(a.current));
+    const radius=Math.max(155,ordered.reduce((sum,edge)=>sum+edge.width+28,0)/(2*Math.PI));
+    const start=angle(Math.max(0,rootList.indexOf(node.hanja)));
+    ordered.forEach((edge,index)=>{
+      const theta=start+index*2*Math.PI/ordered.length;
+      edge.x=node.x+Math.cos(theta)*radius;
+      edge.y=node.y+Math.sin(theta)*radius;
+    });
   }
   for(const group of parallel.values())if(group.length>1&&group[0].glyphs.length===2) {
     group.sort((a,b)=>Number(b.current)-Number(a.current));
@@ -171,7 +197,7 @@ export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단�
   const category=word=>word.level==='classical'?'classical':'normal';
   const categoryLabel=word=>lang==='ko'?(category(word)==='classical'?'고전·문어':'일반'):(category(word)==='classical'?'Classical':'General');
   const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${category(edge.word)} ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
-  const labels=layout.edges.map(edge=>`<a class="network-edge ${category(edge.word)} ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${esc(wordLabel)}: ${esc(edge.word.word)} (${esc(edge.word.hanja)}), ${categoryLabel(edge.word)}" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} · ${categoryLabel(edge.word)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="${-edge.height/2}" width="${edge.width}" height="${edge.height}" rx="7"/><text class="edge-word" y="-11">${esc(edge.word.word)}</text><text class="edge-hanja" y="6">${esc(edge.word.hanja)}</text><text class="edge-category" y="23">${categoryLabel(edge.word)}</text></a>`).join('');
+  const labels=layout.edges.map(edge=>`<a class="network-edge ${category(edge.word)} ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${esc(wordLabel)}: ${esc(edge.word.word)} (${esc(edge.word.hanja)}), ${categoryLabel(edge.word)}" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} · ${categoryLabel(edge.word)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="${-edge.height/2}" width="${edge.width}" height="${edge.height}" rx="7"/><text class="edge-word" y="-11">${esc(edge.word.word)}</text><text class="edge-hanja" y="6">${isMixedWord(edge.word)?wordFormParts(edge.word).map(part=>`<tspan class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</tspan>`).join(''):esc(edge.word.hanja)}</text><text class="edge-category" y="23">${categoryLabel(edge.word)}</text></a>`).join('');
   const nodes=layout.nodes.map(node=>{
     const sounds=[...new Set(node.readings.map(reading=>reading.sound_ko))].join(' / ');
     const meanings=node.readings.map(reading=>reading[lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / ');
