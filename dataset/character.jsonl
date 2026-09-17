@@ -2328,3 +2328,19 @@
 {"type": "character", "id": "dun-200", "hanja": "敦", "meaning_ko": ["중국 지명 둔황에 쓰는 글자"], "meaning_en": ["character used in the Chinese place name Dunhuang"]}
 {"type": "character", "id": "geuk-201", "hanja": "戟", "meaning_ko": ["갈래진 창"], "meaning_en": ["halberd", "branched spear"]}
 {"type": "character", "id": "dam-202", "hanja": "澹", "meaning_ko": ["맑다", "고요하다", "담박하다"], "meaning_en": ["clear", "calm", "plain"]}
+{"type": "character", "id": "myeon-200", "hanja": "麵", "meaning_ko": ["국수", "밀가루"], "meaning_en": ["noodles", "flour"]}
+{"type": "character", "id": "daek-200", "hanja": "宅", "meaning_ko": ["집", "거처"], "meaning_en": ["house", "residence"]}
+{"type": "character", "id": "byeong-200", "hanja": "甁", "meaning_ko": ["병"], "meaning_en": ["bottle"]}
+{"type": "character", "id": "seon-202", "hanja": "膳", "meaning_ko": ["음식", "차린 식사"], "meaning_en": ["food", "prepared meal"]}
+{"type": "character", "id": "ak-203", "hanja": "嶽", "meaning_ko": ["큰 산"], "meaning_en": ["high mountain"]}
+{"type": "character", "id": "geon-200", "hanja": "巾", "meaning_ko": ["수건", "천"], "meaning_en": ["towel", "cloth"]}
+{"type": "character", "id": "si-204", "hanja": "十", "meaning_ko": ["열"], "meaning_en": ["ten"]}
+{"type": "character", "id": "mal-200", "hanja": "襪", "meaning_ko": ["버선", "양말"], "meaning_en": ["stockings", "socks"]}
+{"type": "character", "id": "hwa-201", "hanja": "畵", "meaning_ko": ["그림", "그리다"], "meaning_en": ["picture", "to draw"]}
+{"type": "character", "id": "yu-208", "hanja": "六", "meaning_ko": ["여섯"], "meaning_en": ["six"]}
+{"type": "character", "id": "ui-202", "hanja": "椅", "meaning_ko": ["의자"], "meaning_en": ["chair"]}
+{"type": "character", "id": "jang-203", "hanja": "薔", "meaning_ko": ["장미"], "meaning_en": ["rose"]}
+{"type": "character", "id": "mi-200", "hanja": "薇", "meaning_ko": ["고비", "장미를 나타내는 글자"], "meaning_en": ["a kind of fern", "rose in compounds"]}
+{"type": "character", "id": "gap-201", "hanja": "匣", "meaning_ko": ["작은 상자"], "meaning_en": ["small box", "case"]}
+{"type": "character", "id": "ho-202", "hanja": "濠", "meaning_ko": ["해자"], "meaning_en": ["moat"]}
+{"type": "character", "id": "tong-201", "hanja": "桶", "meaning_ko": ["통"], "meaning_en": ["bucket", "container"]}

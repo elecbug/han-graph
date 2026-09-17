@@ -17,12 +17,13 @@ func (g *Graph) Neighborhood(query string) Neighborhood {
 			result.Roots = append(result.Roots, glyph)
 		}
 	}
-	for _, word := range g.FindWords(query) {
+	matchedWords := g.FindWords(query)
+	for _, word := range matchedWords {
 		for _, glyph := range word.Word.Components {
 			addRoot(glyph)
 		}
 	}
-	if len(result.Roots) == 0 {
+	if len(matchedWords) == 0 {
 		for _, character := range g.FindCharacters(query) {
 			addRoot(character.Hanja)
 		}

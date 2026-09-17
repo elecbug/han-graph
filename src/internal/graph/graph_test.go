@@ -202,12 +202,20 @@ func TestRepositoryWordComponentReadings(t *testing.T) {
 	}
 
 	for _, word := range g.words {
-		syllables := []rune(strings.ReplaceAll(word.Word, " ", ""))
-		if len(syllables) != len(word.Components) {
-			t.Errorf("%s (%s): %d syllables for %d components", word.Word, word.Hanja, len(syllables), len(word.Components))
+		if word.Hanja == "" {
 			continue
 		}
-		for i, glyph := range word.Components {
+		syllables := []rune(strings.ReplaceAll(word.Word, " ", ""))
+		form := []rune(word.Hanja)
+		if len(syllables) != len(form) {
+			t.Errorf("%s (%s): spelling length mismatch", word.Word, word.Hanja)
+			continue
+		}
+		for i, runeGlyph := range form {
+			glyph := string(runeGlyph)
+			if _, registered := g.characters[glyph]; !registered {
+				continue // Literal Korean parts have no Hanja reading.
+			}
 			matched := false
 			for _, character := range g.characters[glyph] {
 				if []rune(g.reading(character).SoundKo)[0] == syllables[i] {
@@ -215,7 +223,7 @@ func TestRepositoryWordComponentReadings(t *testing.T) {
 					break
 				}
 			}
-			allowed := word.Word == "곤란" && word.Hanja == "困難" && i == 1
+			allowed := (word.Word == "곤란" && word.Hanja == "困難" && i == 1) || (word.Word == "칫솔" && word.Hanja == "齒솔" && i == 0)
 			if !matched && !allowed {
 				t.Errorf("%s (%s): component %s has no %c reading", word.Word, word.Hanja, glyph, syllables[i])
 			}
@@ -951,7 +959,7 @@ func TestRepositoryContextualReadings(t *testing.T) {
 		{"累", map[string]string{"ru-104": "루", "nu-204": "누"}, map[string]string{"누적": "累[누]", "연루": "累[루]"}},
 		{"柳", map[string]string{"ryu-000": "류", "yu-201": "유"}, map[string]string{"유암화명": "柳[유]", "양류": "柳[류]"}},
 		{"留", map[string]string{"ryu-002": "류", "yu-202": "유"}, map[string]string{"유학": "留[유]", "계류": "留[류]"}},
-		{"六", map[string]string{"ryuk-000": "륙", "yuk-201": "육"}, map[string]string{"육하원칙": "六[육]", "육각": "六[육]"}},
+		{"六", map[string]string{"ryuk-000": "륙", "yuk-201": "육", "yu-208": "유"}, map[string]string{"육하원칙": "六[육]", "육각": "六[육]", "유월": "六[유]"}},
 		{"倫", map[string]string{"ryun-000": "륜", "yun-200": "윤"}, map[string]string{"윤리": "倫[윤]", "인륜": "倫[륜]"}},
 		{"輪", map[string]string{"ryun-100": "륜", "yun-201": "윤"}, map[string]string{"윤곽": "輪[윤]", "연륜": "輪[륜]"}},
 		{"律", map[string]string{"ryul-000": "률", "yul-200": "율"}, map[string]string{"계율": "律[율]", "법률": "律[률]", "운율": "律[율]"}},

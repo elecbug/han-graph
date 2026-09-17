@@ -3,6 +3,7 @@ package graph
 import (
 	"math/rand/v2"
 	"strings"
+	"unicode"
 )
 
 // Graph is a bipartite graph of hanja glyphs and (word, hanja) entries.
@@ -169,8 +170,14 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 		}
 		return false
 	}
-	for _, word := range g.words {
-		if matchesLevel(word, level) && matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
+	// Keep exact headwords visible even when hundreds of definitions match.
+	// Preserve source order within the exact and partial groups.
+	for _, exactPass := range []bool{true, false} {
+		for _, word := range g.words {
+			exact := query != "" && (strings.EqualFold(word.Word, query) || strings.EqualFold(word.Hanja, query))
+			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
+				continue
+			}
 			result.WordCount++
 			if len(result.Words) < limit {
 				result.Words = append(result.Words, word)
@@ -226,8 +233,9 @@ func (g *Graph) SearchSoundByLevel(query string, limit int, level string) Search
 		if !matchesLevel(word, level) {
 			continue
 		}
-		for _, sound := range word.Word {
-			if !sounds[sound] {
+		form := []rune(word.Hanja)
+		for i, sound := range []rune(strings.Join(strings.Fields(word.Word), "")) {
+			if i >= len(form) || !unicode.Is(unicode.Han, form[i]) || !sounds[sound] {
 				continue
 			}
 			result.WordCount++

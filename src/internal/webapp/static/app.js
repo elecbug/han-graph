@@ -25,7 +25,7 @@ const copy = {
     matchingQuestions:'선택 조건에 맞는 {count}문항', categoryLegend:'그래프 어휘 분류',
 
     downloadWords:'다운로드', uploadWords:'업로드', transferringWords:'파일 읽는 중…', wordbookHelp:'JSONL 파일로 단어장을 옮겨 보세요. 업로드하면 기존 목록에 합치고 중복은 제외해요.',
-    wordbookDownloaded:'단어장을 다운로드했어요.', wordbookImported:'{added}개를 추가했어요. 중복 {duplicates}개는 제외했어요.', wordbookInvalid:'{line}번째 줄을 확인해 주세요. word와 hanja가 있는 JSON 객체가 필요해요.', wordbookEmpty:'파일에 단어가 없어요.', wordbookSize:'1 MB 이하의 파일을 선택해 주세요.', wordbookLimit:'합친 단어장이 500개를 넘어요. 파일이나 단어장을 줄인 뒤 다시 시도해 주세요.', wordbookReadError:'파일을 읽지 못했어요. 다시 선택해 주세요.', wordbookDownloadError:'다운로드하지 못했어요. 다시 시도해 주세요.',
+    noHanja:'이 단어는 한자 구성 없이 뜻과 문맥으로 익혀 보세요.', wordbookDownloaded:'단어장을 다운로드했어요.', wordbookImported:'{added}개를 추가했어요. 중복 {duplicates}개는 제외했어요.', wordbookInvalid:'{line}번째 줄을 확인해 주세요. word와 hanja가 있는 JSON 객체가 필요해요.', wordbookEmpty:'파일에 단어가 없어요.', wordbookSize:'1 MB 이하의 파일을 선택해 주세요.', wordbookLimit:'합친 단어장이 500개를 넘어요. 파일이나 단어장을 줄인 뒤 다시 시도해 주세요.', wordbookReadError:'파일을 읽지 못했어요. 다시 선택해 주세요.', wordbookDownloadError:'다운로드하지 못했어요. 다시 시도해 주세요.',
     randomWord:'랜덤 단어', randomHint:'선택한 어휘 분류에서 무작위로 선택', randomLoading:'고르는 중…', randomError:'랜덤 단어를 불러오지 못했어요. 다시 눌러 주세요.',
     workspace:'나의 학습 공간', explore:'단어 탐색', practice:'문맥 연습', saved:'내 단어장', sidebarQuote:'한 글자를 이해하면,<br>더 많은 단어가 보여요.', sidebarSub:'작은 연결에서 시작하는 한국어', local:'나만의 한국어 학습 공간', footer:'하나의 단어에서 시작되는 새로운 이해.',
     exploreTitle:'뜻을 따라, 단어를 연결해요.', exploreSub:'하나의 한자를 이해하면, 새로운 단어가 보입니다.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'탐색할 단어', search:'단어, 한자, 뜻을 찾아보세요', clear:'검색 지우기', browseLabel:'작은 연결에서 시작해 보세요', words:'단어', characters:'한자', entries:'개', searchResults:'검색 결과', limited:'일부 결과를 표시하고 있어요. 검색어를 더 구체적으로 입력해 주세요.',
@@ -44,7 +44,7 @@ const copy = {
     matchingQuestions:'{count} questions match', categoryLegend:'Graph vocabulary categories',
 
     downloadWords:'Download', uploadWords:'Upload', transferringWords:'Reading file…', wordbookHelp:'Move your collection with a JSONL file. Uploads merge with your words and skip duplicates.',
-    wordbookDownloaded:'Your word collection was downloaded.', wordbookImported:'Added {added} words. Skipped {duplicates} duplicates.', wordbookInvalid:'Check line {line}. Each line needs a JSON object with word and hanja.', wordbookEmpty:'The file contains no words.', wordbookSize:'Choose a file no larger than 1 MB.', wordbookLimit:'The merged collection exceeds 500 words. Reduce the file or your collection and try again.', wordbookReadError:'Could not read the file. Please select it again.', wordbookDownloadError:'Could not download the file. Please try again.',
+    noHanja:'Learn this word through its meaning and context; no Hanja breakdown is provided.', wordbookDownloaded:'Your word collection was downloaded.', wordbookImported:'Added {added} words. Skipped {duplicates} duplicates.', wordbookInvalid:'Check line {line}. Each line needs a JSON object with word and hanja.', wordbookEmpty:'The file contains no words.', wordbookSize:'Choose a file no larger than 1 MB.', wordbookLimit:'The merged collection exceeds 500 words. Reduce the file or your collection and try again.', wordbookReadError:'Could not read the file. Please select it again.', wordbookDownloadError:'Could not download the file. Please try again.',
     randomWord:'Random word', randomHint:'Choose from the selected vocabulary category', randomLoading:'Choosing…', randomError:'Could not load a random word. Please try again.',
     workspace:'YOUR LEARNING SPACE', explore:'Explore', practice:'Practice', saved:'My words', sidebarQuote:'Understand one character.<br>Discover a world of words.', sidebarSub:'Korean, one connection at a time', local:'Your Korean learning space', footer:'A new understanding starts with one word.',
     exploreTitle:'Follow the meaning. Find a connection.', exploreSub:'Understand a character, and see Korean words in a new way.', exploreEye:'EXPLORE THE CONNECTIONS', wordsReady:'words to explore', search:'Search a word, character, or meaning', clear:'Clear search', browseLabel:'Start with a small connection', words:'Words', characters:'Characters', entries:'', searchResults:'Search results', limited:'Showing a selection. Refine your search to find more.',
@@ -239,17 +239,17 @@ async function loadDetail(selection) {
     let wordResult=null, glyph=selection.glyph;
     if(selection.kind==='word') {
       const results=await getJSON('/api/words',selection.word);
-      wordResult=results.find(result=>!selection.hanja || result.word.hanja===selection.hanja);
+      wordResult=results.find(result=>selection.hanja==null || result.word.hanja===selection.hanja);
       if(!wordResult)throw new RangeError('missing');
       glyph=wordResult.word.components.includes(state.glyph)?state.glyph:wordResult.word.components[0];
     }
     const [characters,network]=await Promise.all([
-      getJSON('/api/characters',glyph),
-      getJSON('/api/neighborhood',wordResult?.word.hanja ?? glyph),
+      glyph ? getJSON('/api/characters',glyph) : Promise.resolve([]),
+      wordResult && !wordResult.word.components.length ? Promise.resolve({roots:[],characters:[],words:[]}) : getJSON('/api/neighborhood',wordResult?.word.hanja ?? glyph),
     ]);
-    if(!characters.length)throw new RangeError('missing');
+    if(!wordResult && !characters.length)throw new RangeError('missing');
     if(epoch!==detailEpoch || state.page!=='explore')return;
-    state.glyph=characters[0].hanja;
+    state.glyph=characters[0]?.hanja ?? null;
     const visibleNetwork=filterNetwork(network,state.level);
     state.detail={wordResult,characters,network,visibleNetwork,layout:layoutNetwork(visibleNetwork,wordResult?.word),zoom:null};
     renderDetail();
@@ -268,12 +268,13 @@ function renderDetail() {
   if(wordResult) {
     const word=wordResult.word;
     card=`<div class="word-heading"><div class="word-heading-top"><span class="word-tags"><span class="tag">${t('wordTag')}</span>${levelBadge(word)}</span><button class="save-button ${isSaved(word)?'saved':''}" data-action="save" ${wordAttrs(word)} aria-pressed="${isSaved(word)}">${icons.bookmark}${t(isSaved(word)?'savedButton':'save')}</button></div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(word.word)}</h2><p class="word-meaning">${esc(meaning(word))}</p><p class="word-meaning-en">${esc(state.lang==='ko'?word.meaning_en:word.meaning_ko)}</p></div><span class="word-hanja" lang="ko">${esc(word.hanja)}</span></div></div>
-      <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>reading[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${word.semantic_hint?`<p class="semantic-hint">${esc(word.semantic_hint)}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t('readingNote')}</p></div>`;
+      <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>reading[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${word.semantic_hint?`<p class="semantic-hint">${esc(word.semantic_hint)}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t(word.components.length?'readingNote':'noHanja')}</p></div>`;
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span></div><div class="word-title-row"><div><h2 class="word-title">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</p><p class="word-meaning-en">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_en':'meaning_ko'].join(', ')).join(' / '))}</p></div><span class="word-hanja">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(c.meaning_ko.join(', '))} / ${esc(c.meaning_en.join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
   $('#detail').innerHTML=`<article class="word-card">${card}${wordResult&&state.level!=='all'&&wordResult.word.level!==state.level?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
   $('#network').innerHTML=renderNetwork();
+  if(!$('.network-viewport'))return;
   bindNetworkFocus($('.network-canvas svg'),state.detail.layout);
   sizeNetwork(undefined,position);
   bindNetworkDrag($('.network-viewport'), {
@@ -283,6 +284,7 @@ function renderDetail() {
 }
 function renderNetwork() {
   const {visibleNetwork:network,layout}=state.detail;
+  if(state.detail.wordResult && !state.detail.wordResult.word.components.length)return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2></div><p class="network-scope">${t('noHanja')}</p></section>`;
   const svg=renderNetworkSVG(layout,{lang:state.lang,highlighted:state.glyph,wordLabel:t('openWord'),characterLabel:t('characters'),label:t('graphRegion')});
   return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p>${levelControls()}<div class="category-legend" aria-label="${t('categoryLegend')}">${['normal','classical'].map(level=>`<span>${levelBadge({level})} ${network.words.filter(word=>word.level===level).length}</span>`).join('')}</div><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${t(state.detail.wordResult?'graphSelected':'characters')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t(state.level==='all'?'noConnectionsSub':'filteredEmpty')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
 }

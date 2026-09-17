@@ -1,0 +1,982 @@
+{"source_row": 2, "word": "가게", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 3, "word": "가깝다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 4, "word": "가끔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 5, "word": "가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 6, "word": "가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 7, "word": "가르치다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 8, "word": "가방", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 9, "word": "가볍다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 10, "word": "가수", "hanja": "歌手", "status": "existing"}
+{"source_row": 11, "word": "가슴", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 12, "word": "가운데", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 13, "word": "가을", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 14, "word": "가장", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 15, "word": "가져오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 16, "word": "가족", "hanja": "家族", "status": "existing"}
+{"source_row": 17, "word": "가지다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 18, "word": "가지다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 19, "word": "간호사", "hanja": "看護師", "status": "added"}
+{"source_row": 20, "word": "갈비", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 21, "word": "감기", "hanja": "感氣", "status": "added"}
+{"source_row": 22, "word": "감사", "hanja": "感謝", "status": "existing"}
+{"source_row": 23, "word": "감사", "hanja": "感謝", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 24, "word": "감사", "hanja": "感謝", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 25, "word": "갑자기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 26, "word": "값", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 27, "word": "강", "hanja": "江", "status": "added"}
+{"source_row": 28, "word": "같다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 29, "word": "같이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 30, "word": "개", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 31, "word": "개", "hanja": "個", "status": "added"}
+{"source_row": 32, "word": "개월", "hanja": "個月", "status": "added"}
+{"source_row": 33, "word": "거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 34, "word": "거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 35, "word": "거기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 36, "word": "거리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 37, "word": "거울", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 38, "word": "걱정", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 39, "word": "걱정하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 40, "word": "건강", "hanja": "健康", "status": "existing"}
+{"source_row": 41, "word": "건강", "hanja": "健康", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 42, "word": "건물", "hanja": "建物", "status": "added"}
+{"source_row": 43, "word": "걷다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 44, "word": "걸다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 45, "word": "걸어가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 46, "word": "걸어오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 47, "word": "검은색", "hanja": "검은色", "status": "added"}
+{"source_row": 48, "word": "것", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 49, "word": "게임", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 50, "word": "겨울", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 51, "word": "결혼", "hanja": "結婚", "status": "existing"}
+{"source_row": 52, "word": "결혼식", "hanja": "結婚式", "status": "added"}
+{"source_row": 53, "word": "결혼", "hanja": "結婚", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 54, "word": "경복궁", "hanja": "景福宮", "status": "existing"}
+{"source_row": 55, "word": "경주", "hanja": "慶州", "status": "added"}
+{"source_row": 56, "word": "경찰", "hanja": "警察", "status": "existing"}
+{"source_row": 57, "word": "경찰관", "hanja": "警察官", "status": "added"}
+{"source_row": 58, "word": "경찰서", "hanja": "警察署", "status": "existing"}
+{"source_row": 59, "word": "경치", "hanja": "景致", "status": "existing"}
+{"source_row": 60, "word": "계란", "hanja": "鷄卵", "status": "existing"}
+{"source_row": 61, "word": "계속", "hanja": "繼續", "status": "existing"}
+{"source_row": 62, "word": "계시다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 63, "word": "계시다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 64, "word": "계절", "hanja": "季節", "status": "existing"}
+{"source_row": 65, "word": "계획", "hanja": "計劃", "status": "existing"}
+{"source_row": 66, "word": "고기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 67, "word": "고등학교", "hanja": "高等學校", "status": "added"}
+{"source_row": 68, "word": "고등학생", "hanja": "高等學生", "status": "added"}
+{"source_row": 69, "word": "고맙다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 70, "word": "고양이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 71, "word": "고프다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 72, "word": "고향", "hanja": "故鄕", "status": "existing"}
+{"source_row": 73, "word": "곧", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 74, "word": "곳", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 75, "word": "공", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 76, "word": "공부", "hanja": "工夫", "status": "added"}
+{"source_row": 77, "word": "공부", "hanja": "工夫", "status": "added", "normalization": "strip_hada"}
+{"source_row": 78, "word": "공원", "hanja": "公園", "status": "existing"}
+{"source_row": 79, "word": "공중전화", "hanja": "公衆電話", "status": "added"}
+{"source_row": 80, "word": "공책", "hanja": "空冊", "status": "added"}
+{"source_row": 81, "word": "공항", "hanja": "空港", "status": "existing"}
+{"source_row": 82, "word": "공휴일", "hanja": "公休日", "status": "added"}
+{"source_row": 83, "word": "과", "hanja": "課", "status": "added"}
+{"source_row": 84, "word": "과일", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 85, "word": "과자", "hanja": "菓子", "status": "existing"}
+{"source_row": 86, "word": "괜찮다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 87, "word": "교과서", "hanja": "敎科書", "status": "added"}
+{"source_row": 88, "word": "교수", "hanja": "敎授", "status": "existing"}
+{"source_row": 89, "word": "교실", "hanja": "敎室", "status": "existing"}
+{"source_row": 90, "word": "교통", "hanja": "交通", "status": "existing"}
+{"source_row": 91, "word": "교회", "hanja": "敎會", "status": "added"}
+{"source_row": 92, "word": "구", "hanja": "九", "status": "added"}
+{"source_row": 93, "word": "구경", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 94, "word": "구두", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 95, "word": "구름", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 96, "word": "구십", "hanja": "九十", "status": "existing"}
+{"source_row": 97, "word": "구월", "hanja": "九月", "status": "existing"}
+{"source_row": 98, "word": "군인", "hanja": "軍人", "status": "existing"}
+{"source_row": 99, "word": "권", "hanja": "卷", "status": "added"}
+{"source_row": 100, "word": "귀", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 101, "word": "그", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 102, "word": "그", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 103, "word": "그", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 104, "word": "그거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 105, "word": "그것", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 106, "word": "그곳", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 107, "word": "그날", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 108, "word": "그동안", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 109, "word": "그때", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 110, "word": "그래", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 111, "word": "그래", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 112, "word": "그래서", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 113, "word": "그래서", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 114, "word": "그러나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 115, "word": "그러니까", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 116, "word": "그러면", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 117, "word": "그런데", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 118, "word": "그럼", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 119, "word": "그럼", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 120, "word": "그렇다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 121, "word": "그렇지만", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 122, "word": "그릇", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 123, "word": "그리고", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 124, "word": "그리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 125, "word": "그림", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 126, "word": "그분", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 127, "word": "그쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 128, "word": "극장", "hanja": "劇場", "status": "existing"}
+{"source_row": 129, "word": "근처", "hanja": "近處", "status": "added"}
+{"source_row": 130, "word": "금요일", "hanja": "金曜日", "status": "existing"}
+{"source_row": 131, "word": "급", "hanja": "級", "status": "added"}
+{"source_row": 132, "word": "기다리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 133, "word": "기분", "hanja": "氣分", "status": "added"}
+{"source_row": 134, "word": "기숙사", "hanja": "寄宿舍", "status": "existing"}
+{"source_row": 135, "word": "기차", "hanja": "汽車", "status": "existing"}
+{"source_row": 136, "word": "길", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 137, "word": "길다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 138, "word": "김밥", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 139, "word": "김치", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 140, "word": "깎다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 141, "word": "깨끗하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 142, "word": "꼭", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 143, "word": "꽃", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 144, "word": "꿈", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 145, "word": "끄다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 146, "word": "끝", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 147, "word": "끝나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 148, "word": "끝내다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 149, "word": "나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 150, "word": "나가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 151, "word": "나가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 152, "word": "나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 153, "word": "나라", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 154, "word": "나무", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 155, "word": "나쁘다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 156, "word": "나오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 157, "word": "나이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 158, "word": "나중", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 159, "word": "날", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 160, "word": "날다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 161, "word": "날씨", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 162, "word": "날짜", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 163, "word": "남녀", "hanja": "男女", "status": "existing"}
+{"source_row": 164, "word": "남대문", "hanja": "南大門", "status": "added"}
+{"source_row": 165, "word": "남대문시장", "hanja": "南大門市場", "status": "added"}
+{"source_row": 166, "word": "남동생", "hanja": "男동생", "status": "added"}
+{"source_row": 167, "word": "남자", "hanja": "男子", "status": "existing"}
+{"source_row": 168, "word": "남쪽", "hanja": "南쪽", "status": "added"}
+{"source_row": 169, "word": "남편", "hanja": "男便", "status": "added"}
+{"source_row": 170, "word": "남학생", "hanja": "男學生", "status": "added"}
+{"source_row": 171, "word": "낮", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 172, "word": "낮다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 173, "word": "내년", "hanja": "來年", "status": "added"}
+{"source_row": 174, "word": "내다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 175, "word": "내다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 176, "word": "내려가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 177, "word": "내려오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 178, "word": "내리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 179, "word": "내일", "hanja": "來日", "status": "existing"}
+{"source_row": 180, "word": "내일", "hanja": "來日", "status": "existing"}
+{"source_row": 181, "word": "냉면", "hanja": "冷麵", "status": "added"}
+{"source_row": 182, "word": "냉장고", "hanja": "冷藏庫", "status": "added"}
+{"source_row": 183, "word": "너", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 184, "word": "너무", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 185, "word": "넓다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 186, "word": "넣다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 187, "word": "네", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 188, "word": "네", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 189, "word": "넥타이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 190, "word": "넷", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 191, "word": "넷째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 192, "word": "넷째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 193, "word": "년", "hanja": "年", "status": "added"}
+{"source_row": 194, "word": "노란색", "hanja": "노란色", "status": "added"}
+{"source_row": 195, "word": "노래", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 196, "word": "노래하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 197, "word": "노트", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 198, "word": "놀다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 199, "word": "놀라다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 200, "word": "높다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 201, "word": "놓다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 202, "word": "놓다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 203, "word": "누구", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 204, "word": "누나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 205, "word": "눈", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 206, "word": "눈", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 207, "word": "눈물", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 208, "word": "뉴스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 209, "word": "늦다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 210, "word": "늦다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 211, "word": "다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 212, "word": "다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 213, "word": "다녀오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 214, "word": "다니다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 215, "word": "다르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 216, "word": "다른", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 217, "word": "다리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 218, "word": "다리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 219, "word": "다섯", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 220, "word": "다섯째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 221, "word": "다섯째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 222, "word": "다시", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 223, "word": "다음", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 224, "word": "닦다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 225, "word": "단어", "hanja": "單語", "status": "existing"}
+{"source_row": 226, "word": "닫다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 227, "word": "달", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 228, "word": "달", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 229, "word": "달다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 230, "word": "달러", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 231, "word": "달러", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 232, "word": "달력", "hanja": "달曆", "status": "added"}
+{"source_row": 233, "word": "닭", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 234, "word": "닭고기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 235, "word": "담배", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 236, "word": "대답", "hanja": "對答", "status": "existing"}
+{"source_row": 237, "word": "대답", "hanja": "對答", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 238, "word": "대사관", "hanja": "大使館", "status": "added"}
+{"source_row": 239, "word": "대학", "hanja": "大學", "status": "added"}
+{"source_row": 240, "word": "대학교", "hanja": "大學校", "status": "added"}
+{"source_row": 241, "word": "대학생", "hanja": "大學生", "status": "added"}
+{"source_row": 242, "word": "대화", "hanja": "對話", "status": "existing"}
+{"source_row": 243, "word": "댁", "hanja": "宅", "status": "added"}
+{"source_row": 244, "word": "더", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 245, "word": "덥다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 246, "word": "도서관", "hanja": "圖書館", "status": "existing"}
+{"source_row": 247, "word": "도시", "hanja": "都市", "status": "existing"}
+{"source_row": 248, "word": "도와주다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 249, "word": "도착", "hanja": "到着", "status": "existing"}
+{"source_row": 250, "word": "도착", "hanja": "到着", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 251, "word": "독일", "hanja": "獨逸", "status": "added"}
+{"source_row": 252, "word": "돈", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 253, "word": "돌아가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 254, "word": "돌아오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 255, "word": "돕다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 256, "word": "동물", "hanja": "動物", "status": "added"}
+{"source_row": 257, "word": "동생", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 258, "word": "동안", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 259, "word": "동쪽", "hanja": "東쪽", "status": "added"}
+{"source_row": 260, "word": "돼지", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 261, "word": "돼지고기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 262, "word": "되다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 263, "word": "두", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 264, "word": "둘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 265, "word": "둘째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 266, "word": "둘째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 267, "word": "뒤", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 268, "word": "드리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 269, "word": "드리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 270, "word": "듣다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 271, "word": "들다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 272, "word": "들다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 273, "word": "들어가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 274, "word": "들어오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 275, "word": "등산", "hanja": "登山", "status": "existing"}
+{"source_row": 276, "word": "따뜻하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 277, "word": "딸", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 278, "word": "딸기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 279, "word": "때", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 280, "word": "때문", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 281, "word": "떠나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 282, "word": "떡", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 283, "word": "또", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 284, "word": "똑같다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 285, "word": "똑바로", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 286, "word": "뛰다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 287, "word": "뛰다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 288, "word": "뜨겁다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 289, "word": "라디오", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 290, "word": "라면", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 291, "word": "러시아", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 292, "word": "마리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 293, "word": "마시다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 294, "word": "마음", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 295, "word": "마지막", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 296, "word": "마흔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 297, "word": "만", "hanja": "萬", "status": "added"}
+{"source_row": 298, "word": "만", "hanja": "萬", "status": "added"}
+{"source_row": 299, "word": "만나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 300, "word": "만들다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 301, "word": "많다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 302, "word": "많이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 303, "word": "말", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 304, "word": "말다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 305, "word": "말다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 306, "word": "말씀", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 307, "word": "말씀하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 308, "word": "말하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 309, "word": "맑다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 310, "word": "맛", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 311, "word": "맛없다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 312, "word": "맛있다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 313, "word": "매우", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 314, "word": "매일", "hanja": "每日", "status": "existing"}
+{"source_row": 315, "word": "매일", "hanja": "每日", "status": "existing"}
+{"source_row": 316, "word": "맥주", "hanja": "麥酒", "status": "existing"}
+{"source_row": 317, "word": "맵다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 318, "word": "머리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 319, "word": "먹다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 320, "word": "먹다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 321, "word": "먼저", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 322, "word": "멀다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 323, "word": "메뉴", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 324, "word": "며칠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 325, "word": "명", "hanja": "名", "status": "added"}
+{"source_row": 326, "word": "몇", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 327, "word": "몇", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 328, "word": "모두", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 329, "word": "모두", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 330, "word": "모든", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 331, "word": "모르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 332, "word": "모자", "hanja": "帽子", "status": "existing"}
+{"source_row": 333, "word": "목", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 334, "word": "목요일", "hanja": "木曜日", "status": "existing"}
+{"source_row": 335, "word": "목욕", "hanja": "沐浴", "status": "existing"}
+{"source_row": 336, "word": "몸", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 337, "word": "못", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 338, "word": "못하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 339, "word": "못하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 340, "word": "못하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 341, "word": "무겁다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 342, "word": "무슨", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 343, "word": "무엇", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 344, "word": "문", "hanja": "門", "status": "added"}
+{"source_row": 345, "word": "문제", "hanja": "問題", "status": "existing"}
+{"source_row": 346, "word": "묻다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 347, "word": "물", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 348, "word": "물건", "hanja": "物件", "status": "existing"}
+{"source_row": 349, "word": "물론", "hanja": "勿論", "status": "existing"}
+{"source_row": 350, "word": "물어보다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 351, "word": "뭐", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 352, "word": "뭐", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 353, "word": "미국", "hanja": "美國", "status": "added"}
+{"source_row": 354, "word": "미안", "hanja": "未安", "status": "added", "normalization": "strip_hada"}
+{"source_row": 355, "word": "미터", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 356, "word": "밑", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 357, "word": "바꾸다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 358, "word": "바나나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 359, "word": "바다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 360, "word": "바람", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 361, "word": "바람", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 362, "word": "바로", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 363, "word": "바쁘다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 364, "word": "바지", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 365, "word": "박물관", "hanja": "博物館", "status": "existing"}
+{"source_row": 366, "word": "밖", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 367, "word": "반", "hanja": "半", "status": "added"}
+{"source_row": 368, "word": "반", "hanja": "班", "status": "added"}
+{"source_row": 369, "word": "반갑다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 370, "word": "받다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 371, "word": "발", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 372, "word": "발음", "hanja": "發音", "status": "added"}
+{"source_row": 373, "word": "밝다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 374, "word": "밤", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 375, "word": "밥", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 376, "word": "방", "hanja": "房", "status": "added"}
+{"source_row": 377, "word": "방학", "hanja": "放學", "status": "added"}
+{"source_row": 378, "word": "배", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 379, "word": "배", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 380, "word": "배", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 381, "word": "배고프다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 382, "word": "배부르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 383, "word": "배우다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 384, "word": "백", "hanja": "百", "status": "added"}
+{"source_row": 385, "word": "백", "hanja": "百", "status": "added"}
+{"source_row": 386, "word": "백화점", "hanja": "百貨店", "status": "existing"}
+{"source_row": 387, "word": "버리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 388, "word": "버스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 389, "word": "번", "hanja": "番", "status": "added"}
+{"source_row": 390, "word": "번호", "hanja": "番號", "status": "existing"}
+{"source_row": 391, "word": "벌써", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 392, "word": "벗다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 393, "word": "별", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 394, "word": "병", "hanja": "病", "status": "added"}
+{"source_row": 395, "word": "병", "hanja": "甁", "status": "added"}
+{"source_row": 396, "word": "병원", "hanja": "病院", "status": "existing"}
+{"source_row": 397, "word": "보내다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 398, "word": "보다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 399, "word": "보다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 400, "word": "보다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 401, "word": "보통", "hanja": "普通", "status": "existing"}
+{"source_row": 402, "word": "복잡", "hanja": "複雜", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 403, "word": "볼펜", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 404, "word": "봄", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 405, "word": "부르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 406, "word": "부모", "hanja": "父母", "status": "existing"}
+{"source_row": 407, "word": "부모님", "hanja": "父母님", "status": "added"}
+{"source_row": 408, "word": "부부", "hanja": "夫婦", "status": "existing"}
+{"source_row": 409, "word": "부산", "hanja": "釜山", "status": "existing"}
+{"source_row": 410, "word": "부엌", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 411, "word": "부인", "hanja": "夫人", "status": "added"}
+{"source_row": 412, "word": "북쪽", "hanja": "北쪽", "status": "added"}
+{"source_row": 413, "word": "분", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 414, "word": "분", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 415, "word": "불", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 416, "word": "불고기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 417, "word": "불다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 418, "word": "비", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 419, "word": "비누", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 420, "word": "비디오", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 421, "word": "비빔밥", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 422, "word": "비슷하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 423, "word": "비싸다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 424, "word": "비행기", "hanja": "飛行機", "status": "existing"}
+{"source_row": 425, "word": "빠르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 426, "word": "빨간색", "hanja": "빨간色", "status": "added"}
+{"source_row": 427, "word": "빨리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 428, "word": "빵", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 429, "word": "사", "hanja": "四", "status": "added"}
+{"source_row": 430, "word": "사과", "hanja": "沙果", "status": "added"}
+{"source_row": 431, "word": "사다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 432, "word": "사람", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 433, "word": "사랑", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 434, "word": "사랑하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 435, "word": "사무실", "hanja": "事務室", "status": "existing"}
+{"source_row": 436, "word": "사십", "hanja": "四十", "status": "added"}
+{"source_row": 437, "word": "사용", "hanja": "使用", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 438, "word": "사월", "hanja": "四月", "status": "added"}
+{"source_row": 439, "word": "사이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 440, "word": "사장", "hanja": "社長", "status": "existing"}
+{"source_row": 441, "word": "사전", "hanja": "辭典", "status": "existing"}
+{"source_row": 442, "word": "사진", "hanja": "寫眞", "status": "existing"}
+{"source_row": 443, "word": "사탕", "hanja": "砂糖", "status": "existing"}
+{"source_row": 444, "word": "산", "hanja": "山", "status": "added"}
+{"source_row": 445, "word": "산책", "hanja": "散策", "status": "added"}
+{"source_row": 446, "word": "살", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 447, "word": "살다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 448, "word": "삼", "hanja": "三", "status": "added"}
+{"source_row": 449, "word": "삼십", "hanja": "三十", "status": "added"}
+{"source_row": 450, "word": "삼월", "hanja": "三月", "status": "existing"}
+{"source_row": 451, "word": "새", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 452, "word": "새", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 453, "word": "색", "hanja": "色", "status": "added"}
+{"source_row": 454, "word": "색깔", "hanja": "色깔", "status": "added"}
+{"source_row": 455, "word": "샌드위치", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 456, "word": "생각", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 457, "word": "생각하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 458, "word": "생기다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 459, "word": "생선", "hanja": "生鮮", "status": "existing"}
+{"source_row": 460, "word": "생일", "hanja": "生日", "status": "added"}
+{"source_row": 461, "word": "생활", "hanja": "生活", "status": "existing"}
+{"source_row": 462, "word": "샤워", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 463, "word": "서다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 464, "word": "서로", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 465, "word": "서른", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 466, "word": "서울", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 467, "word": "서울역", "hanja": "서울驛", "status": "added"}
+{"source_row": 468, "word": "서점", "hanja": "書店", "status": "existing"}
+{"source_row": 469, "word": "서쪽", "hanja": "西쪽", "status": "added"}
+{"source_row": 470, "word": "선물", "hanja": "膳物", "status": "added"}
+{"source_row": 471, "word": "선물", "hanja": "膳物", "status": "added", "normalization": "strip_hada"}
+{"source_row": 472, "word": "선생", "hanja": "先生", "status": "existing"}
+{"source_row": 473, "word": "선생님", "hanja": "先生님", "status": "added"}
+{"source_row": 474, "word": "설명", "hanja": "說明", "status": "existing"}
+{"source_row": 475, "word": "설명", "hanja": "說明", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 476, "word": "설악산", "hanja": "雪嶽山", "status": "added"}
+{"source_row": 477, "word": "설탕", "hanja": "雪糖", "status": "existing"}
+{"source_row": 478, "word": "세", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 479, "word": "세", "hanja": "歲", "status": "added"}
+{"source_row": 480, "word": "세수", "hanja": "洗手", "status": "existing"}
+{"source_row": 481, "word": "세탁기", "hanja": "洗濯機", "status": "existing"}
+{"source_row": 482, "word": "센티미터", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 483, "word": "셋", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 484, "word": "셋째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 485, "word": "셋째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 486, "word": "소개", "hanja": "紹介", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 487, "word": "소금", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 488, "word": "소파", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 489, "word": "소풍", "hanja": "逍風", "status": "added"}
+{"source_row": 490, "word": "속", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 491, "word": "손", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 492, "word": "손가락", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 493, "word": "손님", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 494, "word": "쇠고기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 495, "word": "쇼핑", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 496, "word": "수", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 497, "word": "수건", "hanja": "手巾", "status": "added"}
+{"source_row": 498, "word": "수박", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 499, "word": "수업", "hanja": "授業", "status": "existing"}
+{"source_row": 500, "word": "수영", "hanja": "水泳", "status": "existing"}
+{"source_row": 501, "word": "수영장", "hanja": "水泳場", "status": "added"}
+{"source_row": 502, "word": "수요일", "hanja": "水曜日", "status": "existing"}
+{"source_row": 503, "word": "숙제", "hanja": "宿題", "status": "added"}
+{"source_row": 504, "word": "숟가락", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 505, "word": "술", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 506, "word": "술", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 507, "word": "쉬다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 508, "word": "쉰", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 509, "word": "쉽다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 510, "word": "슈퍼마켓", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 511, "word": "스무", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 512, "word": "스물", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 513, "word": "스키", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 514, "word": "스트레스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 515, "word": "스포츠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 516, "word": "슬프다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 517, "word": "시", "hanja": "市", "status": "added"}
+{"source_row": 518, "word": "시", "hanja": "時", "status": "added"}
+{"source_row": 519, "word": "시간", "hanja": "時間", "status": "existing"}
+{"source_row": 520, "word": "시간", "hanja": "時間", "status": "existing"}
+{"source_row": 521, "word": "시계", "hanja": "時計", "status": "added"}
+{"source_row": 522, "word": "시원하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 523, "word": "시월", "hanja": "十月", "status": "added"}
+{"source_row": 524, "word": "시작", "hanja": "始作", "status": "existing"}
+{"source_row": 525, "word": "시작되다", "hanja": "始作되다", "status": "added"}
+{"source_row": 526, "word": "시작", "hanja": "始作", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 527, "word": "시장", "hanja": "市場", "status": "existing"}
+{"source_row": 528, "word": "시험", "hanja": "試驗", "status": "existing"}
+{"source_row": 529, "word": "식당", "hanja": "食堂", "status": "existing"}
+{"source_row": 530, "word": "식사", "hanja": "食事", "status": "added"}
+{"source_row": 531, "word": "식사", "hanja": "食事", "status": "added", "normalization": "strip_hada"}
+{"source_row": 532, "word": "식탁", "hanja": "食卓", "status": "existing"}
+{"source_row": 533, "word": "신다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 534, "word": "신문", "hanja": "新聞", "status": "existing"}
+{"source_row": 535, "word": "신발", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 536, "word": "실례", "hanja": "失禮", "status": "existing"}
+{"source_row": 537, "word": "실례", "hanja": "失禮", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 538, "word": "싫다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 539, "word": "싫어하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 540, "word": "십", "hanja": "十", "status": "added"}
+{"source_row": 541, "word": "십이월", "hanja": "十二月", "status": "added"}
+{"source_row": 542, "word": "십일월", "hanja": "十一月", "status": "added"}
+{"source_row": 543, "word": "싶다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 544, "word": "싸다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 545, "word": "싸우다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 546, "word": "쓰다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 547, "word": "쓰다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 548, "word": "쓰다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 549, "word": "쓰레기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 550, "word": "씨", "hanja": "氏", "status": "added"}
+{"source_row": 551, "word": "씻다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 552, "word": "아", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 553, "word": "아기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 554, "word": "아내", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 555, "word": "아니", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 556, "word": "아니다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 557, "word": "아니요", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 558, "word": "아들", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 559, "word": "아래", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 560, "word": "아름답다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 561, "word": "아마", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 562, "word": "아무", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 563, "word": "아무", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 564, "word": "아버지", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 565, "word": "아빠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 566, "word": "아이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 567, "word": "아이스크림", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 568, "word": "아저씨", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 569, "word": "아주", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 570, "word": "아주머니", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 571, "word": "아줌마", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 572, "word": "아직", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 573, "word": "아침", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 574, "word": "아파트", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 575, "word": "아프다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 576, "word": "아홉", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 577, "word": "아흔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 578, "word": "안", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 579, "word": "안", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 580, "word": "안경", "hanja": "眼鏡", "status": "existing"}
+{"source_row": 581, "word": "안녕", "hanja": "安寧", "status": "existing"}
+{"source_row": 582, "word": "안녕", "hanja": "安寧", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 583, "word": "안녕히", "hanja": "安寧히", "status": "added"}
+{"source_row": 584, "word": "안다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 585, "word": "안되다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 586, "word": "앉다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 587, "word": "않다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 588, "word": "않다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 589, "word": "알다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 590, "word": "앞", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 591, "word": "야구", "hanja": "野球", "status": "existing"}
+{"source_row": 592, "word": "약", "hanja": "藥", "status": "added"}
+{"source_row": 593, "word": "약국", "hanja": "藥局", "status": "existing"}
+{"source_row": 594, "word": "약속", "hanja": "約束", "status": "existing"}
+{"source_row": 595, "word": "약속", "hanja": "約束", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 596, "word": "양말", "hanja": "洋襪", "status": "added"}
+{"source_row": 597, "word": "양복", "hanja": "洋服", "status": "added"}
+{"source_row": 598, "word": "얘기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 599, "word": "얘기하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 600, "word": "어", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 601, "word": "어깨", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 602, "word": "어느", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 603, "word": "어디", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 604, "word": "어디", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 605, "word": "어떠하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 606, "word": "어떤", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 607, "word": "어떻다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 608, "word": "어렵다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 609, "word": "어른", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 610, "word": "어린이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 611, "word": "어머니", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 612, "word": "어서", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 613, "word": "어제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 614, "word": "어제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 615, "word": "언니", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 616, "word": "언제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 617, "word": "언제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 618, "word": "언제나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 619, "word": "얼굴", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 620, "word": "얼마", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 621, "word": "얼마나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 622, "word": "엄마", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 623, "word": "없다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 624, "word": "에어컨", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 625, "word": "여권", "hanja": "旅券", "status": "existing"}
+{"source_row": 626, "word": "여기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 627, "word": "여덟", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 628, "word": "여동생", "hanja": "女동생", "status": "added"}
+{"source_row": 629, "word": "여든", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 630, "word": "여러", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 631, "word": "여러분", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 632, "word": "여름", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 633, "word": "여보세요", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 634, "word": "여섯", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 635, "word": "여자", "hanja": "女子", "status": "existing"}
+{"source_row": 636, "word": "여학생", "hanja": "女學生", "status": "added"}
+{"source_row": 637, "word": "여행", "hanja": "旅行", "status": "existing"}
+{"source_row": 638, "word": "여행", "hanja": "旅行", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 639, "word": "역", "hanja": "驛", "status": "added"}
+{"source_row": 640, "word": "역사", "hanja": "歷史", "status": "existing"}
+{"source_row": 641, "word": "연습", "hanja": "練習", "status": "existing"}
+{"source_row": 642, "word": "연습", "hanja": "練習", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 643, "word": "연필", "hanja": "鉛筆", "status": "existing"}
+{"source_row": 644, "word": "열", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 645, "word": "열다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 646, "word": "열쇠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 647, "word": "열심히", "hanja": "熱心히", "status": "added"}
+{"source_row": 648, "word": "영국", "hanja": "英國", "status": "added"}
+{"source_row": 649, "word": "영어", "hanja": "英語", "status": "added"}
+{"source_row": 650, "word": "영화", "hanja": "映畵", "status": "added"}
+{"source_row": 651, "word": "옆", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 652, "word": "예", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 653, "word": "예쁘다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 654, "word": "예순", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 655, "word": "옛날", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 656, "word": "오", "hanja": "五", "status": "added"}
+{"source_row": 657, "word": "오늘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 658, "word": "오늘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 659, "word": "오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 660, "word": "오다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 661, "word": "오래", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 662, "word": "오래간만", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 663, "word": "오랜만", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 664, "word": "오렌지", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 665, "word": "오르다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 666, "word": "오른쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 667, "word": "오빠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 668, "word": "오십", "hanja": "五十", "status": "added"}
+{"source_row": 669, "word": "오월", "hanja": "五月", "status": "added"}
+{"source_row": 670, "word": "오전", "hanja": "午前", "status": "existing"}
+{"source_row": 671, "word": "오후", "hanja": "午後", "status": "existing"}
+{"source_row": 672, "word": "올라가다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 673, "word": "올해", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 674, "word": "옷", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 675, "word": "왜", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 676, "word": "왜냐하면", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 677, "word": "외국", "hanja": "外國", "status": "added"}
+{"source_row": 678, "word": "외국어", "hanja": "外國語", "status": "added"}
+{"source_row": 679, "word": "외국인", "hanja": "外國人", "status": "added"}
+{"source_row": 680, "word": "왼쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 681, "word": "요리", "hanja": "料理", "status": "added"}
+{"source_row": 682, "word": "요리", "hanja": "料理", "status": "added", "normalization": "strip_hada"}
+{"source_row": 683, "word": "요일", "hanja": "曜日", "status": "existing"}
+{"source_row": 684, "word": "요즈음", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 685, "word": "요즘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 686, "word": "우리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 687, "word": "우리나라", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 688, "word": "우산", "hanja": "雨傘", "status": "existing"}
+{"source_row": 689, "word": "우유", "hanja": "牛乳", "status": "existing"}
+{"source_row": 690, "word": "우체국", "hanja": "郵遞局", "status": "existing"}
+{"source_row": 691, "word": "운동", "hanja": "運動", "status": "added"}
+{"source_row": 692, "word": "운동장", "hanja": "運動場", "status": "added"}
+{"source_row": 693, "word": "운동", "hanja": "運動", "status": "added", "normalization": "strip_hada"}
+{"source_row": 694, "word": "운동화", "hanja": "運動靴", "status": "added"}
+{"source_row": 695, "word": "운전", "hanja": "運轉", "status": "added"}
+{"source_row": 696, "word": "운전", "hanja": "運轉", "status": "added", "normalization": "strip_hada"}
+{"source_row": 697, "word": "울다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 698, "word": "웃다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 699, "word": "원", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 700, "word": "월", "hanja": "月", "status": "added"}
+{"source_row": 701, "word": "월요일", "hanja": "月曜日", "status": "existing"}
+{"source_row": 702, "word": "위", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 703, "word": "위험", "hanja": "危險", "status": "existing"}
+{"source_row": 704, "word": "위험", "hanja": "危險", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 705, "word": "유명", "hanja": "有名", "status": "added", "normalization": "strip_hada"}
+{"source_row": 706, "word": "유월", "hanja": "六月", "status": "added"}
+{"source_row": 707, "word": "육", "hanja": "六", "status": "added"}
+{"source_row": 708, "word": "육십", "hanja": "六十", "status": "existing"}
+{"source_row": 709, "word": "은행", "hanja": "銀行", "status": "existing"}
+{"source_row": 710, "word": "음식", "hanja": "飮食", "status": "existing"}
+{"source_row": 711, "word": "음악", "hanja": "音樂", "status": "added"}
+{"source_row": 712, "word": "의사", "hanja": "醫師", "status": "existing"}
+{"source_row": 713, "word": "의자", "hanja": "椅子", "status": "added"}
+{"source_row": 714, "word": "이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 715, "word": "이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 716, "word": "이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 717, "word": "이", "hanja": "二", "status": "added"}
+{"source_row": 718, "word": "이거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 719, "word": "이것", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 720, "word": "이곳", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 721, "word": "이때", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 722, "word": "이런", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 723, "word": "이렇다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 724, "word": "이름", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 725, "word": "이번", "hanja": "이番", "status": "added"}
+{"source_row": 726, "word": "이분", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 727, "word": "이십", "hanja": "二十", "status": "added"}
+{"source_row": 728, "word": "이야기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 729, "word": "이야기하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 730, "word": "이월", "hanja": "二月", "status": "existing"}
+{"source_row": 731, "word": "이제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 732, "word": "이제", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 733, "word": "이쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 734, "word": "이해", "hanja": "理解", "status": "added", "normalization": "strip_hada"}
+{"source_row": 735, "word": "인사", "hanja": "人士", "status": "added"}
+{"source_row": 736, "word": "인사", "hanja": "人事", "status": "added"}
+{"source_row": 737, "word": "인사", "hanja": "人事", "status": "added", "normalization": "strip_hada"}
+{"source_row": 738, "word": "인천", "hanja": "仁川", "status": "added"}
+{"source_row": 739, "word": "일", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 740, "word": "일", "hanja": "一", "status": "added"}
+{"source_row": 741, "word": "일", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 742, "word": "일곱", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 743, "word": "일본", "hanja": "日本", "status": "added"}
+{"source_row": 744, "word": "일본어", "hanja": "日本語", "status": "added"}
+{"source_row": 745, "word": "일어나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 746, "word": "일요일", "hanja": "日曜日", "status": "existing"}
+{"source_row": 747, "word": "일월", "hanja": "一月", "status": "added"}
+{"source_row": 748, "word": "일주일", "hanja": "一週日", "status": "added"}
+{"source_row": 749, "word": "일찍", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 750, "word": "일하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 751, "word": "일흔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 752, "word": "읽다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 753, "word": "잃다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 754, "word": "잃어버리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 755, "word": "입", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 756, "word": "입다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 757, "word": "있다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 758, "word": "있다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 759, "word": "있다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 760, "word": "잊다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 761, "word": "잊어버리다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 762, "word": "잎", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 763, "word": "자다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 764, "word": "자동차", "hanja": "自動車", "status": "existing"}
+{"source_row": 765, "word": "자리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 766, "word": "자장면", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 767, "word": "자전거", "hanja": "自轉車", "status": "added"}
+{"source_row": 768, "word": "자주", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 769, "word": "작년", "hanja": "昨年", "status": "existing"}
+{"source_row": 770, "word": "작다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 771, "word": "잔", "hanja": "盞", "status": "added"}
+{"source_row": 772, "word": "잘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 773, "word": "잘하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 774, "word": "잠", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 775, "word": "잠깐", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 776, "word": "잠깐", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 777, "word": "잠시", "hanja": "暫時", "status": "existing"}
+{"source_row": 778, "word": "잠자다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 779, "word": "잡다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 780, "word": "잡수시다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 781, "word": "잡지", "hanja": "雜誌", "status": "existing"}
+{"source_row": 782, "word": "장", "hanja": "張", "status": "added"}
+{"source_row": 783, "word": "장미", "hanja": "薔薇", "status": "added"}
+{"source_row": 784, "word": "장소", "hanja": "場所", "status": "existing"}
+{"source_row": 785, "word": "재미", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 786, "word": "재미없다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 787, "word": "재미있다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 788, "word": "저", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 789, "word": "저", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 790, "word": "저", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 791, "word": "저거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 792, "word": "저것", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 793, "word": "저곳", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 794, "word": "저기", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 795, "word": "저녁", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 796, "word": "저쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 797, "word": "적다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 798, "word": "적다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 799, "word": "전", "hanja": "前", "status": "added"}
+{"source_row": 800, "word": "전", "hanja": "前", "status": "added"}
+{"source_row": 801, "word": "전화", "hanja": "電話", "status": "added"}
+{"source_row": 802, "word": "전화번호", "hanja": "電話番號", "status": "added"}
+{"source_row": 803, "word": "전화", "hanja": "電話", "status": "added", "normalization": "strip_hada"}
+{"source_row": 804, "word": "점심", "hanja": "點心", "status": "added"}
+{"source_row": 805, "word": "점심시간", "hanja": "點心時間", "status": "added"}
+{"source_row": 806, "word": "젓가락", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 807, "word": "정류장", "hanja": "停留場", "status": "added"}
+{"source_row": 808, "word": "정말", "hanja": "正말", "status": "added"}
+{"source_row": 809, "word": "제일", "hanja": "第一", "status": "existing"}
+{"source_row": 810, "word": "제주도", "hanja": "濟州島", "status": "added"}
+{"source_row": 811, "word": "조금", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 812, "word": "조금", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 813, "word": "조용하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 814, "word": "졸업", "hanja": "卒業", "status": "existing"}
+{"source_row": 815, "word": "졸업", "hanja": "卒業", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 816, "word": "좀", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 817, "word": "종이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 818, "word": "좋다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 819, "word": "좋아하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 820, "word": "죄송", "hanja": "罪悚", "status": "added", "normalization": "strip_hada"}
+{"source_row": 821, "word": "주", "hanja": "週", "status": "added"}
+{"source_row": 822, "word": "주", "hanja": "週", "status": "added"}
+{"source_row": 823, "word": "주다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 824, "word": "주다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 825, "word": "주말", "hanja": "週末", "status": "existing"}
+{"source_row": 826, "word": "주소", "hanja": "住所", "status": "existing"}
+{"source_row": 827, "word": "주스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 828, "word": "주인", "hanja": "主人", "status": "added"}
+{"source_row": 829, "word": "죽다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 830, "word": "준비", "hanja": "準備", "status": "existing"}
+{"source_row": 831, "word": "준비", "hanja": "準備", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 832, "word": "중국", "hanja": "中國", "status": "added"}
+{"source_row": 833, "word": "중국어", "hanja": "中國語", "status": "added"}
+{"source_row": 834, "word": "중요", "hanja": "重要", "status": "added", "normalization": "strip_hada"}
+{"source_row": 835, "word": "중학교", "hanja": "中學校", "status": "added"}
+{"source_row": 836, "word": "중학생", "hanja": "中學生", "status": "added"}
+{"source_row": 837, "word": "즐겁다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 838, "word": "지갑", "hanja": "紙匣", "status": "added"}
+{"source_row": 839, "word": "지금", "hanja": "只今", "status": "existing"}
+{"source_row": 840, "word": "지금", "hanja": "只今", "status": "existing"}
+{"source_row": 841, "word": "지난달", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 842, "word": "지난주", "hanja": "지난週", "status": "added"}
+{"source_row": 843, "word": "지내다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 844, "word": "지도", "hanja": "地圖", "status": "existing"}
+{"source_row": 845, "word": "지우개", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 846, "word": "지우다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 847, "word": "지하", "hanja": "地下", "status": "added"}
+{"source_row": 848, "word": "지하철", "hanja": "地下鐵", "status": "added"}
+{"source_row": 849, "word": "질문", "hanja": "質問", "status": "existing"}
+{"source_row": 850, "word": "질문", "hanja": "質問", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 851, "word": "집", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 852, "word": "짜다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 853, "word": "짧다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 854, "word": "쪽", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 855, "word": "찌개", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 856, "word": "찍다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 857, "word": "차", "hanja": "車", "status": "added"}
+{"source_row": 858, "word": "차", "hanja": "茶", "status": "added"}
+{"source_row": 859, "word": "참", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 860, "word": "창문", "hanja": "窓門", "status": "existing"}
+{"source_row": 861, "word": "찾다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 862, "word": "책", "hanja": "冊", "status": "added"}
+{"source_row": 863, "word": "책상", "hanja": "冊床", "status": "existing"}
+{"source_row": 864, "word": "처음", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 865, "word": "천", "hanja": "千", "status": "added"}
+{"source_row": 866, "word": "천", "hanja": "千", "status": "added"}
+{"source_row": 867, "word": "천천히", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 868, "word": "첫째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 869, "word": "첫째", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 870, "word": "청바지", "hanja": "靑바지", "status": "added"}
+{"source_row": 871, "word": "청소", "hanja": "淸掃", "status": "existing"}
+{"source_row": 872, "word": "청소", "hanja": "淸掃", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 873, "word": "초대", "hanja": "招待", "status": "existing"}
+{"source_row": 874, "word": "초대", "hanja": "招待", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 875, "word": "초등학교", "hanja": "初等學校", "status": "added"}
+{"source_row": 876, "word": "초콜릿", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 877, "word": "추다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 878, "word": "축구", "hanja": "蹴球", "status": "existing"}
+{"source_row": 879, "word": "축하", "hanja": "祝賀", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 880, "word": "출발", "hanja": "出發", "status": "added", "normalization": "strip_hada"}
+{"source_row": 881, "word": "춤", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 882, "word": "춤추다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 883, "word": "춥다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 884, "word": "취미", "hanja": "趣味", "status": "existing"}
+{"source_row": 885, "word": "층", "hanja": "層", "status": "added"}
+{"source_row": 886, "word": "치다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 887, "word": "치마", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 888, "word": "치약", "hanja": "齒藥", "status": "added"}
+{"source_row": 889, "word": "친구", "hanja": "親舊", "status": "added"}
+{"source_row": 890, "word": "친절", "hanja": "親切", "status": "added", "normalization": "strip_hada"}
+{"source_row": 891, "word": "칠", "hanja": "七", "status": "added"}
+{"source_row": 892, "word": "칠십", "hanja": "七十", "status": "existing"}
+{"source_row": 893, "word": "칠월", "hanja": "七月", "status": "existing"}
+{"source_row": 894, "word": "칠판", "hanja": "漆板", "status": "added"}
+{"source_row": 895, "word": "침대", "hanja": "寢臺", "status": "added"}
+{"source_row": 896, "word": "칫솔", "hanja": "齒솔", "status": "added"}
+{"source_row": 897, "word": "카드", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 898, "word": "카메라", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 899, "word": "칼", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 900, "word": "캐나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 901, "word": "커피", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 902, "word": "컴퓨터", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 903, "word": "컵", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 904, "word": "켜다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 905, "word": "코", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 906, "word": "콜라", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 907, "word": "크다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 908, "word": "크다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 909, "word": "크리스마스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 910, "word": "키", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 911, "word": "타다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 912, "word": "태권도", "hanja": "跆拳道", "status": "existing"}
+{"source_row": 913, "word": "태어나다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 914, "word": "택시", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 915, "word": "테니스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 916, "word": "테이블", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 917, "word": "텔레비전", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 918, "word": "토요일", "hanja": "土曜日", "status": "existing"}
+{"source_row": 919, "word": "티브이", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 920, "word": "팀", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 921, "word": "파란색", "hanja": "파란色", "status": "added"}
+{"source_row": 922, "word": "파티", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 923, "word": "팔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 924, "word": "팔", "hanja": "八", "status": "added"}
+{"source_row": 925, "word": "팔다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 926, "word": "팔십", "hanja": "八十", "status": "added"}
+{"source_row": 927, "word": "팔월", "hanja": "八月", "status": "existing"}
+{"source_row": 928, "word": "퍼센트", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 929, "word": "편지", "hanja": "便紙", "status": "added"}
+{"source_row": 930, "word": "포도", "hanja": "葡萄", "status": "existing"}
+{"source_row": 931, "word": "표", "hanja": "票", "status": "added"}
+{"source_row": 932, "word": "프랑스", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 933, "word": "피곤", "hanja": "疲困", "status": "existing", "normalization": "strip_hada"}
+{"source_row": 934, "word": "피아노", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 935, "word": "피우다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 936, "word": "피자", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 937, "word": "필요", "hanja": "必要", "status": "added"}
+{"source_row": 938, "word": "필요", "hanja": "必要", "status": "added", "normalization": "strip_hada"}
+{"source_row": 939, "word": "하나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 940, "word": "하나", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 941, "word": "하늘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 942, "word": "하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 943, "word": "하다", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 944, "word": "하지만", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 945, "word": "학교", "hanja": "學校", "status": "existing"}
+{"source_row": 946, "word": "학년", "hanja": "學年", "status": "existing"}
+{"source_row": 947, "word": "학생", "hanja": "學生", "status": "added"}
+{"source_row": 948, "word": "한", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 949, "word": "한강", "hanja": "漢江", "status": "added"}
+{"source_row": 950, "word": "한국", "hanja": "韓國", "status": "existing"}
+{"source_row": 951, "word": "한국말", "hanja": "韓國말", "status": "added"}
+{"source_row": 952, "word": "한국어", "hanja": "韓國語", "status": "existing"}
+{"source_row": 953, "word": "한글", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 954, "word": "한번", "hanja": "한番", "status": "added"}
+{"source_row": 955, "word": "한복", "hanja": "韓服", "status": "existing"}
+{"source_row": 956, "word": "한자", "hanja": "漢字", "status": "existing"}
+{"source_row": 957, "word": "할머니", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 958, "word": "할아버지", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 959, "word": "함께", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 960, "word": "항상", "hanja": "恒常", "status": "existing"}
+{"source_row": 961, "word": "해", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 962, "word": "해", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 963, "word": "핸드폰", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 964, "word": "햄버거", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 965, "word": "허리", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 966, "word": "형", "hanja": "兄", "status": "added"}
+{"source_row": 967, "word": "호", "hanja": "號", "status": "added"}
+{"source_row": 968, "word": "호주", "hanja": "濠洲", "status": "added"}
+{"source_row": 969, "word": "호텔", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 970, "word": "혼자", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 971, "word": "화", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 972, "word": "화요일", "hanja": "火曜日", "status": "existing"}
+{"source_row": 973, "word": "화장실", "hanja": "化粧室", "status": "added"}
+{"source_row": 974, "word": "환자", "hanja": "患者", "status": "existing"}
+{"source_row": 975, "word": "회사", "hanja": "會社", "status": "existing"}
+{"source_row": 976, "word": "회의", "hanja": "會議", "status": "existing"}
+{"source_row": 977, "word": "후", "hanja": "後", "status": "added"}
+{"source_row": 978, "word": "휴일", "hanja": "休日", "status": "added"}
+{"source_row": 979, "word": "휴지", "hanja": "休紙", "status": "added"}
+{"source_row": 980, "word": "휴지통", "hanja": "休紙桶", "status": "added"}
+{"source_row": 981, "word": "흰색", "hanja": "흰色", "status": "added"}
+{"source_row": 982, "word": "힘", "hanja": "", "status": "excluded", "reason": "no_hanja"}
+{"source_row": 983, "word": "힘들다", "hanja": "", "status": "excluded", "reason": "no_hanja"}

@@ -4,7 +4,7 @@ export function normalizeSaved(value) {
   if (!Array.isArray(value)) return [];
   const seen = new Set();
   return value.filter(item => {
-    if (!item || typeof item.word !== 'string' || typeof item.hanja !== 'string' || !item.word.trim() || !item.hanja.trim() || item.word.length > 100 || item.hanja.length > 100) return false;
+    if (!item || typeof item.word !== 'string' || typeof item.hanja !== 'string' || !item.word.trim() || item.word.length > 100 || item.hanja.length > 100) return false;
     const key = wordKey(item);
     if (seen.has(key)) return false;
     seen.add(key);

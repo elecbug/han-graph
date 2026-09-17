@@ -22,7 +22,7 @@ export function parseWordbook(text) {
     let value;
     try { value = JSON.parse(source); } catch { throw new WordbookError('invalid', index + 1); }
     if (!value || Array.isArray(value) || typeof value !== 'object' ||
-        !['word', 'hanja'].every(key => typeof value[key] === 'string' && value[key].trim() &&
+        !['word', 'hanja'].every(key => typeof value[key] === 'string' && (key === 'hanja' || value[key].trim()) &&
           value[key].length <= 100 && !/[\u0000-\u001f\u007f]/u.test(value[key]))) {
       throw new WordbookError('invalid', index + 1);
     }

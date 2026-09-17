@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"unicode"
 	"unicode/utf8"
 )
 
@@ -106,11 +107,11 @@ func Load(dir string) (*Graph, error) {
 	seenWords := make(map[[2]string]bool)
 	for _, row := range words {
 		w := row.value
-		if !nonempty(w.Level, w.Word, w.Hanja, w.MeaningKo, w.MeaningEn) || len(w.Components) < 2 {
-			return fail("normal_word.jsonl", row.line, "expected level, word, hanja, Korean/English meanings and at least two components")
+		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || w.Components == nil {
+			return fail("normal_word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
 		}
-		if strings.Join(w.Components, "") != w.Hanja {
-			return fail("normal_word.jsonl", row.line, "components must reproduce hanja in order: "+w.Word)
+		if err := validateWordForm(w); err != nil {
+			return fail("normal_word.jsonl", row.line, err.Error()+": "+w.Word)
 		}
 		key := [2]string{w.Word, w.Hanja}
 		if seenWords[key] {
@@ -129,12 +130,37 @@ func Load(dir string) (*Graph, error) {
 			}
 		}
 		g.wordsByQuery[w.Word] = append(g.wordsByQuery[w.Word], len(g.words))
-		if w.Word != w.Hanja {
+		if w.Hanja != "" && w.Word != w.Hanja {
 			g.wordsByQuery[w.Hanja] = append(g.wordsByQuery[w.Hanja], len(g.words))
 		}
 		g.words = append(g.words, w)
 	}
 	return g, nil
+}
+
+// Hanja may contain literal Hangul in a mixed word, such as 工夫하다.
+// Only actual Han glyphs become graph components; an empty form has no edges.
+func validateWordForm(w Word) error {
+	if w.Hanja == "" {
+		if len(w.Components) != 0 {
+			return fmt.Errorf("empty hanja requires empty components")
+		}
+		return nil
+	}
+	var glyphs strings.Builder
+	syllables := []rune(strings.Join(strings.Fields(w.Word), ""))
+	form := []rune(w.Hanja)
+	for i, glyph := range form {
+		if unicode.Is(unicode.Han, glyph) {
+			glyphs.WriteRune(glyph)
+		} else if glyph < '가' || glyph > '힣' || len(form) != len(syllables) || glyph != syllables[i] {
+			return fmt.Errorf("mixed hanja must preserve the Korean spelling")
+		}
+	}
+	if glyphs.Len() == 0 || strings.Join(w.Components, "") != glyphs.String() {
+		return fmt.Errorf("components must reproduce hanja glyphs in order")
+	}
+	return nil
 }
 
 func nonempty(values ...string) bool {

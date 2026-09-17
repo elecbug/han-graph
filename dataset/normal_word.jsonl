@@ -7207,3 +7207,194 @@
 {"level": "normal", "word": "수도", "hanja": "囚徒", "meaning_ko": "감옥에 갇혀 있는 죄수", "meaning_en": "prisoner; convict", "components": ["囚", "徒"], "semantic_hint": "囚[수]徒[도]는 감옥에 갇혀 있는 죄수를 뜻하는 역사어예요."}
 {"level": "normal", "word": "담장", "hanja": "淡粧", "meaning_ko": "옅게 한 화장", "meaning_en": "light makeup", "components": ["淡", "粧"], "semantic_hint": "淡[담]·粧[장]의 구성으로, 옅게 한 화장을 뜻해요."}
 {"level": "normal", "word": "고심참담", "hanja": "苦心慘憺", "meaning_ko": "몹시 마음을 쓰며 애를 태우고 온갖 노력을 다함", "meaning_en": "painstaking effort; taking great pains", "components": ["苦", "心", "慘", "憺"], "semantic_hint": "苦[고]·心[심]·慘[참]·憺[담]의 구성으로, 몹시 마음을 쓰며 애를 태우고 온갖 노력을 다함을 뜻해요."}
+{"level": "normal", "word": "간호사", "hanja": "看護師", "meaning_ko": "환자의 치료와 회복을 돕는 전문 의료인", "meaning_en": "nurse", "components": ["看", "護", "師"]}
+{"level": "normal", "word": "감기", "hanja": "感氣", "meaning_ko": "콧물·기침·목 아픔 등이 나타나는 흔한 호흡기 질환", "meaning_en": "a cold; common respiratory illness", "components": ["感", "氣"]}
+{"level": "normal", "word": "강", "hanja": "江", "meaning_ko": "육지의 낮은 곳을 따라 흐르는 큰 물줄기", "meaning_en": "river", "components": ["江"]}
+{"level": "normal", "word": "개", "hanja": "個", "meaning_ko": "물건을 하나씩 세는 단위", "meaning_en": "counter for individual things", "components": ["個"]}
+{"level": "normal", "word": "개월", "hanja": "個月", "meaning_ko": "기간을 달의 수로 세는 단위", "meaning_en": "counter for months of duration", "components": ["個", "月"]}
+{"level": "normal", "word": "건물", "hanja": "建物", "meaning_ko": "사람이 살거나 활동하도록 지은 구조물", "meaning_en": "building", "components": ["建", "物"]}
+{"level": "normal", "word": "검은색", "hanja": "검은色", "meaning_ko": "빛을 거의 반사하지 않는 검은 빛깔", "meaning_en": "black; the color black", "components": ["色"]}
+{"level": "normal", "word": "결혼식", "hanja": "結婚式", "meaning_ko": "혼인을 기념하고 알리는 의식", "meaning_en": "wedding ceremony", "components": ["結", "婚", "式"]}
+{"level": "normal", "word": "경주", "hanja": "慶州", "meaning_ko": "경상북도에 있는 도시로 신라의 수도였던 곳", "meaning_en": "Gyeongju, a city in North Gyeongsang Province and former Silla capital", "components": ["慶", "州"]}
+{"level": "normal", "word": "경찰관", "hanja": "警察官", "meaning_ko": "치안 유지와 범죄 수사 등의 일을 맡는 경찰 공무원", "meaning_en": "police officer", "components": ["警", "察", "官"]}
+{"level": "normal", "word": "고등학교", "hanja": "高等學校", "meaning_ko": "중학교 다음 단계의 교육을 하는 학교", "meaning_en": "high school", "components": ["高", "等", "學", "校"]}
+{"level": "normal", "word": "고등학생", "hanja": "高等學生", "meaning_ko": "고등학교에 다니는 학생", "meaning_en": "high school student", "components": ["高", "等", "學", "生"]}
+{"level": "normal", "word": "공부", "hanja": "工夫", "meaning_ko": "지식이나 기능을 배우고 익히는 일", "meaning_en": "study; learning", "components": ["工", "夫"]}
+{"level": "normal", "word": "공중전화", "hanja": "公衆電話", "meaning_ko": "여러 사람이 요금을 내고 이용하는 전화", "meaning_en": "public telephone; pay phone", "components": ["公", "衆", "電", "話"]}
+{"level": "normal", "word": "공책", "hanja": "空冊", "meaning_ko": "글을 쓰거나 내용을 기록하도록 종이를 묶은 책", "meaning_en": "notebook; exercise book", "components": ["空", "冊"]}
+{"level": "normal", "word": "공휴일", "hanja": "公休日", "meaning_ko": "국가에서 정하여 공적으로 쉬는 날", "meaning_en": "public holiday", "components": ["公", "休", "日"]}
+{"level": "normal", "word": "과", "hanja": "課", "meaning_ko": "교과서에서 학습 내용을 나눈 한 단원", "meaning_en": "lesson; unit in a textbook", "components": ["課"]}
+{"level": "normal", "word": "교과서", "hanja": "敎科書", "meaning_ko": "학교에서 가르치고 배우는 데 쓰는 기본 책", "meaning_en": "school textbook", "components": ["敎", "科", "書"]}
+{"level": "normal", "word": "교회", "hanja": "敎會", "meaning_ko": "기독교 신자들이 모여 예배하는 공동체나 그 장소", "meaning_en": "Christian church; congregation or place of worship", "components": ["敎", "會"]}
+{"level": "normal", "word": "구", "hanja": "九", "meaning_ko": "여덟에 하나를 더한 수", "meaning_en": "nine", "components": ["九"]}
+{"level": "normal", "word": "권", "hanja": "卷", "meaning_ko": "책을 세는 단위", "meaning_en": "counter for books or volumes", "components": ["卷"]}
+{"level": "normal", "word": "근처", "hanja": "近處", "meaning_ko": "어떤 장소에서 멀지 않은 주변", "meaning_en": "nearby area; vicinity", "components": ["近", "處"]}
+{"level": "normal", "word": "급", "hanja": "級", "meaning_ko": "실력이나 수준 등을 구분하는 단계", "meaning_en": "grade; level", "components": ["級"]}
+{"level": "normal", "word": "기분", "hanja": "氣分", "meaning_ko": "그때그때 느끼는 마음의 상태", "meaning_en": "mood; feeling", "components": ["氣", "分"]}
+{"level": "normal", "word": "남대문", "hanja": "南大門", "meaning_ko": "서울의 옛 도성 남쪽 정문인 숭례문을 이르는 이름", "meaning_en": "Namdaemun, another name for Seoul's Sungnyemun gate", "components": ["南", "大", "門"]}
+{"level": "normal", "word": "남대문시장", "hanja": "南大門市場", "meaning_ko": "서울 남대문 가까이에 있는 전통 시장", "meaning_en": "Namdaemun Market in Seoul", "components": ["南", "大", "門", "市", "場"]}
+{"level": "normal", "word": "남동생", "hanja": "男동생", "meaning_ko": "자신보다 나이가 어린 남자 형제", "meaning_en": "younger brother", "components": ["男"], "semantic_hint": "男[남]와 ‘동생’이 결합한 말이에요. 현재 사전에서 ‘동생’은 한자 표기를 붙이지 않아요."}
+{"level": "normal", "word": "남쪽", "hanja": "南쪽", "meaning_ko": "네 기본 방향 가운데 남에 해당하는 쪽", "meaning_en": "south; the southern side", "components": ["南"]}
+{"level": "normal", "word": "남편", "hanja": "男便", "meaning_ko": "혼인 관계에서 남자인 배우자", "meaning_en": "husband", "components": ["男", "便"]}
+{"level": "normal", "word": "남학생", "hanja": "男學生", "meaning_ko": "남자인 학생", "meaning_en": "male student", "components": ["男", "學", "生"]}
+{"level": "normal", "word": "내년", "hanja": "來年", "meaning_ko": "올해의 다음 해", "meaning_en": "next year", "components": ["來", "年"]}
+{"level": "normal", "word": "냉면", "hanja": "冷麵", "meaning_ko": "차가운 국물이나 양념에 넣어 먹는 국수 음식", "meaning_en": "naengmyeon; cold noodles", "components": ["冷", "麵"]}
+{"level": "normal", "word": "냉장고", "hanja": "冷藏庫", "meaning_ko": "음식 등을 낮은 온도로 보관하는 기구", "meaning_en": "refrigerator", "components": ["冷", "藏", "庫"]}
+{"level": "normal", "word": "년", "hanja": "年", "meaning_ko": "해의 수나 연도를 나타내는 단위", "meaning_en": "year; counter for years", "components": ["年"]}
+{"level": "normal", "word": "노란색", "hanja": "노란色", "meaning_ko": "잘 익은 레몬과 같은 노란 빛깔", "meaning_en": "yellow; the color yellow", "components": ["色"]}
+{"level": "normal", "word": "달력", "hanja": "달曆", "meaning_ko": "한 해의 달·날짜·요일을 표시한 표나 책", "meaning_en": "calendar", "components": ["曆"]}
+{"level": "normal", "word": "대사관", "hanja": "大使館", "meaning_ko": "외국에서 자기 나라를 대표하여 외교 업무를 하는 기관", "meaning_en": "embassy", "components": ["大", "使", "館"]}
+{"level": "normal", "word": "대학", "hanja": "大學", "meaning_ko": "고등학교 이후의 고등 교육 기관 또는 대학교 안의 학문별 조직", "meaning_en": "college; university; a college within a university", "components": ["大", "學"]}
+{"level": "normal", "word": "대학교", "hanja": "大學校", "meaning_ko": "여러 학문 분야를 가르치고 연구하는 고등 교육 기관", "meaning_en": "university", "components": ["大", "學", "校"]}
+{"level": "normal", "word": "대학생", "hanja": "大學生", "meaning_ko": "대학에 다니는 학생", "meaning_en": "college or university student", "components": ["大", "學", "生"]}
+{"level": "normal", "word": "댁", "hanja": "宅", "meaning_ko": "남의 집이나 가정을 높여 이르는 말", "meaning_en": "honorific word for someone's home or household", "components": ["宅"]}
+{"level": "normal", "word": "독일", "hanja": "獨逸", "meaning_ko": "유럽 중부에 있는 나라", "meaning_en": "Germany", "components": ["獨", "逸"]}
+{"level": "normal", "word": "동물", "hanja": "動物", "meaning_ko": "먹이를 섭취하며 살아가는 생물의 한 무리", "meaning_en": "animal", "components": ["動", "物"]}
+{"level": "normal", "word": "동쪽", "hanja": "東쪽", "meaning_ko": "해가 뜨는 방향에 해당하는 쪽", "meaning_en": "east; the eastern side", "components": ["東"]}
+{"level": "normal", "word": "만", "hanja": "萬", "meaning_ko": "천의 열 배가 되는 수 또는 그 수량", "meaning_en": "ten thousand", "components": ["萬"]}
+{"level": "normal", "word": "명", "hanja": "名", "meaning_ko": "사람 수를 세는 단위", "meaning_en": "counter for people", "components": ["名"]}
+{"level": "normal", "word": "문", "hanja": "門", "meaning_ko": "건물이나 방을 드나들도록 만든 출입구 또는 그 여닫는 부분", "meaning_en": "door; gate", "components": ["門"]}
+{"level": "normal", "word": "미국", "hanja": "美國", "meaning_ko": "북아메리카에 있는 미국이라는 나라", "meaning_en": "the United States of America", "components": ["美", "國"]}
+{"level": "normal", "word": "미안", "hanja": "未安", "meaning_ko": "남에게 잘못하거나 폐를 끼쳐 마음이 편하지 않은 느낌", "meaning_en": "regret or embarrassment over troubling someone", "components": ["未", "安"]}
+{"level": "normal", "word": "반", "hanja": "半", "meaning_ko": "전체를 둘로 나눈 것 가운데 하나", "meaning_en": "half", "components": ["半"]}
+{"level": "normal", "word": "반", "hanja": "班", "meaning_ko": "학교 등에서 사람들을 나누어 편성한 한 집단", "meaning_en": "class; group", "components": ["班"]}
+{"level": "normal", "word": "발음", "hanja": "發音", "meaning_ko": "말소리를 내는 일 또는 그 소리", "meaning_en": "pronunciation", "components": ["發", "音"]}
+{"level": "normal", "word": "방", "hanja": "房", "meaning_ko": "집이나 건물 안에서 벽으로 나눈 공간", "meaning_en": "room", "components": ["房"]}
+{"level": "normal", "word": "방학", "hanja": "放學", "meaning_ko": "학교가 수업을 쉬는 일정한 기간", "meaning_en": "school vacation", "components": ["放", "學"]}
+{"level": "normal", "word": "백", "hanja": "百", "meaning_ko": "열의 열 배가 되는 수 또는 그 수량", "meaning_en": "one hundred", "components": ["百"]}
+{"level": "normal", "word": "번", "hanja": "番", "meaning_ko": "횟수나 순서를 세는 단위", "meaning_en": "counter for occurrences or numbered order", "components": ["番"]}
+{"level": "normal", "word": "병", "hanja": "病", "meaning_ko": "몸이나 마음의 기능에 이상이 생긴 상태", "meaning_en": "illness; disease", "components": ["病"]}
+{"level": "normal", "word": "병", "hanja": "甁", "meaning_ko": "액체 등을 담는 목이 좁은 용기", "meaning_en": "bottle", "components": ["甁"]}
+{"level": "normal", "word": "부모님", "hanja": "父母님", "meaning_ko": "아버지와 어머니를 높여 이르는 말", "meaning_en": "parents, expressed respectfully", "components": ["父", "母"]}
+{"level": "normal", "word": "부인", "hanja": "夫人", "meaning_ko": "다른 사람의 아내를 높여 이르는 말", "meaning_en": "wife, expressed respectfully", "components": ["夫", "人"]}
+{"level": "normal", "word": "북쪽", "hanja": "北쪽", "meaning_ko": "네 기본 방향 가운데 북에 해당하는 쪽", "meaning_en": "north; the northern side", "components": ["北"]}
+{"level": "normal", "word": "빨간색", "hanja": "빨간色", "meaning_ko": "잘 익은 고추와 같은 빨간 빛깔", "meaning_en": "red; the color red", "components": ["色"]}
+{"level": "normal", "word": "사", "hanja": "四", "meaning_ko": "셋에 하나를 더한 수", "meaning_en": "four", "components": ["四"]}
+{"level": "normal", "word": "사과", "hanja": "沙果", "meaning_ko": "사과나무에서 열리는 둥글고 아삭한 과일", "meaning_en": "apple", "components": ["沙", "果"]}
+{"level": "normal", "word": "사십", "hanja": "四十", "meaning_ko": "십의 네 배가 되는 수", "meaning_en": "forty", "components": ["四", "十"]}
+{"level": "normal", "word": "사월", "hanja": "四月", "meaning_ko": "한 해의 네 번째 달", "meaning_en": "April", "components": ["四", "月"]}
+{"level": "normal", "word": "산", "hanja": "山", "meaning_ko": "주변 땅보다 높이 솟은 지형", "meaning_en": "mountain", "components": ["山"]}
+{"level": "normal", "word": "산책", "hanja": "散策", "meaning_ko": "쉬거나 기분을 바꾸려고 천천히 걷는 일", "meaning_en": "a walk; a stroll", "components": ["散", "策"]}
+{"level": "normal", "word": "삼", "hanja": "三", "meaning_ko": "둘에 하나를 더한 수", "meaning_en": "three", "components": ["三"]}
+{"level": "normal", "word": "삼십", "hanja": "三十", "meaning_ko": "십의 세 배가 되는 수", "meaning_en": "thirty", "components": ["三", "十"]}
+{"level": "normal", "word": "색", "hanja": "色", "meaning_ko": "빛에 따라 눈에 구별되어 보이는 성질", "meaning_en": "color", "components": ["色"]}
+{"level": "normal", "word": "색깔", "hanja": "色깔", "meaning_ko": "눈으로 구별하는 물체의 빛깔", "meaning_en": "color; hue", "components": ["色"]}
+{"level": "normal", "word": "생일", "hanja": "生日", "meaning_ko": "태어난 날 또는 해마다 돌아오는 그 날짜", "meaning_en": "birthday", "components": ["生", "日"]}
+{"level": "normal", "word": "서울역", "hanja": "서울驛", "meaning_ko": "서울에 있는 주요 철도역의 이름", "meaning_en": "Seoul Station", "components": ["驛"]}
+{"level": "normal", "word": "서쪽", "hanja": "西쪽", "meaning_ko": "해가 지는 방향에 해당하는 쪽", "meaning_en": "west; the western side", "components": ["西"]}
+{"level": "normal", "word": "선물", "hanja": "膳物", "meaning_ko": "고마움이나 축하 등의 마음을 담아 남에게 주는 물건", "meaning_en": "gift; present", "components": ["膳", "物"]}
+{"level": "normal", "word": "선생님", "hanja": "先生님", "meaning_ko": "학생을 가르치는 사람을 높이거나 상대를 공손히 부르는 말", "meaning_en": "teacher; respectful form of address", "components": ["先", "生"]}
+{"level": "normal", "word": "설악산", "hanja": "雪嶽山", "meaning_ko": "강원도에 있는 산의 이름", "meaning_en": "Seoraksan, a mountain in Gangwon Province", "components": ["雪", "嶽", "山"]}
+{"level": "normal", "word": "세", "hanja": "歲", "meaning_ko": "사람의 나이를 세는 단위", "meaning_en": "counter for years of age", "components": ["歲"]}
+{"level": "normal", "word": "소풍", "hanja": "逍風", "meaning_ko": "기분을 바꾸거나 구경하려고 야외에 나가는 일", "meaning_en": "outing; picnic", "components": ["逍", "風"]}
+{"level": "normal", "word": "수건", "hanja": "手巾", "meaning_ko": "몸이나 물건에 묻은 물기를 닦는 천", "meaning_en": "towel", "components": ["手", "巾"]}
+{"level": "normal", "word": "수영장", "hanja": "水泳場", "meaning_ko": "수영할 수 있도록 마련한 시설이나 장소", "meaning_en": "swimming pool", "components": ["水", "泳", "場"]}
+{"level": "normal", "word": "숙제", "hanja": "宿題", "meaning_ko": "수업 뒤에 하도록 주어진 학습 과제", "meaning_en": "homework", "components": ["宿", "題"]}
+{"level": "normal", "word": "시", "hanja": "市", "meaning_ko": "행정 구역의 하나인 도시", "meaning_en": "city; municipal administrative unit", "components": ["市"]}
+{"level": "normal", "word": "시", "hanja": "時", "meaning_ko": "하루 안의 시각을 나타내는 단위", "meaning_en": "o'clock; counter for hours on the clock", "components": ["時"]}
+{"level": "normal", "word": "시계", "hanja": "時計", "meaning_ko": "시각을 알려 주는 기구", "meaning_en": "clock; watch", "components": ["時", "計"]}
+{"level": "normal", "word": "시월", "hanja": "十月", "meaning_ko": "한 해의 열 번째 달", "meaning_en": "October", "components": ["十", "月"], "semantic_hint": "十[시]月[월]은 한 해의 열 번째 달이에요. 이 단어에서는 첫 글자의 본음인 ‘십’ 대신 속음인 ‘시’를 써요."}
+{"level": "normal", "word": "시작되다", "hanja": "始作되다", "meaning_ko": "어떤 일이나 과정이 처음 이루어지다", "meaning_en": "to begin; to get started", "components": ["始", "作"]}
+{"level": "normal", "word": "식사", "hanja": "食事", "meaning_ko": "끼니로 음식을 먹는 일 또는 그 음식", "meaning_en": "meal; eating a meal", "components": ["食", "事"]}
+{"level": "normal", "word": "십", "hanja": "十", "meaning_ko": "아홉에 하나를 더한 수", "meaning_en": "ten", "components": ["十"]}
+{"level": "normal", "word": "십이월", "hanja": "十二月", "meaning_ko": "한 해의 열두 번째 달", "meaning_en": "December", "components": ["十", "二", "月"]}
+{"level": "normal", "word": "십일월", "hanja": "十一月", "meaning_ko": "한 해의 열한 번째 달", "meaning_en": "November", "components": ["十", "一", "月"]}
+{"level": "normal", "word": "씨", "hanja": "氏", "meaning_ko": "사람의 이름 뒤에 붙여 공손하게 부르는 말", "meaning_en": "polite title attached to a person's name", "components": ["氏"]}
+{"level": "normal", "word": "안녕히", "hanja": "安寧히", "meaning_ko": "편안하고 무사하게 지내기를 바라는 뜻으로 쓰는 말", "meaning_en": "peacefully; safely, especially in greetings", "components": ["安", "寧"]}
+{"level": "normal", "word": "약", "hanja": "藥", "meaning_ko": "병을 치료하거나 증상을 줄이기 위해 쓰는 물질", "meaning_en": "medicine; medication", "components": ["藥"]}
+{"level": "normal", "word": "양말", "hanja": "洋襪", "meaning_ko": "발에 신어 보호하거나 따뜻하게 하는 옷", "meaning_en": "socks", "components": ["洋", "襪"]}
+{"level": "normal", "word": "양복", "hanja": "洋服", "meaning_ko": "서양식 옷, 특히 상의와 바지를 갖춘 정장", "meaning_en": "Western-style clothes; a suit", "components": ["洋", "服"]}
+{"level": "normal", "word": "여동생", "hanja": "女동생", "meaning_ko": "자신보다 나이가 어린 여자 형제", "meaning_en": "younger sister", "components": ["女"], "semantic_hint": "女[여]와 ‘동생’이 결합한 말이에요. 현재 사전에서 ‘동생’은 한자 표기를 붙이지 않아요."}
+{"level": "normal", "word": "여학생", "hanja": "女學生", "meaning_ko": "여자인 학생", "meaning_en": "female student", "components": ["女", "學", "生"]}
+{"level": "normal", "word": "역", "hanja": "驛", "meaning_ko": "기차가 서서 사람들이 타고 내리는 곳", "meaning_en": "railway station", "components": ["驛"]}
+{"level": "normal", "word": "열심히", "hanja": "熱心히", "meaning_ko": "정성과 힘을 기울여 꾸준하게", "meaning_en": "diligently; with effort", "components": ["熱", "心"]}
+{"level": "normal", "word": "영국", "hanja": "英國", "meaning_ko": "유럽 북서부에 있는 연합 왕국", "meaning_en": "the United Kingdom", "components": ["英", "國"]}
+{"level": "normal", "word": "영어", "hanja": "英語", "meaning_ko": "영국·미국 등에서 사용하는 언어", "meaning_en": "English language", "components": ["英", "語"]}
+{"level": "normal", "word": "영화", "hanja": "映畵", "meaning_ko": "움직이는 영상과 소리로 이야기를 표현하는 작품", "meaning_en": "film; movie", "components": ["映", "畵"]}
+{"level": "normal", "word": "오", "hanja": "五", "meaning_ko": "넷에 하나를 더한 수", "meaning_en": "five", "components": ["五"]}
+{"level": "normal", "word": "오십", "hanja": "五十", "meaning_ko": "십의 다섯 배가 되는 수", "meaning_en": "fifty", "components": ["五", "十"]}
+{"level": "normal", "word": "오월", "hanja": "五月", "meaning_ko": "한 해의 다섯 번째 달", "meaning_en": "May", "components": ["五", "月"]}
+{"level": "normal", "word": "외국", "hanja": "外國", "meaning_ko": "자기 나라가 아닌 다른 나라", "meaning_en": "foreign country", "components": ["外", "國"]}
+{"level": "normal", "word": "외국어", "hanja": "外國語", "meaning_ko": "자기 나라의 언어가 아닌 다른 나라의 언어", "meaning_en": "foreign language", "components": ["外", "國", "語"]}
+{"level": "normal", "word": "외국인", "hanja": "外國人", "meaning_ko": "다른 나라의 국적을 가진 사람", "meaning_en": "foreigner; foreign national", "components": ["外", "國", "人"]}
+{"level": "normal", "word": "요리", "hanja": "料理", "meaning_ko": "음식을 만드는 일 또는 그렇게 만든 음식", "meaning_en": "cooking; prepared dish", "components": ["料", "理"]}
+{"level": "normal", "word": "운동", "hanja": "運動", "meaning_ko": "건강이나 체력을 위해 몸을 움직이는 활동", "meaning_en": "exercise; physical activity", "components": ["運", "動"]}
+{"level": "normal", "word": "운동장", "hanja": "運動場", "meaning_ko": "운동이나 놀이를 하도록 마련한 넓은 장소", "meaning_en": "sports ground; playground", "components": ["運", "動", "場"]}
+{"level": "normal", "word": "운동화", "hanja": "運動靴", "meaning_ko": "운동하거나 활동하기 편하게 만든 신발", "meaning_en": "sneakers; athletic shoes", "components": ["運", "動", "靴"]}
+{"level": "normal", "word": "운전", "hanja": "運轉", "meaning_ko": "자동차 등 탈것을 움직이고 조종하는 일", "meaning_en": "driving", "components": ["運", "轉"]}
+{"level": "normal", "word": "월", "hanja": "月", "meaning_ko": "한 해의 달을 나타내는 단위", "meaning_en": "month; counter used for calendar months", "components": ["月"]}
+{"level": "normal", "word": "유명", "hanja": "有名", "meaning_ko": "이름이나 존재가 널리 알려져 있음", "meaning_en": "fame; being widely known", "components": ["有", "名"]}
+{"level": "normal", "word": "유월", "hanja": "六月", "meaning_ko": "한 해의 여섯 번째 달", "meaning_en": "June", "components": ["六", "月"], "semantic_hint": "六[유]月[월]은 한 해의 여섯 번째 달이에요. 이 단어에서는 첫 글자의 본음인 ‘육’ 대신 속음인 ‘유’를 써요."}
+{"level": "normal", "word": "육", "hanja": "六", "meaning_ko": "다섯에 하나를 더한 수", "meaning_en": "six", "components": ["六"]}
+{"level": "normal", "word": "음악", "hanja": "音樂", "meaning_ko": "소리와 리듬으로 느낌을 표현하는 예술", "meaning_en": "music", "components": ["音", "樂"]}
+{"level": "normal", "word": "의자", "hanja": "椅子", "meaning_ko": "사람이 앉도록 만든 가구", "meaning_en": "chair", "components": ["椅", "子"]}
+{"level": "normal", "word": "이", "hanja": "二", "meaning_ko": "하나에 하나를 더한 수", "meaning_en": "two", "components": ["二"]}
+{"level": "normal", "word": "이번", "hanja": "이番", "meaning_ko": "지금 이야기하는 차례나 기회", "meaning_en": "this time; this occasion", "components": ["番"]}
+{"level": "normal", "word": "이십", "hanja": "二十", "meaning_ko": "십의 두 배가 되는 수", "meaning_en": "twenty", "components": ["二", "十"]}
+{"level": "normal", "word": "이해", "hanja": "理解", "meaning_ko": "말이나 글의 뜻, 사정 등을 알아들어 받아들임", "meaning_en": "understanding; comprehension", "components": ["理", "解"]}
+{"level": "normal", "word": "인사", "hanja": "人士", "meaning_ko": "어떤 분야나 사회에서 활동하는 사람", "meaning_en": "person active in a field; public figure", "components": ["人", "士"]}
+{"level": "normal", "word": "인사", "hanja": "人事", "meaning_ko": "만나거나 헤어질 때 예의를 표현하는 말이나 행동", "meaning_en": "greeting; polite acknowledgment", "components": ["人", "事"]}
+{"level": "normal", "word": "인천", "hanja": "仁川", "meaning_ko": "대한민국 서해안에 있는 도시", "meaning_en": "Incheon, a city on South Korea's west coast", "components": ["仁", "川"]}
+{"level": "normal", "word": "일", "hanja": "一", "meaning_ko": "수를 셀 때 처음에 오는 수", "meaning_en": "one", "components": ["一"]}
+{"level": "normal", "word": "일본", "hanja": "日本", "meaning_ko": "한반도 동쪽 바다에 있는 섬나라", "meaning_en": "Japan", "components": ["日", "本"]}
+{"level": "normal", "word": "일본어", "hanja": "日本語", "meaning_ko": "일본에서 사용하는 언어", "meaning_en": "Japanese language", "components": ["日", "本", "語"]}
+{"level": "normal", "word": "일월", "hanja": "一月", "meaning_ko": "한 해의 첫 번째 달", "meaning_en": "January", "components": ["一", "月"]}
+{"level": "normal", "word": "일주일", "hanja": "一週日", "meaning_ko": "일곱 날의 기간", "meaning_en": "one week", "components": ["一", "週", "日"]}
+{"level": "normal", "word": "자전거", "hanja": "自轉車", "meaning_ko": "페달을 밟아 바퀴를 굴려 움직이는 탈것", "meaning_en": "bicycle", "components": ["自", "轉", "車"]}
+{"level": "normal", "word": "잔", "hanja": "盞", "meaning_ko": "차나 물 등을 따라 마시는 작은 그릇", "meaning_en": "cup; drinking glass", "components": ["盞"]}
+{"level": "normal", "word": "장", "hanja": "張", "meaning_ko": "종이처럼 얇고 넓은 물건을 세는 단위", "meaning_en": "counter for sheets or other flat items", "components": ["張"]}
+{"level": "normal", "word": "장미", "hanja": "薔薇", "meaning_ko": "가시가 있는 줄기에서 피는 꽃의 한 종류", "meaning_en": "rose", "components": ["薔", "薇"]}
+{"level": "normal", "word": "전", "hanja": "前", "meaning_ko": "어떤 때보다 앞선 시점 또는 이전의", "meaning_en": "before; previous; former", "components": ["前"]}
+{"level": "normal", "word": "전화", "hanja": "電話", "meaning_ko": "통신망을 통해 떨어진 사람과 말을 주고받는 수단이나 기기", "meaning_en": "telephone; phone call", "components": ["電", "話"]}
+{"level": "normal", "word": "전화번호", "hanja": "電話番號", "meaning_ko": "전화 연결에 쓰는 고유한 숫자의 조합", "meaning_en": "telephone number", "components": ["電", "話", "番", "號"]}
+{"level": "normal", "word": "점심", "hanja": "點心", "meaning_ko": "하루의 가운데 무렵에 먹는 끼니", "meaning_en": "lunch", "components": ["點", "心"]}
+{"level": "normal", "word": "점심시간", "hanja": "點心時間", "meaning_ko": "점심을 먹도록 정한 시간", "meaning_en": "lunchtime; lunch break", "components": ["點", "心", "時", "間"]}
+{"level": "normal", "word": "정류장", "hanja": "停留場", "meaning_ko": "버스 등이 정기적으로 서서 승객이 타고 내리는 곳", "meaning_en": "bus stop; transit stop", "components": ["停", "留", "場"]}
+{"level": "normal", "word": "정말", "hanja": "正말", "meaning_ko": "거짓이 없는 사실 또는 사실임을 강조하는 말", "meaning_en": "truth; really; truly", "components": ["正"]}
+{"level": "normal", "word": "제주도", "hanja": "濟州島", "meaning_ko": "대한민국 남쪽 바다에 있는 섬", "meaning_en": "Jeju Island", "components": ["濟", "州", "島"]}
+{"level": "normal", "word": "죄송", "hanja": "罪悚", "meaning_ko": "‘죄송하다’의 어근으로, 잘못이나 폐를 끼쳐 매우 미안한 마음을 나타냄", "meaning_en": "root expressing an apologetic feeling, used in 죄송하다", "components": ["罪", "悚"]}
+{"level": "normal", "word": "주", "hanja": "週", "meaning_ko": "일곱 날로 이루어진 시간 단위", "meaning_en": "week", "components": ["週"]}
+{"level": "normal", "word": "주인", "hanja": "主人", "meaning_ko": "물건이나 장소를 가진 사람 또는 손님을 맞는 사람", "meaning_en": "owner; host", "components": ["主", "人"]}
+{"level": "normal", "word": "중국", "hanja": "中國", "meaning_ko": "동아시아에 있는 중국이라는 나라", "meaning_en": "China", "components": ["中", "國"]}
+{"level": "normal", "word": "중국어", "hanja": "中國語", "meaning_ko": "중국에서 사용하는 언어", "meaning_en": "Chinese language", "components": ["中", "國", "語"]}
+{"level": "normal", "word": "중요", "hanja": "重要", "meaning_ko": "가치나 영향이 크고 꼭 필요함", "meaning_en": "importance; being essential", "components": ["重", "要"]}
+{"level": "normal", "word": "중학교", "hanja": "中學校", "meaning_ko": "초등학교 다음 단계의 교육을 하는 학교", "meaning_en": "middle school", "components": ["中", "學", "校"]}
+{"level": "normal", "word": "중학생", "hanja": "中學生", "meaning_ko": "중학교에 다니는 학생", "meaning_en": "middle school student", "components": ["中", "學", "生"]}
+{"level": "normal", "word": "지갑", "hanja": "紙匣", "meaning_ko": "돈이나 카드 등을 넣어 가지고 다니는 작은 물건", "meaning_en": "wallet", "components": ["紙", "匣"]}
+{"level": "normal", "word": "지난주", "hanja": "지난週", "meaning_ko": "이번 주의 바로 앞 주", "meaning_en": "last week", "components": ["週"]}
+{"level": "normal", "word": "지하", "hanja": "地下", "meaning_ko": "땅의 표면보다 아래인 곳", "meaning_en": "underground; basement level", "components": ["地", "下"]}
+{"level": "normal", "word": "지하철", "hanja": "地下鐵", "meaning_ko": "도시에서 주로 지하로 운행하는 철도나 그 열차", "meaning_en": "subway; metro", "components": ["地", "下", "鐵"]}
+{"level": "normal", "word": "차", "hanja": "車", "meaning_ko": "사람이나 짐을 싣고 바퀴로 이동하는 탈것", "meaning_en": "vehicle; car", "components": ["車"]}
+{"level": "normal", "word": "차", "hanja": "茶", "meaning_ko": "잎이나 재료를 우려서 마시는 음료", "meaning_en": "tea", "components": ["茶"]}
+{"level": "normal", "word": "책", "hanja": "冊", "meaning_ko": "글이나 그림을 담은 종이를 묶은 물건", "meaning_en": "book", "components": ["冊"]}
+{"level": "normal", "word": "천", "hanja": "千", "meaning_ko": "백의 열 배가 되는 수 또는 그 수량", "meaning_en": "one thousand", "components": ["千"]}
+{"level": "normal", "word": "청바지", "hanja": "靑바지", "meaning_ko": "주로 질긴 데님 천으로 만든 바지", "meaning_en": "jeans", "components": ["靑"]}
+{"level": "normal", "word": "초등학교", "hanja": "初等學校", "meaning_ko": "기초적인 학교 교육을 받는 첫 단계의 학교", "meaning_en": "elementary school; primary school", "components": ["初", "等", "學", "校"]}
+{"level": "normal", "word": "출발", "hanja": "出發", "meaning_ko": "목적지를 향해 떠남", "meaning_en": "departure; setting out", "components": ["出", "發"]}
+{"level": "normal", "word": "층", "hanja": "層", "meaning_ko": "건물에서 높이에 따라 나뉜 공간을 세는 단위", "meaning_en": "floor; story of a building", "components": ["層"]}
+{"level": "normal", "word": "치약", "hanja": "齒藥", "meaning_ko": "이를 닦을 때 쓰는 세정제", "meaning_en": "toothpaste", "components": ["齒", "藥"]}
+{"level": "normal", "word": "친구", "hanja": "親舊", "meaning_ko": "친하게 지내는 사람", "meaning_en": "friend", "components": ["親", "舊"]}
+{"level": "normal", "word": "친절", "hanja": "親切", "meaning_ko": "남을 다정하고 정성스럽게 대하는 태도", "meaning_en": "kindness; helpful consideration", "components": ["親", "切"]}
+{"level": "normal", "word": "칠", "hanja": "七", "meaning_ko": "여섯에 하나를 더한 수", "meaning_en": "seven", "components": ["七"]}
+{"level": "normal", "word": "칠판", "hanja": "漆板", "meaning_ko": "분필 등으로 글씨를 쓰도록 만든 수업용 판", "meaning_en": "blackboard; classroom board", "components": ["漆", "板"]}
+{"level": "normal", "word": "침대", "hanja": "寢臺", "meaning_ko": "누워 자도록 만든 가구", "meaning_en": "bed", "components": ["寢", "臺"]}
+{"level": "normal", "word": "칫솔", "hanja": "齒솔", "meaning_ko": "이를 닦는 데 쓰는 작은 솔", "meaning_en": "toothbrush", "components": ["齒"], "semantic_hint": "齒[치]와 고유어 ‘솔’이 결합한 말이에요. 한글 표기에는 사이시옷이 들어가 ‘칫솔’이 돼요."}
+{"level": "normal", "word": "파란색", "hanja": "파란色", "meaning_ko": "맑은 하늘과 같은 파란 빛깔", "meaning_en": "blue; the color blue", "components": ["色"]}
+{"level": "normal", "word": "팔", "hanja": "八", "meaning_ko": "일곱에 하나를 더한 수", "meaning_en": "eight", "components": ["八"]}
+{"level": "normal", "word": "팔십", "hanja": "八十", "meaning_ko": "십의 여덟 배가 되는 수", "meaning_en": "eighty", "components": ["八", "十"]}
+{"level": "normal", "word": "편지", "hanja": "便紙", "meaning_ko": "다른 사람에게 소식이나 생각을 적어 보내는 글", "meaning_en": "letter; written message", "components": ["便", "紙"]}
+{"level": "normal", "word": "표", "hanja": "票", "meaning_ko": "교통수단이나 시설의 이용 권리를 나타내는 증서", "meaning_en": "ticket", "components": ["票"]}
+{"level": "normal", "word": "필요", "hanja": "必要", "meaning_ko": "어떤 일을 하는 데 반드시 있어야 함", "meaning_en": "need; necessity", "components": ["必", "要"]}
+{"level": "normal", "word": "학생", "hanja": "學生", "meaning_ko": "학교에 다니며 배우는 사람", "meaning_en": "student", "components": ["學", "生"]}
+{"level": "normal", "word": "한강", "hanja": "漢江", "meaning_ko": "한반도 중부를 흘러 서울을 지나 서해로 가는 강", "meaning_en": "Han River, which flows through Seoul to the Yellow Sea", "components": ["漢", "江"]}
+{"level": "normal", "word": "한국말", "hanja": "韓國말", "meaning_ko": "한국에서 사용하는 말", "meaning_en": "Korean language", "components": ["韓", "國"]}
+{"level": "normal", "word": "한번", "hanja": "한番", "meaning_ko": "어떤 기회에 시험 삼아 해 보는 것을 나타내는 말", "meaning_en": "once; on an occasion; used to suggest trying something", "components": ["番"]}
+{"level": "normal", "word": "형", "hanja": "兄", "meaning_ko": "남자가 자기보다 나이 많은 남자 형제를 부르는 말", "meaning_en": "older brother, used by a male speaker", "components": ["兄"]}
+{"level": "normal", "word": "호", "hanja": "號", "meaning_ko": "순서나 번호를 나타내는 단위", "meaning_en": "counter for numbered rooms, issues, or items", "components": ["號"]}
+{"level": "normal", "word": "호주", "hanja": "濠洲", "meaning_ko": "오세아니아에 있는 나라를 이르는 한자어 이름", "meaning_en": "Australia", "components": ["濠", "洲"]}
+{"level": "normal", "word": "화장실", "hanja": "化粧室", "meaning_ko": "대소변을 보거나 손을 씻도록 마련한 공간", "meaning_en": "restroom; toilet; bathroom", "components": ["化", "粧", "室"]}
+{"level": "normal", "word": "후", "hanja": "後", "meaning_ko": "어떤 때가 지난 다음", "meaning_en": "after; later", "components": ["後"]}
+{"level": "normal", "word": "휴일", "hanja": "休日", "meaning_ko": "일이나 수업을 쉬는 날", "meaning_en": "day off; holiday", "components": ["休", "日"]}
+{"level": "normal", "word": "휴지", "hanja": "休紙", "meaning_ko": "닦거나 위생 처리에 쓰는 얇은 종이", "meaning_en": "tissue; toilet paper", "components": ["休", "紙"]}
+{"level": "normal", "word": "휴지통", "hanja": "休紙桶", "meaning_ko": "쓰레기를 넣는 통", "meaning_en": "trash can; wastebasket", "components": ["休", "紙", "桶"]}
+{"level": "normal", "word": "흰색", "hanja": "흰色", "meaning_ko": "눈이나 흰 종이와 같은 빛깔", "meaning_en": "white; the color white", "components": ["色"]}
