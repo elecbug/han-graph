@@ -30,7 +30,7 @@ func fixture(t *testing.T) map[string]string {
 		Character{"character", "su-000", "數", []string{"수"}, []string{"number"}},
 		Character{"character", "su-001", "水", []string{"물"}, []string{"water"}},
 		Character{"character", "sak-000", "數", []string{"자주"}, []string{"frequently"}})
-	encode("normal_word.jsonl",
+	encode("word.jsonl",
 		Word{"normal", "분수", "分數", "나눈 수", "fraction", []string{"分", "數"}, "나눈 수"},
 		Word{"normal", "분수", "噴水", "물을 뿜음", "fountain", []string{"噴", "水"}, ""},
 		Word{"normal", "반복테스트", "水水", "테스트", "test", []string{"水", "水"}, ""})
@@ -96,7 +96,7 @@ func TestInvalidDataset(t *testing.T) {
 		name, file, want string
 		change           func(string) string
 	}{
-		{"comment", "normal_word.jsonl", ":5:", func(s string) string { return s + "\n// progress\n" }},
+		{"comment", "word.jsonl", ":5:", func(s string) string { return s + "\n// progress\n" }},
 		{"trailing object", "meta.jsonl", ":1:", func(s string) string { return strings.Replace(s, "\n", " {}\n", 1) }},
 		{"unknown field", "meta.jsonl", "unknown field", func(s string) string { return strings.Replace(s, `"type":`, `"typo":1,"type":`, 1) }},
 		{"empty file", "meta.jsonl", "no records", func(string) string { return "\n" }},
@@ -107,10 +107,10 @@ func TestInvalidDataset(t *testing.T) {
 		{"duplicate reading", "character.jsonl", "duplicate hanja/reading", func(s string) string { return strings.Replace(s, "噴", "分", 1) }},
 		{"bad id", "character.jsonl", "id=<meta>", func(s string) string { return strings.Replace(s, "bun-000", "bun000", 1) }},
 		{"missing meaning", "character.jsonl", "nonempty meaning arrays", func(s string) string { return strings.Replace(s, `["divide"]`, `[]`, 1) }},
-		{"wrong order", "normal_word.jsonl", "components must reproduce", func(s string) string { return strings.Replace(s, `"分數"`, `"數分"`, 1) }},
-		{"unknown component", "normal_word.jsonl", "unknown component", func(s string) string { return strings.ReplaceAll(s, "噴", "火") }},
-		{"duplicate word", "normal_word.jsonl", "duplicate word/hanja", func(s string) string { return s + strings.Split(s, "\n")[0] }},
-		{"null record", "normal_word.jsonl", "expected level", func(s string) string { return s + "null\n" }},
+		{"wrong order", "word.jsonl", "components must reproduce", func(s string) string { return strings.Replace(s, `"分數"`, `"數分"`, 1) }},
+		{"unknown component", "word.jsonl", "unknown component", func(s string) string { return strings.ReplaceAll(s, "噴", "火") }},
+		{"duplicate word", "word.jsonl", "duplicate word/hanja", func(s string) string { return s + strings.Split(s, "\n")[0] }},
+		{"null record", "word.jsonl", "expected level", func(s string) string { return s + "null\n" }},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

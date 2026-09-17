@@ -5,7 +5,7 @@ import {layoutNetwork, edgePaths, renderNetworkSVG} from '../static/network.mjs'
 import {segmentHitsBox} from '../static/network-routing.mjs';
 
 const read=name=>fs.readFileSync(new URL(`../../../../dataset/${name}`,import.meta.url),'utf8').trim().split('\n').map(JSON.parse);
-const words=read('normal_word.jsonl'), characters=read('character.jsonl');
+const words=read('word.jsonl'), characters=read('character.jsonl');
 function neighborhood(selected) {
   const roots=[...new Set(selected.components)];
   const connected=words.filter(word=>word.components.some(glyph=>roots.includes(glyph)));

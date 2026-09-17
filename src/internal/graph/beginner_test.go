@@ -11,7 +11,7 @@ import (
 
 func TestSingleMixedAndUnannotatedWords(t *testing.T) {
 	files := fixture(t)
-	files["normal_word.jsonl"] += `{"level":"normal","word":"수","hanja":"水","meaning_ko":"물","meaning_en":"water","components":["水"]}` + "\n" +
+	files["word.jsonl"] += `{"level":"normal","word":"수","hanja":"水","meaning_ko":"물","meaning_en":"water","components":["水"]}` + "\n" +
 		`{"level":"normal","word":"분수꼴","hanja":"分數꼴","meaning_ko":"분수의 형태","meaning_en":"fraction form","components":["分","數"]}` + "\n" +
 		`{"level":"normal","word":"분","hanja":"","meaning_ko":"사람을 높여 세는 말","meaning_en":"honorific counter for people","components":[]}` + "\n"
 	g, err := Load(writeFixture(t, files))
@@ -52,7 +52,7 @@ func TestInvalidMixedWordForms(t *testing.T) {
 		`{"level":"normal","word":"물","hanja":"물","meaning_ko":"물","meaning_en":"water","components":[]}`,
 	} {
 		files := fixture(t)
-		files["normal_word.jsonl"] += record + "\n"
+		files["word.jsonl"] += record + "\n"
 		if _, err := Load(writeFixture(t, files)); err == nil {
 			t.Fatalf("accepted malformed form: %s", record)
 		}

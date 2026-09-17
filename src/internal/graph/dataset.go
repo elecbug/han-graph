@@ -59,7 +59,7 @@ func Load(dir string) (*Graph, error) {
 	if err != nil {
 		return nil, err
 	}
-	words, err := readJSONL[Word](filepath.Join(dir, "normal_word.jsonl"))
+	words, err := readJSONL[Word](filepath.Join(dir, "word.jsonl"))
 	if err != nil {
 		return nil, err
 	}
@@ -108,20 +108,20 @@ func Load(dir string) (*Graph, error) {
 	for _, row := range words {
 		w := row.value
 		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || w.Components == nil {
-			return fail("normal_word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
+			return fail("word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
 		}
 		if err := validateWordForm(w); err != nil {
-			return fail("normal_word.jsonl", row.line, err.Error()+": "+w.Word)
+			return fail("word.jsonl", row.line, err.Error()+": "+w.Word)
 		}
 		key := [2]string{w.Word, w.Hanja}
 		if seenWords[key] {
-			return fail("normal_word.jsonl", row.line, "duplicate word/hanja: "+w.Word+"/"+w.Hanja)
+			return fail("word.jsonl", row.line, "duplicate word/hanja: "+w.Word+"/"+w.Hanja)
 		}
 		seenWords[key] = true
 		seenComponents := make(map[string]bool)
 		for _, component := range w.Components {
 			if _, exists := g.characters[component]; !exists {
-				return fail("normal_word.jsonl", row.line, "unknown component: "+component+" ("+w.Word+")")
+				return fail("word.jsonl", row.line, "unknown component: "+component+" ("+w.Word+")")
 			}
 			// A repeated character keeps its positions in the word, but has one edge.
 			if !seenComponents[component] {

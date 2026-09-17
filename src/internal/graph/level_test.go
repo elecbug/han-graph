@@ -60,7 +60,7 @@ func TestSearchCategoryBeforeLimit(t *testing.T) {
 
 func TestRandomCategoryAndSingleton(t *testing.T) {
 	files := fixture(t)
-	files["normal_word.jsonl"] = strings.Replace(files["normal_word.jsonl"], `"level":"normal"`, `"level":"classical"`, 1)
+	files["word.jsonl"] = strings.Replace(files["word.jsonl"], `"level":"normal"`, `"level":"classical"`, 1)
 	g, err := Load(writeFixture(t, files))
 	if err != nil {
 		t.Fatal(err)
