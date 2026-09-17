@@ -1,170 +1,112 @@
-# 개발 안내
+# 설치와 활용
 
-[프로젝트 소개·빠른 시작](../README.md) · [프로젝트 현황](README.md) · [웹 앱 사용 안내](WEB_APP.md) · [데이터 모델](DATA_MODEL.md) · [데이터 작성·검수 원칙](DATA_GUIDELINES.md)
+[처음으로](../README.md) · [사용 안내](WEB_APP.md) · [데이터 안내](DATA_MODEL.md)
 
-## 개발 환경
+漢-Graph를 자신의 컴퓨터에서 실행하거나, 함께 제공되는 명령줄 도구와 API로 자료를 살펴보는 방법입니다.
 
-- Go 1.26.2 이상: 서버, CLI, Go 테스트 실행
-- Node.js: JavaScript 테스트 실행 시 사용
-- 브라우저: 웹 앱 사용 및 화면 점검
+## 준비하기
 
-Go 모듈은 `src`에 있다. 외부 Go 라이브러리나 프런트엔드 패키지를 설치할 필요가 없으며, HTML·CSS·JavaScript는 빌드할 때 Go 바이너리에 포함된다.
+Go 1.26.2 이상과 웹 브라우저가 필요합니다. 별도 데이터베이스, 외부 Go 라이브러리나 프런트엔드 빌드 도구는 필요하지 않습니다. 저장소를 내려받은 뒤 터미널에서 `src` 디렉터리로 이동하세요. 아래 명령은 모두 그 위치에서 실행합니다.
 
-아래 명령은 별도 표시가 없으면 **`src` 디렉터리에서** 실행한다.
-
-## 실행과 CLI
+## 웹 앱 실행
 
 ```sh
-go run ./cmd serve
-go run ./cmd -addr 127.0.0.1:8081 serve
-go run ./cmd -data ../dataset -json validate
+go run ./cmd -addr 127.0.0.1:18080 serve
+```
+
+브라우저에서 <http://127.0.0.1:18080>을 열면 됩니다. 터미널에서 `Ctrl+C`를 누르면 종료합니다.
+
+| 바꾸고 싶은 설정 | 사용 방법 |
+| --- | --- |
+| 포트 | `go run ./cmd -addr 127.0.0.1:8081 serve` |
+| 데이터 위치 | `go run ./cmd -data ../dataset -addr 127.0.0.1:18080 serve` |
+
+옵션은 `serve` 같은 명령보다 앞에 둡니다. `-data`의 기본값은 `../dataset`이며 실행하는 디렉터리를 기준으로 합니다. `-addr`를 생략하면 `0.0.0.0:18080`에서 접속을 받습니다.
+
+데이터는 서버를 시작할 때 읽으므로 수정한 자료를 보려면 재시작해야 합니다. 화면 파일은 실행 프로그램에 포함되므로 화면 소스를 바꾼 경우 `go run`을 다시 실행하거나 다시 빌드한 뒤 브라우저를 새로고침합니다.
+
+## 명령줄에서 조회하기
+
+```sh
 go run ./cmd word 가격
 go run ./cmd character 家
 go run ./cmd character 가
-go run ./cmd character ga-005
 go run ./cmd -json word 번화가
 ```
 
-| 명령·옵션 | 동작 |
-| --- | --- |
-| `validate` | 세 JSONL 파일 검증 후 데이터·그래프 수치 출력; 명령 생략 시 기본값 |
-| `word QUERY` | 한글 또는 한자 표기가 정확히 일치하는 단어 조회 |
-| `character QUERY` | 글자, 한글 독음 또는 한자 ID가 정확히 일치하는 항목 조회 |
-| `serve` | 웹 서버 실행; `Ctrl+C`로 종료 |
-| `-data DIR` | 실행 디렉터리 기준 데이터 경로; 기본값 `../dataset` |
-| `-json` | 검증·조회 결과를 JSON으로 출력; `serve`와 함께 사용할 수 없음 |
-| `-addr HOST:PORT` | 서버 수신 주소; 기본값 `0.0.0.0:18080` |
+`word`는 한글·한자 표기가 정확히 일치하는 단어를 찾습니다. `character`는 글자, 한글 독음 또는 한자 항목의 ID로 조회합니다. `-json`을 붙이면 결과를 다른 도구에서 읽기 좋은 JSON으로 출력합니다. 결과가 없으면 빈 배열을 반환합니다.
 
-옵션은 명령보다 앞에 둔다. 조회 결과가 없으면 성공 상태를 유지하며, JSON 출력은 `[]`다. 종료 코드는 성공 `0`, 데이터·서버·출력 오류 `1`, 잘못된 명령·옵션 `2`다.
+### 실행 파일로 사용하기
 
-기본 서버에는 같은 컴퓨터에서 `http://127.0.0.1:18080`으로 접속한다. 로컬 접속만 받으려면 `-addr 127.0.0.1:18080`을 지정한다.
-
-### 바이너리 빌드
-
-Linux·macOS 등에서는 다음처럼 빌드한 실행 파일을 재사용할 수 있다.
+Linux·macOS 등의 셸에서는 다음처럼 빌드할 수 있습니다.
 
 ```sh
 go build -o /tmp/han-graph ./cmd
-/tmp/han-graph serve
+/tmp/han-graph -addr 127.0.0.1:18080 serve
 ```
 
-Windows PowerShell에서는 다음과 같이 실행한다.
+Windows PowerShell에서는 다음을 사용합니다.
 
 ```powershell
 go build -o "$env:TEMP\han-graph.exe" ./cmd
-& "$env:TEMP\han-graph.exe" serve
+& "$env:TEMP\han-graph.exe" -addr 127.0.0.1:18080 serve
 ```
 
-데이터 경로는 바이너리 위치가 아닌 **실행 디렉터리**를 기준으로 한다. 다른 디렉터리에서 실행할 때는 `-data`로 경로를 지정한다.
-
-서버는 시작할 때 JSONL과 `practice.json`을 검증해 메모리에 읽는다. 데이터 변경은 서버를 재시작해야 반영된다. 화면 소스를 바꿨다면 다시 빌드하거나 `go run`을 다시 실행한 뒤 브라우저를 새로고침한다. `validate`와 CLI 조회는 `practice.json`을 읽지 않는다.
-
-## 소스 구조
-
-| 경로 | 역할 |
-| --- | --- |
-| [cmd/main.go](../src/cmd/main.go) | CLI 옵션과 명령 처리 |
-| [cmd/serve.go](../src/cmd/serve.go) | 서버 시작·종료, 연습 파일 로딩 |
-| [graph/dataset.go](../src/internal/graph/dataset.go) | JSONL 파싱·검증과 역색인 생성 |
-| [graph/graph.go](../src/internal/graph/graph.go) | 정확 일치·부분 검색, 무작위 선택, 통계 |
-| [graph/neighborhood.go](../src/internal/graph/neighborhood.go) | 선택 항목의 직접 연결 그래프 구성 |
-| [webapp/server.go](../src/internal/webapp/server.go) | 읽기 전용 API, 정적 파일, 초기 화면 데이터 |
-| [webapp/practice.go](../src/internal/webapp/practice.go) | 문항 구조와 단어 참조 검증 |
-| [static/app.js](../src/internal/webapp/static/app.js) | 화면 표시, 탐색과 브라우저 상태 |
-| [static/data-client.mjs](../src/internal/webapp/static/data-client.mjs) | 조회 캐시와 중복 요청 공유 |
-| [static/network.mjs](../src/internal/webapp/static/network.mjs) | 그래프 배치와 SVG 생성 |
-| [static/network-routing.mjs](../src/internal/webapp/static/network-routing.mjs) | 상자를 피하는 연결선 경로 계산 |
-| [static/network-view.mjs](../src/internal/webapp/static/network-view.mjs) | 그래프 이동과 포인터·키보드 조작 |
-| [static/learning.mjs](../src/internal/webapp/static/learning.mjs) | 항목 식별, 단어장 정규화, 무작위 10문항 선택과 채점 |
-| [static/wordbook.mjs](../src/internal/webapp/static/wordbook.mjs) | 단어장 JSONL 파싱·병합·출력 |
-
-```mermaid
-flowchart LR
-    Dataset[JSONL 원본] --> Loader[구조·참조 검증]
-    Loader --> Graph[단어와 한자 역색인]
-    Graph --> CLI[CLI]
-    Graph --> Server[웹 서버와 API]
-    Practice[문맥 연습 JSON] --> Server
-    Server --> Browser[검색·그래프·단어장·연습]
-```
-
-한자와 단어의 식별·연결 규칙은 [데이터 모델](DATA_MODEL.md#그래프와-조회)을 따른다. 화면 조작과 파일 가져오기 규칙은 [웹 앱 사용 안내](WEB_APP.md)에 정리한다.
+실행 파일을 옮겼다면 `-data`로 데이터 경로를 지정하세요. 경로는 실행 파일이 놓인 위치가 아니라 명령을 실행한 디렉터리를 기준으로 해석합니다.
 
 ## HTTP API
 
-응답은 JSON이며 API 응답에는 `Cache-Control: no-store`를 사용한다.
+서버를 실행하면 같은 주소에서 읽기 전용 JSON API를 사용할 수 있습니다. 예를 들어 `/api/search?q=하&mode=sound`는 독음 ‘하’로 검색합니다. 별도로 운영되는 공개 API 주소는 제공하지 않습니다.
 
-| 경로 | 입력 | 응답 |
+<details>
+<summary>API 경로와 조회 조건</summary>
+
+| 경로 | 입력 | 반환 내용 |
 | --- | --- | --- |
-| `GET /api/stats` | 없음 | 음 그룹·독음·고유 한자·단어·연결 수치 |
-| `GET /api/search` | 선택적 `q`, `mode=all|sound`, `level=all|normal|classical` (둘 다 기본 `all`) | `words`, `characters`, `word_count`, `character_count` |
-| `GET /api/words` | 필수 `q` | 정확히 일치하는 단어와 구성 한자의 독음 후보 배열 |
-| `GET /api/characters` | 필수 `q` | 글자·독음·ID에 정확히 일치하는 독음 레코드와 연결 단어 배열 |
-| `GET /api/neighborhood` | 필수 `q` | `roots`, `characters`, `words`로 구성된 깊이 1 그래프 |
-| `GET /api/random-word` | 선택적 `exclude_word`, `exclude_hanja`, `level=all|normal|classical` | 해당 분류에서 선택한 단어 객체 하나 |
-| `GET /api/practice` | 없음 | 전체 문항의 `difficulty`·`word_level`, 선택지, 정답과 해설; 필터링·10문항 추출은 브라우저에서 수행 |
+| `GET /api/stats` | 없음 | 어휘·한자·독음·연결 수 |
+| `GET /api/search` | 선택적 `q`, `mode`, `level` | 단어·한자 목록과 전체 일치 수 |
+| `GET /api/words` | 필수 `q` | 정확히 일치한 단어와 구성 한자 |
+| `GET /api/characters` | 필수 `q` | 글자·독음·ID에 일치한 한자와 연결 단어 |
+| `GET /api/neighborhood` | 필수 `q` | 시작 한자와 직접 연결된 단어·한자 |
+| `GET /api/random-word` | 선택적 `level`, `exclude_word`, `exclude_hanja` | 무작위 단어 하나 |
+| `GET /api/practice` | 없음 | 전체 문항, 난이도·어휘 분류, 정답과 해설 |
 
-### 조회 규칙
+검색 모드는 `all`(전체 검색)과 `sound`(소리 검색), 어휘 분류는 `all`, `normal`, `classical`입니다. 생략 시 모두 `all`을 사용합니다. 소리 검색은 한글 또는 로마자 독음의 정확한 일치를 찾고 혼합어의 한글 부분은 제외합니다.
 
-- `q`는 앞뒤 공백을 제거한 뒤 최대 100개 유니코드 문자까지 받는다. 필수 검색어가 비었거나 길이를 초과하면 `400`이다.
-- `mode=all`은 표기·독음·뜻의 부분 검색이며 영문 대소문자를 구별하지 않는다. `mode=sound`는 한글 또는 로마자 독음이 정확히 일치하는 한자와, 해당 한글 음절이 실제 한자 성분의 위치에 들어 있는 단어를 반환한다. 혼합어의 한글 부분과 한자 없는 단어는 제외한다. 예를 들어 `/api/search?q=하&mode=sound`와 `/api/search?q=HA&mode=sound`는 같은 결과를 내며 뜻풀이의 ‘하다’는 검색하지 않는다. 등록되지 않은 모드는 `400`이다.
-- `level=normal|classical`은 검색과 랜덤 선택의 어휘 분류다. 누락하거나 `all`이면 전체이며 다른 값은 `400`이다. 검색에서 분류 필터는 개수 계산·60개 제한보다 먼저 적용한다. 한자는 해당 분류의 연결 단어가 있는 경우만 반환한다.
-- 두 검색 모드 모두 단어·한자 결과는 종류별 최대 60개이며, 개수 필드는 제한 전 전체 일치 수다. 전체 검색의 단어 목록은 한글·한자 표기가 정확히 일치하는 항목을 먼저 배치하고, 나머지 부분 일치 항목을 뒤에 배치한다. 각 그룹 안에서는 원본 순서를 유지한다. 빈 검색어는 각 목록의 처음 항목들을 반환한다. 브라우저는 검색 모드·어휘 분류를 포함한 URL로 검색 캐시를 구분한다.
-- 정확 일치 조회 결과가 없으면 `[]`다. 그래프 결과가 없으면 세 배열이 모두 비어 있다.
-- 그래프는 단어 조회를 먼저 시도하고, 일치하는 단어가 없으면 글자·독음·ID 조회로 시작점을 정한다. 한글 동음이의어로 조회하면 일치한 여러 단어의 구성 한자가 함께 시작점이 될 수 있다. 웹 앱은 선택 단어의 한자 표기로 요청한다.
-- 그래프 API는 전체 분류의 연결을 반환한다. 브라우저는 `level`에 따라 단어와 불필요한 주변 한자를 걸러 표시하며 시작점 한자는 보존한다. 정확한 단어 상세는 필터와 무관하게 열 수 있다.
-- 무작위 선택은 선택한 분류에 다른 항목이 있을 때 정확한 `(exclude_word, exclude_hanja)` 쌍을 제외한다. 제외 필드는 각각 최대 100개 유니코드 문자이며, 데이터가 비어 있으면 `404`다.
-- 없는 경로는 `404`, 지원 경로에 허용하지 않은 HTTP 메서드를 사용하면 `405`다.
+검색 결과는 단어·한자별 최대 60개이며 개수 필드는 제한 전 일치 수입니다. 어휘 필터를 먼저 적용하고, 전체 검색에서는 정확히 일치한 표제어를 먼저 표시합니다. 빈 검색어는 목록의 앞부분을 반환합니다.
 
-문맥 연습 API는 정답과 해설도 브라우저에 전달한다. 참조의 `hanja`는 항목 식별·채점·탐색에 사용하고, 정답 선택 버튼에는 한글 단어만 표시한다. 로더는 공백을 제외한 선택지의 한글 표기가 중복되면 동음이의어 문항으로 거부한다. 채점은 브라우저에서 수행하는 자율 학습 기능이다.
+`q`는 앞뒤 공백을 제외하고 최대 100개 유니코드 문자까지 받습니다. 필수 검색어 누락이나 잘못된 조건에는 `400`, 없는 경로에는 `404`, 허용하지 않는 메서드에는 `405`를 반환합니다. 정확 조회 결과가 없으면 빈 배열입니다. API 응답은 캐시하지 않도록 `Cache-Control: no-store`를 사용합니다.
 
-## 초기 로딩과 저장
+그래프 조회는 단어를 먼저 찾고, 일치하는 단어가 없으면 글자·독음·ID로 시작점을 정합니다. 응답의 `roots`, `characters`, `words`는 전체 어휘 분류를 포함하며 화면에서 분류를 거릅니다. 무작위 조회는 같은 분류에 다른 항목이 있으면 지정한 한글·한자 쌍을 제외합니다.
 
-서버는 통계·초기 검색·연습 세트·기본 선택 단어와 그래프를 시작 시 준비해 HTML의 JSON 블록에 담는다. 기본 화면은 추가 API 요청 없이 열리고, 다른 단어의 상세 정보는 API로 조회한다. 전체 단어 상세를 HTML에 싣지는 않는다.
+연습 API는 정답과 해설도 전달합니다. 문항 선택과 채점은 브라우저에서 이루어지는 자율 학습 기능입니다.
 
-브라우저 조회 캐시는 현재 페이지에서 최대 128개 요청 결과를 유지하고, 진행 중인 동일 요청을 공유한다. 실패한 요청은 캐시에서 제거해 다시 시도할 수 있으며 새로고침하면 캐시가 초기화된다. 무작위 단어 선택은 이 캐시를 사용하지 않는다.
-
-정적 파일과 초기 HTML에는 내용 해시를 ETag로 제공한다. 변경이 없으면 재검증 요청에 `304`를 반환하며, 파일별 Content-Type을 명시한다. HTML에 포함하는 JSON은 HTML 구분 문자를 이스케이프한다. 화면은 외부 CDN·폰트·분석 서비스에 의존하지 않는다.
-
-브라우저의 `localStorage` 키는 다음과 같다.
-
-| 키 | 내용 |
-| --- | --- |
-| `han-graph.words.v1` | 저장한 `(word, hanja)` 쌍, 최대 500개 |
-| `han-graph.language` | 한국어·영어 선택 |
-| `han-graph.word-level` | 탐색의 어휘 분류 선택 |
-| `han-graph.practice-settings.v1` | 연습의 `difficulty`·`level` 선택 |
-| `han-graph.practice.v1` | 마지막 완료 연습의 정답 수·문항 수·난이도·분류·완료 시각 |
-
-단어장 파일의 문자열 길이는 JavaScript의 문자열 길이(UTF-16 코드 단위)로 검사한다. HTTP API의 유니코드 문자 수 제한과는 계산 방식이 다르다.
+</details>
 
 ## 검증
 
-수집 범위와 내용 검수 기준은 [데이터 작성·검수 원칙](DATA_GUIDELINES.md)을 따른다. 데이터만 바꾼 경우에는 다음 검사를 실행한다. 상세 JavaScript·브라우저·전체 웹 테스트는 데이터 검증 루틴에 포함하지 않는다.
+자료 형식을 확인하려면 다음 명령을 사용하세요.
 
 ```sh
 go run ./cmd validate
+```
+
+이 명령은 `meta.jsonl`, `character.jsonl`, `word.jsonl`의 형식·중복·참조와 연결 수를 확인합니다. 웹 연습 파일은 서버 시작 시 따로 검사합니다. 내용의 정확성과 출처 기준은 [콘텐츠 원칙](DATA_GUIDELINES.md)을 참고하세요.
+
+<details>
+<summary>코드를 수정한 경우 확인하기</summary>
+
+```sh
 go test -count=1 ./...
 go vet ./...
 ```
 
-| 검사 | 주요 범위 |
-| --- | --- |
-| 데이터 검증 CLI | 세 JSONL 파일의 형식·중복·참조와 그래프 수치 |
-| Go 테스트 | 조회·무작위 선택·그래프 범위, 기초 목록의 수록·제외 대응과 혼합어·호환 형식, 연습 참조, 표제어·독음 회귀, API·초기 HTML·캐시 헤더 |
-| JavaScript 테스트 | 웹 코드를 바꾼 경우에만 관련 테스트 파일을 선별해 조회 캐시, 단어장, 채점, 그래프 동작을 확인 |
-| 브라우저 확인 | 웹 화면을 바꾼 경우에만 수정한 핵심 흐름을 짧게 확인 |
-
-웹 코드를 수정했을 때도 변경 기능에 해당하는 테스트 파일만 선별한다. 예를 들어 데이터 조회 클라이언트만 바꿨다면 다음 한 파일을 실행한다. 전체 테스트 디렉터리 실행, 모든 단어의 그래프 배치 전수 검사, 여러 화면 너비의 상세 수동 점검은 기본 루틴에서 제외한다.
+웹 코드를 바꿨다면 변경 기능에 해당하는 JavaScript 테스트와 실제 화면을 확인합니다. JavaScript 테스트에는 Node.js가 필요하며 앱 실행에는 필요하지 않습니다. 예를 들어 혼합어 그래프는 다음과 같이 검사합니다.
 
 ```sh
-node --test internal/webapp/tests/data-client.test.mjs
+node --test internal/webapp/tests/mixed-network.test.mjs
 ```
 
-### Windows 테스트 경로 오류
+기본 검사는 변경 기능에 맞게 선택합니다. 모든 어휘의 그래프 배치를 전수 검사하는 테스트와 전체 JavaScript 테스트 실행은 일반적인 자료 수정에 필수인 절차가 아닙니다.
 
-제한된 파일 권한 때문에 Node가 상위 경로를 확인하다 `lstat` 오류를 내는 환경에서는 다음 옵션을 사용한다.
-
-```sh
-node --preserve-symlinks --preserve-symlinks-main --test internal/webapp/tests/data-client.test.mjs
-```
+</details>
