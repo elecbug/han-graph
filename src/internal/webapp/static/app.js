@@ -194,7 +194,6 @@ function changeWordLevel(level) {
 function changeSearchMode(mode) {
   if(!['all','sound'].includes(mode) || mode===state.searchMode)return;
   state.searchMode=mode;
-  state.tab=mode==='sound'?'characters':'words';
   clearTimeout(searchTimer);
   document.querySelectorAll('[data-action="search-mode"]').forEach(button=>{
     const active=button.dataset.mode===mode;
@@ -216,8 +215,6 @@ async function performSearch() {
     const result=await getJSON(searchPath(mode,level),query);
     if(epoch!==searchEpoch || query!==state.query || mode!==state.searchMode || level!==state.level)return;
     state.search=result;
-    if(!result.words.length && result.characters.length)state.tab='characters';
-    else if(!result.characters.length && result.words.length)state.tab='words';
     renderCatalog();
   } catch {
     if(epoch===searchEpoch && query===state.query && mode===state.searchMode && level===state.level && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
