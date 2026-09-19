@@ -55,9 +55,15 @@ func TestNeighborhood(t *testing.T) {
 			t.Errorf("lost %s from a compound word", glyph)
 		}
 	}
+	wanted = nil
+	for _, word := range g.words {
+		if strings.Contains(word.Hanja, "降") {
+			wanted = append(wanted, word)
+		}
+	}
 	for _, query := range []string{"降", "hang-200"} {
 		n := g.Neighborhood(query)
-		if len(n.Roots) != 1 || len(n.Characters[0].Readings) != 2 || len(n.Words) != 9 {
+		if !reflect.DeepEqual(n.Roots, []string{"降"}) || len(n.Characters) == 0 || len(n.Characters[0].Readings) != 2 || !reflect.DeepEqual(n.Words, wanted) {
 			t.Errorf("multiple readings duplicated the neighborhood: %+v", n)
 		}
 	}

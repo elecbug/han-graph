@@ -2,7 +2,7 @@
 
 [기초 어휘와 출처](../../docs/BASIC_VOCABULARY.md) · [데이터 안내](../../docs/DATA_MODEL.md)
 
-기초 어휘의 참고 목록과 사전 수록 결과를 함께 공개합니다. 원문 목록은 출처를 확인하기 위한 자료이며, 앱에서 사용하는 사전은 [word.jsonl](../word.jsonl)입니다.
+기초 어휘의 참고 목록과 사전 수록 결과, 표기와 개념을 확인하는 자료를 함께 안내합니다. 원문 목록은 출처를 확인하기 위한 자료이며, 앱에서 사용하는 사전은 [word.jsonl](../word.jsonl)입니다.
 
 ## 참고 자료
 
@@ -17,6 +17,18 @@
 | 포함 범위 | 1단계 A등급 982개 행 |
 
 원문의 CP949 텍스트를 UTF-8로 변환하고 A등급만 추출했습니다. 원문 추출 자료에는 상위 데이터 라이선스와 별도로 이 출처의 이용 조건이 적용됩니다.
+
+## 표기와 개념을 확인하는 자료
+
+한영 뜻풀이는 학습자가 이해하기 쉽게 프로젝트에서 작성합니다. 한자 표기·독음이나 전문 개념을 대조할 때는 다음 자료를 참고합니다. 아래 링크는 확인에 사용한 대표 항목이며, 모든 사전 항목의 개별 출처를 나타내는 목록은 아닙니다.
+
+| 자료 | 확인하는 내용과 대표 항목 |
+| --- | --- |
+| 국립국어원 한국어기초사전 | 생활 어휘의 표기와 뜻: [전세](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=25310), [식기세척기](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=90715), [변기](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=58246), [처방전](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=78726) |
+| 국립국어원 국어 순화 자료 | [우체통의 한자 표기](https://www.korean.go.kr/nkview/kclean/kclean_8.htm) |
+| 한국학중앙연구원 한국민족문화대백과사전 | [부가가치세의 표기와 개념](https://encykorea.aks.ac.kr/Article/E0024082) |
+| 한국정보통신기술협회 정보통신용어사전 | [자연어 처리](https://terms.tta.or.kr/dictionary/dictionaryView.do?subject=%EC%9E%90%EC%97%B0%EC%96%B4+%EC%B2%98%EB%A6%AC), [ICT 시사용어 자료의 심층 기계 학습](https://terms.tta.or.kr/noticeFileDownload.do?attach=2021termsbook.pdf) |
+| 기상청 기상자료개방포털 | [열대야의 관측 기준](https://data.kma.go.kr/climate/tropicalNight/selectTropicalNightChart.do) |
 
 ## 제공하는 파일
 
