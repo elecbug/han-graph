@@ -108,6 +108,7 @@ async function renderPage({revealSelection=false} = {}) {
   detailEpoch++;
   const [page, query=''] = location.hash.slice(1).split('?');
   const previousPage=state.page, previousSelection=JSON.stringify(state.selection);
+  const catalogScrollTop=$('.catalog-list')?.scrollTop??0;
   const graphPosition=state.detail?.zoom&&$('.network-viewport')?networkCenter($('.network-viewport')):null;
   state.page=['explore','practice','saved','print'].includes(page)?page:'explore';
   if(previousPage!==state.page)window.scrollTo({top:0});
@@ -127,7 +128,7 @@ async function renderPage({revealSelection=false} = {}) {
     <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section><div class="network-panel" id="network"></div></div>`;
   $('#search-form').addEventListener('submit', event=>{event.preventDefault();state.query=$('#search').value;clearTimeout(searchTimer);performSearch();});
   $('#search').addEventListener('input', event=>{state.query=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(performSearch,180);});
-  renderCatalog();
+  renderCatalog({scrollTop:catalogScrollTop});
   if(!revealSelection && previousPage==='explore' && state.detail && JSON.stringify(state.selection)===previousSelection)renderDetail(graphPosition);
   else if(state.selection) await loadDetail(state.selection); else $('#detail').innerHTML=`<div class="empty-state">${t('notFoundSub')}</div>`;
   if(revealSelection && query && epoch===pageEpoch && state.page==='explore') {
@@ -137,7 +138,7 @@ async function renderPage({revealSelection=false} = {}) {
   }
 }
 
-function renderCatalog() {
+function renderCatalog({scrollTop=$('.catalog-list')?.scrollTop??0} = {}) {
   if(!$('#catalog') || !state.search)return;
   const result=state.search;
   const list=state.tab==='words'?result.words:result.characters;
@@ -150,6 +151,8 @@ function renderCatalog() {
     return `<button class="catalog-item ${selected?'selected':''}" data-action="${word?'open-word':'open-character'}" ${word?wordAttrs(item):`data-glyph="${esc(item.hanja)}"`} ${selected?'aria-current="true"':''}><span class="item-main"><span class="item-title">${esc(title)}</span>${word?levelBadge(item):''}<span class="item-sub">${esc(sub)}</span></span>${word?`<span class="item-hanja">${esc(item.hanja)}</span>`:''}${selected?'<span class="item-arrow">↗</span>':''}</button>`;
   }).join('');
   $('#catalog').innerHTML=`<div class="catalog-tabs" role="group" aria-label="${t('searchResults')}"><button data-action="tab" data-tab="words" class="${state.tab==='words'?'active':''}" aria-pressed="${state.tab==='words'}">${t('words')}<span class="tab-count">${result.word_count}</span></button><button data-action="tab" data-tab="characters" class="${state.tab==='characters'?'active':''}" aria-pressed="${state.tab==='characters'}">${t('characters')}<span class="tab-count">${result.character_count}</span></button></div><div class="catalog-list">${items||`<div class="empty-state"><p>${t('noResults')}</p><p>${t(state.searchMode==='sound'?'soundEmptyHint':'searchHint')}</p></div>`}</div><div class="list-footnote" aria-live="polite">${count>list.length?t(state.searchMode==='sound'?'soundLimited':'limited'):`${t('searchResults')} · ${count} ${t('entries')}`}</div>`;
+  // Selection redraws keep the reader's place; new result sets pass zero.
+  $('.catalog-list').scrollTop=scrollTop;
 }
 async function showRandomWord(button) {
   if(button.disabled)return;
@@ -220,7 +223,7 @@ async function performSearch() {
     const result=await getJSON(searchPath(mode,level),query);
     if(epoch!==searchEpoch || query!==state.query || mode!==state.searchMode || level!==state.level)return;
     state.search=result;
-    renderCatalog();
+    renderCatalog({scrollTop:0});
   } catch {
     if(epoch===searchEpoch && query===state.query && mode===state.searchMode && level===state.level && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
   } finally {
@@ -500,7 +503,7 @@ $('#main').addEventListener('click',event=>{
   else if(action==='print-words'&&state.saved.length)location.hash='print';
   else if(action==='print-now')printWordbook();
   else if(action==='upload-words')$('#wordbook-file')?.click();
-  else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog();$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
+  else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog({scrollTop:0});$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
   else if(action==='search-mode')changeSearchMode(button.dataset.mode);
   else if(action==='word-level')changeWordLevel(button.dataset.level);
   else if(action==='search-retry')performSearch();
