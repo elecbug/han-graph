@@ -6,14 +6,20 @@ import {filterPracticeQuestions,createSession,answerQuestion,sessionResult} from
 
 const normal={word:'흡연',hanja:'吸煙',level:'normal',components:['吸','煙'],meaning_ko:'담배 피움',meaning_en:'smoking'};
 const classical={word:'흡연',hanja:'恰然',level:'classical',components:['恰','然'],meaning_ko:'마음에 맞는 모양',meaning_en:'fitting'};
-const network={roots:['吸','恰'],characters:['吸','煙','恰','然'].map(hanja=>({hanja,readings:[]})),words:[normal,classical]};
+const easy={word:'흡수',hanja:'吸收',level:'easy',components:['吸','收']};
+const hard={word:'흡착',hanja:'吸着',level:'hard',components:['吸','着']};
+const network={roots:['吸','恰'],characters:['吸','煙','恰','然','收','着'].map(hanja=>({hanja,readings:[]})),words:[easy,normal,hard,classical]};
 
 test('graph filters prune leaves, retain roots, preserve homographs and leave the source intact',()=>{
   const before=JSON.stringify(network);
   const filtered=filterNetwork(network,'classical');
   assert.deepEqual(filtered.words,[classical]);
   assert.deepEqual(filtered.characters.map(c=>c.hanja),['吸','恰','然']);
-  assert.deepEqual(filterNetwork(network,'normal').words,[normal]);
+  for(const word of [easy,normal,hard,classical]) {
+    const category=filterNetwork(network,word.level);
+    assert.deepEqual(category.words,[word]);
+    assert.deepEqual(new Set(category.characters.map(c=>c.hanja)),new Set([...network.roots,...word.components]));
+  }
   assert.equal(filterNetwork(network,'all'),network);
   assert.equal(JSON.stringify(network),before);
   assert.throws(()=>filterNetwork(network,'invalid'),RangeError);
@@ -32,16 +38,22 @@ test('graph categories have visible text, distinct classes and accessible labels
     assert.match(svg,/class="edge-category"/);
     assert.ok(svg.includes(lang==='ko'?'고전·문어':'Classical'));
     assert.ok(svg.includes(lang==='ko'?'일반':'General'));
+    for(const [category,label] of [['easy',lang==='ko'?'기초':'Easy'],['hard',lang==='ko'?'심화':'Advanced']]) {
+      assert(svg.includes(`network-edge ${category}`));
+      assert(svg.includes(`network-line-link ${category}`));
+      assert(svg.includes(`, ${label}\"`),'accessible category label');
+      assert(svg.includes(`>${label}</text>`),'visible category label');
+    }
     assert.match(svg,/aria-label="[^\"]*흡연 \(恰然\),/);
   }
   for(const edge of layout.edges) assert.equal(edge.height,60);
 });
 
-const quizWords=[{word:'가격',hanja:'價格'},{word:'내손',hanja:'乃孫'}];
-const questions=Array.from({length:36},(_,i)=>({id:`q-${i}`,difficulty:['easy','medium','hard'][i%3],word_level:i<18?'normal':'classical',answer:quizWords[i<18?0:1],options:quizWords}));
+const quizWords=[{word:'가격',hanja:'價格'},{word:'보완',hanja:'補完'},{word:'개연성',hanja:'蓋然性'},{word:'자왈',hanja:'子曰'}];
+const questions=Array.from({length:72},(_,i)=>({id:`q-${i}`,difficulty:['easy','medium','hard'][i%3],word_level:['easy','normal','hard','classical'][Math.floor(i/18)],answer:quizWords[Math.floor(i/18)],options:quizWords}));
 test('practice combines difficulty and category before sampling and retains settings through grading',()=>{
   const before=JSON.stringify(questions);
-  for(const difficulty of ['all','easy','medium','hard']) for(const level of ['all','normal','classical']) {
+  for(const difficulty of ['all','easy','medium','hard']) for(const level of ['all','easy','normal','hard','classical']) {
     const settings={difficulty,level};
     const expected=questions.filter(q=>(difficulty==='all'||q.difficulty===difficulty)&&(level==='all'||q.word_level===level));
     assert.deepEqual(filterPracticeQuestions(questions,settings),expected);
@@ -72,5 +84,9 @@ test('category and reading filters have independent cache entries with canonical
   assert.notDeepEqual(general,classical);
   assert.notDeepEqual(reading,classical);
   assert.deepEqual(await getJSON('/api/search?level=classical&mode=sound','하'),reading);
-  assert.equal(calls.length,3);
+  const easy=await getJSON('/api/search?level=easy','하');
+  const hard=await getJSON('/api/search?level=hard','하');
+  assert.equal(new Set([general,classical,easy,hard].map(result=>result.url)).size,4);
+  assert.deepEqual(await getJSON('/api/search?level=easy','하'),easy);
+  assert.equal(calls.length,5);
 });

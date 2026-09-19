@@ -12,7 +12,7 @@ import (
 func TestVocabularyCategoryAPI(t *testing.T) {
 	g, _, app := testApp(t)
 	for _, mode := range []string{"all", "sound"} {
-		for _, level := range []string{"all", "normal", "classical"} {
+		for _, level := range []string{"all", "easy", "normal", "hard", "classical"} {
 			params := url.Values{"q": {"하"}, "mode": {mode}, "level": {level}}
 			response := httptest.NewRecorder()
 			app.ServeHTTP(response, httptest.NewRequest("GET", "/api/search?"+params.Encode(), nil))
@@ -43,14 +43,14 @@ func TestVocabularyCategoryAPI(t *testing.T) {
 			}
 		}
 	}
-	for _, path := range []string{"/api/search?level=advanced", "/api/random-word?level=advanced"} {
+	for _, path := range []string{"/api/search?level=advanced", "/api/random-word?level=advanced", "/api/search?level=medium"} {
 		response := httptest.NewRecorder()
 		app.ServeHTTP(response, httptest.NewRequest("GET", path, nil))
 		if response.Code != 400 {
 			t.Fatalf("%s: %d", path, response.Code)
 		}
 	}
-	for _, level := range []string{"normal", "classical"} {
+	for _, level := range []string{"easy", "normal", "hard", "classical"} {
 		response := httptest.NewRecorder()
 		app.ServeHTTP(response, httptest.NewRequest("GET", "/api/random-word?level="+level, nil))
 		var word graph.Word

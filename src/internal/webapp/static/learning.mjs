@@ -13,7 +13,8 @@ export function normalizeSaved(value) {
 }
 
 export const PRACTICE_SESSION_SIZE = 10;
-export const WORD_LEVELS = ['all', 'normal', 'classical'];
+export const WORD_LEVELS = ['all', 'easy', 'normal', 'hard', 'classical'];
+export const wordCategory = word => WORD_LEVELS.includes(word.level) && word.level!=='all' ? word.level : 'normal';
 export const PRACTICE_DIFFICULTIES = ['all', 'easy', 'medium', 'hard'];
 
 export function filterPracticeQuestions(questions, {difficulty='all', level='all'} = {}) {

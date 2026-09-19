@@ -1,4 +1,4 @@
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, PRACTICE_DIFFICULTIES, filterPracticeQuestions} from './learning.mjs';
+import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_DIFFICULTIES, filterPracticeQuestions} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
 import {layoutNetwork, renderNetworkSVG, filterNetwork, wordFormParts, isMixedWord} from './network.mjs';
 import {bindNetworkDrag, bindNetworkFocus} from './network-view.mjs';
@@ -17,11 +17,11 @@ const icons = {
 };
 const copy = {
   ko: {
-    wordLevel:'어휘 분류', levelAll:'전체 어휘', levelNormal:'일반', levelClassical:'고전·문어', levelHint:'검색·랜덤 단어·그래프에 함께 적용해요. 한자는 해당 분류의 연결 단어가 있을 때 표시해요.',
+    wordLevel:'어휘 분류', levelAll:'전체 어휘', levelEasy:'기초', levelNormal:'일반', levelHard:'심화', levelClassical:'고전·문어', levelHint:'기초·일반·심화는 단어의 학습 난이도, 고전·문어는 쓰임에 따른 분류예요. 검색·랜덤 단어·그래프에 함께 적용해요.',
     selectedOutside:'선택한 단어는 현재 어휘 필터에 포함되지 않아요. 상세 정보는 계속 볼 수 있어요.', filteredEmpty:'이 분류의 연결 단어가 없어요. 전체 어휘로 바꾸어 살펴보세요.',
     difficulty:'연습 난이도', difficultyAll:'전체 난이도', difficultyEasy:'기본', difficultyMedium:'응용', difficultyHard:'심화',
     difficultyAllHint:'모든 난이도를 섞어 연습해요.', difficultyEasyHint:'일상 어휘와 명확한 문맥 단서', difficultyMediumHint:'추상적인 뜻과 비슷한 어휘 비교', difficultyHardHint:'고전·전문 어휘와 섬세한 뜻 구분',
-    practiceSettings:'연습 설정', changeSettings:'난이도·분류 다시 선택', practiceLevelHint:'정답 어휘의 분류를 선택해요. 탐색 필터와 별도로 적용해요.', noPractice:'이 조건에 맞는 문항이 없어요. 난이도나 어휘 분류를 바꿔 주세요.',
+    practiceSettings:'연습 설정', changeSettings:'난이도·분류 다시 선택', practiceLevelHint:'정답 단어의 분류를 골라요. 문장의 단서와 선택지에 따른 연습 난이도는 별도로 선택할 수 있어요.', noPractice:'이 조건에 맞는 문항이 없어요. 난이도나 어휘 분류를 바꿔 주세요.',
     matchingQuestions:'선택 조건에 맞는 {count}문항', categoryLegend:'그래프 어휘 분류',
 
     downloadWords:'다운로드', uploadWords:'업로드', transferringWords:'파일 읽는 중…', wordbookHelp:'JSONL 파일로 단어장을 옮겨 보세요. 업로드하면 기존 목록에 합치고 중복은 제외해요.',
@@ -36,11 +36,11 @@ const copy = {
     practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'문장의 단서로 상황에 맞는 단어를 골라 보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 한글 선택지에서 어울리는 단어를 골라 보세요. 답을 고른 뒤 뜻풀이와 한자 구성 해설로 이해를 넓힐 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceRound:'전체 {pool}문항 중 무작위 {count}문항', practiceDraft:'한국어·영어 해설 · 예문 검수 전', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
   en: {
-    wordLevel:'Vocabulary', levelAll:'All vocabulary', levelNormal:'General', levelClassical:'Classical', levelHint:'Applies to search, random words, and the graph. Characters appear when they connect to words in this category.',
+    wordLevel:'Vocabulary', levelAll:'All vocabulary', levelEasy:'Easy', levelNormal:'General', levelHard:'Advanced', levelClassical:'Classical', levelHint:'Easy, General, and Advanced describe vocabulary difficulty; Classical describes historical or literary usage. Applies to search, random words, and the graph.',
     selectedOutside:'The selected word is outside this filter. Its details are still available.', filteredEmpty:'No connected words in this category. Choose all vocabulary to explore more.',
     difficulty:'Practice difficulty', difficultyAll:'All difficulties', difficultyEasy:'Basic', difficultyMedium:'Intermediate', difficultyHard:'Advanced',
     difficultyAllHint:'Practice a mix of all difficulties.', difficultyEasyHint:'Everyday words with clear context clues', difficultyMediumHint:'Abstract meanings and related vocabulary', difficultyHardHint:'Classical or specialist words and subtle distinctions',
-    practiceSettings:'Practice settings', changeSettings:'Change difficulty and vocabulary', practiceLevelHint:'Choose the category of the answer word, independently of the explore filter.', noPractice:'No questions match these settings. Change the difficulty or vocabulary category.',
+    practiceSettings:'Practice settings', changeSettings:'Change difficulty and vocabulary', practiceLevelHint:'Choose the answer word’s category. Practice difficulty is separate and depends on context clues and the answer choices.', noPractice:'No questions match these settings. Change the difficulty or vocabulary category.',
     matchingQuestions:'{count} questions match', categoryLegend:'Graph vocabulary categories',
 
     downloadWords:'Download', uploadWords:'Upload', transferringWords:'Reading file…', wordbookHelp:'Move your collection with a JSONL file. Uploads merge with your words and skip duplicates.',
@@ -75,9 +75,9 @@ const searchPath = (mode,level=state.level) => {
   if(level!=='all')params.set('level',level);
   return '/api/search'+(params.size?'?'+params:'');
 };
-const levelLabel = level => t({all:'levelAll',normal:'levelNormal',classical:'levelClassical'}[level]??'levelNormal');
+const levelLabel = level => t({all:'levelAll',easy:'levelEasy',normal:'levelNormal',hard:'levelHard',classical:'levelClassical'}[level]??'levelNormal');
 const difficultyLabel = difficulty => t({all:'difficultyAll',easy:'difficultyEasy',medium:'difficultyMedium',hard:'difficultyHard'}[difficulty]??'difficultyAll');
-const levelBadge = word => `<span class="level-badge ${word.level==='classical'?'classical':'normal'}">${levelLabel(word.level)}</span>`;
+const levelBadge = word => `<span class="level-badge ${wordCategory(word)}">${levelLabel(word.level)}</span>`;
 const levelControls = () => `<div class="vocabulary-filters" role="group" aria-label="${t('wordLevel')}"><span>${t('wordLevel')}</span>${WORD_LEVELS.map(level=>`<button type="button" data-action="word-level" data-level="${level}" aria-pressed="${state.level===level}" class="${state.level===level?'active':''}">${levelLabel(level)}</button>`).join('')}</div>`;
 const meaning = word => word[state.lang === 'ko' ? 'meaning_ko' : 'meaning_en'];
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
@@ -286,7 +286,7 @@ function renderNetwork() {
   const {visibleNetwork:network,layout}=state.detail;
   if(state.detail.wordResult && !state.detail.wordResult.word.components.length)return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2></div><p class="network-scope">${t('noHanja')}</p></section>`;
   const svg=renderNetworkSVG(layout,{lang:state.lang,highlighted:state.glyph,wordLabel:t('openWord'),characterLabel:t('characters'),label:t('graphRegion')});
-  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p>${network.words.some(isMixedWord)?`<p class="network-scope mixed-word-note">${t('mixedWordNote')}</p>`:''}${levelControls()}<div class="category-legend" aria-label="${t('categoryLegend')}">${['normal','classical'].map(level=>`<span>${levelBadge({level})} ${network.words.filter(word=>word.level===level).length}</span>`).join('')}</div><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${t(state.detail.wordResult?'graphSelected':'characters')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t(state.level==='all'?'noConnectionsSub':'filteredEmpty')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
+  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p>${network.words.some(isMixedWord)?`<p class="network-scope mixed-word-note">${t('mixedWordNote')}</p>`:''}${levelControls()}<div class="category-legend" aria-label="${t('categoryLegend')}">${WORD_LEVELS.filter(level=>level!=='all').map(level=>`<span>${levelBadge({level})} ${network.words.filter(word=>word.level===level).length}</span>`).join('')}</div><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${t(state.detail.wordResult?'graphSelected':'characters')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t(state.level==='all'?'noConnectionsSub':'filteredEmpty')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
 }
 function networkCenter(viewport) {
   const {pan,zoom}=state.detail;

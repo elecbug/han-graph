@@ -27,15 +27,13 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 	}
 	wordLevel := func(w http.ResponseWriter, r *http.Request) (string, bool) {
 		level := r.URL.Query().Get("level")
-		switch level {
-		case "", "all", "normal", "classical":
+		if level == "" || level == "all" || graph.ValidWordLevel(level) {
 			return level, true
-		default:
-			w.Header().Set("Content-Type", "application/json; charset=utf-8")
-			w.WriteHeader(http.StatusBadRequest)
-			jsonReply(w, map[string]string{"error": "level must be all, normal or classical"})
-			return "", false
 		}
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(http.StatusBadRequest)
+		jsonReply(w, map[string]string{"error": "level must be all, easy, normal, hard or classical"})
+		return "", false
 	}
 	query := func(w http.ResponseWriter, r *http.Request, required bool) (string, bool) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))

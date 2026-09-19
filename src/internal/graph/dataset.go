@@ -40,6 +40,16 @@ type Word struct {
 	SemanticHint string   `json:"semantic_hint,omitempty"`
 }
 
+// ValidWordLevel reports whether level is a supported vocabulary category.
+func ValidWordLevel(level string) bool {
+	switch level {
+	case "easy", "normal", "hard", "classical":
+		return true
+	default:
+		return false
+	}
+}
+
 type located[T any] struct {
 	value T
 	line  int
@@ -109,6 +119,9 @@ func Load(dir string) (*Graph, error) {
 		w := row.value
 		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || w.Components == nil {
 			return fail("word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
+		}
+		if !ValidWordLevel(w.Level) {
+			return fail("word.jsonl", row.line, "level must be easy, normal, hard or classical: "+w.Level)
 		}
 		if err := validateWordForm(w); err != nil {
 			return fail("word.jsonl", row.line, err.Error()+": "+w.Word)

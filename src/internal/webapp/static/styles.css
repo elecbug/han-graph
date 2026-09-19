@@ -918,6 +918,39 @@ main:focus {
   fill:#385e43;
   stroke:#385e43
 }
+.network-line-link.easy,.network-edge.easy {
+  --category-line:#4a7b9b;
+  --category-fill:#edf5fa;
+  --category-ink:#24536f;
+}
+.network-line-link.hard,.network-edge.hard {
+  --category-line:#8a67a6;
+  --category-fill:#f4eef9;
+  --category-ink:#67418a;
+}
+.network-line-link:is(.easy,.hard) .network-path {
+  stroke:var(--category-line);
+}
+.network-edge:is(.easy,.hard) rect {
+  fill:var(--category-fill);
+  stroke:var(--category-line);
+}
+.network-edge:is(.easy,.hard) text {
+  fill:var(--category-ink);
+}
+.network-edge:is(.easy,.hard).current rect {
+  fill:var(--category-ink);
+  stroke:var(--category-ink);
+  stroke-width:3;
+}
+.network-line-link:is(.easy,.hard).current .network-path {
+  stroke:var(--category-ink);
+  stroke-width:3;
+}
+.network-edge:is(.easy,.hard):is(:focus-visible,:hover,.connection-focus) rect {
+  stroke:var(--category-ink);
+  stroke-width:3;
+}
 .network-edge.current text {
   fill:#fffef1
 }
@@ -1809,6 +1842,16 @@ main:focus {
   color:#315e48;
   background:#edf3e8;
   border:1px solid #c6d6be;
+}
+.level-badge.easy {
+  color:#24536f;
+  background:#edf5fa;
+  border-color:#adc7d8;
+}
+.level-badge.hard {
+  color:#67418a;
+  background:#f4eef9;
+  border-color:#c8b2dc;
 }
 .level-badge.classical {
   color:#824c22;

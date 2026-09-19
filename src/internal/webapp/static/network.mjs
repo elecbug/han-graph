@@ -1,4 +1,4 @@
-import {wordKey, WORD_LEVELS} from './learning.mjs';
+import {wordKey, WORD_LEVELS, wordCategory} from './learning.mjs';
 import {routeNetwork, roundedPath} from './network-routing.mjs';
 
 // Keep the written Korean portions of a mixed word visible without inventing
@@ -204,8 +204,9 @@ const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp
 export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단어 살펴보기',characterLabel='한자',label='한자와 단어 연결 그래프'} = {}) {
   const wordHref=word=>`#explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`;
   const characterHref=glyph=>`#explore?${new URLSearchParams({character:glyph})}`;
-  const category=word=>word.level==='classical'?'classical':'normal';
-  const categoryLabel=word=>lang==='ko'?(category(word)==='classical'?'고전·문어':'일반'):(category(word)==='classical'?'Classical':'General');
+  const category=wordCategory;
+  const categoryNames=lang==='ko'?{easy:'기초',normal:'일반',hard:'심화',classical:'고전·문어'}:{easy:'Easy',normal:'General',hard:'Advanced',classical:'Classical'};
+  const categoryLabel=word=>categoryNames[category(word)];
   const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${category(edge.word)} ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
   const labels=layout.edges.map(edge=>`<a class="network-edge ${category(edge.word)} ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${esc(wordLabel)}: ${esc(edge.word.word)} (${esc(edge.word.hanja)}), ${categoryLabel(edge.word)}" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} · ${categoryLabel(edge.word)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="${-edge.height/2}" width="${edge.width}" height="${edge.height}" rx="7"/><text class="edge-word" y="-11">${esc(edge.word.word)}</text><text class="edge-hanja" y="6">${isMixedWord(edge.word)?wordFormParts(edge.word).map(part=>`<tspan class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</tspan>`).join(''):esc(edge.word.hanja)}</text><text class="edge-category" y="23">${categoryLabel(edge.word)}</text></a>`).join('');
   const nodes=layout.nodes.map(node=>{

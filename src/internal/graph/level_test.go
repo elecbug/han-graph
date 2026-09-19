@@ -19,7 +19,7 @@ func TestSearchCategoryBeforeLimit(t *testing.T) {
 				search = g.SearchSoundByLevel
 			}
 			all := search(query, 10000, "all")
-			for _, level := range []string{"normal", "classical"} {
+			for _, level := range []string{"easy", "normal", "hard", "classical"} {
 				expected := []Word{}
 				for _, word := range all.Words {
 					if word.Level == level {

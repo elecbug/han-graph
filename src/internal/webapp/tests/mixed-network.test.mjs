@@ -68,7 +68,7 @@ test('mixed word forms preserve Korean prefixes and suffixes in readable, escape
   ]) {
     const selected=words.find(word=>word.word===name);
     assert.deepEqual(wordFormParts(selected),parts);
-    const network=filterNetwork(neighborhood(selected),'normal'),layout=layoutNetwork(network,selected);
+    const network=filterNetwork(neighborhood(selected),selected.level),layout=layoutNetwork(network,selected);
     assertGeometry(layout);
     const svg=renderNetworkSVG(layout,{lang:'en'});
     assert(svg.includes(new URLSearchParams({word:name,hanja:form}).toString().replaceAll('&','&amp;')));

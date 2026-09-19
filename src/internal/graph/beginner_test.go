@@ -168,7 +168,7 @@ func TestRepositoryExactBasicWordsStayVisible(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, query := range []string{"전화", "강", "이"} {
-		result := g.SearchByLevel(query, 1, "normal")
+		result := g.SearchByLevel(query, 1, "easy")
 		if len(result.Words) != 1 || result.Words[0].Word != query || result.WordCount < 2 {
 			t.Errorf("exact word hidden by partial matches for %s: %+v", query, result)
 		}
