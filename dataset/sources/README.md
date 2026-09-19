@@ -25,9 +25,15 @@
 | 자료 | 확인하는 내용과 대표 항목 |
 | --- | --- |
 | 국립국어원 한국어기초사전 | 생활 어휘의 표기와 뜻: [전세](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=25310), [식기세척기](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=90715), [변기](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=58246), [처방전](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=78726) |
+| 국립국어원 한국어기초사전: 독음·혼합어 | [옷장](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=68496), [표지판](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=84234), [급정거](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=41482)의 표기와 구성 한자 독음 |
+| 국립국어원 온용어 | 전문 용어의 표기와 뜻: [기계체조](https://kli.korean.go.kr/term/trgtWord/indexTrgtWord.do?trgtWordNo=2075845), [날염](https://kli.korean.go.kr/term/trgtWord/indexTrgtWord.do?trgtWordNo=2088060) |
 | 국립국어원 국어 순화 자료 | [우체통의 한자 표기](https://www.korean.go.kr/nkview/kclean/kclean_8.htm) |
 | 한국학중앙연구원 한국민족문화대백과사전 | [부가가치세의 표기와 개념](https://encykorea.aks.ac.kr/Article/E0024082) |
 | 한국정보통신기술협회 정보통신용어사전 | [자연어 처리](https://terms.tta.or.kr/dictionary/dictionaryView.do?subject=%EC%9E%90%EC%97%B0%EC%96%B4+%EC%B2%98%EB%A6%AC), [ICT 시사용어 자료의 심층 기계 학습](https://terms.tta.or.kr/noticeFileDownload.do?attach=2021termsbook.pdf) |
+| 한국학중앙연구원 한국민족문화대백과사전: 미술·공예 | [분청사기](https://encykorea.aks.ac.kr/Article/E0024868)와 [염색](https://encykorea.aks.ac.kr/Article/E0037112)의 표현 방식과 기법 |
+| 국세청 | [연말정산의 소득공제·세액공제와 세액 계산](https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?cntntsId=7904&mi=2324) |
+| 식품의약품안전처 식품안전나라 | [식품공전 용어 풀이의 유통기간·소비기한 구분](https://www.foodsafetykorea.go.kr/popup/safefoodlife/food/foodRvlv/foodRvlvDetail.do?rvlv_no=3) |
+| 한국야구위원회 | [야구기록규칙의 타율·출루율·장타율 산정](https://lgcxydabfbch3774324.cdn.ntruss.com/KBO_FILE/ebook/pdf/2023recordRule.pdf) |
 | 기상청 기상자료개방포털 | [열대야의 관측 기준](https://data.kma.go.kr/climate/tropicalNight/selectTropicalNightChart.do) |
 
 ## 제공하는 파일
