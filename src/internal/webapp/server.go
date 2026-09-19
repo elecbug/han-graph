@@ -126,18 +126,21 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 	}
 	files := make(map[string]staticAsset)
 	for path, contentType := range map[string]string{
-		"/":                    "text/html; charset=utf-8",
-		"/app.js":              "text/javascript; charset=utf-8",
-		"/learning.mjs":        "text/javascript; charset=utf-8",
-		"/data-client.mjs":     "text/javascript; charset=utf-8",
-		"/network.mjs":         "text/javascript; charset=utf-8",
-		"/network-view.mjs":    "text/javascript; charset=utf-8",
-		"/network-routing.mjs": "text/javascript; charset=utf-8",
-		"/wordbook.mjs":        "text/javascript; charset=utf-8",
-		"/wordbook-print.mjs":  "text/javascript; charset=utf-8",
-		"/wordbook-print.css":  "text/css; charset=utf-8",
-		"/styles.css":          "text/css; charset=utf-8",
-		"/favicon.svg":         "image/svg+xml",
+		"/":                                "text/html; charset=utf-8",
+		"/app.js":                          "text/javascript; charset=utf-8",
+		"/learning.mjs":                    "text/javascript; charset=utf-8",
+		"/data-client.mjs":                 "text/javascript; charset=utf-8",
+		"/network.mjs":                     "text/javascript; charset=utf-8",
+		"/network-view.mjs":                "text/javascript; charset=utf-8",
+		"/network-routing.mjs":             "text/javascript; charset=utf-8",
+		"/wordbook.mjs":                    "text/javascript; charset=utf-8",
+		"/wordbook-print.mjs":              "text/javascript; charset=utf-8",
+		"/wordbook-print.css":              "text/css; charset=utf-8",
+		"/fonts/NotoSansKR-Regular.woff2":  "font/woff2",
+		"/fonts/NotoSansKR-SemiBold.woff2": "font/woff2",
+		"/fonts/LICENSE":                   "text/plain; charset=utf-8",
+		"/styles.css":                      "text/css; charset=utf-8",
+		"/favicon.svg":                     "image/svg+xml",
 	} {
 		name := path
 		if name == "/" {

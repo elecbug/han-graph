@@ -20,6 +20,22 @@ const copy = {
   },
 };
 
+// Keep a successful font load for later previews; a failed load can be retried.
+let printFontPromise;
+export function loadWordbookPrintFont() {
+  if(!printFontPromise) {
+    const faces=[['Regular','400'],['SemiBold','600']].map(([name,weight])=>
+      new FontFace('HanGraph Print',`url("/fonts/NotoSansKR-${name}.woff2")`,{
+        weight,style:'normal',display:'swap',
+      }));
+    printFontPromise=Promise.all(faces.map(font=>font.load())).then(loaded=>{
+      loaded.forEach(font=>document.fonts.add(font));
+      return loaded;
+    }).catch(error=>{printFontPromise=null;throw error;});
+  }
+  return printFontPromise;
+}
+
 // Query each spelling once, with at most six requests in flight. Preserve the
 // original word/Hanja identity and order, including missing dictionary entries.
 export async function loadPrintableWords(saved, getJSON, isCurrent = () => true) {
@@ -44,7 +60,7 @@ function wordForm(value) {
 }
 
 function characterDetails(components, language) {
-  return components.map(component=>`<div class="print-character"><span class="print-glyph" lang="ko">${escape(component.hanja)}</span><div>${component.readings.map(reading=>`<p><strong lang="ko">${escape(reading.sound_ko)}</strong> <span lang="en">${escape(reading.sound_en)}</span> · <span lang="${language}">${escape(reading[language==='ko'?'meaning_ko':'meaning_en'].join(', '))}</span></p>`).join('')}</div></div>`).join('');
+  return components.map(component=>`<span class="print-character"><span class="print-glyph" lang="ko">${escape(component.hanja)}</span>${component.readings.map(reading=>`<span class="print-reading">[<strong lang="ko">${escape(reading.sound_ko)}</strong>/<span lang="en">${escape(reading.sound_en)}</span>] <span lang="${language}">${escape(reading[language==='ko'?'meaning_ko':'meaning_en'].join(', '))}</span></span>`).join(' / ')}</span>`).join(' · ');
 }
 
 export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = {}) {
@@ -63,10 +79,10 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
       const word=result?.word??ref;
       return `<li class="print-entry"><article>
         <header class="print-entry-heading"><span class="print-number">${String(index+1).padStart(2,'0')}</span><div class="print-word-title"><h2 lang="ko">${escape(word.word)}</h2>${word.hanja?`<p class="print-word-form" lang="ko">${wordForm(word.hanja)}</p>`:''}</div>${result?`<span class="print-level">${labels[wordCategory(word)]}</span>`:''}</header>
-        ${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="ko">${escape(word.meaning_ko)}</p><p class="print-english" lang="en">${escape(word.meaning_en)}</p></div>
+        <div class="print-entry-content">${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="ko">${escape(word.meaning_ko)}</p><p class="print-english" lang="en">${escape(word.meaning_en)}</p></div>
           ${word.semantic_hint?`<div class="print-hint"><h3>${labels.hint}</h3><p lang="ko">${escape(word.semantic_hint)}</p></div>`:''}
-          ${result.components?.length?`<div class="print-breakdown"><h3>${labels.characters}</h3><div class="print-characters">${characterDetails(result.components,language)}</div></div>`:''}`
-          :`<p class="print-missing">${labels.missing}</p>`}
+          ${result.components?.length?`<div class="print-breakdown"><h3>${labels.characters}</h3> | <div class="print-characters">${characterDetails(result.components,language)}</div></div>`:''}`
+          :`<p class="print-missing">${labels.missing}</p>`}</div>
       </article></li>`;
     }).join('')}</ol>
     <footer class="print-colophon"><p>${labels.note}</p><div><strong>漢—GRAPH</strong><span>${labels.footer}</span></div></footer>
