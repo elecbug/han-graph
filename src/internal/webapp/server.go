@@ -134,6 +134,8 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		"/network-view.mjs":    "text/javascript; charset=utf-8",
 		"/network-routing.mjs": "text/javascript; charset=utf-8",
 		"/wordbook.mjs":        "text/javascript; charset=utf-8",
+		"/wordbook-print.mjs":  "text/javascript; charset=utf-8",
+		"/wordbook-print.css":  "text/css; charset=utf-8",
 		"/styles.css":          "text/css; charset=utf-8",
 		"/favicon.svg":         "image/svg+xml",
 	} {

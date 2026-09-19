@@ -1095,8 +1095,10 @@ main:focus {
 }
 .wordbook-actions {
   display:flex;
+  flex-wrap:wrap;
   gap:8px;
-  flex-shrink:0
+  max-width:100%;
+  flex-shrink:1
 }
 .wordbook-actions button {
   padding:10px 18px

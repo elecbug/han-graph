@@ -1,5 +1,6 @@
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
+import {loadPrintableWords, renderPrintableWordbook, wordbookPrintFilename} from './wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG, filterNetwork, componentNetwork, wordFormParts, isMixedWord} from './network.mjs';
 import {bindNetworkDrag, bindNetworkFocus} from './network-view.mjs';
 import {parseWordbook, mergeWordbook, serializeWordbook, WordbookError, MAX_WORDBOOK_BYTES} from './wordbook.mjs';
@@ -22,7 +23,8 @@ const copy = {
     practiceSettings:'연습 설정', changeSettings:'분류 다시 선택', practiceLevelHint:'정답 단어의 분류에 따라 연습해요.', noPractice:'이 분류의 문항이 없어요. 다른 분류를 골라 주세요.',
     matchingQuestions:'선택 조건에 맞는 {count}문항', categoryLegend:'그래프 어휘 분류',
 
-    downloadWords:'다운로드', uploadWords:'업로드', transferringWords:'파일 읽는 중…', wordbookHelp:'JSONL 파일로 단어장을 옮겨 보세요. 업로드하면 기존 목록에 합치고 중복은 제외해요.',
+    print:'PDF 인쇄', printWords:'PDF 인쇄', printNow:'PDF 저장 · 인쇄', printBack:'← 단어장으로 돌아가기', printHelp:'인쇄 창에서 “PDF로 저장”을 선택하세요. 용지는 A4, 배율은 100%를 권장해요. 머리글과 바닥글을 끄면 더 깔끔해요.', printLoading:'단어 설명을 모으고 있어요…', printError:'인쇄할 단어 설명을 불러오지 못했어요. 다시 시도해 주세요.', printUnavailable:'인쇄 창을 열지 못했어요. 브라우저의 인쇄 메뉴를 이용해 주세요.',
+    downloadWords:'다운로드', uploadWords:'업로드', transferringWords:'파일 읽는 중…', wordbookHelp:'JSONL로 단어장을 옮기거나, 뜻과 설명을 담은 PDF로 간직해 보세요. 업로드한 단어는 중복 없이 합쳐요.',
     noHanja:'이 단어는 한자 구성 없이 뜻과 문맥으로 익혀 보세요.', wordbookDownloaded:'단어장을 다운로드했어요.', wordbookImported:'{added}개를 추가했어요. 중복 {duplicates}개는 제외했어요.', wordbookInvalid:'{line}번째 줄을 확인해 주세요. word와 hanja가 있는 JSON 객체가 필요해요.', wordbookEmpty:'파일에 단어가 없어요.', wordbookSize:'1 MB 이하의 파일을 선택해 주세요.', wordbookLimit:'합친 단어장이 500개를 넘어요. 파일이나 단어장을 줄인 뒤 다시 시도해 주세요.', wordbookReadError:'파일을 읽지 못했어요. 다시 선택해 주세요.', wordbookDownloadError:'다운로드하지 못했어요. 다시 시도해 주세요.',
     randomWord:'랜덤 단어', randomHint:'선택한 어휘 분류에서 무작위로 선택', randomLoading:'고르는 중…', randomError:'랜덤 단어를 불러오지 못했어요. 다시 눌러 주세요.',
     workspace:'나의 학습 공간', explore:'단어 탐색', practice:'문맥 연습', saved:'내 단어장', sidebarQuote:'한 글자를 이해하면,<br>더 많은 단어가 보여요.', sidebarSub:'작은 연결에서 시작하는 한국어', local:'나만의 한국어 학습 공간', footer:'하나의 단어에서 시작되는 새로운 이해.',
@@ -39,7 +41,8 @@ const copy = {
     practiceSettings:'Practice settings', changeSettings:'Change category', practiceLevelHint:'Practice by the answer word’s vocabulary category.', noPractice:'No questions in this category. Choose another category.',
     matchingQuestions:'{count} questions match', categoryLegend:'Graph vocabulary categories',
 
-    downloadWords:'Download', uploadWords:'Upload', transferringWords:'Reading file…', wordbookHelp:'Move your collection with a JSONL file. Uploads merge with your words and skip duplicates.',
+    print:'Print PDF', printWords:'Print PDF', printNow:'Save PDF / Print', printBack:'← Back to my words', printHelp:'Choose “Save as PDF” in the print dialog. Use A4 paper at 100% scale. Turn off browser headers and footers for a cleaner layout.', printLoading:'Gathering your word descriptions…', printError:'Could not load the word descriptions for printing. Please try again.', printUnavailable:'Could not open the print dialog. Please use your browser’s print menu.',
+    downloadWords:'Download', uploadWords:'Upload', transferringWords:'Reading file…', wordbookHelp:'Move your collection with JSONL, or print a PDF with meanings and explanations. Uploads merge without duplicates.',
     noHanja:'Learn this word through its meaning and context; no Hanja breakdown is provided.', wordbookDownloaded:'Your word collection was downloaded.', wordbookImported:'Added {added} words. Skipped {duplicates} duplicates.', wordbookInvalid:'Check line {line}. Each line needs a JSON object with word and hanja.', wordbookEmpty:'The file contains no words.', wordbookSize:'Choose a file no larger than 1 MB.', wordbookLimit:'The merged collection exceeds 500 words. Reduce the file or your collection and try again.', wordbookReadError:'Could not read the file. Please select it again.', wordbookDownloadError:'Could not download the file. Please try again.',
     randomWord:'Random word', randomHint:'Choose from the selected vocabulary category', randomLoading:'Choosing…', randomError:'Could not load a random word. Please try again.',
     workspace:'YOUR LEARNING SPACE', explore:'Explore', practice:'Practice', saved:'My words', sidebarQuote:'Understand one character.<br>Discover a world of words.', sidebarSub:'Korean, one connection at a time', local:'Your Korean learning space', footer:'A new understanding starts with one word.',
@@ -79,10 +82,11 @@ function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringif
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
 function updateShell() {
   document.documentElement.lang=state.lang;
+  document.body.classList.toggle('wordbook-print-view',state.page==='print');
   document.title=`漢-Graph · ${t(state.page)}`;
   document.querySelectorAll('[data-i18n]').forEach(element => element.innerHTML=t(element.dataset.i18n));
   document.querySelectorAll('.nav-link').forEach(link => {
-    const active=link.dataset.page===state.page;
+    const active=link.dataset.page===(state.page==='print'?'saved':state.page);
     link.classList.toggle('active', active);
     if(active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
   });
@@ -105,11 +109,12 @@ async function renderPage({revealSelection=false} = {}) {
   const [page, query=''] = location.hash.slice(1).split('?');
   const previousPage=state.page, previousSelection=JSON.stringify(state.selection);
   const graphPosition=state.detail?.zoom&&$('.network-viewport')?networkCenter($('.network-viewport')):null;
-  state.page=['explore','practice','saved'].includes(page)?page:'explore';
+  state.page=['explore','practice','saved','print'].includes(page)?page:'explore';
   if(previousPage!==state.page)window.scrollTo({top:0});
   updateShell();
   if (state.page==='practice') { renderPractice(); return; }
   if (state.page==='saved') { await renderSaved(epoch); return; }
+  if (state.page==='print') { await renderWordbookPrint(epoch); return; }
   const params=new URLSearchParams(query);
   if (params.get('word')) state.selection={kind:'word',word:params.get('word'),hanja:params.get('hanja')};
   else if(params.get('character')) state.selection={kind:'character',glyph:params.get('character')};
@@ -345,7 +350,7 @@ function toggleSaved(ref) {
   if(state.page==='saved')renderSaved(++pageEpoch); else renderDetail();
 }
 async function renderSaved(epoch) {
-  $('#main').innerHTML=`${hero('savedEye','savedTitle','savedSub')}<section class="wordbook-tools" aria-label="${t('saved')}"><div><p>${t('wordbookHelp')}</p><p class="storage-note">${t('storageNote')}</p></div><div class="wordbook-actions"><button class="secondary-button" type="button" data-action="download-words" ${state.saved.length?'':'disabled'}>${t('downloadWords')}</button><button class="primary-button" type="button" data-action="upload-words" ${state.importingWords?'disabled':''}>${t(state.importingWords?'transferringWords':'uploadWords')}</button><input id="wordbook-file" type="file" accept=".jsonl,.ndjson,application/x-ndjson,application/jsonl" hidden></div></section><p id="wordbook-status" class="wordbook-status" role="status" aria-live="polite"></p><div id="saved-list" class="loading-panel" role="status">${t('loading')}</div>`;
+  $('#main').innerHTML=`${hero('savedEye','savedTitle','savedSub')}<section class="wordbook-tools" aria-label="${t('saved')}"><div><p>${t('wordbookHelp')}</p><p class="storage-note">${t('storageNote')}</p></div><div class="wordbook-actions"><button class="secondary-button" type="button" data-action="download-words" ${state.saved.length?'':'disabled'}>${t('downloadWords')}</button><button class="secondary-button" type="button" data-action="print-words" ${state.saved.length?'':'disabled'}>${t('printWords')}</button><button class="primary-button" type="button" data-action="upload-words" ${state.importingWords?'disabled':''}>${t(state.importingWords?'transferringWords':'uploadWords')}</button><input id="wordbook-file" type="file" accept=".jsonl,.ndjson,application/x-ndjson,application/jsonl" hidden></div></section><p id="wordbook-status" class="wordbook-status" role="status" aria-live="polite"></p><div id="saved-list" class="loading-panel" role="status">${t('loading')}</div>`;
   renderWordbookStatus();
   $('#wordbook-file').addEventListener('change',event=>{
     const file=event.target.files[0];event.target.value='';
@@ -362,6 +367,38 @@ async function renderSaved(epoch) {
   const missing=state.saved.filter(ref=>!words.some(word=>wordKey(ref)===wordKey(word)));
   $('#saved-list').innerHTML=words.length?`<div class="saved-grid">${words.map(word=>`<article class="saved-card"><div class="saved-top"><span class="word-hanja">${esc(word.hanja)}</span><button class="save-button saved" data-action="save" ${wordAttrs(word)} aria-label="${t('remove')}: ${esc(word.word)}">${icons.bookmark}</button></div><h2>${esc(word.word)}</h2>${levelBadge(word)}<p>${esc(meaning(word))}</p><button class="text-button" data-action="open-word" ${wordAttrs(word)}>${t('openWord')} ↗</button></article>`).join('')}</div>`:`<div class="empty-state"><span class="empty-glyph">記</span><h2>${t('savedEmpty')}</h2><p>${t('savedEmptySub')}</p><a class="primary-button" href="#explore">${t('startExplore')} →</a></div>`;
   if(missing.length)$('#saved-list').innerHTML+=`<div class="storage-note">${t('missingSaved')}: ${missing.map(word=>`<button class="text-button" data-action="save" ${wordAttrs(word)}>${esc(word.word)} (${t('remove')})</button>`).join(', ')}</div>`;
+}
+
+async function renderWordbookPrint(epoch) {
+  const saved=state.saved.map(ref=>({...ref})), lang=state.lang, date=new Date();
+  $('#main').innerHTML=`<section class="print-toolbar"><div><a class="text-button" href="#saved">${t('printBack')}</a><p>${t('printHelp')}</p></div><button class="primary-button" type="button" data-action="print-now" disabled>${t('printNow')}</button></section><div id="print-content" class="loading-panel" role="status">${t('printLoading')}</div>`;
+  const isCurrent=()=>epoch===pageEpoch && state.page==='print';
+  if(!saved.length) {
+    $('#print-content').className='empty-state';
+    $('#print-content').textContent=t('savedEmpty');
+    return;
+  }
+  try {
+    const entries=await loadPrintableWords(saved,getJSON,isCurrent);
+    if(!isCurrent())return;
+    const content=$('#print-content');
+    content.className='';content.removeAttribute('role');
+    content.innerHTML=renderPrintableWordbook(entries,{lang,date});
+    // Wait for local fonts before enabling the native print dialog.
+    await document.fonts.ready;
+    if(!isCurrent())return;
+    document.title=wordbookPrintFilename(date);
+    $('[data-action="print-now"]').disabled=false;
+  } catch {
+    if(!isCurrent())return;
+    $('#print-content').className='empty-state';
+    $('#print-content').innerHTML=`<p role="alert">${t('printError')}</p><button class="primary-button" type="button" data-action="retry">${t('retry')}</button>`;
+  }
+}
+
+function printWordbook() {
+  if(state.page!=='print' || !$('[data-action="print-now"]') || $('[data-action="print-now"]').disabled)return;
+  try { window.print(); } catch { toast(t('printUnavailable')); }
 }
 
 function renderWordbookStatus() {
@@ -460,6 +497,8 @@ $('#main').addEventListener('click',event=>{
   else if(action.startsWith('network-'))sizeNetwork(action);
   else if(action==='save')toggleSaved({word,hanja});
   else if(action==='download-words')downloadWordbook();
+  else if(action==='print-words'&&state.saved.length)location.hash='print';
+  else if(action==='print-now')printWordbook();
   else if(action==='upload-words')$('#wordbook-file')?.click();
   else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog();$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
   else if(action==='search-mode')changeSearchMode(button.dataset.mode);
