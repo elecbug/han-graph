@@ -1830,7 +1830,7 @@ main:focus {
   font-size:11px;
   margin-top:8px;
 }
-.level-badge,.difficulty-badge {
+.level-badge {
   display:inline-flex;
   align-items:center;
   font-size:10px;
@@ -1926,51 +1926,38 @@ main:focus {
   margin-bottom:10px;
 }
 .practice-levels {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px 18px;
-  font-size:12px;
-}
-.practice-levels label,.difficulty-card {
-  cursor:pointer;
-}
-.practice-settings input {
-  accent-color:var(--green);
-  margin:3px 7px 0 0;
-}
-.difficulty-options {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:10px;
 }
-.difficulty-card {
+.practice-level-card {
   display:flex;
   align-items:flex-start;
+  gap:8px;
+  padding:16px;
   border:1px solid var(--line);
   border-radius:6px;
-  padding:14px;
   background:#fafbf6;
+  cursor:pointer;
 }
-.difficulty-card:has(input:checked) {
+.practice-level-card:has(input:checked) {
   background:#edf3e7;
   border-color:#55794b;
   box-shadow:inset 0 0 0 1px #55794b;
 }
-.difficulty-card:focus-within {
+.practice-level-card:focus-within {
   outline:3px solid #c58646;
   outline-offset:3px;
 }
-.difficulty-card strong,.difficulty-card small {
-  display:block;
+.practice-level-card input {
+  accent-color:var(--green);
+  margin:3px 0 0;
 }
-.difficulty-card small {
+.practice-level-card small {
+  display:block;
   color:#687361;
   font-size:11px;
-  margin-top:5px;
-}
-.difficulty-card .difficulty-count {
-  color:var(--green);
-  font-weight:600;
+  margin-top:7px;
 }
 .practice-intro .practice-pool {
   color:var(--green);
@@ -1983,7 +1970,6 @@ main:focus {
   margin-bottom:10px;
 }
 @media(max-width:640px) {
-  .difficulty-options { grid-template-columns:1fr; }
   .vocabulary-filters button { padding:6px 10px; }
   .word-tags { gap:6px; }
 }

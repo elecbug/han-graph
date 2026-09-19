@@ -231,8 +231,6 @@ func TestPracticeValidation(t *testing.T) {
 		{"duplicate options", func(p *Practice) { p.Questions[0].Options[1] = p.Questions[0].Options[0] }},
 		{"duplicate IDs", func(p *Practice) { p.Questions[1].ID = p.Questions[0].ID }},
 		{"empty explanation", func(p *Practice) { p.Questions[0].ExplanationEn = " " }},
-		{"missing difficulty", func(p *Practice) { p.Questions[0].Difficulty = "" }},
-		{"unknown difficulty", func(p *Practice) { p.Questions[0].Difficulty = "expert" }},
 		{"no questions", func(p *Practice) { p.Questions = nil }},
 	} {
 		t.Run(tc.name, func(t *testing.T) {

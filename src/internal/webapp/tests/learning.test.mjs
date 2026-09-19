@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult} from '../static/learning.mjs';
 
 const fraction={word:'분수',hanja:'分數'}, mathematics={word:'수학',hanja:'數學'}, fountain={word:'분수',hanja:'噴水'};
-const questions=[{id:'first',answer:fraction,options:[fraction,mathematics]},{id:'second',answer:mathematics,options:[fraction,mathematics]}];
+const questions=[{id:'first',word_level:'easy',answer:fraction,options:[fraction,mathematics]},{id:'second',word_level:'easy',answer:mathematics,options:[fraction,mathematics]}];
 
 test('saved words retain homographs, remove duplicates and reject corrupt records',()=>{
   assert.notEqual(wordKey(fraction),wordKey(fountain));
@@ -41,7 +41,7 @@ test('a restarted session has no previous answers and does not mutate question d
 });
 
 test('each round samples ten distinct questions from the whole pool and shuffles options',()=>{
-  const pool=Array.from({length:100},(_,index)=>({id:`q-${index}`,answer:fraction,options:[fraction,mathematics]}));
+  const pool=Array.from({length:100},(_,index)=>({id:`q-${index}`,word_level:'easy',answer:fraction,options:[fraction,mathematics]}));
   const before=JSON.stringify(pool);
   const first=createSession(pool,()=>0);
   const second=createSession(pool,()=>0.999999);
@@ -62,7 +62,7 @@ test('each round samples ten distinct questions from the whole pool and shuffles
 
 test('practice pools with ten or fewer questions use every available question once',()=>{
   for(const size of [0,1,6,10]) {
-    const pool=Array.from({length:size},(_,index)=>({id:`small-${index}`,answer:fraction,options:[fraction,mathematics]}));
+    const pool=Array.from({length:size},(_,index)=>({id:`small-${index}`,word_level:'easy',answer:fraction,options:[fraction,mathematics]}));
     const session=createSession(pool,()=>0.5);
     assert.equal(session.questions.length,size);
     assert.equal(new Set(session.questions.map(q=>q.id)).size,size);

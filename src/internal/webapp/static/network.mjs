@@ -23,9 +23,49 @@ export function filterNetwork(network, level='all') {
   return {...network, words, characters:network.characters.filter(character=>glyphs.has(character.hanja))};
 }
 
+// A selected character connects only to its incident words. Keep complete
+// word identities and written forms without expanding their other characters.
+export function componentNetwork(network, glyph) {
+  const character=network.characters.find(character=>character.hanja===glyph);
+  if(!character)return {roots:[],characters:[],words:[],scope:'character'};
+  return {roots:[glyph],characters:[character],words:network.words.filter(word=>word.components.includes(glyph)),scope:'character'};
+}
+
+function layoutComponentNetwork(network, selected) {
+  const character=network.characters[0];
+  if(!character)return {nodes:[],edges:[],width:320,height:240};
+  const root={...character,id:character.hanja,root:true,width:80,height:80,x:0,y:0};
+  const edges=network.words.map((word,index)=>{
+    const angle=-Math.PI/2+index*2*Math.PI/network.words.length;
+    return {word,id:wordKey(word),glyphs:[root.hanja],current:selected?wordKey(word)===wordKey(selected):false,
+      width:Math.max(92,Math.max([...word.word].length,[...word.hanja].length)*15+26),height:60,
+      x:Math.cos(angle)*1.3,y:Math.sin(angle)};
+  });
+  // Fit full labels around one ellipse. A single straight spoke per word
+  // keeps repeated characters, compounds and mixed forms at the same depth.
+  let radius=180;
+  for(let i=0;i<edges.length;i++)for(let j=i+1;j<edges.length;j++) {
+    const a=edges[i],b=edges[j];
+    radius=Math.max(radius,Math.min(((a.width+b.width)/2+24)/Math.abs(a.x-b.x),((a.height+b.height)/2+24)/Math.abs(a.y-b.y)));
+  }
+  for(const edge of edges) {
+    radius=Math.max(radius,Math.min((edge.width/2+root.width/2+36)/Math.abs(edge.x),(edge.height/2+root.height/2+36)/Math.abs(edge.y)));
+  }
+  edges.forEach(edge=>{edge.x*=radius;edge.y*=radius;});
+  const particles=[root,...edges];
+  const minX=Math.min(...particles.map(p=>p.x-p.width/2))-55;
+  const minY=Math.min(...particles.map(p=>p.y-p.height/2))-55;
+  const width=Math.max(320,Math.max(...particles.map(p=>p.x+p.width/2))-minX+55);
+  const height=Math.max(240,Math.max(...particles.map(p=>p.y+p.height/2))-minY+55);
+  particles.forEach(p=>{p.x-=minX;p.y-=minY;});
+  edges.forEach(edge=>{edge.routes=[{points:[{x:root.x,y:root.y},{x:edge.x,y:edge.y}]}];});
+  return {nodes:[root],edges,width,height};
+}
+
 // Words are edge labels (junctions for compounds with 3+ characters), not
 // additional character nodes. Keep glyph identity separate from its readings.
 export function layoutNetwork(network, selected) {
+  if(network.scope==='character')return layoutComponentNetwork(network,selected);
   const roots = new Set(network.roots);
   const rootList = [...roots];
   const nodes = network.characters.map(character => ({
@@ -205,7 +245,7 @@ export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단�
   const wordHref=word=>`#explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`;
   const characterHref=glyph=>`#explore?${new URLSearchParams({character:glyph})}`;
   const category=wordCategory;
-  const categoryNames=lang==='ko'?{easy:'기초',normal:'일반',hard:'심화',classical:'고전·문어'}:{easy:'Easy',normal:'General',hard:'Advanced',classical:'Classical'};
+  const categoryNames=lang==='ko'?{easy:'기초',normal:'일반',hard:'심화',classical:'고전'}:{easy:'Easy',normal:'General',hard:'Advanced',classical:'Classical'};
   const categoryLabel=word=>categoryNames[category(word)];
   const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${category(edge.word)} ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');
   const labels=layout.edges.map(edge=>`<a class="network-edge ${category(edge.word)} ${edge.current?'current':''}" href="${esc(wordHref(edge.word))}" data-edge-id="${esc(edge.id)}" data-edge-word="${esc(edge.word.hanja)}" aria-label="${esc(wordLabel)}: ${esc(edge.word.word)} (${esc(edge.word.hanja)}), ${categoryLabel(edge.word)}" ${edge.current?'aria-current="true"':''} transform="translate(${edge.x} ${edge.y})"><title>${esc(edge.word.word)} · ${esc(edge.word.hanja)} · ${categoryLabel(edge.word)} — ${esc(edge.word[lang==='ko'?'meaning_ko':'meaning_en'])}</title><rect x="${-edge.width/2}" y="${-edge.height/2}" width="${edge.width}" height="${edge.height}" rx="7"/><text class="edge-word" y="-11">${esc(edge.word.word)}</text><text class="edge-hanja" y="6">${isMixedWord(edge.word)?wordFormParts(edge.word).map(part=>`<tspan class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</tspan>`).join(''):esc(edge.word.hanja)}</text><text class="edge-category" y="23">${categoryLabel(edge.word)}</text></a>`).join('');

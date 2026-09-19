@@ -2,7 +2,7 @@ import test from 'node:test';
 import {createDataClient} from '../static/data-client.mjs';
 import assert from 'node:assert/strict';
 import {filterNetwork,layoutNetwork,renderNetworkSVG} from '../static/network.mjs';
-import {filterPracticeQuestions,createSession,answerQuestion,sessionResult} from '../static/learning.mjs';
+import {filterPracticeQuestions,practiceSettings,PRACTICE_LEVELS,createSession,answerQuestion,sessionResult} from '../static/learning.mjs';
 
 const normal={word:'흡연',hanja:'吸煙',level:'normal',components:['吸','煙'],meaning_ko:'담배 피움',meaning_en:'smoking'};
 const classical={word:'흡연',hanja:'恰然',level:'classical',components:['恰','然'],meaning_ko:'마음에 맞는 모양',meaning_en:'fitting'};
@@ -36,7 +36,7 @@ test('graph categories have visible text, distinct classes and accessible labels
     assert.match(svg,/network-edge classical current/);
     assert.match(svg,/network-line-link classical current/);
     assert.match(svg,/class="edge-category"/);
-    assert.ok(svg.includes(lang==='ko'?'고전·문어':'Classical'));
+    assert.ok(svg.includes(lang==='ko'?'고전':'Classical'));
     assert.ok(svg.includes(lang==='ko'?'일반':'General'));
     for(const [category,label] of [['easy',lang==='ko'?'기초':'Easy'],['hard',lang==='ko'?'심화':'Advanced']]) {
       assert(svg.includes(`network-edge ${category}`));
@@ -50,12 +50,12 @@ test('graph categories have visible text, distinct classes and accessible labels
 });
 
 const quizWords=[{word:'가격',hanja:'價格'},{word:'보완',hanja:'補完'},{word:'개연성',hanja:'蓋然性'},{word:'자왈',hanja:'子曰'}];
-const questions=Array.from({length:72},(_,i)=>({id:`q-${i}`,difficulty:['easy','medium','hard'][i%3],word_level:['easy','normal','hard','classical'][Math.floor(i/18)],answer:quizWords[Math.floor(i/18)],options:quizWords}));
-test('practice combines difficulty and category before sampling and retains settings through grading',()=>{
+const questions=Array.from({length:72},(_,i)=>({id:`q-${i}`,word_level:['easy','normal','hard','classical'][Math.floor(i/18)],answer:quizWords[Math.floor(i/18)],options:quizWords}));
+test('practice samples only the chosen word category and retains it through grading',()=>{
   const before=JSON.stringify(questions);
-  for(const difficulty of ['all','easy','medium','hard']) for(const level of ['all','easy','normal','hard','classical']) {
-    const settings={difficulty,level};
-    const expected=questions.filter(q=>(difficulty==='all'||q.difficulty===difficulty)&&(level==='all'||q.word_level===level));
+  for(const level of PRACTICE_LEVELS) {
+    const settings={level};
+    const expected=questions.filter(q=>q.word_level===level);
     assert.deepEqual(filterPracticeQuestions(questions,settings),expected);
     const session=createSession(questions,()=>0.3,settings);
     assert.equal(session.questions.length,Math.min(10,expected.length));
@@ -63,12 +63,12 @@ test('practice combines difficulty and category before sampling and retains sett
     assert.equal(new Set(session.questions.map(q=>q.id)).size,session.questions.length);
     session.questions.forEach((q,i)=>assert.equal(answerQuestion(session,i,q.answer),true));
     assert.equal(sessionResult(session).correct,session.questions.length);
-    assert.equal(session.difficulty,difficulty);
+    assert.ok(!('difficulty' in session));
     assert.equal(session.level,level);
   }
   assert.equal(JSON.stringify(questions),before);
-  assert.equal(createSession([],Math.random,{difficulty:'hard',level:'classical'}).questions.length,0);
-  assert.throws(()=>filterPracticeQuestions(questions,{difficulty:'invalid'}),RangeError);
+  assert.equal(createSession([],Math.random,{level:'classical'}).questions.length,0);
+  for(const level of ['all','medium','invalid'])assert.throws(()=>filterPracticeQuestions(questions,{level}),RangeError);
 });
 
 
@@ -89,4 +89,10 @@ test('category and reading filters have independent cache entries with canonical
   assert.equal(new Set([general,classical,easy,hard].map(result=>result.url)).size,4);
   assert.deepEqual(await getJSON('/api/search?level=easy','하'),easy);
   assert.equal(calls.length,5);
+});
+
+test('old practice settings migrate to one of the four categories',()=>{
+  assert.deepEqual(PRACTICE_LEVELS,['easy','normal','hard','classical']);
+  for(const level of PRACTICE_LEVELS)assert.deepEqual(practiceSettings({level,difficulty:'hard'}),{level});
+  for(const value of [null,{},42,{level:'all',difficulty:'medium'},{level:'invalid'}])assert.deepEqual(practiceSettings(value),{level:'easy'});
 });

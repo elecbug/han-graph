@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 
 	"github.com/elecbug/han-graph/internal/graph"
@@ -66,11 +67,11 @@ func TestVocabularyCategoryAPI(t *testing.T) {
 	}
 }
 
-func TestPracticeCategoriesAndDifficulties(t *testing.T) {
+func TestPracticeUsesAnswerWordCategory(t *testing.T) {
 	g, p, app := testApp(t)
 	counts := map[string]int{}
 	for _, q := range p.Questions {
-		counts[q.Difficulty]++
+		counts[q.WordLevel]++
 		found := false
 		for _, word := range g.FindWords(q.Answer.Word) {
 			if word.Word.Hanja == q.Answer.Hanja {
@@ -84,18 +85,21 @@ func TestPracticeCategoriesAndDifficulties(t *testing.T) {
 			t.Fatal(q.ID)
 		}
 	}
-	for _, difficulty := range []string{"easy", "medium", "hard"} {
-		if counts[difficulty] < 10 {
-			t.Fatalf("%s needs a complete round", difficulty)
+	for _, level := range []string{"easy", "normal", "hard", "classical"} {
+		if counts[level] < 10 {
+			t.Fatalf("%s needs a complete round", level)
 		}
 	}
 	response := httptest.NewRecorder()
 	app.ServeHTTP(response, httptest.NewRequest("GET", "/api/practice", nil))
+	if strings.Contains(response.Body.String(), `"difficulty"`) {
+		t.Fatal("practice API must expose only the word category")
+	}
 	var got Practice
 	if err := json.Unmarshal(response.Body.Bytes(), &got); err != nil {
 		t.Fatal(err)
 	}
-	if got.Questions[0].Difficulty == "" || got.Questions[0].WordLevel == "" {
+	if got.Questions[0].WordLevel == "" {
 		t.Fatal("missing practice metadata")
 	}
 
