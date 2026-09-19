@@ -20,7 +20,7 @@
 
 ## 표기와 개념을 확인하는 자료
 
-한영 뜻풀이는 학습자가 이해하기 쉽게 프로젝트에서 작성합니다. 한자 표기·독음이나 전문 개념을 대조할 때는 다음 자료를 참고합니다. 아래 링크는 확인에 사용한 대표 항목이며, 모든 사전 항목의 개별 출처를 나타내는 목록은 아닙니다.
+한영 뜻풀이와 문맥 연습 예문은 학습자가 이해하기 쉽게 프로젝트에서 직접 작성합니다. 외부 자료의 예문을 옮기지 않고, 뜻과 사용 맥락을 확인하는 데 참고합니다. 한자 표기·독음이나 전문 개념을 대조할 때는 다음 자료를 참고합니다. 아래 링크는 확인에 사용한 대표 항목이며, 모든 사전 항목의 개별 출처를 나타내는 목록은 아닙니다.
 
 | 자료 | 확인하는 내용과 대표 항목 |
 | --- | --- |
@@ -35,6 +35,10 @@
 | 식품의약품안전처 식품안전나라 | [식품공전 용어 풀이의 유통기간·소비기한 구분](https://www.foodsafetykorea.go.kr/popup/safefoodlife/food/foodRvlv/foodRvlvDetail.do?rvlv_no=3) |
 | 한국야구위원회 | [야구기록규칙의 타율·출루율·장타율 산정](https://lgcxydabfbch3774324.cdn.ntruss.com/KBO_FILE/ebook/pdf/2023recordRule.pdf) |
 | 기상청 기상자료개방포털 | [열대야의 관측 기준](https://data.kma.go.kr/climate/tropicalNight/selectTropicalNightChart.do) |
+| 한국학중앙연구원 한국민족문화대백과사전: 생활·전통 어휘 | [근친과 귀녕](https://encykorea.aks.ac.kr/Article/E0007466), [이화주](https://encykorea.aks.ac.kr/Article/E0046614), [소풍](https://encykorea.aks.ac.kr/Article/E0030330)의 뜻과 사용 맥락 |
+| 국사편찬위원회 조선왕조실록 | [이혁의 용례](https://sillok.history.go.kr/id/kwa_10806030_002): 폐단을 고치는 문맥 |
+| 전통문화연구회 사이버서당 | [문전작라의 뜻과 용례](https://hm.cyberseodang.or.kr/verbaltrans/classic_view.asp?idx=13294&listLevel=2) |
+| 국립생물자원관 한반도의 생물다양성 | [측백나무의 형태](https://species.nibr.go.kr/home/mainHome.do?contCd=009002&cont_link=009&ktsn=120000060000&pageMode=view&subMenu=009002): 늘푸른 성질과 비늘 모양 잎 |
 
 ## 제공하는 파일
 
