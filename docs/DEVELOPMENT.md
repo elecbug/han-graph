@@ -6,7 +6,7 @@
 
 ## 준비하기
 
-Go 1.26.2 이상과 웹 브라우저가 필요합니다. 별도 데이터베이스, 외부 Go 라이브러리나 프런트엔드 빌드 도구는 필요하지 않습니다. 저장소를 내려받은 뒤 터미널에서 `src` 디렉터리로 이동하세요. 아래 명령은 모두 그 위치에서 실행합니다.
+Go 1.26.2 이상과 웹 브라우저가 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 계정 저장에는 Go 내장형 데이터베이스 라이브러리 bbolt를 사용하며, 필요한 모듈은 첫 실행 시 Go가 내려받습니다. 저장소를 내려받은 뒤 터미널에서 `src` 디렉터리로 이동하세요. 아래 명령은 모두 그 위치에서 실행합니다.
 
 ## 웹 앱 실행
 
@@ -19,11 +19,21 @@ go run ./cmd -addr 127.0.0.1:18080 serve
 | 바꾸고 싶은 설정 | 사용 방법 |
 | --- | --- |
 | 포트 | `go run ./cmd -addr 127.0.0.1:8081 serve` |
+| 계정 저장 위치 | `go run ./cmd -accounts ../var/accounts.db -addr 127.0.0.1:18080 serve` |
+| HTTPS 프록시 뒤에서 운영 | 위 명령에 `-secure-cookies` 추가 |
 | 데이터 위치 | `go run ./cmd -data ../dataset -addr 127.0.0.1:18080 serve` |
 
 옵션은 `serve` 같은 명령보다 앞에 둡니다. `-data`의 기본값은 `../dataset`이며 실행하는 디렉터리를 기준으로 합니다. `-addr`를 생략하면 `0.0.0.0:18080`에서 접속을 받습니다.
 
 데이터는 서버를 시작할 때 읽으므로 수정한 자료를 보려면 재시작해야 합니다. 화면 파일은 실행 프로그램에 포함되므로 화면 소스를 바꾼 경우 `go run`을 다시 실행하거나 다시 빌드한 뒤 브라우저를 새로고침합니다.
+
+### 계정 데이터 보관
+
+계정 데이터는 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
+
+백업할 때는 서버를 정상 종료한 뒤 데이터베이스 파일을 복사합니다. 복원할 때도 서버가 정지한 상태에서 되돌려 놓으세요. 파일 권한은 소유자만 읽고 쓰도록 설정됩니다. 같은 파일을 두 서버 프로세스가 동시에 열 수 없습니다. 컨테이너나 임시 실행 환경을 사용한다면 `-accounts` 위치를 영구 볼륨에 두세요.
+
+외부에 서비스할 때는 HTTPS로 제공하고, HTTPS 리버스 프록시 뒤에서 `-secure-cookies`를 켜 로그인 쿠키를 HTTPS 연결로 제한하세요. 기본 로그인 시도 제한은 서버가 직접 보는 접속 주소에 적용하므로 프록시를 쓰는 경우 여러 이용자가 같은 제한을 공유할 수 있습니다.
 
 ## 명령줄에서 조회하기
 
@@ -56,7 +66,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 
 ## HTTP API
 
-서버를 실행하면 같은 주소에서 읽기 전용 JSON API를 사용할 수 있습니다. 예를 들어 `/api/search?q=하&mode=sound`는 독음 ‘하’로 검색합니다. 별도로 운영되는 공개 API 주소는 제공하지 않습니다.
+서버를 실행하면 같은 주소에서 사전 조회와 계정용 JSON API를 사용할 수 있습니다. 예를 들어 `/api/search?q=하&mode=sound`는 독음 ‘하’로 검색합니다. 별도로 운영되는 공개 API 주소는 제공하지 않습니다.
 
 <details>
 <summary>API 경로와 조회 조건</summary>
@@ -65,7 +75,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 | --- | --- | --- |
 | `GET /api/stats` | 없음 | 어휘·한자·독음·연결 수 |
 | `GET /api/search` | 선택적 `q`, `mode`, `level` | 단어·한자 목록과 전체 일치 수 |
-| `GET /api/words` | 필수 `q` | 정확히 일치한 단어와 구성 한자 |
+| `GET /api/words` | 필수 `q` | 정확히 일치한 단어, 구성 한자와 `example` 예문 |
 | `GET /api/characters` | 필수 `q` | 글자·독음·ID에 일치한 한자와 연결 단어 |
 | `GET /api/neighborhood` | 필수 `q` | 시작 한자와 직접 연결된 단어·한자 |
 | `GET /api/random-word` | 선택적 `level`, `exclude_word`, `exclude_hanja` | 무작위 단어 하나 |
@@ -83,6 +93,22 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 
 </details>
 
+### 계정 API
+
+| 경로 | 용도 |
+| --- | --- |
+| `POST /api/auth/register` | `{username,password}`로 가입하고 로그인 |
+| `POST /api/auth/login` | `{username,password}`로 로그인 |
+| `GET /api/auth/session` | 현재 사용자와 단어장·노트 조회; 비회원은 `user: null` |
+| `POST /api/auth/logout` | `{}`로 현재 로그인 종료 |
+| `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |
+| `DELETE /api/account/words` | `{word,hanja}`를 단어장에서 삭제 |
+| `PUT /api/account/note` | `{word,hanja,text,revision}`으로 노트 저장; 빈 내용은 삭제 |
+
+요청 본문은 JSON입니다. 로그인 쿠키는 HttpOnly·SameSite로 설정하고 다른 출처의 쓰기 요청은 거부합니다. 로그아웃과 개인 자료 변경에는 현재 세션 응답의 사용자 ID를 `X-Account-ID` 헤더로 전달해야 합니다. 브라우저의 다른 탭에서 계정이 바뀌더라도 이전 계정에서 작성한 내용이 잘못 저장되는 것을 막습니다.
+
+노트의 첫 저장은 `revision: 0`, 이후 수정은 서버에서 받은 버전을 보냅니다. 버전이 다르면 `409 conflict`를 반환합니다. 계정 응답은 캐시하지 않으며 아이디 중복은 `409`, 인증 실패는 `401`, 저장 한도 초과는 `422`, 과도한 로그인 시도는 `429`입니다. 비밀번호는 개별 salt를 사용한 PBKDF2-HMAC-SHA256 해시로 저장합니다.
+
 ## 검증
 
 자료 형식을 확인하려면 다음 명령을 사용하세요.
@@ -91,7 +117,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 go run ./cmd validate
 ```
 
-이 명령은 `meta.jsonl`, `character.jsonl`, `word.jsonl`의 형식·중복·참조와 연결 수를 확인합니다. 웹 연습 파일은 서버 시작 시 따로 검사합니다. 내용의 정확성과 출처 기준은 [콘텐츠 원칙](DATA_GUIDELINES.md)을 참고하세요.
+이 명령은 `meta.jsonl`, `character.jsonl`, `word.jsonl`의 형식·중복·참조와 연결 수를 확인하며, `example.jsonl`이 있으면 예문의 참조·중복·문장 형식도 검사합니다. 웹 연습 파일은 서버 시작 시 따로 검사합니다. 내용의 정확성과 출처 기준은 [콘텐츠 원칙](DATA_GUIDELINES.md)을 참고하세요.
 
 <details>
 <summary>코드를 수정한 경우 확인하기</summary>

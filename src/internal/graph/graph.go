@@ -15,6 +15,7 @@ type Graph struct {
 	words            []Word
 	wordsByQuery     map[string][]int
 	wordsByCharacter map[string][]int
+	examples         map[[2]string]string
 }
 
 type Stats struct {
@@ -38,6 +39,7 @@ type Component struct {
 }
 
 type WordResult struct {
+	Example    string      `json:"example,omitempty"`
 	Word       Word        `json:"word"`
 	Components []Component `json:"components"`
 }
@@ -111,7 +113,7 @@ func (g *Graph) FindWords(query string) []WordResult {
 	results := make([]WordResult, 0)
 	for _, index := range g.wordsByQuery[query] {
 		w := g.words[index]
-		result := WordResult{Word: w, Components: make([]Component, 0, len(w.Components))}
+		result := WordResult{Example: g.examples[[2]string{w.Word, w.Hanja}], Word: w, Components: make([]Component, 0, len(w.Components))}
 		for _, hanja := range w.Components {
 			component := Component{Hanja: hanja, Readings: make([]Reading, 0)}
 			for _, c := range g.characters[hanja] {

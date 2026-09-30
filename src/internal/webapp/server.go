@@ -1,4 +1,4 @@
-// Package webapp serves the local learning app and its read-only data API.
+// Package webapp serves the learning app, dictionary API, and private accounts.
 package webapp
 
 import (
@@ -18,8 +18,13 @@ import (
 //go:embed static/*
 var assets embed.FS
 
-func New(g *graph.Graph, practice Practice) http.Handler {
+func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
+	var options Options
+	if len(configs) > 0 {
+		options = configs[0]
+	}
 	mux := http.NewServeMux()
+	registerAccounts(mux, g, options)
 	jsonReply := func(w http.ResponseWriter, value any) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.Header().Set("Cache-Control", "no-store")
@@ -168,12 +173,17 @@ func New(g *graph.Graph, practice Practice) http.Handler {
 		w.Header().Set("ETag", file.etag)
 		http.ServeContent(w, r, r.URL.Path, time.Time{}, bytes.NewReader(file.body))
 	})
+	protection := http.NewCrossOriginProtection()
+	protection.SetDenyHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		accountJSON(w, 403, map[string]string{"error": "cross_origin"})
+	}))
+	protected := protection.Handler(mux)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
 		// Graph node positions use inline styles; scripts and data stay same-origin.
 		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
-		mux.ServeHTTP(w, r)
+		protected.ServeHTTP(w, r)
 	})
 }
 

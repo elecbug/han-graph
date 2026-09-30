@@ -86,3 +86,16 @@ test('words without a Hanja breakdown remain printable without blank character s
   assert(!html.includes('class="print-breakdown"'));
   assert(!html.includes('class="print-word-form"'));
 });
+
+test('examples follow the exact homograph and are escaped in the PDF',async()=>{
+  const entries=await loadPrintableWords([fountain,fraction],async()=>[
+    {...result(fraction),example:'분수를 배웠어요.'},
+    {...result(fountain),example:'분수 옆에서 <script>라고 적힌 책을 읽었어요.'},
+  ]);
+  assert.equal(entries[0].result.example,'분수 옆에서 <script>라고 적힌 책을 읽었어요.');
+  const html=renderPrintableWordbook(entries);
+  assert(html.includes('예문'));
+  assert(html.includes('분수를 배웠어요.'));
+  assert(html.includes('&lt;script&gt;'));
+  assert(!html.includes('<script>'));
+});

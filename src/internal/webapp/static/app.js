@@ -18,6 +18,8 @@ const icons = {
 };
 const copy = {
   ko: {
+    account:'내 계정', accountTitle:'내 배움을 이어가요.', accountSub:'단어장과 단어별 노트를 계정에 보관하세요.', accountEye:'YOUR PERSONAL SPACE', login:'로그인', register:'회원가입', logout:'로그아웃', username:'아이디', password:'비밀번호', confirmPassword:'비밀번호 확인', usernameHelp:'영문 소문자·숫자로 시작하는 3–32자의 영문, 숫자, _ 또는 -', passwordHelp:'비밀번호는 12–128자로 입력하세요. 이메일 인증은 없어요.', passwordMismatch:'비밀번호가 서로 달라요.', accountStorage:'단어장과 노트는 로그인한 계정에 저장돼요. 같은 서버에 접속하면 다른 기기에서도 이어갈 수 있어요.', guestImport:'이 브라우저의 단어 가져오기', guestImportHelp:'로그인 전에 저장한 단어는 별도로 보관돼요. 원할 때 현재 계정으로 합칠 수 있어요.', accountWorking:'저장 중…', accountFailed:'계정에 연결하지 못했어요. 연결을 확인하고 다시 시도해 주세요.', accountUnavailable:'이 서버에서는 계정 기능을 사용할 수 없어요.', accountInvalid:'아이디와 비밀번호 길이, 입력 내용을 확인해 주세요.', accountCredentials:'아이디 또는 비밀번호가 올바르지 않아요.', accountTaken:'이미 사용 중인 아이디예요.', accountExpired:'로그인 상태가 바뀌었거나 만료됐어요. 계정에서 로그인 상태를 새로 확인해 주세요.', accountRate:'로그인 시도가 많아요. 잠시 후 다시 시도해 주세요.', accountLimit:'저장 가능한 개수를 초과했어요. 단어는 500개, 노트는 1,000개까지 만들 수 있어요.', accountRefresh:'로그인 상태 새로 확인', accountWelcome:'로그인했어요.', accountCreated:'계정을 만들었어요.', accountSignedOut:'로그아웃했어요.', accountLoginHint:'로그인하면 단어장과 노트를 계정에 저장할 수 있어요.', example:'예문', note:'내 노트', noteHelp:'뜻을 기억하는 방법이나 나만의 예문을 적어 보세요. 나에게만 보여요.', noteLogin:'로그인하고 이 단어에 노트를 남겨 보세요.', noteSave:'노트 저장', noteDelete:'노트 삭제', noteSaved:'노트를 저장했어요.', noteDeleted:'노트를 삭제했어요.', notePlaceholder:'이 단어를 어떻게 기억하고 싶나요?', noteEmpty:'아직 작성한 노트가 없어요.', notesTitle:'작성한 노트', noteDraft:'아직 저장하지 않은 내용이에요.', noteConflict:'다른 곳에서 이 노트를 수정했어요. 입력 내용은 남겨 두었어요. 저장된 내용을 확인한 뒤 다시 편집해 주세요.', noteReload:'저장된 노트 다시 불러오기', noteLimit:'노트는 5,000자까지 입력할 수 있어요.',
+
     wordLevel:'어휘 분류', levelAll:'전체 어휘', levelEasy:'기초', levelNormal:'일반', levelHard:'심화', levelClassical:'고전', levelHint:'기초·일반·심화는 단어의 학습 난이도, 고전·문어는 쓰임에 따른 분류예요. 검색·랜덤 단어·그래프에 함께 적용해요.',
     selectedOutside:'선택한 단어는 현재 어휘 필터에 포함되지 않아요. 상세 정보는 계속 볼 수 있어요.', filteredEmpty:'이 분류의 연결 단어가 없어요. 전체 어휘로 바꾸어 살펴보세요.',
     practiceSettings:'연습 설정', changeSettings:'분류 다시 선택', practiceLevelHint:'정답 단어의 분류에 따라 연습해요.', noPractice:'이 분류의 문항이 없어요. 다른 분류를 골라 주세요.',
@@ -36,6 +38,8 @@ const copy = {
     practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'문장의 단서로 상황에 맞는 단어를 골라 보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 한글 선택지에서 어울리는 단어를 골라 보세요. 답을 고른 뒤 뜻풀이와 한자 구성 해설로 이해를 넓힐 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceRound:'전체 {pool}문항 중 무작위 {count}문항', practiceDraft:'한국어·영어 해설 · 예문 검수 전', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
   en: {
+    account:'My account', accountTitle:'Keep your learning with you.', accountSub:'Save your word collection and personal notes to your account.', accountEye:'YOUR PERSONAL SPACE', login:'Log in', register:'Sign up', logout:'Log out', username:'Username', password:'Password', confirmPassword:'Confirm password', usernameHelp:'3–32 lowercase letters, numbers, _ or -; start with a letter or number.', passwordHelp:'Use 12–128 characters. No email verification is required.', passwordMismatch:'The passwords do not match.', accountStorage:'Your words and notes are saved to your account. Sign in on the same server to continue on another device.', guestImport:'Import this browser’s words', guestImportHelp:'Words saved before signing in are kept separately. You can merge them into this account.', accountWorking:'Saving…', accountFailed:'Could not connect to your account. Check your connection and try again.', accountUnavailable:'Accounts are unavailable on this server.', accountInvalid:'Check the username, password length, and input.', accountCredentials:'Incorrect username or password.', accountTaken:'This username is already in use.', accountExpired:'Your login changed or expired. Refresh your login status on the account page.', accountRate:'Too many login attempts. Please try again later.', accountLimit:'Storage limit reached: 500 words and 1,000 notes.', accountRefresh:'Refresh login status', accountWelcome:'You are logged in.', accountCreated:'Your account is ready.', accountSignedOut:'You are logged out.', accountLoginHint:'Log in to keep your words and notes in your account.', example:'Example', note:'My note', noteHelp:'Write a memory aid or your own example. Only you can see it.', noteLogin:'Log in to write a note for this word.', noteSave:'Save note', noteDelete:'Delete note', noteSaved:'Your note was saved.', noteDeleted:'Your note was deleted.', notePlaceholder:'How would you like to remember this word?', noteEmpty:'No notes yet.', notesTitle:'Your notes', noteDraft:'You have unsaved changes.', noteConflict:'This note was edited elsewhere. Your draft is still here. Load the saved note before editing again.', noteReload:'Reload saved note', noteLimit:'Notes can contain up to 5,000 characters.',
+
     wordLevel:'Vocabulary', levelAll:'All vocabulary', levelEasy:'Easy', levelNormal:'General', levelHard:'Advanced', levelClassical:'Classical', levelHint:'Easy, General, and Advanced describe vocabulary difficulty; Classical describes historical or literary usage. Applies to search, random words, and the graph.',
     selectedOutside:'The selected word is outside this filter. Its details are still available.', filteredEmpty:'No connected words in this category. Choose all vocabulary to explore more.',
     practiceSettings:'Practice settings', changeSettings:'Change category', practiceLevelHint:'Practice by the answer word’s vocabulary category.', noPractice:'No questions in this category. Choose another category.',
@@ -65,6 +69,7 @@ const state = {
   page:'explore', query:'', searchMode:'all', tab:'words', search:null, stats:null, practice:null,
   selection:null, detail:null, glyph:null, session:null, index:0, translation:false,
   ready:false, importingWords:false, wordbookStatus:null,
+  user:null, notes:[], accountReady:false, accountEnabled:true, accountMode:'login', privateBusy:false, accountRefreshPending:false, accountFailure:null, noteDrafts:new Map(),
 };
 let pageEpoch=0, detailEpoch=0, componentEpoch=0, searchEpoch=0, searchTimer, toastTimer;
 const t = key => copy[state.lang][key] ?? key;
@@ -91,6 +96,7 @@ function updateShell() {
     if(active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
   });
   $('#page-label').textContent=t(state.page);
+  $('#account-link').textContent=state.user?.username??t('login');
   $('#saved-count').textContent=state.saved.length;
   $('#language').innerHTML=state.lang==='ko'?'KO <span>/ EN</span>':'EN <span>/ KO</span>';
   $('#language').setAttribute('aria-label',state.lang==='ko'?'Switch to English':'한국어로 전환');
@@ -110,9 +116,10 @@ async function renderPage({revealSelection=false} = {}) {
   const previousPage=state.page, previousSelection=JSON.stringify(state.selection);
   const catalogScrollTop=$('.catalog-list')?.scrollTop??0;
   const graphPosition=state.detail?.zoom&&$('.network-viewport')?networkCenter($('.network-viewport')):null;
-  state.page=['explore','practice','saved','print'].includes(page)?page:'explore';
+  state.page=['explore','practice','saved','print','account'].includes(page)?page:'explore';
   if(previousPage!==state.page)window.scrollTo({top:0});
   updateShell();
+  if (state.page==='account') { renderAccount(); return; }
   if (state.page==='practice') { renderPractice(); return; }
   if (state.page==='saved') { await renderSaved(epoch); return; }
   if (state.page==='print') { await renderWordbookPrint(epoch); return; }
@@ -272,7 +279,8 @@ function renderDetail(position=null) {
   if(wordResult) {
     const word=wordResult.word;
     card=`<div class="word-heading"><div class="word-heading-top"><span class="word-tags"><span class="tag">${t('wordTag')}</span>${levelBadge(word)}</span><button class="save-button ${isSaved(word)?'saved':''}" data-action="save" ${wordAttrs(word)} aria-pressed="${isSaved(word)}">${icons.bookmark}${t(isSaved(word)?'savedButton':'save')}</button></div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(word.word)}</h2><p class="word-meaning">${esc(meaning(word))}</p><p class="word-meaning-en">${esc(state.lang==='ko'?word.meaning_en:word.meaning_ko)}</p></div><span class="word-hanja" lang="ko">${isMixedWord(word)?wordFormParts(word).map(part=>`<span class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</span>`).join(''):esc(word.hanja)}</span></div></div>
-      <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>reading[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${word.semantic_hint?`<p class="semantic-hint">${esc(word.semantic_hint)}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t(isMixedWord(word)?'mixedWordNote':word.components.length?'readingNote':'noHanja')}</p></div>`;
+      ${wordResult.example?`<section class="word-example"><h3>${t('example')}</h3><p lang="ko">${esc(wordResult.example)}</p></section>`:''}
+      <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>reading[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${word.semantic_hint?`<p class="semantic-hint">${esc(word.semantic_hint)}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t(isMixedWord(word)?'mixedWordNote':word.components.length?'readingNote':'noHanja')}</p></div>${noteEditor(word)}`;
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span></div><div class="word-title-row"><div><h2 class="word-title">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_ko':'meaning_en'].join(', ')).join(' / '))}</p><p class="word-meaning-en">${esc(characters.map(c=>c[state.lang==='ko'?'meaning_en':'meaning_ko'].join(', ')).join(' / '))}</p></div><span class="word-hanja">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(c.meaning_ko.join(', '))} / ${esc(c.meaning_en.join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
@@ -344,16 +352,27 @@ async function changeComponent(glyph) {
   renderDetail();
   if(focusedGlyph)$(`.component-card[data-glyph="${CSS.escape(focusedGlyph)}"]`)?.focus({preventScroll:true});
 }
-function toggleSaved(ref) {
+async function toggleSaved(ref) {
+  if(!state.accountReady){toast(t('accountFailed'));return;}
+  if(state.privateBusy)return;
   const exists=isSaved(ref);
   if(!exists && state.saved.length>=500){toast(t('maxSaved'));return;}
-  state.saved=exists?state.saved.filter(word=>wordKey(word)!==wordKey(ref)):[...state.saved,{word:ref.word,hanja:ref.hanja}];
-  if(saveStorage('han-graph.words.v1',state.saved))toast(t(exists?'removed':'added'));
-  updateShell();
-  if(state.page==='saved')renderSaved(++pageEpoch); else renderDetail();
+  state.privateBusy=true;
+  try {
+    if(state.user) applyAccount(await accountRequest('/api/account/words',exists?'DELETE':'POST',exists?ref:{words:[ref]}));
+    else {
+      state.saved=exists?state.saved.filter(word=>wordKey(word)!==wordKey(ref)):[...state.saved,{word:ref.word,hanja:ref.hanja}];
+      if(!saveStorage('han-graph.words.v1',state.saved))return;
+    }
+    toast(t(exists?'removed':'added'));
+  } catch(error) {toast(accountMessage(error));}
+  finally {
+    finishPrivateRequest();updateShell();
+    if(state.page==='saved')renderSaved(++pageEpoch);else renderDetail();
+  }
 }
 async function renderSaved(epoch) {
-  $('#main').innerHTML=`${hero('savedEye','savedTitle','savedSub')}<section class="wordbook-tools" aria-label="${t('saved')}"><div><p>${t('wordbookHelp')}</p><p class="storage-note">${t('storageNote')}</p></div><div class="wordbook-actions"><button class="secondary-button" type="button" data-action="download-words" ${state.saved.length?'':'disabled'}>${t('downloadWords')}</button><button class="secondary-button" type="button" data-action="print-words" ${state.saved.length?'':'disabled'}>${t('printWords')}</button><button class="primary-button" type="button" data-action="upload-words" ${state.importingWords?'disabled':''}>${t(state.importingWords?'transferringWords':'uploadWords')}</button><input id="wordbook-file" type="file" accept=".jsonl,.ndjson,application/x-ndjson,application/jsonl" hidden></div></section><p id="wordbook-status" class="wordbook-status" role="status" aria-live="polite"></p><div id="saved-list" class="loading-panel" role="status">${t('loading')}</div>`;
+  $('#main').innerHTML=`${hero('savedEye','savedTitle','savedSub')}<section class="wordbook-tools" aria-label="${t('saved')}"><div><p>${t('wordbookHelp')}</p><p class="storage-note">${t(state.user?'accountStorage':'storageNote')}</p>${!state.user?`<a class="text-button" href="#account">${t('accountLoginHint')} →</a>`:''}</div><div class="wordbook-actions"><button class="secondary-button" type="button" data-action="download-words" ${state.saved.length?'':'disabled'}>${t('downloadWords')}</button><button class="secondary-button" type="button" data-action="print-words" ${state.saved.length?'':'disabled'}>${t('printWords')}</button><button class="primary-button" type="button" data-action="upload-words" ${state.importingWords?'disabled':''}>${t(state.importingWords?'transferringWords':'uploadWords')}</button><input id="wordbook-file" type="file" accept=".jsonl,.ndjson,application/x-ndjson,application/jsonl" hidden></div></section><p id="wordbook-status" class="wordbook-status" role="status" aria-live="polite"></p><div id="saved-list" class="loading-panel" role="status">${t('loading')}</div>`;
   renderWordbookStatus();
   $('#wordbook-file').addEventListener('change',event=>{
     const file=event.target.files[0];event.target.value='';
@@ -428,8 +447,9 @@ function downloadWordbook() {
   renderWordbookStatus();
 }
 async function importWordbook(file) {
-  if(state.importingWords)return;
-  state.importingWords=true;
+  if(state.importingWords||state.privateBusy)return;
+  if(!state.accountReady){toast(t('accountFailed'));return;}
+  state.importingWords=true;state.privateBusy=true;
   const button=$('[data-action="upload-words"]');
   if(button){button.disabled=true;button.textContent=t('transferringWords');}
   try {
@@ -437,16 +457,17 @@ async function importWordbook(file) {
     const imported=parseWordbook(await file.text());
     // Merge after reading so a concurrent save or another tab's update is kept.
     const result=mergeWordbook(state.saved,imported);
-    const persisted=saveStorage('han-graph.words.v1',result.words);
-    state.saved=result.words;
+    let persisted=true;
+    if(state.user) applyAccount(await accountRequest('/api/account/words','POST',{words:imported}));
+    else {persisted=saveStorage('han-graph.words.v1',result.words);state.saved=result.words;}
     state.wordbookStatus={key:'wordbookImported',added:result.added,duplicates:result.duplicates,temporary:!persisted};
     updateShell();
     if(state.page==='explore')renderDetail();
   } catch(error) {
-    const key={invalid:'wordbookInvalid',empty:'wordbookEmpty',size:'wordbookSize',limit:'wordbookLimit'}[error.code]??'wordbookReadError';
+    const key=error.account?accountErrorKey(error):({invalid:'wordbookInvalid',empty:'wordbookEmpty',size:'wordbookSize',limit:'wordbookLimit'}[error.code]??'wordbookReadError');
     state.wordbookStatus={key,line:error.line,error:true};
   } finally {
-    state.importingWords=false;
+    state.importingWords=false;finishPrivateRequest();
     if(state.page==='saved')await renderSaved(++pageEpoch);
   }
 }
@@ -482,11 +503,145 @@ function renderSummary(head,result) {
   $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">SESSION COMPLETE</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p><div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong>${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
+
+function accountErrorKey(error) {
+  return ({invalid:'accountInvalid',credentials:'accountCredentials',username_taken:'accountTaken',unauthorized:'accountExpired',rate_limit:'accountRate',limit:'accountLimit',conflict:'noteConflict',accounts_unavailable:'accountUnavailable'})[error.code]??'accountFailed';
+}
+const accountMessage=error=>t(accountErrorKey(error));
+async function accountRequest(path,method='GET',body) {
+  let response;
+  try {response=await fetch(path,{method,credentials:'same-origin',cache:'no-store',headers:body===undefined?{}:{'Content-Type':'application/json','X-Account-ID':state.user?.id??''},...(body===undefined?{}:{body:JSON.stringify(body)})});}
+  catch {throw Object.assign(new Error('network'),{account:true});}
+  let data;
+  try {data=await response.json();}catch {throw Object.assign(new Error('response'),{account:true});}
+  if(!response.ok)throw Object.assign(new Error(data.error),{account:true,code:data.error});
+  return data;
+}
+function applyAccount(data) {
+  if(state.user?.id!==data.user?.id){state.noteDrafts.clear();state.wordbookStatus=null;}
+  state.user=data.user??null;state.notes=data.notes??[];
+  state.saved=state.user?normalizeSaved(data.words):normalizeSaved(readStorage('han-graph.words.v1',[]));
+  state.accountEnabled=data.enabled!==false;state.accountReady=true;state.accountFailure=null;
+}
+function finishPrivateRequest() {
+  state.privateBusy=false;
+  if(state.accountRefreshPending) {
+    state.accountRefreshPending=false;
+    queueMicrotask(()=>refreshAccount(true));
+  }
+}
+async function refreshAccount(redraw=false) {
+  if(state.privateBusy){state.accountRefreshPending=true;return;}
+  state.privateBusy=true;
+  try {applyAccount(await accountRequest('/api/auth/session'));}
+  catch(error){state.accountFailure=accountErrorKey(error);state.accountReady=false;}
+  finally {
+    finishPrivateRequest();updateShell();
+    if(redraw&&state.ready)await renderPage();
+  }
+}
+function announceAccountChange() {
+  // No private content, credentials, or tokens go into browser storage.
+  try {localStorage.setItem('han-graph.account-event',String(Date.now()));}catch { /* Optional tab notification. */ }
+}
+function renderAccount() {
+  const head=hero('accountEye','accountTitle','accountSub');
+  if(!state.accountReady||!state.accountEnabled) {
+    $('#main').innerHTML=`${head}<section class="account-card"><p role="alert">${t(state.accountReady?'accountUnavailable':state.accountFailure??'accountFailed')}</p><button class="primary-button" data-action="account-refresh">${t('accountRefresh')}</button></section>`;
+    return;
+  }
+  if(state.user) {
+    const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+    const guests=normalizeSaved(readStorage('han-graph.words.v1',[]));
+    $('#main').innerHTML=`${head}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2></div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div>${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section><section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${new Date(note.updated_at).toLocaleDateString(state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+    return;
+  }
+  const registering=state.accountMode==='register';
+  $('#main').innerHTML=`${head}<section class="account-card account-form-card"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div><form id="account-form"><label for="account-username">${t('username')}</label><input id="account-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9][a-zA-Z0-9_-]{2,31}" aria-describedby="username-help"><p id="username-help" class="field-help">${t('usernameHelp')}</p><label for="account-password">${t('password')}</label><input id="account-password" name="password" type="password" autocomplete="${registering?'new-password':'current-password'}" required minlength="${registering?12:1}" maxlength="256" aria-describedby="password-help"><p id="password-help" class="field-help">${t('passwordHelp')}</p>${registering?`<label for="account-confirm">${t('confirmPassword')}</label><input id="account-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">`:''}<p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form></section>`;
+  $('#account-form').addEventListener('submit',async event=>{
+    event.preventDefault();if(state.privateBusy)return;
+    const form=event.currentTarget,button=form.querySelector('[type="submit"]'),error=form.querySelector('#account-error');
+    const values=new FormData(form),password=values.get('password');
+    if(registering && password!==values.get('confirm')){error.textContent=t('passwordMismatch');return;}
+    state.privateBusy=true;button.disabled=true;button.textContent=t('accountWorking');
+    try {
+      applyAccount(await accountRequest(`/api/auth/${registering?'register':'login'}`,'POST',{username:values.get('username'),password}));
+      announceAccountChange();toast(t(registering?'accountCreated':'accountWelcome'));updateShell();
+    } catch(failure){error.textContent=accountMessage(failure);}
+    finally {finishPrivateRequest();button.disabled=false;button.textContent=t(registering?'register':'login');if(state.user)await renderPage();}
+  });
+}
+async function logoutAccount() {
+  if(state.privateBusy)return;state.privateBusy=true;
+  try {applyAccount(await accountRequest('/api/auth/logout','POST',{}));announceAccountChange();toast(t('accountSignedOut'));}
+  catch(error){toast(accountMessage(error));}
+  finally {finishPrivateRequest();updateShell();await renderPage();}
+}
+async function importGuestWords() {
+  if(state.privateBusy||!state.user)return;
+  const words=normalizeSaved(readStorage('han-graph.words.v1',[]));if(!words.length)return;
+  state.privateBusy=true;
+  try {
+    const before=state.saved.length;
+    applyAccount(await accountRequest('/api/account/words','POST',{words}));
+    toast(t('wordbookImported').replace('{added}',state.saved.length-before).replace('{duplicates}',words.length-(state.saved.length-before)));
+  } catch(error){toast(accountMessage(error));}
+  finally {finishPrivateRequest();updateShell();if(state.page==='account')renderAccount();else if(state.page==='saved')renderSaved(++pageEpoch);}
+}
+const storedNote=ref=>state.notes.find(note=>wordKey(note)===wordKey(ref));
+function noteEditor(word) {
+  if(!state.user)return `<section class="note-editor"><h3>${t('note')}</h3><a class="text-button" href="#account">${t('noteLogin')} →</a></section>`;
+  const note=storedNote(word),draft=state.noteDrafts.get(wordKey(word)),text=draft?.text??note?.text??'';
+  return `<section class="note-editor"><label for="word-note">${t('note')}</label><p class="field-help" id="note-help">${t('noteHelp')}</p><textarea id="word-note" rows="4" maxlength="10000" placeholder="${t('notePlaceholder')}" aria-describedby="note-help" ${wordAttrs(word)}>${esc(text)}</textarea><div class="note-actions"><button class="primary-button" data-action="note-save" ${wordAttrs(word)} ${state.privateBusy?'disabled':''}>${t('noteSave')}</button>${note?.text?`<button class="text-button" data-action="note-delete" ${wordAttrs(word)}>${t('noteDelete')}</button>`:''}<button class="text-button" data-action="note-reload" ${wordAttrs(word)}>${t('noteReload')}</button></div><p class="form-status" id="note-status" role="status">${draft?t('noteDraft'):''}</p></section>`;
+}
+async function saveNote(ref,remove=false) {
+  if(state.privateBusy||!state.user)return;
+  const owner=state.user.id,key=wordKey(ref),old=storedNote(ref),draft=state.noteDrafts.get(key);
+  const text=remove?'':draft?.text??old?.text??'';
+  if([...text].length>5000){toast(t('noteLimit'));return;}
+  const revision=draft?.revision??old?.revision??0;
+  state.privateBusy=true;
+  const editor=$('#word-note');if(editor)editor.readOnly=true;
+  try {
+    const result=await accountRequest('/api/account/note','PUT',{...ref,text,revision});
+    if(state.user?.id!==owner)return;
+    applyAccount(result);
+    // A freshly rendered editor may have received more input during this save.
+    const latest=state.noteDrafts.get(key);
+    if(latest&&latest!==draft)state.noteDrafts.set(key,{text:latest.text,revision:storedNote(ref)?.revision??0});
+    else state.noteDrafts.delete(key);
+    toast(t(remove?'noteDeleted':'noteSaved'));
+    if(wordKey(state.detail?.wordResult?.word??{})===key)renderDetail();
+  } catch(error) {
+    if($('#note-status')&&wordKey(state.detail?.wordResult?.word??{})===key)$('#note-status').textContent=accountMessage(error);
+    else toast(accountMessage(error));
+  } finally {
+    finishPrivateRequest();
+    if(editor)editor.readOnly=false;
+    document.querySelectorAll('[data-action="note-save"]').forEach(button=>button.disabled=false);
+    if(state.page==='account')renderAccount();
+  }
+}
+async function reloadNote(ref) {
+  if(state.privateBusy)return;
+  await refreshAccount();
+  if(!state.accountReady){toast(t('accountFailed'));return;}
+  state.noteDrafts.delete(wordKey(ref));renderDetail();
+}
+$('#main').addEventListener('input',event=>{
+  if(event.target.id!=='word-note'||!state.user)return;
+  const {word,hanja}=event.target.dataset,ref={word,hanja},key=wordKey(ref),old=state.noteDrafts.get(key)??storedNote(ref);
+  state.noteDrafts.set(key,{text:event.target.value,revision:old?.revision??0});
+  $('#note-status').textContent=t('noteDraft');
+});
+window.addEventListener('beforeunload',event=>{if(state.noteDrafts.size){event.preventDefault();event.returnValue='';}});
+window.addEventListener('storage',event=>{if(event.key==='han-graph.account-event')refreshAccount(true);});
+
 async function boot() {
   updateShell();
   $('#main').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
   try {
-    const [stats,practice,search]=await Promise.all([getJSON('/api/stats'),getJSON('/api/practice'),getJSON(searchPath(state.searchMode),state.query)]);
+    const [stats,practice,search]=await Promise.all([getJSON('/api/stats'),getJSON('/api/practice'),getJSON(searchPath(state.searchMode),state.query),refreshAccount()]);
     Object.assign(state,{stats,practice,search,ready:true});
     await renderPage();
   } catch {$('#main').innerHTML=errorPanel();}
@@ -502,6 +657,13 @@ $('#main').addEventListener('click',event=>{
   else if(action==='network-retry')changeComponent(state.glyph);
   else if(action.startsWith('network-'))sizeNetwork(action);
   else if(action==='save')toggleSaved({word,hanja});
+  else if(action==='account-mode'){if(!state.privateBusy){state.accountMode=button.dataset.mode;renderAccount();}}
+  else if(action==='account-refresh')refreshAccount(true);
+  else if(action==='logout')logoutAccount();
+  else if(action==='guest-import')importGuestWords();
+  else if(action==='note-save')saveNote({word,hanja});
+  else if(action==='note-delete')saveNote({word,hanja},true);
+  else if(action==='note-reload')reloadNote({word,hanja});
   else if(action==='download-words')downloadWordbook();
   else if(action==='print-words'&&state.saved.length)location.hash='print';
   else if(action==='print-now')printWordbook();
@@ -536,6 +698,6 @@ $('#main').addEventListener('change',event=>{
 window.addEventListener('hashchange' ,()=>renderPage({revealSelection:true}));
 window.addEventListener('resize',()=>{if(state.page==='explore'&&state.detail?.fit)sizeNetwork('network-fit');});
 $('.skip-link').addEventListener('click',event=>{event.preventDefault();$('#main').focus();$('#main').scrollIntoView({block:'start'});});
-window.addEventListener('storage',event=>{if(event.key==='han-graph.words.v1'){state.saved=normalizeSaved(readStorage(event.key,[]));updateShell();if(state.page==='saved')renderSaved(++pageEpoch);else if(state.page==='explore')renderDetail();}});
+window.addEventListener('storage',event=>{if(event.key==='han-graph.words.v1'&&!state.user){state.saved=normalizeSaved(readStorage(event.key,[]));updateShell();if(state.page==='saved')renderSaved(++pageEpoch);else if(state.page==='explore')renderDetail();}});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)&&$('#search')){event.preventDefault();$('#search').focus();}});
 boot();

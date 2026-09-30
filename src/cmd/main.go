@@ -19,6 +19,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 	data := flags.String("data", "../dataset", "dataset directory (relative to the working directory)")
 	jsonOutput := flags.Bool("json", false, "write JSON results")
 	addr := flags.String("addr", "0.0.0.0:18080", "web server listening address")
+	accounts := flags.String("accounts", "../var/accounts.db", "private account database file")
+	secureCookies := flags.Bool("secure-cookies", false, "require HTTPS for login cookies (enable behind an HTTPS reverse proxy)")
 	flags.Usage = func() {
 		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] [-addr HOST:PORT] validate|word QUERY|character QUERY|serve")
 		flags.PrintDefaults()
@@ -48,7 +50,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	var result any
 	switch command {
 	case "serve":
-		return serve(g, *data, *addr, stdout, stderr)
+		return serve(g, *data, *addr, *accounts, *secureCookies, stdout, stderr)
 	case "validate":
 		stats := g.Stats()
 		result = stats

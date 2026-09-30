@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -28,6 +29,12 @@ type Character struct {
 	Hanja     string   `json:"hanja"`
 	MeaningKo []string `json:"meaning_ko"`
 	MeaningEn []string `json:"meaning_en"`
+}
+
+type WordExample struct {
+	Word      string `json:"word"`
+	Hanja     string `json:"hanja"`
+	ExampleKo string `json:"example_ko"`
 }
 
 type Word struct {
@@ -58,7 +65,7 @@ type located[T any] struct {
 var characterID = regexp.MustCompile(`^([a-z]+)-([0-9]{3,})$`)
 var metaID = regexp.MustCompile(`^[a-z]+$`)
 
-// Load validates all three JSONL files before returning a usable graph.
+// Load validates dictionary JSONL and optional word examples before indexing them.
 // Errors carry the source filename and physical line number.
 func Load(dir string) (*Graph, error) {
 	metas, err := readJSONL[Meta](filepath.Join(dir, "meta.jsonl"))
@@ -147,6 +154,27 @@ func Load(dir string) (*Graph, error) {
 			g.wordsByQuery[w.Hanja] = append(g.wordsByQuery[w.Hanja], len(g.words))
 		}
 		g.words = append(g.words, w)
+	}
+
+	examplesPath := filepath.Join(dir, "example.jsonl")
+	examples, err := readJSONL[WordExample](examplesPath)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return nil, err
+	}
+	g.examples = make(map[[2]string]string)
+	for _, row := range examples {
+		e := row.value
+		key := [2]string{e.Word, e.Hanja}
+		if !seenWords[key] {
+			return fail("example.jsonl", row.line, "unknown word/hanja: "+e.Word+"/"+e.Hanja)
+		}
+		if _, exists := g.examples[key]; exists {
+			return fail("example.jsonl", row.line, "duplicate word example: "+e.Word+"/"+e.Hanja)
+		}
+		if strings.TrimSpace(e.ExampleKo) != e.ExampleKo || e.ExampleKo == "" || utf8.RuneCountInString(e.ExampleKo) > 500 || strings.ContainsAny(e.ExampleKo, "\r\n") {
+			return fail("example.jsonl", row.line, "example_ko must be a single nonempty line of at most 500 characters")
+		}
+		g.examples[key] = e.ExampleKo
 	}
 	return g, nil
 }

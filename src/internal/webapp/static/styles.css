@@ -1975,3 +1975,30 @@ main:focus {
   .vocabulary-filters button { padding:6px 10px; }
   .word-tags { gap:6px; }
 }
+
+/* Accounts, dictionary examples, and private word notes. */
+.topbar-actions { display:flex;align-items:center;gap:22px }
+.account-link { font-weight:600;max-width:170px;overflow:hidden;text-overflow:ellipsis }
+.account-card { max-width:760px;background:var(--white);border:1px solid var(--line);border-radius:18px;padding:32px;display:grid;gap:22px }
+.account-form-card { max-width:510px }
+.account-heading,.account-actions,.account-tabs,.note-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap }
+.account-heading { justify-content:space-between }
+.account-card h2 { font-size:26px;overflow-wrap:anywhere }
+#account-form { display:grid;gap:12px }
+#account-form label,.note-editor label { font-weight:600 }
+#account-form input,.note-editor textarea { width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font:inherit }
+.note-editor textarea { resize:vertical;min-height:110px;line-height:1.7 }
+textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
+.field-help { color:var(--muted);font-size:12px }
+.form-status { min-height:22px;font-size:13px;color:var(--accent) }
+.guest-import { padding-top:20px;border-top:1px solid var(--line);display:grid;gap:12px;justify-items:start }
+.account-notes { max-width:760px;margin-top:30px;display:grid;gap:16px }
+.account-note { padding:20px;background:var(--white);border:1px solid var(--line);border-radius:12px }
+.account-note>div { display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap }
+.account-note time { font-size:12px;color:var(--muted) }
+.account-note p { white-space:pre-wrap;overflow-wrap:anywhere;margin-top:10px }
+.word-example { margin:0 28px 22px;padding:16px 20px;background:var(--sage);border-left:3px solid var(--green);border-radius:0 8px 8px 0 }
+.word-example h3 { color:var(--green);font-size:12px;margin-bottom:6px }
+.word-example p { font-size:16px;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere }
+.note-editor { border-top:1px solid var(--line);padding:24px 28px;display:grid;gap:12px }
+@media(max-width:640px) { .account-card { padding:22px }.topbar-actions { gap:14px }.account-link { max-width:110px }.word-example { margin:0 20px 20px }.note-editor { padding:20px } }

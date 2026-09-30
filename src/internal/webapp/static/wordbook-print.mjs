@@ -5,7 +5,7 @@ const copy = {
   ko: {
     title:'나의 단어 모음', subtitle:'뜻을 읽고, 구성을 살피고, 오래 기억하기.',
     count:count=>`${count}개의 단어`, missing:'현재 사전에서 설명을 찾을 수 없어요. 저장한 표기는 그대로 남겨 두었어요.',
-    meaning:'뜻풀이', hint:'이해의 실마리', characters:'구성 한자',
+    example:'예문', meaning:'뜻풀이', hint:'이해의 실마리', characters:'구성 한자',
     easy:'기초', normal:'일반', hard:'심화', classical:'고전',
     note:'한자의 뜻과 독음은 단어와 문맥에 따라 달라질 수 있어요.',
     footer:'하나의 단어에서 시작되는 새로운 이해.',
@@ -13,7 +13,7 @@ const copy = {
   en: {
     title:'My word collection', subtitle:'Read the meaning. Notice the parts. Remember the connection.',
     count:count=>`${count} ${count===1?'word':'words'}`, missing:'The description is unavailable in the current dictionary. Your saved spelling is preserved here.',
-    meaning:'Meaning', hint:'A clue to the meaning', characters:'Hanja components',
+    example:'Example', meaning:'Meaning', hint:'A clue to the meaning', characters:'Hanja components',
     easy:'Easy', normal:'General', hard:'Advanced', classical:'Classical',
     note:'A character’s meanings and readings can vary with the word and context.',
     footer:'A new understanding starts with one word.',
@@ -80,6 +80,7 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
       return `<li class="print-entry"><article>
         <header class="print-entry-heading"><span class="print-number">${String(index+1).padStart(2,'0')}</span><div class="print-word-title"><h2 lang="ko">${escape(word.word)}</h2>${word.hanja?`<p class="print-word-form" lang="ko">${wordForm(word.hanja)}</p>`:''}</div>${result?`<span class="print-level">${labels[wordCategory(word)]}</span>`:''}</header>
         <div class="print-entry-content">${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="ko">${escape(word.meaning_ko)}</p><p class="print-english" lang="en">${escape(word.meaning_en)}</p></div>
+          ${result.example?`<div class="print-hint print-example"><h3>${labels.example}</h3><p lang="ko">${escape(result.example)}</p></div>`:''}
           ${word.semantic_hint?`<div class="print-hint"><h3>${labels.hint}</h3><p lang="ko">${escape(word.semantic_hint)}</p></div>`:''}
           ${result.components?.length?`<div class="print-breakdown"><h3>${labels.characters}</h3> | <div class="print-characters">${characterDetails(result.components,language)}</div></div>`:''}`
           :`<p class="print-missing">${labels.missing}</p>`}</div>
