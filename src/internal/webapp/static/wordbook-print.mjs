@@ -1,3 +1,4 @@
+import {exampleLines} from './examples.mjs';
 import {wordKey, wordCategory} from './learning.mjs';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
@@ -80,7 +81,7 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
       return `<li class="print-entry"><article>
         <header class="print-entry-heading"><span class="print-number">${String(index+1).padStart(2,'0')}</span><div class="print-word-title"><h2 lang="ko">${escape(word.word)}</h2>${word.hanja?`<p class="print-word-form" lang="ko">${wordForm(word.hanja)}</p>`:''}</div>${result?`<span class="print-level">${labels[wordCategory(word)]}</span>`:''}</header>
         <div class="print-entry-content">${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="ko">${escape(word.meaning_ko)}</p><p class="print-english" lang="en">${escape(word.meaning_en)}</p></div>
-          ${result.example?`<div class="print-hint print-example"><h3>${labels.example}</h3><p lang="ko">${escape(result.example)}</p></div>`:''}
+          ${exampleLines(result,language).length?`<div class="print-hint print-example"><h3>${labels.example}</h3>${exampleLines(result,language).map(line=>`<p lang="${line.lang}" class="${line.secondary?'example-translation':'example-primary'}">${escape(line.text)}</p>`).join('')}</div>`:''}
           ${word.semantic_hint?`<div class="print-hint"><h3>${labels.hint}</h3><p lang="ko">${escape(word.semantic_hint)}</p></div>`:''}
           ${result.components?.length?`<div class="print-breakdown"><h3>${labels.characters}</h3> | <div class="print-characters">${characterDetails(result.components,language)}</div></div>`:''}`
           :`<p class="print-missing">${labels.missing}</p>`}</div>

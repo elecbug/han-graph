@@ -133,6 +133,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 	for path, contentType := range map[string]string{
 		"/":                                "text/html; charset=utf-8",
 		"/app.js":                          "text/javascript; charset=utf-8",
+		"/examples.mjs":                    "text/javascript; charset=utf-8",
 		"/learning.mjs":                    "text/javascript; charset=utf-8",
 		"/data-client.mjs":                 "text/javascript; charset=utf-8",
 		"/network.mjs":                     "text/javascript; charset=utf-8",

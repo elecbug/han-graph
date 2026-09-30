@@ -35,6 +35,7 @@ type WordExample struct {
 	Word      string `json:"word"`
 	Hanja     string `json:"hanja"`
 	ExampleKo string `json:"example_ko"`
+	ExampleEn string `json:"example_en,omitempty"`
 }
 
 type Word struct {
@@ -161,7 +162,7 @@ func Load(dir string) (*Graph, error) {
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return nil, err
 	}
-	g.examples = make(map[[2]string]string)
+	g.examples = make(map[[2]string]WordExample)
 	for _, row := range examples {
 		e := row.value
 		key := [2]string{e.Word, e.Hanja}
@@ -174,7 +175,10 @@ func Load(dir string) (*Graph, error) {
 		if strings.TrimSpace(e.ExampleKo) != e.ExampleKo || e.ExampleKo == "" || utf8.RuneCountInString(e.ExampleKo) > 500 || strings.ContainsAny(e.ExampleKo, "\r\n") {
 			return fail("example.jsonl", row.line, "example_ko must be a single nonempty line of at most 500 characters")
 		}
-		g.examples[key] = e.ExampleKo
+		if e.ExampleEn != "" && (strings.TrimSpace(e.ExampleEn) != e.ExampleEn || utf8.RuneCountInString(e.ExampleEn) > 500 || strings.ContainsAny(e.ExampleEn, "\r\n")) {
+			return fail("example.jsonl", row.line, "example_en must be a single nonempty line of at most 500 characters")
+		}
+		g.examples[key] = e
 	}
 	return g, nil
 }

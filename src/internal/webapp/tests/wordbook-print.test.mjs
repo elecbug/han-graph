@@ -89,8 +89,8 @@ test('words without a Hanja breakdown remain printable without blank character s
 
 test('examples follow the exact homograph and are escaped in the PDF',async()=>{
   const entries=await loadPrintableWords([fountain,fraction],async()=>[
-    {...result(fraction),example:'분수를 배웠어요.'},
-    {...result(fountain),example:'분수 옆에서 <script>라고 적힌 책을 읽었어요.'},
+    {...result(fraction),example:'분수를 배웠어요.',example_en:'I learned about fractions.'},
+    {...result(fountain),example:'분수 옆에서 <script>라고 적힌 책을 읽었어요.',example_en:'I read a book marked <script> by the fountain.'},
   ]);
   assert.equal(entries[0].result.example,'분수 옆에서 <script>라고 적힌 책을 읽었어요.');
   const html=renderPrintableWordbook(entries);
@@ -98,4 +98,18 @@ test('examples follow the exact homograph and are escaped in the PDF',async()=>{
   assert(html.includes('분수를 배웠어요.'));
   assert(html.includes('&lt;script&gt;'));
   assert(!html.includes('<script>'));
+});
+
+test('PDF examples follow the display language, including missing translations',()=>{
+  const entry={ref:fraction,result:{...result(fraction),example:'분수를 배웠어요.',example_en:'I learned about fractions.'}};
+  const ko=renderPrintableWordbook([entry],{lang:'ko'});
+  assert(ko.includes('분수를 배웠어요.'));
+  assert(ko.includes('lang="en" class="example-translation"'));
+  assert(ko.includes('I learned about fractions.'));
+  const en=renderPrintableWordbook([entry],{lang:'en'});
+  assert(en.includes('I learned about fractions.'));
+  assert(!en.includes('분수를 배웠어요.'));
+  assert(!en.includes('example-translation'));
+  delete entry.result.example_en;
+  assert(!renderPrintableWordbook([entry],{lang:'en'}).includes('print-example'));
 });

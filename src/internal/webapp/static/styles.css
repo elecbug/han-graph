@@ -2000,5 +2000,6 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 .word-example { margin:0 28px 22px;padding:16px 20px;background:var(--sage);border-left:3px solid var(--green);border-radius:0 8px 8px 0 }
 .word-example h3 { color:var(--green);font-size:12px;margin-bottom:6px }
 .word-example p { font-size:16px;line-height:1.9;word-break:keep-all;overflow-wrap:anywhere }
+.word-example .example-translation { margin-top:5px;color:var(--muted);font-size:13px;line-height:1.65;word-break:normal }
 .note-editor { border-top:1px solid var(--line);padding:24px 28px;display:grid;gap:12px }
 @media(max-width:640px) { .account-card { padding:22px }.topbar-actions { gap:14px }.account-link { max-width:110px }.word-example { margin:0 20px 20px }.note-editor { padding:20px } }
