@@ -21900,6 +21900,1766 @@
       ],
       "explanation_ko": "작야는 어젯밤이에요. 평단은 날이 밝아 오는 새벽 무렵이에요. 전날 밤과 날이 밝는 때를 구별해요.",
       "explanation_en": "작야 means last night. 평단 means daybreak. Distinguish the previous night from the arrival of daylight."
+    },
+    {
+      "id": "contrast-return-remedy-1",
+      "contrast_group": "return-remedy",
+      "prompt_ko": "산 옷의 크기가 맞지 않아 다른 크기의 옷으로 바꿔 받았어요. 돈은 돌려받지 않았어요. 무엇을 한 걸까요?",
+      "prompt_en": "The clothes you bought did not fit, so you received another size instead. You did not get your money back. What did you do?",
+      "answer": {
+        "word": "교환",
+        "hanja": "交換"
+      },
+      "options": [
+        {
+          "word": "교환",
+          "hanja": "交換"
+        },
+        {
+          "word": "환불",
+          "hanja": "還拂"
+        }
+      ],
+      "explanation_ko": "교환은 물건을 다른 것으로 바꾸는 일이에요. 환불은 지불한 돈을 돌려받는 일이에요. 물건을 받았는지 돈을 받았는지가 단서예요.",
+      "explanation_en": "교환 means exchanging an item for another. 환불 means receiving a refund of the money paid. Check whether you received an item or money."
+    },
+    {
+      "id": "contrast-return-remedy-2",
+      "contrast_group": "return-remedy",
+      "prompt_ko": "산 물건을 가게에 돌려주고 지불했던 돈을 다시 받았어요. 돈을 되돌려 받은 처리를 무엇이라고 할까요?",
+      "prompt_en": "You returned an item to the shop and received back the money you had paid. What is this return of payment called?",
+      "answer": {
+        "word": "환불",
+        "hanja": "還拂"
+      },
+      "options": [
+        {
+          "word": "교환",
+          "hanja": "交換"
+        },
+        {
+          "word": "환불",
+          "hanja": "還拂"
+        }
+      ],
+      "explanation_ko": "교환은 물건을 다른 것으로 바꾸는 일이에요. 환불은 지불한 돈을 돌려받는 일이에요. 물건을 받았는지 돈을 받았는지가 단서예요.",
+      "explanation_en": "교환 means exchanging an item for another. 환불 means receiving a refund of the money paid. Check whether you received an item or money."
+    },
+    {
+      "id": "contrast-action-permission-1",
+      "contrast_group": "action-permission",
+      "prompt_ko": "관리자가 이 공간에서 사진을 찍어도 된다고 했어요. 촬영을 할 수 있도록 한 결정은 무엇인가요?",
+      "prompt_en": "The manager said you may take photos in this area. What decision allows photography?",
+      "answer": {
+        "word": "허가",
+        "hanja": "許可"
+      },
+      "options": [
+        {
+          "word": "허가",
+          "hanja": "許可"
+        },
+        {
+          "word": "금지",
+          "hanja": "禁止"
+        }
+      ],
+      "explanation_ko": "허가는 어떤 행동을 해도 된다고 허락하는 것이에요. 금지는 그 행동을 하지 못하게 막는 것이에요.",
+      "explanation_en": "허가 allows an action. 금지 prohibits it. The key is whether the action is permitted."
+    },
+    {
+      "id": "contrast-action-permission-2",
+      "contrast_group": "action-permission",
+      "prompt_ko": "관리자가 이 공간에서는 사진을 찍으면 안 된다고 했어요. 촬영을 하지 못하도록 한 결정은 무엇인가요?",
+      "prompt_en": "The manager said you must not take photos in this area. What decision disallows photography?",
+      "answer": {
+        "word": "금지",
+        "hanja": "禁止"
+      },
+      "options": [
+        {
+          "word": "허가",
+          "hanja": "許可"
+        },
+        {
+          "word": "금지",
+          "hanja": "禁止"
+        }
+      ],
+      "explanation_ko": "허가는 어떤 행동을 해도 된다고 허락하는 것이에요. 금지는 그 행동을 하지 못하게 막는 것이에요.",
+      "explanation_en": "허가 allows an action. 금지 prohibits it. The key is whether the action is permitted."
+    },
+    {
+      "id": "contrast-proposal-position-1",
+      "contrast_group": "proposal-position",
+      "prompt_ko": "회의에서 새 계획이 좋다고 생각하여 그 계획대로 하자는 쪽에 표를 던졌어요. 어떤 입장인가요?",
+      "prompt_en": "At the meeting, you voted to proceed with a new plan because you thought it was good. What position is this?",
+      "answer": {
+        "word": "찬성",
+        "hanja": "贊成"
+      },
+      "options": [
+        {
+          "word": "찬성",
+          "hanja": "贊成"
+        },
+        {
+          "word": "반대",
+          "hanja": "反對"
+        }
+      ],
+      "explanation_ko": "찬성은 제안에 동의하는 입장이에요. 반대는 제안에 동의하지 않고 맞서는 입장이에요.",
+      "explanation_en": "찬성 supports a proposal. 반대 opposes it. Decide whether the speaker agrees with the proposal."
+    },
+    {
+      "id": "contrast-proposal-position-2",
+      "contrast_group": "proposal-position",
+      "prompt_ko": "회의에서 새 계획대로 진행하면 안 된다고 생각하여 그 계획을 받아들이지 않는 쪽에 표를 던졌어요. 어떤 입장인가요?",
+      "prompt_en": "At the meeting, you voted against accepting a new plan because you thought it should not go ahead. What position is this?",
+      "answer": {
+        "word": "반대",
+        "hanja": "反對"
+      },
+      "options": [
+        {
+          "word": "찬성",
+          "hanja": "贊成"
+        },
+        {
+          "word": "반대",
+          "hanja": "反對"
+        }
+      ],
+      "explanation_ko": "찬성은 제안에 동의하는 입장이에요. 반대는 제안에 동의하지 않고 맞서는 입장이에요.",
+      "explanation_en": "찬성 supports a proposal. 반대 opposes it. Decide whether the speaker agrees with the proposal."
+    },
+    {
+      "id": "contrast-day-half-1",
+      "contrast_group": "day-half",
+      "prompt_ko": "오늘 열 시에 수업을 시작하고 낮 열두 시 전에 마쳤어요. 수업은 하루의 어느 시간대에 있었나요?",
+      "prompt_en": "Today class started at ten and ended before noon. In which part of the day did it take place?",
+      "answer": {
+        "word": "오전",
+        "hanja": "午前"
+      },
+      "options": [
+        {
+          "word": "오전",
+          "hanja": "午前"
+        },
+        {
+          "word": "오후",
+          "hanja": "午後"
+        }
+      ],
+      "explanation_ko": "오전은 자정부터 낮 열두 시 전까지예요. 오후는 낮 열두 시 이후부터 자정 전까지예요. 세 시라도 점심 뒤라는 단서가 있어요.",
+      "explanation_en": "오전 runs from midnight to before noon. 오후 runs from noon to before midnight. The clue after lunch identifies which three o'clock is meant."
+    },
+    {
+      "id": "contrast-day-half-2",
+      "contrast_group": "day-half",
+      "prompt_ko": "점심을 먹은 뒤 오늘 세 시에 만나기로 했어요. 이 약속은 하루의 어느 시간대에 있나요?",
+      "prompt_en": "You arranged to meet at three today after lunch. In which part of the day is the appointment?",
+      "answer": {
+        "word": "오후",
+        "hanja": "午後"
+      },
+      "options": [
+        {
+          "word": "오전",
+          "hanja": "午前"
+        },
+        {
+          "word": "오후",
+          "hanja": "午後"
+        }
+      ],
+      "explanation_ko": "오전은 자정부터 낮 열두 시 전까지예요. 오후는 낮 열두 시 이후부터 자정 전까지예요. 세 시라도 점심 뒤라는 단서가 있어요.",
+      "explanation_en": "오전 runs from midnight to before noon. 오후 runs from noon to before midnight. The clue after lunch identifies which three o'clock is meant."
+    },
+    {
+      "id": "contrast-scheduled-break-1",
+      "contrast_group": "scheduled-break",
+      "prompt_ko": "회사에 다니는 사람이 허락을 받아 일주일 동안 일을 쉬어요. 학생의 수업 중단 기간과 구별하면 무엇인가요?",
+      "prompt_en": "An employee has permission to take a week off work. What is this, as distinct from a school break?",
+      "answer": {
+        "word": "휴가",
+        "hanja": "休暇"
+      },
+      "options": [
+        {
+          "word": "휴가",
+          "hanja": "休暇"
+        },
+        {
+          "word": "방학",
+          "hanja": "放學"
+        }
+      ],
+      "explanation_ko": "휴가는 직장 등에서 허락받아 일을 쉬는 기간이에요. 방학은 학교가 일정 기간 수업을 쉬는 때예요.",
+      "explanation_en": "휴가 is authorized leave from work or similar duties. 방학 is a scheduled break from school classes."
+    },
+    {
+      "id": "contrast-scheduled-break-2",
+      "contrast_group": "scheduled-break",
+      "prompt_ko": "학교가 여름에 몇 주 동안 정규 수업을 쉬도록 정했어요. 학교의 이 쉬는 기간을 무엇이라고 할까요?",
+      "prompt_en": "A school has scheduled several summer weeks without regular classes. What is this school break called?",
+      "answer": {
+        "word": "방학",
+        "hanja": "放學"
+      },
+      "options": [
+        {
+          "word": "휴가",
+          "hanja": "休暇"
+        },
+        {
+          "word": "방학",
+          "hanja": "放學"
+        }
+      ],
+      "explanation_ko": "휴가는 직장 등에서 허락받아 일을 쉬는 기간이에요. 방학은 학교가 일정 기간 수업을 쉬는 때예요.",
+      "explanation_en": "휴가 is authorized leave from work or similar duties. 방학 is a scheduled break from school classes."
+    },
+    {
+      "id": "contrast-host-guest-action-1",
+      "contrast_group": "host-guest-action",
+      "prompt_ko": "집에서 저녁을 대접하려고 친구에게 우리 집으로 오라고 청했어요. 손님을 부르는 쪽이 한 행동은 무엇인가요?",
+      "prompt_en": "You asked a friend to come to your home so you could serve dinner. What did the host do by asking the guest to come?",
+      "answer": {
+        "word": "초대",
+        "hanja": "招待"
+      },
+      "options": [
+        {
+          "word": "초대",
+          "hanja": "招待"
+        },
+        {
+          "word": "방문",
+          "hanja": "訪問"
+        }
+      ],
+      "explanation_ko": "초대는 상대를 오도록 청하여 대접하는 것이에요. 방문은 사람을 만나거나 볼일을 위해 찾아가는 것이에요. 부르는 쪽과 찾아가는 쪽을 구별해요.",
+      "explanation_en": "초대 means inviting someone to come as a guest. 방문 means going to meet someone or attend to business. Distinguish the host's invitation from the guest's visit."
+    },
+    {
+      "id": "contrast-host-guest-action-2",
+      "contrast_group": "host-guest-action",
+      "prompt_ko": "친구를 만나려고 그 친구가 사는 집을 찾아갔어요. 찾아가는 쪽이 한 행동은 무엇인가요?",
+      "prompt_en": "You went to the home where your friend lives to meet them. What did the person going there do?",
+      "answer": {
+        "word": "방문",
+        "hanja": "訪問"
+      },
+      "options": [
+        {
+          "word": "초대",
+          "hanja": "招待"
+        },
+        {
+          "word": "방문",
+          "hanja": "訪問"
+        }
+      ],
+      "explanation_ko": "초대는 상대를 오도록 청하여 대접하는 것이에요. 방문은 사람을 만나거나 볼일을 위해 찾아가는 것이에요. 부르는 쪽과 찾아가는 쪽을 구별해요.",
+      "explanation_en": "초대 means inviting someone to come as a guest. 방문 means going to meet someone or attend to business. Distinguish the host's invitation from the guest's visit."
+    },
+    {
+      "id": "contrast-selection-result-1",
+      "contrast_group": "selection-result",
+      "prompt_ko": "시험에서 필요한 점수를 얻어 다음 단계에 참여할 자격을 받았어요. 심사 결과는 무엇인가요?",
+      "prompt_en": "You earned the required exam score and qualified for the next stage. What is the result?",
+      "answer": {
+        "word": "합격",
+        "hanja": "合格"
+      },
+      "options": [
+        {
+          "word": "합격",
+          "hanja": "合格"
+        },
+        {
+          "word": "불합격",
+          "hanja": "不合格"
+        }
+      ],
+      "explanation_ko": "합격은 시험이나 심사의 기준을 통과한 것이에요. 불합격은 그 기준을 통과하지 못한 것이에요.",
+      "explanation_en": "합격 means meeting the exam or selection criteria. 불합격 means not meeting them."
+    },
+    {
+      "id": "contrast-selection-result-2",
+      "contrast_group": "selection-result",
+      "prompt_ko": "시험 점수가 기준에 미치지 못하여 다음 단계에 참여하지 못했어요. 심사 결과는 무엇인가요?",
+      "prompt_en": "Your exam score fell below the requirement, so you could not proceed to the next stage. What is the result?",
+      "answer": {
+        "word": "불합격",
+        "hanja": "不合格"
+      },
+      "options": [
+        {
+          "word": "합격",
+          "hanja": "合格"
+        },
+        {
+          "word": "불합격",
+          "hanja": "不合格"
+        }
+      ],
+      "explanation_ko": "합격은 시험이나 심사의 기준을 통과한 것이에요. 불합격은 그 기준을 통과하지 못한 것이에요.",
+      "explanation_en": "합격 means meeting the exam or selection criteria. 불합격 means not meeting them."
+    },
+    {
+      "id": "contrast-transaction-side-1",
+      "contrast_group": "transaction-side",
+      "prompt_ko": "가게 주인이 손님에게 물건을 건네고 그 대가로 돈을 받았어요. 주인 쪽의 거래를 무엇이라고 할까요?",
+      "prompt_en": "The shopkeeper gave an item to a customer and received payment. What is the transaction from the shopkeeper's side?",
+      "answer": {
+        "word": "판매",
+        "hanja": "販賣"
+      },
+      "options": [
+        {
+          "word": "판매",
+          "hanja": "販賣"
+        },
+        {
+          "word": "구매",
+          "hanja": "購買"
+        }
+      ],
+      "explanation_ko": "판매는 물건을 파는 일이에요. 구매는 돈을 주고 물건을 사는 일이에요. 같은 거래라도 어느 쪽에서 보는지가 달라요.",
+      "explanation_en": "판매 means selling. 구매 means purchasing. The two describe different sides of the same transaction."
+    },
+    {
+      "id": "contrast-transaction-side-2",
+      "contrast_group": "transaction-side",
+      "prompt_ko": "손님이 가게에 돈을 내고 필요한 물건을 받아 왔어요. 손님 쪽의 거래를 무엇이라고 할까요?",
+      "prompt_en": "The customer paid the shop and received an item they needed. What is the transaction from the customer's side?",
+      "answer": {
+        "word": "구매",
+        "hanja": "購買"
+      },
+      "options": [
+        {
+          "word": "판매",
+          "hanja": "販賣"
+        },
+        {
+          "word": "구매",
+          "hanja": "購買"
+        }
+      ],
+      "explanation_ko": "판매는 물건을 파는 일이에요. 구매는 돈을 주고 물건을 사는 일이에요. 같은 거래라도 어느 쪽에서 보는지가 달라요.",
+      "explanation_en": "판매 means selling. 구매 means purchasing. The two describe different sides of the same transaction."
+    },
+    {
+      "id": "contrast-resource-use-1",
+      "contrast_group": "resource-use",
+      "prompt_ko": "공장이 재료를 가공하여 새로운 가구를 만들어 냈어요. 물건을 만들어 내는 활동은 무엇인가요?",
+      "prompt_en": "A factory processed materials to make new furniture. What activity creates goods?",
+      "answer": {
+        "word": "생산",
+        "hanja": "生産"
+      },
+      "options": [
+        {
+          "word": "생산",
+          "hanja": "生産"
+        },
+        {
+          "word": "소비",
+          "hanja": "消費"
+        }
+      ],
+      "explanation_ko": "생산은 물건이나 재화를 만들어 내는 것이에요. 소비는 물건이나 자원을 사용하여 줄이는 것이에요.",
+      "explanation_en": "생산 creates goods. 소비 uses goods or resources. Check whether something is being made or used up."
+    },
+    {
+      "id": "contrast-resource-use-2",
+      "contrast_group": "resource-use",
+      "prompt_ko": "가정에서 전기를 사용하여 한 달 동안 전력 자원이 줄어들었어요. 자원을 써서 줄이는 활동은 무엇인가요?",
+      "prompt_en": "A household used electrical energy over a month. What activity uses up resources?",
+      "answer": {
+        "word": "소비",
+        "hanja": "消費"
+      },
+      "options": [
+        {
+          "word": "생산",
+          "hanja": "生産"
+        },
+        {
+          "word": "소비",
+          "hanja": "消費"
+        }
+      ],
+      "explanation_ko": "생산은 물건이나 재화를 만들어 내는 것이에요. 소비는 물건이나 자원을 사용하여 줄이는 것이에요.",
+      "explanation_en": "생산 creates goods. 소비 uses goods or resources. Check whether something is being made or used up."
+    },
+    {
+      "id": "contrast-journey-ticket-1",
+      "contrast_group": "journey-ticket",
+      "prompt_ko": "서울에서 부산으로 가는 표만 사고 돌아오는 표는 사지 않았어요. 이 표의 여행 범위는 무엇인가요?",
+      "prompt_en": "You bought a ticket from Seoul to Busan without a return ticket. What type of journey does it cover?",
+      "answer": {
+        "word": "편도",
+        "hanja": "片道"
+      },
+      "options": [
+        {
+          "word": "편도",
+          "hanja": "片道"
+        },
+        {
+          "word": "왕복",
+          "hanja": "往復"
+        }
+      ],
+      "explanation_ko": "편도는 가는 길이나 오는 길 중 한쪽만 해당해요. 왕복은 갔다가 돌아오는 양쪽 이동을 포함해요.",
+      "explanation_en": "편도 covers one direction of travel. 왕복 includes both the outward and return journeys."
+    },
+    {
+      "id": "contrast-journey-ticket-2",
+      "contrast_group": "journey-ticket",
+      "prompt_ko": "서울에서 부산으로 갔다가 다시 서울로 돌아오는 표를 함께 샀어요. 이 표의 여행 범위는 무엇인가요?",
+      "prompt_en": "You bought a ticket to go from Seoul to Busan and return to Seoul. What type of journey does it cover?",
+      "answer": {
+        "word": "왕복",
+        "hanja": "往復"
+      },
+      "options": [
+        {
+          "word": "편도",
+          "hanja": "片道"
+        },
+        {
+          "word": "왕복",
+          "hanja": "往復"
+        }
+      ],
+      "explanation_ko": "편도는 가는 길이나 오는 길 중 한쪽만 해당해요. 왕복은 갔다가 돌아오는 양쪽 이동을 포함해요.",
+      "explanation_en": "편도 covers one direction of travel. 왕복 includes both the outward and return journeys."
+    },
+    {
+      "id": "contrast-plan-stage-1",
+      "contrast_group": "plan-stage",
+      "prompt_ko": "아직 실제 활동을 시작하지 않고 목표와 일정을 정해 새 계획을 세웠어요. 지금 마친 단계는 무엇인가요?",
+      "prompt_en": "Before starting any actual activity, you set goals and a schedule to establish a new plan. What stage have you completed?",
+      "answer": {
+        "word": "수립",
+        "hanja": "樹立"
+      },
+      "options": [
+        {
+          "word": "수립",
+          "hanja": "樹立"
+        },
+        {
+          "word": "시행",
+          "hanja": "施行"
+        }
+      ],
+      "explanation_ko": "수립은 계획이나 제도를 세워 마련하는 것이에요. 시행은 마련된 계획이나 제도를 실제로 행하는 것이에요.",
+      "explanation_en": "수립 establishes a plan or system. 시행 puts an established plan or system into practice."
+    },
+    {
+      "id": "contrast-plan-stage-2",
+      "contrast_group": "plan-stage",
+      "prompt_ko": "이미 정해 놓은 계획에 따라 담당자들이 실제 업무를 시작했어요. 계획을 실행하는 단계는 무엇인가요?",
+      "prompt_en": "The staff began actual work according to a plan already established. What is the stage of putting the plan into action?",
+      "answer": {
+        "word": "시행",
+        "hanja": "施行"
+      },
+      "options": [
+        {
+          "word": "수립",
+          "hanja": "樹立"
+        },
+        {
+          "word": "시행",
+          "hanja": "施行"
+        }
+      ],
+      "explanation_ko": "수립은 계획이나 제도를 세워 마련하는 것이에요. 시행은 마련된 계획이나 제도를 실제로 행하는 것이에요.",
+      "explanation_en": "수립 establishes a plan or system. 시행 puts an established plan or system into practice."
+    },
+    {
+      "id": "contrast-presentation-method-1",
+      "contrast_group": "presentation-method",
+      "prompt_ko": "설명자는 차이점을 비교하지 않고 준비물 다섯 가지를 하나씩 이름 붙여 말했어요. 어떤 제시 방식인가요?",
+      "prompt_en": "The speaker named five required items one by one without comparing their differences. What method of presentation is this?",
+      "answer": {
+        "word": "열거",
+        "hanja": "列擧"
+      },
+      "options": [
+        {
+          "word": "열거",
+          "hanja": "列擧"
+        },
+        {
+          "word": "대조",
+          "hanja": "對照"
+        }
+      ],
+      "explanation_ko": "열거는 여러 항목을 하나씩 늘어놓는 것이에요. 대조는 대상을 맞대어 차이나 공통점을 살피는 것이에요.",
+      "explanation_en": "열거 lists items one by one. 대조 compares objects to examine differences or similarities."
+    },
+    {
+      "id": "contrast-presentation-method-2",
+      "contrast_group": "presentation-method",
+      "prompt_ko": "설명자는 두 제품을 나란히 놓고 서로 같은 점과 다른 점을 비교했어요. 단순한 나열보다 무엇에 초점을 둔 방식인가요?",
+      "prompt_en": "The speaker placed two products side by side and compared their similarities and differences. What does this focus on beyond listing?",
+      "answer": {
+        "word": "대조",
+        "hanja": "對照"
+      },
+      "options": [
+        {
+          "word": "열거",
+          "hanja": "列擧"
+        },
+        {
+          "word": "대조",
+          "hanja": "對照"
+        }
+      ],
+      "explanation_ko": "열거는 여러 항목을 하나씩 늘어놓는 것이에요. 대조는 대상을 맞대어 차이나 공통점을 살피는 것이에요.",
+      "explanation_en": "열거 lists items one by one. 대조 compares objects to examine differences or similarities."
+    },
+    {
+      "id": "contrast-data-summary-chance-1",
+      "contrast_group": "data-summary-chance",
+      "prompt_ko": "설문 응답을 모아 항목별 사람 수와 비율을 표로 정리했어요. 이미 모인 자료의 전체 특성을 살피는 작업은 무엇인가요?",
+      "prompt_en": "Survey responses were collected and organized into a table of counts and percentages. What process examines the overall features of collected data?",
+      "answer": {
+        "word": "통계",
+        "hanja": "統計"
+      },
+      "options": [
+        {
+          "word": "통계",
+          "hanja": "統計"
+        },
+        {
+          "word": "확률",
+          "hanja": "確率"
+        }
+      ],
+      "explanation_ko": "통계는 여러 자료를 모아 수로 정리하고 전체 특성을 살피는 일이에요. 확률은 어떤 일이 일어날 가능성을 수로 나타낸 값이에요.",
+      "explanation_en": "통계 collects and numerically summarizes data to examine overall patterns. 확률 numerically expresses the chance of an event occurring."
+    },
+    {
+      "id": "contrast-data-summary-chance-2",
+      "contrast_group": "data-summary-chance",
+      "prompt_ko": "앞으로 한 번 뽑을 때 특정 색의 공이 나올 가능성을 숫자로 나타냈어요. 이 가능성의 수치는 무엇인가요?",
+      "prompt_en": "The chance of drawing a particular color of ball on a future draw was expressed numerically. What is this numerical measure of chance?",
+      "answer": {
+        "word": "확률",
+        "hanja": "確率"
+      },
+      "options": [
+        {
+          "word": "통계",
+          "hanja": "統計"
+        },
+        {
+          "word": "확률",
+          "hanja": "確率"
+        }
+      ],
+      "explanation_ko": "통계는 여러 자료를 모아 수로 정리하고 전체 특성을 살피는 일이에요. 확률은 어떤 일이 일어날 가능성을 수로 나타낸 값이에요.",
+      "explanation_en": "통계 collects and numerically summarizes data to examine overall patterns. 확률 numerically expresses the chance of an event occurring."
+    },
+    {
+      "id": "contrast-escape-kind-1",
+      "contrast_group": "escape-kind",
+      "prompt_ko": "수도관의 작은 틈에서 물이 새어 바닥이 젖었어요. 물이 새는 현상을 구체적으로 무엇이라고 할까요?",
+      "prompt_en": "Water escaped through a small gap in a pipe and wet the floor. What is the specific term for water leaking?",
+      "answer": {
+        "word": "누수",
+        "hanja": "漏水"
+      },
+      "options": [
+        {
+          "word": "누수",
+          "hanja": "漏水"
+        },
+        {
+          "word": "누설",
+          "hanja": "漏泄"
+        }
+      ],
+      "explanation_ko": "누수는 물이 틈으로 새는 것이에요. 누설은 비밀이나 기체 등이 밖으로 새는 것이에요. 이 문맥에서는 물과 비밀이라는 대상을 구별해요.",
+      "explanation_en": "누수 specifically means water leakage. 누설 can mean leaking secrets or gases; here it concerns confidential information."
+    },
+    {
+      "id": "contrast-escape-kind-2",
+      "contrast_group": "escape-kind",
+      "prompt_ko": "공개하면 안 되는 회의 내용이 외부 사람들에게 알려졌어요. 비밀이 밖으로 새어 나간 일을 무엇이라고 할까요?",
+      "prompt_en": "Confidential meeting details became known to outsiders. What is the disclosure of a secret called?",
+      "answer": {
+        "word": "누설",
+        "hanja": "漏泄"
+      },
+      "options": [
+        {
+          "word": "누수",
+          "hanja": "漏水"
+        },
+        {
+          "word": "누설",
+          "hanja": "漏泄"
+        }
+      ],
+      "explanation_ko": "누수는 물이 틈으로 새는 것이에요. 누설은 비밀이나 기체 등이 밖으로 새는 것이에요. 이 문맥에서는 물과 비밀이라는 대상을 구별해요.",
+      "explanation_en": "누수 specifically means water leakage. 누설 can mean leaking secrets or gases; here it concerns confidential information."
+    },
+    {
+      "id": "contrast-evaluation-intent-1",
+      "contrast_group": "evaluation-intent",
+      "prompt_ko": "독자가 작품의 구성과 표현을 근거로 장점과 문제점을 따져 평가했어요. 인신공격 없이 가치를 살피는 글은 무엇인가요?",
+      "prompt_en": "A reader evaluated the strengths and weaknesses of a work based on its structure and expression, without attacking the person. What is this evaluation?",
+      "answer": {
+        "word": "비평",
+        "hanja": "批評"
+      },
+      "options": [
+        {
+          "word": "비평",
+          "hanja": "批評"
+        },
+        {
+          "word": "비방",
+          "hanja": "誹謗"
+        }
+      ],
+      "explanation_ko": "비평은 작품이나 생각의 가치와 잘잘못을 평가하는 것이에요. 비방은 남을 헐뜯어 나쁘게 말하는 것이에요.",
+      "explanation_en": "비평 evaluates the value, strengths, and faults of a work or idea. 비방 denigrates a person through malicious remarks."
+    },
+    {
+      "id": "contrast-evaluation-intent-2",
+      "contrast_group": "evaluation-intent",
+      "prompt_ko": "작품에 대한 근거 있는 평가 대신 작가를 헐뜯어 나쁘게 말했어요. 남을 깎아내리는 이런 말은 무엇인가요?",
+      "prompt_en": "Instead of evaluating the work with reasons, someone spoke maliciously to denigrate the author. What is this kind of speech?",
+      "answer": {
+        "word": "비방",
+        "hanja": "誹謗"
+      },
+      "options": [
+        {
+          "word": "비평",
+          "hanja": "批評"
+        },
+        {
+          "word": "비방",
+          "hanja": "誹謗"
+        }
+      ],
+      "explanation_ko": "비평은 작품이나 생각의 가치와 잘잘못을 평가하는 것이에요. 비방은 남을 헐뜯어 나쁘게 말하는 것이에요.",
+      "explanation_en": "비평 evaluates the value, strengths, and faults of a work or idea. 비방 denigrates a person through malicious remarks."
+    },
+    {
+      "id": "contrast-oral-expression-1",
+      "contrast_group": "oral-expression",
+      "prompt_ko": "기록 담당자가 적을 수 있도록 목격한 사실을 입으로 설명했어요. 연기 없이 말로 내용을 전달한 방식을 무엇이라고 할까요?",
+      "prompt_en": "You spoke about what you witnessed so a recorder could write it down, without acting it out. What is this oral delivery of information?",
+      "answer": {
+        "word": "구술",
+        "hanja": "口述"
+      },
+      "options": [
+        {
+          "word": "구술",
+          "hanja": "口述"
+        },
+        {
+          "word": "구연",
+          "hanja": "口演"
+        }
+      ],
+      "explanation_ko": "구술은 입으로 내용을 설명하거나 전하는 것이에요. 구연은 이야기의 목소리와 표현을 살려 들려주는 것이에요. 두 번째는 이야기 전달의 공연적 특징을 묻고 있어요.",
+      "explanation_en": "구술 delivers information orally. 구연 tells a story with expressive voices and performance; the second question asks specifically about that storytelling feature."
+    },
+    {
+      "id": "contrast-oral-expression-2",
+      "contrast_group": "oral-expression",
+      "prompt_ko": "동화를 읽어 주는 사람이 등장인물에 따라 목소리를 바꾸고 감정을 살려 이야기를 들려주었어요. 이런 공연적 전달을 구체적으로 무엇이라고 할까요?",
+      "prompt_en": "A storyteller changed voices for the characters and expressively told a fairy tale. What specific term describes this performative storytelling?",
+      "answer": {
+        "word": "구연",
+        "hanja": "口演"
+      },
+      "options": [
+        {
+          "word": "구술",
+          "hanja": "口述"
+        },
+        {
+          "word": "구연",
+          "hanja": "口演"
+        }
+      ],
+      "explanation_ko": "구술은 입으로 내용을 설명하거나 전하는 것이에요. 구연은 이야기의 목소리와 표현을 살려 들려주는 것이에요. 두 번째는 이야기 전달의 공연적 특징을 묻고 있어요.",
+      "explanation_en": "구술 delivers information orally. 구연 tells a story with expressive voices and performance; the second question asks specifically about that storytelling feature."
+    },
+    {
+      "id": "contrast-speed-direction-1",
+      "contrast_group": "speed-direction",
+      "prompt_ko": "움직이는 차량의 속도가 초속 오 미터에서 초속 십 미터로 빨라졌어요. 속도 변화의 방향은 무엇인가요?",
+      "prompt_en": "A moving vehicle sped up from five meters per second to ten. What direction of speed change is this?",
+      "answer": {
+        "word": "가속",
+        "hanja": "加速"
+      },
+      "options": [
+        {
+          "word": "가속",
+          "hanja": "加速"
+        },
+        {
+          "word": "감속",
+          "hanja": "減速"
+        }
+      ],
+      "explanation_ko": "가속은 속도를 더 빠르게 하는 것이에요. 감속은 속도를 낮추는 것이에요. 시작과 끝의 속도를 비교해요.",
+      "explanation_en": "가속 increases speed. 감속 reduces speed. Compare the initial and final speeds."
+    },
+    {
+      "id": "contrast-speed-direction-2",
+      "contrast_group": "speed-direction",
+      "prompt_ko": "움직이는 차량의 속도가 초속 십 미터에서 초속 오 미터로 느려졌어요. 속도 변화의 방향은 무엇인가요?",
+      "prompt_en": "A moving vehicle slowed from ten meters per second to five. What direction of speed change is this?",
+      "answer": {
+        "word": "감속",
+        "hanja": "減速"
+      },
+      "options": [
+        {
+          "word": "가속",
+          "hanja": "加速"
+        },
+        {
+          "word": "감속",
+          "hanja": "減速"
+        }
+      ],
+      "explanation_ko": "가속은 속도를 더 빠르게 하는 것이에요. 감속은 속도를 낮추는 것이에요. 시작과 끝의 속도를 비교해요.",
+      "explanation_en": "가속 increases speed. 감속 reduces speed. Compare the initial and final speeds."
+    },
+    {
+      "id": "contrast-burden-saving-1",
+      "contrast_group": "burden-saving",
+      "prompt_ko": "기관이 납부 대상자의 부담액 일부를 깎아 주거나 면제했어요. 부과된 부담을 줄여 주는 처리는 무엇인가요?",
+      "prompt_en": "An institution reduced or waived part of an amount someone was required to pay. What is this reduction of an imposed burden?",
+      "answer": {
+        "word": "감면",
+        "hanja": "減免"
+      },
+      "options": [
+        {
+          "word": "감면",
+          "hanja": "減免"
+        },
+        {
+          "word": "절감",
+          "hanja": "節減"
+        }
+      ],
+      "explanation_ko": "감면은 부과된 세금이나 부담을 줄이거나 면제하는 것이에요. 절감은 비용이나 자원을 아껴서 줄이는 것이에요.",
+      "explanation_en": "감면 reduces or waives an imposed tax or burden. 절감 lowers costs or resource use through savings."
+    },
+    {
+      "id": "contrast-burden-saving-2",
+      "contrast_group": "burden-saving",
+      "prompt_ko": "사무실이 불필요한 조명을 끄고 종이를 덜 써서 운영 비용을 아꼈어요. 자원을 아껴 비용을 줄인 일은 무엇인가요?",
+      "prompt_en": "An office saved operating costs by switching off unnecessary lights and using less paper. What is reducing costs through saving resources called?",
+      "answer": {
+        "word": "절감",
+        "hanja": "節減"
+      },
+      "options": [
+        {
+          "word": "감면",
+          "hanja": "減免"
+        },
+        {
+          "word": "절감",
+          "hanja": "節減"
+        }
+      ],
+      "explanation_ko": "감면은 부과된 세금이나 부담을 줄이거나 면제하는 것이에요. 절감은 비용이나 자원을 아껴서 줄이는 것이에요.",
+      "explanation_en": "감면 reduces or waives an imposed tax or burden. 절감 lowers costs or resource use through savings."
+    },
+    {
+      "id": "contrast-floating-sinking-1",
+      "contrast_group": "floating-sinking",
+      "prompt_ko": "이야기 속 배는 떠 있는 상태를 잃고 물속 아래로 가라앉았어요. 배에 일어난 일은 무엇인가요?",
+      "prompt_en": "The boat in the story stopped floating and sank underwater. What happened to it?",
+      "answer": {
+        "word": "침몰",
+        "hanja": "沈沒"
+      },
+      "options": [
+        {
+          "word": "침몰",
+          "hanja": "沈沒"
+        },
+        {
+          "word": "표류",
+          "hanja": "漂流"
+        }
+      ],
+      "explanation_ko": "침몰은 물속으로 가라앉는 것이에요. 표류는 물 위에 떠서 흐르는 대로 움직이는 것이에요. 물 위에 남아 있는지가 단서예요.",
+      "explanation_en": "침몰 means sinking underwater. 표류 means staying afloat and drifting with the current. Check whether the boat remains on the surface."
+    },
+    {
+      "id": "contrast-floating-sinking-2",
+      "contrast_group": "floating-sinking",
+      "prompt_ko": "이야기 속 배는 가라앉지 않았지만 조종할 수 없어 물 위에서 흐름을 따라 떠다녔어요. 어떤 상태인가요?",
+      "prompt_en": "The boat in the story stayed afloat but could not be steered and drifted with the current. What state was it in?",
+      "answer": {
+        "word": "표류",
+        "hanja": "漂流"
+      },
+      "options": [
+        {
+          "word": "침몰",
+          "hanja": "沈沒"
+        },
+        {
+          "word": "표류",
+          "hanja": "漂流"
+        }
+      ],
+      "explanation_ko": "침몰은 물속으로 가라앉는 것이에요. 표류는 물 위에 떠서 흐르는 대로 움직이는 것이에요. 물 위에 남아 있는지가 단서예요.",
+      "explanation_en": "침몰 means sinking underwater. 표류 means staying afloat and drifting with the current. Check whether the boat remains on the surface."
+    },
+    {
+      "id": "contrast-book-edition-1",
+      "contrast_group": "book-edition",
+      "prompt_ko": "기존 본문의 틀린 부분과 낡은 내용을 고쳐서 책을 다시 냈어요. 내용을 바로잡았다는 점을 강조하는 판은 무엇인가요?",
+      "prompt_en": "A book was republished after errors and outdated content in the existing text were corrected. Which edition emphasizes revision?",
+      "answer": {
+        "word": "개정판",
+        "hanja": "改訂版"
+      },
+      "options": [
+        {
+          "word": "개정판",
+          "hanja": "改訂版"
+        },
+        {
+          "word": "증보판",
+          "hanja": "增補版"
+        }
+      ],
+      "explanation_ko": "개정판은 기존 내용을 고치거나 다듬어 낸 판이에요. 증보판은 내용을 더하거나 보충하여 낸 판이에요. 문맥에서 고침과 보충 중 무엇을 강조하는지 살펴요.",
+      "explanation_en": "개정판 is a revised edition with corrections or refinements. 증보판 is an expanded edition with added or supplementary content. Check which type of change the context emphasizes."
+    },
+    {
+      "id": "contrast-book-edition-2",
+      "contrast_group": "book-edition",
+      "prompt_ko": "기존 본문은 그대로 두고 새 자료를 담은 장을 더하여 책의 분량을 늘렸어요. 내용 보충에 초점을 둔 판은 무엇인가요?",
+      "prompt_en": "The existing text was left unchanged, and new chapters were added to expand the book. Which edition emphasizes supplementation?",
+      "answer": {
+        "word": "증보판",
+        "hanja": "增補版"
+      },
+      "options": [
+        {
+          "word": "개정판",
+          "hanja": "改訂版"
+        },
+        {
+          "word": "증보판",
+          "hanja": "增補版"
+        }
+      ],
+      "explanation_ko": "개정판은 기존 내용을 고치거나 다듬어 낸 판이에요. 증보판은 내용을 더하거나 보충하여 낸 판이에요. 문맥에서 고침과 보충 중 무엇을 강조하는지 살펴요.",
+      "explanation_en": "개정판 is a revised edition with corrections or refinements. 증보판 is an expanded edition with added or supplementary content. Check which type of change the context emphasizes."
+    },
+    {
+      "id": "contrast-surface-process-1",
+      "contrast_group": "surface-process",
+      "prompt_ko": "하천이 운반한 모래가 흐름이 약한 곳에 내려앉아 층으로 쌓였어요. 이 과정은 무엇인가요?",
+      "prompt_en": "Sand carried by a river settled where the flow was weaker and accumulated in layers. What process is this?",
+      "answer": {
+        "word": "퇴적",
+        "hanja": "堆積"
+      },
+      "options": [
+        {
+          "word": "퇴적",
+          "hanja": "堆積"
+        },
+        {
+          "word": "침식",
+          "hanja": "浸蝕"
+        }
+      ],
+      "explanation_ko": "퇴적은 운반된 물질 등이 쌓이는 것이에요. 침식은 물 등이 지표를 깎거나 갉아 줄이는 것이에요.",
+      "explanation_en": "퇴적 is the accumulation of material. 침식 is the wearing away of a surface by water and similar agents."
+    },
+    {
+      "id": "contrast-surface-process-2",
+      "contrast_group": "surface-process",
+      "prompt_ko": "흐르는 물이 지표를 깎아 내어 땅의 일부를 없앴어요. 물질이 쌓이는 과정과 반대 방향인 이 작용은 무엇인가요?",
+      "prompt_en": "Flowing water wore away the land surface and removed some material. What process acts in the opposite direction to accumulation?",
+      "answer": {
+        "word": "침식",
+        "hanja": "浸蝕"
+      },
+      "options": [
+        {
+          "word": "퇴적",
+          "hanja": "堆積"
+        },
+        {
+          "word": "침식",
+          "hanja": "浸蝕"
+        }
+      ],
+      "explanation_ko": "퇴적은 운반된 물질 등이 쌓이는 것이에요. 침식은 물 등이 지표를 깎거나 갉아 줄이는 것이에요.",
+      "explanation_en": "퇴적 is the accumulation of material. 침식 is the wearing away of a surface by water and similar agents."
+    },
+    {
+      "id": "contrast-light-behavior-1",
+      "contrast_group": "light-behavior",
+      "prompt_ko": "빛이 공기에서 물로 들어가며 진행 방향이 꺾였어요. 빛의 방향 변화 자체를 무엇이라고 할까요?",
+      "prompt_en": "Light changed direction when moving from air into water. What is the change in direction itself called?",
+      "answer": {
+        "word": "굴절",
+        "hanja": "屈折"
+      },
+      "options": [
+        {
+          "word": "굴절",
+          "hanja": "屈折"
+        },
+        {
+          "word": "투과",
+          "hanja": "透過"
+        }
+      ],
+      "explanation_ko": "굴절은 다른 매질로 들어가며 빛 등의 진행 방향이 바뀌는 것이에요. 투과는 빛 등이 물질 속을 지나 반대편으로 나오는 것이에요. 하나의 빛에도 함께 나타날 수 있어 무엇을 묻는지 명시했어요.",
+      "explanation_en": "굴절 is a change in direction as light enters a different medium. 투과 is passage through a material to the other side. Both can occur, so each question specifies the feature being asked about."
+    },
+    {
+      "id": "contrast-light-behavior-2",
+      "contrast_group": "light-behavior",
+      "prompt_ko": "빛이 재료 내부를 지나 반대쪽으로 나왔는지를 조사했어요. 방향이 꺾였는지는 묻지 않고, 속을 통과한 현상만 무엇이라고 할까요?",
+      "prompt_en": "You checked whether light passed through a material and emerged on the other side. Without considering a change of direction, what is this passage through it called?",
+      "answer": {
+        "word": "투과",
+        "hanja": "透過"
+      },
+      "options": [
+        {
+          "word": "굴절",
+          "hanja": "屈折"
+        },
+        {
+          "word": "투과",
+          "hanja": "透過"
+        }
+      ],
+      "explanation_ko": "굴절은 다른 매질로 들어가며 빛 등의 진행 방향이 바뀌는 것이에요. 투과는 빛 등이 물질 속을 지나 반대편으로 나오는 것이에요. 하나의 빛에도 함께 나타날 수 있어 무엇을 묻는지 명시했어요.",
+      "explanation_en": "굴절 is a change in direction as light enters a different medium. 투과 is passage through a material to the other side. Both can occur, so each question specifies the feature being asked about."
+    },
+    {
+      "id": "contrast-brain-function-1",
+      "contrast_group": "brain-function",
+      "prompt_ko": "수업에서 사람의 뇌 가운데 가장 큰 부분으로, 생각과 기억 등의 처리에 관여하는 곳을 표시했어요. 어느 부분인가요?",
+      "prompt_en": "In class, you marked the largest part of the human brain, involved in functions such as thinking and memory. Which part is it?",
+      "answer": {
+        "word": "대뇌",
+        "hanja": "大腦"
+      },
+      "options": [
+        {
+          "word": "대뇌",
+          "hanja": "大腦"
+        },
+        {
+          "word": "소뇌",
+          "hanja": "小腦"
+        }
+      ],
+      "explanation_ko": "대뇌는 뇌에서 가장 큰 부분으로 생각·기억·감각 처리 등에 관여해요. 소뇌는 뒤아래 쪽에서 균형과 움직임의 조절에 관여해요. 기능을 전담한다는 뜻은 아니에요.",
+      "explanation_en": "대뇌 is the largest brain region and participates in thought, memory, and sensory processing. 소뇌 lies at the lower rear and participates in balance and movement coordination. These are not exclusive functions."
+    },
+    {
+      "id": "contrast-brain-function-2",
+      "contrast_group": "brain-function",
+      "prompt_ko": "수업에서 뇌의 뒤아래 쪽에 있으며 몸의 균형과 움직임을 조절하는 부분을 표시했어요. 어느 부분인가요?",
+      "prompt_en": "In class, you marked the part at the lower rear of the brain involved in balance and coordinating movement. Which part is it?",
+      "answer": {
+        "word": "소뇌",
+        "hanja": "小腦"
+      },
+      "options": [
+        {
+          "word": "대뇌",
+          "hanja": "大腦"
+        },
+        {
+          "word": "소뇌",
+          "hanja": "小腦"
+        }
+      ],
+      "explanation_ko": "대뇌는 뇌에서 가장 큰 부분으로 생각·기억·감각 처리 등에 관여해요. 소뇌는 뒤아래 쪽에서 균형과 움직임의 조절에 관여해요. 기능을 전담한다는 뜻은 아니에요.",
+      "explanation_en": "대뇌 is the largest brain region and participates in thought, memory, and sensory processing. 소뇌 lies at the lower rear and participates in balance and movement coordination. These are not exclusive functions."
+    },
+    {
+      "id": "contrast-carving-relief-1",
+      "contrast_group": "carving-relief",
+      "prompt_ko": "글자 주변의 배경을 깎아 내어 글자 부분이 표면보다 도드라지게 했어요. 어떤 새김 방식인가요?",
+      "prompt_en": "The background around the letters was cut away so the letters stood out above it. What carving method is this?",
+      "answer": {
+        "word": "양각",
+        "hanja": "陽刻"
+      },
+      "options": [
+        {
+          "word": "양각",
+          "hanja": "陽刻"
+        },
+        {
+          "word": "음각",
+          "hanja": "陰刻"
+        }
+      ],
+      "explanation_ko": "양각은 배경을 깎아 글자나 무늬가 도드라지게 하는 것이에요. 음각은 글자나 무늬 자체를 표면 안으로 파는 것이에요.",
+      "explanation_en": "양각 creates raised letters or designs by removing the background. 음각 carves the letters or design into the surface."
+    },
+    {
+      "id": "contrast-carving-relief-2",
+      "contrast_group": "carving-relief",
+      "prompt_ko": "글자 모양을 따라 표면 안쪽으로 홈을 파서 글자가 움푹 들어가게 했어요. 어떤 새김 방식인가요?",
+      "prompt_en": "Grooves were cut into the surface along the letter shapes so the letters were recessed. What carving method is this?",
+      "answer": {
+        "word": "음각",
+        "hanja": "陰刻"
+      },
+      "options": [
+        {
+          "word": "양각",
+          "hanja": "陽刻"
+        },
+        {
+          "word": "음각",
+          "hanja": "陰刻"
+        }
+      ],
+      "explanation_ko": "양각은 배경을 깎아 글자나 무늬가 도드라지게 하는 것이에요. 음각은 글자나 무늬 자체를 표면 안으로 파는 것이에요.",
+      "explanation_en": "양각 creates raised letters or designs by removing the background. 음각 carves the letters or design into the surface."
+    },
+    {
+      "id": "contrast-circle-distance-1",
+      "contrast_group": "circle-distance",
+      "prompt_ko": "원의 한쪽 둘레에서 중심을 거쳐 반대쪽 둘레까지 잰 전체 길이를 표시했어요. 어떤 길이인가요?",
+      "prompt_en": "You marked the full distance from one side of a circle through its center to the opposite side. What length is it?",
+      "answer": {
+        "word": "직경",
+        "hanja": "直徑"
+      },
+      "options": [
+        {
+          "word": "직경",
+          "hanja": "直徑"
+        },
+        {
+          "word": "반경",
+          "hanja": "半徑"
+        }
+      ],
+      "explanation_ko": "직경은 중심을 지나 원의 양쪽 끝을 잇는 길이예요. 반경은 중심에서 둘레까지의 거리예요. 같은 원에서는 직경이 반경의 두 배예요.",
+      "explanation_en": "직경 is the diameter across the circle through its center. 반경 is the radius from center to circumference. A circle's diameter is twice its radius."
+    },
+    {
+      "id": "contrast-circle-distance-2",
+      "contrast_group": "circle-distance",
+      "prompt_ko": "원의 중심에서 둘레의 한 점까지 잰 길이를 표시했어요. 어떤 길이인가요?",
+      "prompt_en": "You marked the distance from a circle's center to one point on its circumference. What length is it?",
+      "answer": {
+        "word": "반경",
+        "hanja": "半徑"
+      },
+      "options": [
+        {
+          "word": "직경",
+          "hanja": "直徑"
+        },
+        {
+          "word": "반경",
+          "hanja": "半徑"
+        }
+      ],
+      "explanation_ko": "직경은 중심을 지나 원의 양쪽 끝을 잇는 길이예요. 반경은 중심에서 둘레까지의 거리예요. 같은 원에서는 직경이 반경의 두 배예요.",
+      "explanation_en": "직경 is the diameter across the circle through its center. 반경 is the radius from center to circumference. A circle's diameter is twice its radius."
+    },
+    {
+      "id": "contrast-proceeding-purpose-1",
+      "contrast_group": "proceeding-purpose",
+      "prompt_ko": "가상의 법률 수업에서 두 당사자가 물건값을 지급할 의무가 있는지를 법원에서 다투는 사례를 보았어요. 범죄 처벌을 판단하는 절차가 아니라면 무엇인가요?",
+      "prompt_en": "In a hypothetical law lesson, two parties ask a court to resolve an obligation to pay for goods, rather than decide criminal punishment. What type of proceeding is this?",
+      "answer": {
+        "word": "민사소송",
+        "hanja": "民事訴訟"
+      },
+      "options": [
+        {
+          "word": "민사소송",
+          "hanja": "民事訴訟"
+        },
+        {
+          "word": "형사소송",
+          "hanja": "刑事訴訟"
+        }
+      ],
+      "explanation_ko": "민사소송은 개인이나 단체 사이의 권리 관계 등을 다투는 절차예요. 형사소송은 범죄 여부와 형벌 등을 판단하는 절차예요. 실제 사건이 두 절차와 함께 관련될 수도 있어 여기서는 재판의 목적을 구별해요.",
+      "explanation_en": "민사소송 resolves civil rights and obligations between parties. 형사소송 determines criminal guilt and punishment. One event can relate to both; these questions distinguish the purpose of each proceeding."
+    },
+    {
+      "id": "contrast-proceeding-purpose-2",
+      "contrast_group": "proceeding-purpose",
+      "prompt_ko": "가상의 법률 수업에서 범죄를 저질렀는지와 어떤 형벌을 부과할지를 재판으로 판단하는 사례를 보았어요. 어떤 절차인가요?",
+      "prompt_en": "In a hypothetical law lesson, a trial determines whether a crime occurred and what punishment to impose. What type of proceeding is this?",
+      "answer": {
+        "word": "형사소송",
+        "hanja": "刑事訴訟"
+      },
+      "options": [
+        {
+          "word": "민사소송",
+          "hanja": "民事訴訟"
+        },
+        {
+          "word": "형사소송",
+          "hanja": "刑事訴訟"
+        }
+      ],
+      "explanation_ko": "민사소송은 개인이나 단체 사이의 권리 관계 등을 다투는 절차예요. 형사소송은 범죄 여부와 형벌 등을 판단하는 절차예요. 실제 사건이 두 절차와 함께 관련될 수도 있어 여기서는 재판의 목적을 구별해요.",
+      "explanation_en": "민사소송 resolves civil rights and obligations between parties. 형사소송 determines criminal guilt and punishment. One event can relate to both; these questions distinguish the purpose of each proceeding."
+    },
+    {
+      "id": "contrast-court-rejection-1",
+      "contrast_group": "court-rejection",
+      "prompt_ko": "가상의 민사재판 사례에서 법원은 요건을 갖춘 청구의 내용을 심리했지만 주장에 이유가 없다고 받아들이지 않았어요. 본안 판단 뒤의 처리는 무엇인가요?",
+      "prompt_en": "In a hypothetical civil case, the court examined a claim that met procedural requirements but rejected it as unfounded on the merits. What is this disposition?",
+      "answer": {
+        "word": "기각",
+        "hanja": "棄却"
+      },
+      "options": [
+        {
+          "word": "기각",
+          "hanja": "棄却"
+        },
+        {
+          "word": "각하",
+          "hanja": "却下"
+        }
+      ],
+      "explanation_ko": "기각은 내용을 심리한 뒤 이유가 없어 받아들이지 않는 것이에요. 각하는 필요한 요건을 갖추지 못하여 본안 판단 없이 물리치는 것이에요.",
+      "explanation_en": "기각 rejects a claim after considering its merits and finding it unfounded. 각하 disposes of it without a merits decision because required conditions are not met."
+    },
+    {
+      "id": "contrast-court-rejection-2",
+      "contrast_group": "court-rejection",
+      "prompt_ko": "가상의 민사재판 사례에서 소송의 요건을 갖추지 못하여 청구 내용의 옳고 그름을 판단하지 않고 절차를 끝냈어요. 어떤 처리인가요?",
+      "prompt_en": "In a hypothetical civil case, the proceeding ended for failure to meet procedural requirements without deciding the merits. What is this disposition?",
+      "answer": {
+        "word": "각하",
+        "hanja": "却下"
+      },
+      "options": [
+        {
+          "word": "기각",
+          "hanja": "棄却"
+        },
+        {
+          "word": "각하",
+          "hanja": "却下"
+        }
+      ],
+      "explanation_ko": "기각은 내용을 심리한 뒤 이유가 없어 받아들이지 않는 것이에요. 각하는 필요한 요건을 갖추지 못하여 본안 판단 없이 물리치는 것이에요.",
+      "explanation_en": "기각 rejects a claim after considering its merits and finding it unfounded. 각하 disposes of it without a merits decision because required conditions are not met."
+    },
+    {
+      "id": "contrast-editing-operation-1",
+      "contrast_group": "editing-operation",
+      "prompt_ko": "글에 정보를 더하거나 빼지 않고 같은 뜻을 더 자연스럽고 매끄러운 문장으로 다듬었어요. 문체를 다듬는 작업은 무엇인가요?",
+      "prompt_en": "Without adding or removing information, you polished sentences to express the same meaning more naturally. What is this stylistic refinement?",
+      "answer": {
+        "word": "윤문",
+        "hanja": "潤文"
+      },
+      "options": [
+        {
+          "word": "윤문",
+          "hanja": "潤文"
+        },
+        {
+          "word": "첨삭",
+          "hanja": "添削"
+        }
+      ],
+      "explanation_ko": "윤문은 뜻을 살리면서 문장을 매끄럽게 다듬는 일이에요. 첨삭은 내용을 더하거나 덜어 고치는 일이에요. 둘이 함께 이루어질 수도 있어 작업의 특징을 구체적으로 물었어요.",
+      "explanation_en": "윤문 polishes wording while preserving meaning. 첨삭 revises by adding and deleting content. They can occur together, so each question identifies the operation being asked about."
+    },
+    {
+      "id": "contrast-editing-operation-2",
+      "contrast_group": "editing-operation",
+      "prompt_ko": "글에 빠진 설명을 넣고 불필요한 부분을 삭제했어요. 내용의 추가와 삭제라는 작업 방식을 무엇이라고 할까요?",
+      "prompt_en": "You added missing explanations and deleted unnecessary parts. What term describes the operations of adding and removing content?",
+      "answer": {
+        "word": "첨삭",
+        "hanja": "添削"
+      },
+      "options": [
+        {
+          "word": "윤문",
+          "hanja": "潤文"
+        },
+        {
+          "word": "첨삭",
+          "hanja": "添削"
+        }
+      ],
+      "explanation_ko": "윤문은 뜻을 살리면서 문장을 매끄럽게 다듬는 일이에요. 첨삭은 내용을 더하거나 덜어 고치는 일이에요. 둘이 함께 이루어질 수도 있어 작업의 특징을 구체적으로 물었어요.",
+      "explanation_en": "윤문 polishes wording while preserving meaning. 첨삭 revises by adding and deleting content. They can occur together, so each question identifies the operation being asked about."
+    },
+    {
+      "id": "contrast-material-state-1",
+      "contrast_group": "material-state",
+      "prompt_ko": "부드럽던 재료가 시간이 지나 단단하게 굳었어요. 단단해지는 변화는 무엇인가요?",
+      "prompt_en": "A soft material became hard over time. What is the process of becoming hard called?",
+      "answer": {
+        "word": "경화",
+        "hanja": "硬化"
+      },
+      "options": [
+        {
+          "word": "경화",
+          "hanja": "硬化"
+        },
+        {
+          "word": "용융",
+          "hanja": "鎔融"
+        }
+      ],
+      "explanation_ko": "경화는 부드럽던 것이 단단하게 굳는 것이에요. 용융은 고체가 열을 받아 액체로 변하는 것이에요. 물질의 시작과 끝 상태를 확인해요.",
+      "explanation_en": "경화 is hardening. 용융 is a solid melting into liquid through heat. Compare the material's initial and final states."
+    },
+    {
+      "id": "contrast-material-state-2",
+      "contrast_group": "material-state",
+      "prompt_ko": "고체 재료를 가열하자 녹아서 액체로 변했어요. 열에 의해 고체가 액체가 되는 변화는 무엇인가요?",
+      "prompt_en": "A solid material was heated and melted into a liquid. What is the heat-induced change from solid to liquid called?",
+      "answer": {
+        "word": "용융",
+        "hanja": "鎔融"
+      },
+      "options": [
+        {
+          "word": "경화",
+          "hanja": "硬化"
+        },
+        {
+          "word": "용융",
+          "hanja": "鎔融"
+        }
+      ],
+      "explanation_ko": "경화는 부드럽던 것이 단단하게 굳는 것이에요. 용융은 고체가 열을 받아 액체로 변하는 것이에요. 물질의 시작과 끝 상태를 확인해요.",
+      "explanation_en": "경화 is hardening. 용융 is a solid melting into liquid through heat. Compare the material's initial and final states."
+    },
+    {
+      "id": "contrast-vapor-process-1",
+      "contrast_group": "vapor-process",
+      "prompt_ko": "공기 속 수증기가 차가운 표면에서 액체 방울로 맺혔어요. 이 문맥에서 기체가 액체로 되는 현상은 무엇인가요?",
+      "prompt_en": "Water vapor formed liquid droplets on a cold surface. What is the gas-to-liquid change in this context?",
+      "answer": {
+        "word": "응결",
+        "hanja": "凝結"
+      },
+      "options": [
+        {
+          "word": "응결",
+          "hanja": "凝結"
+        },
+        {
+          "word": "비등",
+          "hanja": "沸騰"
+        }
+      ],
+      "explanation_ko": "응결은 이 문맥에서 수증기가 액체로 맺히는 것이에요. 비등은 액체가 끓어오르는 것이에요. 액체 방울이 생기는지 액체 내부에서 끓는지 구별해요.",
+      "explanation_en": "응결 here is vapor condensing into liquid droplets. 비등 is a liquid boiling. Distinguish droplet formation from boiling within a liquid."
+    },
+    {
+      "id": "contrast-vapor-process-2",
+      "contrast_group": "vapor-process",
+      "prompt_ko": "액체를 가열하자 내부에서 기포가 생기면서 끓어올랐어요. 액체가 끓는 현상은 무엇인가요?",
+      "prompt_en": "Heating a liquid produced bubbles within it as it boiled. What is this boiling process?",
+      "answer": {
+        "word": "비등",
+        "hanja": "沸騰"
+      },
+      "options": [
+        {
+          "word": "응결",
+          "hanja": "凝結"
+        },
+        {
+          "word": "비등",
+          "hanja": "沸騰"
+        }
+      ],
+      "explanation_ko": "응결은 이 문맥에서 수증기가 액체로 맺히는 것이에요. 비등은 액체가 끓어오르는 것이에요. 액체 방울이 생기는지 액체 내부에서 끓는지 구별해요.",
+      "explanation_en": "응결 here is vapor condensing into liquid droplets. 비등 is a liquid boiling. Distinguish droplet formation from boiling within a liquid."
+    },
+    {
+      "id": "contrast-traditional-ceremony-1",
+      "contrast_group": "traditional-ceremony",
+      "prompt_ko": "옛 사회에서 남자가 성인이 되었음을 알리는 의식을 치렀어요. 성인식을 뜻하는 말은 무엇인가요?",
+      "prompt_en": "In traditional society, a ceremony marked a male's entry into adulthood. What is this coming-of-age ceremony called?",
+      "answer": {
+        "word": "관례",
+        "hanja": "冠禮"
+      },
+      "options": [
+        {
+          "word": "관례",
+          "hanja": "冠禮"
+        },
+        {
+          "word": "가례",
+          "hanja": "嘉禮"
+        }
+      ],
+      "explanation_ko": "관례는 남자가 성인이 되었음을 알리던 의식이에요. 가례는 왕실의 혼례 같은 경사스러운 의식이에요.",
+      "explanation_en": "관례 is a traditional male coming-of-age ceremony. 가례 denotes auspicious royal ceremonies such as weddings."
+    },
+    {
+      "id": "contrast-traditional-ceremony-2",
+      "contrast_group": "traditional-ceremony",
+      "prompt_ko": "왕실에서 혼례를 비롯한 경사스러운 의식을 베풀었어요. 성인식의 명칭이 아니라 왕실의 경사 의식을 가리키는 말은 무엇인가요?",
+      "prompt_en": "The royal family held an auspicious ceremony such as a wedding. What term denotes this royal celebration rather than a coming-of-age rite?",
+      "answer": {
+        "word": "가례",
+        "hanja": "嘉禮"
+      },
+      "options": [
+        {
+          "word": "관례",
+          "hanja": "冠禮"
+        },
+        {
+          "word": "가례",
+          "hanja": "嘉禮"
+        }
+      ],
+      "explanation_ko": "관례는 남자가 성인이 되었음을 알리던 의식이에요. 가례는 왕실의 혼례 같은 경사스러운 의식이에요.",
+      "explanation_en": "관례 is a traditional male coming-of-age ceremony. 가례 denotes auspicious royal ceremonies such as weddings."
+    },
+    {
+      "id": "contrast-parents-status-1",
+      "contrast_group": "parents-status",
+      "prompt_ko": "옛 기록에서 부모 두 분이 모두 살아 계시다고 적었어요. 두 분의 생존 상태를 나타내는 말은 무엇인가요?",
+      "prompt_en": "An old record says both parents are still living. Which expression describes their survival?",
+      "answer": {
+        "word": "구존",
+        "hanja": "俱存"
+      },
+      "options": [
+        {
+          "word": "구존",
+          "hanja": "俱存"
+        },
+        {
+          "word": "구몰",
+          "hanja": "俱沒"
+        }
+      ],
+      "explanation_ko": "구존은 부모 두 분이 모두 살아 계심을 뜻해요. 구몰은 부모 두 분이 모두 세상을 떠났음을 뜻해요.",
+      "explanation_en": "구존 means both parents are living. 구몰 means both parents have died."
+    },
+    {
+      "id": "contrast-parents-status-2",
+      "contrast_group": "parents-status",
+      "prompt_ko": "옛 기록에서 부모 두 분이 모두 세상을 떠났다고 적었어요. 두 분의 사망 상태를 나타내는 말은 무엇인가요?",
+      "prompt_en": "An old record says both parents have died. Which expression describes that state?",
+      "answer": {
+        "word": "구몰",
+        "hanja": "俱沒"
+      },
+      "options": [
+        {
+          "word": "구존",
+          "hanja": "俱存"
+        },
+        {
+          "word": "구몰",
+          "hanja": "俱沒"
+        }
+      ],
+      "explanation_ko": "구존은 부모 두 분이 모두 살아 계심을 뜻해요. 구몰은 부모 두 분이 모두 세상을 떠났음을 뜻해요.",
+      "explanation_en": "구존 means both parents are living. 구몰 means both parents have died."
+    },
+    {
+      "id": "contrast-literary-duration-1",
+      "contrast_group": "literary-duration",
+      "prompt_ko": "옛글에서 아침부터 저녁까지 하루 내내 일한 시간을 표현했어요. 밤을 샌 것이 아니라 온종일을 뜻하는 말은 무엇인가요?",
+      "prompt_en": "An old text describes working all day, from morning to evening, rather than staying up through the night. Which word means all day?",
+      "answer": {
+        "word": "경일",
+        "hanja": "竟日"
+      },
+      "options": [
+        {
+          "word": "경일",
+          "hanja": "竟日"
+        },
+        {
+          "word": "경야",
+          "hanja": "竟夜"
+        }
+      ],
+      "explanation_ko": "경일은 하루 내내라는 뜻이에요. 경야는 밤을 새운다는 뜻이에요. 하루의 낮과 밤 중 어느 시간 범위를 말하는지 살펴요.",
+      "explanation_en": "경일 means throughout the day. 경야 means passing the night awake. Check whether the context concerns the daytime or the night."
+    },
+    {
+      "id": "contrast-literary-duration-2",
+      "contrast_group": "literary-duration",
+      "prompt_ko": "옛글에서 저녁부터 다음 날 새벽까지 잠들지 않고 밤을 샜다고 표현했어요. 밤을 지새운 일을 뜻하는 말은 무엇인가요?",
+      "prompt_en": "An old text describes staying awake from evening until dawn. Which word means passing the whole night without sleep?",
+      "answer": {
+        "word": "경야",
+        "hanja": "竟夜"
+      },
+      "options": [
+        {
+          "word": "경일",
+          "hanja": "竟日"
+        },
+        {
+          "word": "경야",
+          "hanja": "竟夜"
+        }
+      ],
+      "explanation_ko": "경일은 하루 내내라는 뜻이에요. 경야는 밤을 새운다는 뜻이에요. 하루의 낮과 밤 중 어느 시간 범위를 말하는지 살펴요.",
+      "explanation_en": "경일 means throughout the day. 경야 means passing the night awake. Check whether the context concerns the daytime or the night."
+    },
+    {
+      "id": "contrast-official-first-retirement-1",
+      "contrast_group": "official-first-retirement",
+      "prompt_ko": "옛 관리가 생애 처음으로 벼슬을 맡았어요. 이미 하던 일을 그만둔 것이 아니라 첫 관직에 나아간 일을 무엇이라고 할까요?",
+      "prompt_en": "A historical official took office for the first time in their life. Which term describes this first appointment rather than leaving office?",
+      "answer": {
+        "word": "초사",
+        "hanja": "初仕"
+      },
+      "options": [
+        {
+          "word": "초사",
+          "hanja": "初仕"
+        },
+        {
+          "word": "치사",
+          "hanja": "致仕"
+        }
+      ],
+      "explanation_ko": "초사는 처음 벼슬을 맡거나 처음 맡은 관직을 뜻해요. 치사는 나이가 들어 벼슬에서 물러나는 일이에요.",
+      "explanation_en": "초사 denotes first entry into office or the first office held. 치사 means retirement from office because of age."
+    },
+    {
+      "id": "contrast-official-first-retirement-2",
+      "contrast_group": "official-first-retirement",
+      "prompt_ko": "오랫동안 벼슬한 관리가 나이가 들어 관직에서 물러났어요. 나이 때문에 은퇴한 일을 뜻하는 말은 무엇인가요?",
+      "prompt_en": "After many years in office, a historical official retired because of age. Which term describes this retirement?",
+      "answer": {
+        "word": "치사",
+        "hanja": "致仕"
+      },
+      "options": [
+        {
+          "word": "초사",
+          "hanja": "初仕"
+        },
+        {
+          "word": "치사",
+          "hanja": "致仕"
+        }
+      ],
+      "explanation_ko": "초사는 처음 벼슬을 맡거나 처음 맡은 관직을 뜻해요. 치사는 나이가 들어 벼슬에서 물러나는 일이에요.",
+      "explanation_en": "초사 denotes first entry into office or the first office held. 치사 means retirement from office because of age."
+    },
+    {
+      "id": "contrast-royal-relation-1",
+      "contrast_group": "royal-relation",
+      "prompt_ko": "옛 왕실 이야기에서 임금의 딸과 혼인한 남성을 가리켰어요. 임금의 사위라는 관계를 나타내는 말은 무엇인가요?",
+      "prompt_en": "An old royal story refers to a man married to the king's daughter. Which term identifies the king's son-in-law?",
+      "answer": {
+        "word": "국서",
+        "hanja": "國壻"
+      },
+      "options": [
+        {
+          "word": "국서",
+          "hanja": "國壻"
+        },
+        {
+          "word": "태자",
+          "hanja": "太子"
+        }
+      ],
+      "explanation_ko": "국서는 임금의 사위를 이르던 말이에요. 태자는 황제나 일부 왕실에서 왕위를 이을 아들을 이르던 칭호예요.",
+      "explanation_en": "국서 means a ruler's son-in-law. 태자 is a title for the son designated to inherit the throne in an empire or certain royal houses."
+    },
+    {
+      "id": "contrast-royal-relation-2",
+      "contrast_group": "royal-relation",
+      "prompt_ko": "옛 제국의 이야기에서 황위를 이어받을 아들을 가리켰어요. 황제의 사위가 아닌 후계자의 칭호는 무엇인가요?",
+      "prompt_en": "A story of an old empire refers to the son designated to inherit the throne. What is the heir's title, rather than the emperor's son-in-law?",
+      "answer": {
+        "word": "태자",
+        "hanja": "太子"
+      },
+      "options": [
+        {
+          "word": "국서",
+          "hanja": "國壻"
+        },
+        {
+          "word": "태자",
+          "hanja": "太子"
+        }
+      ],
+      "explanation_ko": "국서는 임금의 사위를 이르던 말이에요. 태자는 황제나 일부 왕실에서 왕위를 이을 아들을 이르던 칭호예요.",
+      "explanation_en": "국서 means a ruler's son-in-law. 태자 is a title for the son designated to inherit the throne in an empire or certain royal houses."
+    },
+    {
+      "id": "contrast-royal-gift-direction-1",
+      "contrast_group": "royal-gift-direction",
+      "prompt_ko": "옛 기록에서 백성이나 지방이 지배자에게 바친 물품을 가리켰어요. 아래에서 위로 바친 물건은 무엇인가요?",
+      "prompt_en": "An old record describes goods presented by the people or a region to a ruler. What are these goods offered upward called?",
+      "answer": {
+        "word": "공물",
+        "hanja": "貢物"
+      },
+      "options": [
+        {
+          "word": "공물",
+          "hanja": "貢物"
+        },
+        {
+          "word": "하사품",
+          "hanja": "下賜品"
+        }
+      ],
+      "explanation_ko": "공물은 국가나 지배자에게 바치던 물품이에요. 하사품은 임금이나 윗사람이 내려 준 물건이에요. 물건이 오가는 방향을 구별해요.",
+      "explanation_en": "공물 is tribute presented to the state or ruler. 하사품 is an item bestowed by a ruler or superior. Distinguish the direction of giving."
+    },
+    {
+      "id": "contrast-royal-gift-direction-2",
+      "contrast_group": "royal-gift-direction",
+      "prompt_ko": "옛 기록에서 임금이 신하에게 내려 준 물건을 가리켰어요. 위에서 아래로 주어진 물건은 무엇인가요?",
+      "prompt_en": "An old record describes an item bestowed by a ruler on a subject. What is this gift given downward called?",
+      "answer": {
+        "word": "하사품",
+        "hanja": "下賜品"
+      },
+      "options": [
+        {
+          "word": "공물",
+          "hanja": "貢物"
+        },
+        {
+          "word": "하사품",
+          "hanja": "下賜品"
+        }
+      ],
+      "explanation_ko": "공물은 국가나 지배자에게 바치던 물품이에요. 하사품은 임금이나 윗사람이 내려 준 물건이에요. 물건이 오가는 방향을 구별해요.",
+      "explanation_en": "공물 is tribute presented to the state or ruler. 하사품 is an item bestowed by a ruler or superior. Distinguish the direction of giving."
+    },
+    {
+      "id": "contrast-literary-start-end-1",
+      "contrast_group": "literary-start-end",
+      "prompt_ko": "옛글에서 앞서 이야기한 일이 막 시작된 맨 처음을 가리켰어요. 끝과 구별되는 시작을 뜻하는 표현은 무엇인가요?",
+      "prompt_en": "An old text refers to the very beginning of the event just discussed. Which expression denotes its start rather than its end?",
+      "answer": {
+        "word": "궐초",
+        "hanja": "厥初"
+      },
+      "options": [
+        {
+          "word": "궐초",
+          "hanja": "厥初"
+        },
+        {
+          "word": "궐종",
+          "hanja": "厥終"
+        }
+      ],
+      "explanation_ko": "궐초는 그 일의 맨 처음을 뜻해요. 궐종은 앞서 말한 일의 끝을 뜻해요. 앞에서 나온 일을 기준으로 시작과 끝을 살펴요.",
+      "explanation_en": "궐초 denotes the very beginning of the event. 궐종 denotes the end of the event previously mentioned."
+    },
+    {
+      "id": "contrast-literary-start-end-2",
+      "contrast_group": "literary-start-end",
+      "prompt_ko": "옛글에서 앞서 이야기한 일이 모두 마무리된 끝을 가리켰어요. 처음과 구별되는 마지막을 뜻하는 표현은 무엇인가요?",
+      "prompt_en": "An old text refers to the conclusion of the event just discussed. Which expression denotes its end rather than its beginning?",
+      "answer": {
+        "word": "궐종",
+        "hanja": "厥終"
+      },
+      "options": [
+        {
+          "word": "궐초",
+          "hanja": "厥初"
+        },
+        {
+          "word": "궐종",
+          "hanja": "厥終"
+        }
+      ],
+      "explanation_ko": "궐초는 그 일의 맨 처음을 뜻해요. 궐종은 앞서 말한 일의 끝을 뜻해요. 앞에서 나온 일을 기준으로 시작과 끝을 살펴요.",
+      "explanation_en": "궐초 denotes the very beginning of the event. 궐종 denotes the end of the event previously mentioned."
+    },
+    {
+      "id": "contrast-honorific-receipt-1",
+      "contrast_group": "honorific-receipt",
+      "prompt_ko": "옛 편지에서 상대가 직접 찾아와 준 일을 높여 감사했어요. 방문에 대한 높임 표현은 무엇인가요?",
+      "prompt_en": "An old letter politely thanks someone for coming in person. Which honorific expression concerns the visit?",
+      "answer": {
+        "word": "혜림",
+        "hanja": "惠臨"
+      },
+      "options": [
+        {
+          "word": "혜림",
+          "hanja": "惠臨"
+        },
+        {
+          "word": "혜증",
+          "hanja": "惠贈"
+        }
+      ],
+      "explanation_ko": "혜림은 상대가 찾아와 준 일을 높여 이르는 말이에요. 혜증은 상대가 선물을 보내 준 일을 높여 이르는 말이에요.",
+      "explanation_en": "혜림 respectfully refers to someone's visit. 혜증 respectfully refers to a gift someone has sent."
+    },
+    {
+      "id": "contrast-honorific-receipt-2",
+      "contrast_group": "honorific-receipt",
+      "prompt_ko": "옛 편지에서 상대가 선물을 보내 준 일을 높여 감사했어요. 선물을 받은 데 대한 높임 표현은 무엇인가요?",
+      "prompt_en": "An old letter politely thanks someone for sending a gift. Which honorific expression concerns the gift?",
+      "answer": {
+        "word": "혜증",
+        "hanja": "惠贈"
+      },
+      "options": [
+        {
+          "word": "혜림",
+          "hanja": "惠臨"
+        },
+        {
+          "word": "혜증",
+          "hanja": "惠贈"
+        }
+      ],
+      "explanation_ko": "혜림은 상대가 찾아와 준 일을 높여 이르는 말이에요. 혜증은 상대가 선물을 보내 준 일을 높여 이르는 말이에요.",
+      "explanation_en": "혜림 respectfully refers to someone's visit. 혜증 respectfully refers to a gift someone has sent."
+    },
+    {
+      "id": "contrast-military-place-use-1",
+      "contrast_group": "military-place-use",
+      "prompt_ko": "옛 군대가 진을 치고 머무르던 군영의 위치를 지도에 표시했어요. 경작지가 아니라 주둔 장소를 무엇이라고 할까요?",
+      "prompt_en": "You marked the location of an old army's encampment on a map. What is the place of stationing, rather than farmland, called?",
+      "answer": {
+        "word": "둔영",
+        "hanja": "屯營"
+      },
+      "options": [
+        {
+          "word": "둔영",
+          "hanja": "屯營"
+        },
+        {
+          "word": "둔전",
+          "hanja": "屯田"
+        }
+      ],
+      "explanation_ko": "둔영은 군대가 진을 치고 머무는 군영이에요. 둔전은 군대가 경작하거나 군사 비용에 쓰던 농지예요.",
+      "explanation_en": "둔영 is a military encampment. 둔전 is farmland cultivated by the military or used to support military expenses."
+    },
+    {
+      "id": "contrast-military-place-use-2",
+      "contrast_group": "military-place-use",
+      "prompt_ko": "옛 군대가 경작하거나 군사 비용을 마련하는 데 쓰던 농지를 지도에 표시했어요. 군영과 구별되는 이 농지는 무엇인가요?",
+      "prompt_en": "You marked farmland cultivated by an old army or used to fund military expenses. What is this land, as distinct from an encampment?",
+      "answer": {
+        "word": "둔전",
+        "hanja": "屯田"
+      },
+      "options": [
+        {
+          "word": "둔영",
+          "hanja": "屯營"
+        },
+        {
+          "word": "둔전",
+          "hanja": "屯田"
+        }
+      ],
+      "explanation_ko": "둔영은 군대가 진을 치고 머무는 군영이에요. 둔전은 군대가 경작하거나 군사 비용에 쓰던 농지예요.",
+      "explanation_en": "둔영 is a military encampment. 둔전 is farmland cultivated by the military or used to support military expenses."
+    },
+    {
+      "id": "contrast-completed-study-work-1",
+      "contrast_group": "completed-study-work",
+      "prompt_ko": "옛글에서 배움을 마치고 학업을 끝냈다고 표현했어요. 공사 완료가 아니라 학업 완료를 뜻하는 말은 무엇인가요?",
+      "prompt_en": "An old text describes finishing one's studies. Which term denotes completing education rather than construction work?",
+      "answer": {
+        "word": "필업",
+        "hanja": "畢業"
+      },
+      "options": [
+        {
+          "word": "필업",
+          "hanja": "畢業"
+        },
+        {
+          "word": "필역",
+          "hanja": "畢役"
+        }
+      ],
+      "explanation_ko": "필업은 학업을 마치는 일이에요. 필역은 맡은 공사나 일을 마치는 일이에요. 끝낸 대상이 무엇인지 구별해요.",
+      "explanation_en": "필업 means completing studies. 필역 means completing assigned work or construction. Check what has been completed."
+    },
+    {
+      "id": "contrast-completed-study-work-2",
+      "contrast_group": "completed-study-work",
+      "prompt_ko": "옛글에서 맡은 공사와 일을 모두 끝냈다고 표현했어요. 학업 완료가 아니라 작업 완료를 뜻하는 말은 무엇인가요?",
+      "prompt_en": "An old text describes finishing all assigned construction and work. Which term denotes completing work rather than education?",
+      "answer": {
+        "word": "필역",
+        "hanja": "畢役"
+      },
+      "options": [
+        {
+          "word": "필업",
+          "hanja": "畢業"
+        },
+        {
+          "word": "필역",
+          "hanja": "畢役"
+        }
+      ],
+      "explanation_ko": "필업은 학업을 마치는 일이에요. 필역은 맡은 공사나 일을 마치는 일이에요. 끝낸 대상이 무엇인지 구별해요.",
+      "explanation_en": "필업 means completing studies. 필역 means completing assigned work or construction. Check what has been completed."
     }
   ]
 }

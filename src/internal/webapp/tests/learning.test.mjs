@@ -105,3 +105,26 @@ test('homonym choices and corrupt options never enter a practice round',()=>{
   const corrupt=[null,{...questions[0],id:"null-answer",answer:null},{...questions[0],id:'null-option',options:[fraction,null]},{...questions[0],id:'blank',options:[fraction,{word:' ',hanja:'水'}]},{...questions[0],id:'missing-answer',answer:{word:'없음',hanja:'無'}}];
   assert.deepEqual(createSession([homonyms,spaced,decomposed,...corrupt,...questions],()=>0.9).questions.map(q=>q.id),['first','second']);
 });
+
+
+test('rounds prefer new answer words across comparisons and general contexts',()=>{
+  const ref = index => ({word:`단어${index}`,hanja:`字${index}`});
+  const make = (id,answer,group) => ({id,word_level:'easy',answer:ref(answer),options:[ref(answer),ref(99)],...(group ? {contrast_group:group} : {})});
+  const pool=[make('first',0,'first-group'),make('same-answer',0,'second-group'),make('alternate',1,'second-group')];
+  for(let i=2;i<8;i++) pool.push(make(`contrast-${i}`,i,`group-${i}`));
+  pool.push(make('general-repeat',0),make('general-first',8),make('general-second',9));
+  const session=createSession(pool,()=>0.99999);
+  assert.equal(session.questions.length,10);
+  assert.equal(session.questions.filter(q=>q.contrast_group).length,8);
+  assert.equal(new Set(session.questions.map(q=>wordKey(q.answer))).size,10);
+  assert.ok(session.questions.some(q=>q.id==='alternate'));
+  assert.ok(!session.questions.some(q=>q.id==='general-repeat'));
+});
+
+test('answer variety never reduces round size when all general answers repeat',()=>{
+  const pool=Array.from({length:8},(_,i)=>({id:`contrast-${i}`,contrast_group:`group-${i}`,word_level:'easy',answer:{word:`단어${i}`,hanja:`字${i}`},options:[{word:`단어${i}`,hanja:`字${i}`},mathematics]}));
+  pool.push(...Array.from({length:2},(_,i)=>({...questions[0],id:`general-${i}`,answer:pool[0].answer,options:pool[0].options})));
+  const session=createSession(pool,()=>0.99999);
+  assert.equal(session.questions.length,10);
+  assert.equal(session.questions.filter(q=>!q.contrast_group).length,2);
+});

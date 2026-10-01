@@ -43,22 +43,30 @@ export function createSession(questions, random = Math.random, {level='easy'} = 
   // Different contrast groups expose a range of distinctions in each round.
   const contrasts = shuffled(pool.filter(q => q.contrast_group));
   const general = shuffled(pool.filter(q => !q.contrast_group));
-  const chosen = [], groups = new Set(), used = new Set();
-  const add = q => {chosen.push(q); used.add(q.id);};
+  const chosen = [], groups = new Set(), used = new Set(), answerKeys = new Set();
+  const add = q => {
+    chosen.push(q); used.add(q.id); answerKeys.add(wordKey(q.answer));
+    if (q.contrast_group) groups.add(q.contrast_group);
+  };
+  const take = (candidates, limit, accepts = () => true) => {
+    for (const q of candidates) {
+      if (chosen.length>=limit) break;
+      if (!used.has(q.id) && accepts(q)) add(q);
+    }
+  };
+  const freshAnswer = q => !answerKeys.has(wordKey(q.answer));
+  const freshGroup = q => !groups.has(q.contrast_group);
   const contrastCount = Math.min(8, PRACTICE_SESSION_SIZE);
-  for (const q of contrasts) {
-    if (chosen.length>=contrastCount) break;
-    if (groups.has(q.contrast_group)) continue;
-    add(q); groups.add(q.contrast_group);
-  }
-  for (const q of contrasts) {
-    if (chosen.length>=contrastCount) break;
-    if (!used.has(q.id)) add(q);
-  }
-  for (const q of [...general,...contrasts]) {
-    if (chosen.length>=PRACTICE_SESSION_SIZE) break;
-    if (!used.has(q.id)) add(q);
-  }
+  // Prefer new answers within different groups, then preserve group variety.
+  take(contrasts, contrastCount, q => freshGroup(q) && freshAnswer(q));
+  take(contrasts, contrastCount, freshGroup);
+  take(contrasts, contrastCount, freshAnswer);
+  take(contrasts, contrastCount);
+  // Keep the general slots while avoiding answers already seen in this round.
+  take(general, PRACTICE_SESSION_SIZE, freshAnswer);
+  take(general, PRACTICE_SESSION_SIZE);
+  take(contrasts, PRACTICE_SESSION_SIZE, freshAnswer);
+  take(contrasts, PRACTICE_SESSION_SIZE);
   return {level, questions: shuffled(chosen).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
 }
 
