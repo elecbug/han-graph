@@ -20,7 +20,13 @@ export const practiceSettings = value => ({level:PRACTICE_LEVELS.includes(value?
 
 export function filterPracticeQuestions(questions, {level='easy'} = {}) {
   if (!PRACTICE_LEVELS.includes(level)) throw new RangeError('Invalid practice settings');
-  return questions.filter(q => q.word_level===level);
+  return questions.filter(q => {
+    if (q?.word_level!==level || !Array.isArray(q.options) || q.options.length<2 || q.options.length>4) return false;
+    if (typeof q.answer?.word!=='string' || typeof q.answer?.hanja!=='string') return false;
+    if (!q.options.every(option=>typeof option?.word==='string' && option.word.trim() && typeof option.hanja==='string')) return false;
+    const labels = q.options.map(option => option.word.normalize('NFC').replace(/\s+/g,''));
+    return new Set(labels).size===labels.length && q.options.some(option=>wordKey(option)===wordKey(q.answer));
+  });
 }
 
 export function createSession(questions, random = Math.random, {level='easy'} = {}) {
@@ -33,7 +39,27 @@ export function createSession(questions, random = Math.random, {level='easy'} = 
     }
     return result;
   };
-  return {level, questions: shuffled(pool).slice(0, PRACTICE_SESSION_SIZE).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
+  // Prefer meaning contrasts while keeping two slots for the wider collection.
+  // Different contrast groups expose a range of distinctions in each round.
+  const contrasts = shuffled(pool.filter(q => q.contrast_group));
+  const general = shuffled(pool.filter(q => !q.contrast_group));
+  const chosen = [], groups = new Set(), used = new Set();
+  const add = q => {chosen.push(q); used.add(q.id);};
+  const contrastCount = Math.min(8, PRACTICE_SESSION_SIZE);
+  for (const q of contrasts) {
+    if (chosen.length>=contrastCount) break;
+    if (groups.has(q.contrast_group)) continue;
+    add(q); groups.add(q.contrast_group);
+  }
+  for (const q of contrasts) {
+    if (chosen.length>=contrastCount) break;
+    if (!used.has(q.id)) add(q);
+  }
+  for (const q of [...general,...contrasts]) {
+    if (chosen.length>=PRACTICE_SESSION_SIZE) break;
+    if (!used.has(q.id)) add(q);
+  }
+  return {level, questions: shuffled(chosen).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
 }
 
 export function answerQuestion(session, index, selected) {

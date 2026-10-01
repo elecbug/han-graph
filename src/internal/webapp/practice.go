@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strings"
 
 	"github.com/elecbug/han-graph/internal/graph"
@@ -17,6 +18,7 @@ type WordRef struct {
 }
 
 type Question struct {
+	ContrastGroup string    `json:"contrast_group,omitempty"`
 	WordLevel     string    `json:"word_level,omitempty"`
 	ID            string    `json:"id"`
 	PromptKo      string    `json:"prompt_ko"`
@@ -52,6 +54,8 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 		return practice, fmt.Errorf("%s: expected version=1, source, review_status=draft and questions", filename)
 	}
 	ids := make(map[string]bool)
+	contrastGroups := make(map[string]map[WordRef]bool)
+	groupID := regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
 	for index := range practice.Questions {
 		q := &practice.Questions[index]
 		fail := func(message string) (Practice, error) {
@@ -89,6 +93,23 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 			}
 			if !found {
 				return fail("option references unknown word/hanja")
+			}
+		}
+		if q.ContrastGroup != "" {
+			if len(q.ContrastGroup) > 80 || !groupID.MatchString(q.ContrastGroup) {
+				return fail("contrast_group must be a short lowercase identifier")
+			}
+			if previous, exists := contrastGroups[q.ContrastGroup]; exists {
+				if len(previous) != len(options) {
+					return fail("contrast group must keep the same word options")
+				}
+				for option := range options {
+					if !previous[option] {
+						return fail("contrast group must keep the same word options")
+					}
+				}
+			} else {
+				contrastGroups[q.ContrastGroup] = options
 			}
 		}
 		if !options[q.Answer] {

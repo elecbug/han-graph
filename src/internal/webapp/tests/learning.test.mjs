@@ -70,3 +70,38 @@ test('practice pools with ten or fewer questions use every available question on
     assert.equal(sessionResult(session).complete,false);
   }
 });
+
+test('most questions compare meanings, with a different contrast group in each slot',()=>{
+  const comparisons=Array.from({length:12},(_,group)=>[1,2].map(n=>({id:`contrast-${group}-${n}`,contrast_group:`group-${group}`,word_level:'easy',answer:fraction,options:[fraction,mathematics]}))).flat();
+  const general=Array.from({length:20},(_,i)=>({id:`general-${i}`,word_level:'easy',answer:fraction,options:[fraction,mathematics]}));
+  const other={id:'wrong-category',contrast_group:'hard-group',word_level:'hard',answer:fraction,options:[fraction,mathematics]};
+  const pool=[...comparisons,...general,other],before=JSON.stringify(pool);
+  for(const random of [()=>0,()=>0.99999,()=>0.4]) {
+    const session=createSession(pool,random,{level:'easy'});
+    const selected=session.questions.filter(q=>q.contrast_group);
+    assert.equal(session.questions.length,10);
+    assert.equal(selected.length,8);
+    assert.equal(new Set(selected.map(q=>q.contrast_group)).size,8);
+    assert.equal(new Set(session.questions.map(q=>q.id)).size,10);
+    assert(session.questions.every(q=>q.word_level==='easy'));
+  }
+  assert.equal(JSON.stringify(pool),before);
+});
+
+test('small comparison pools fill remaining slots from general questions',()=>{
+  const comparison={...questions[0],contrast_group:'small-group'};
+  const general=Array.from({length:15},(_,i)=>({...questions[1],id:`general-${i}`}));
+  const session=createSession([comparison,...general],()=>0.5);
+  assert.equal(session.questions.length,10);
+  assert.equal(session.questions.filter(q=>q.contrast_group).length,1);
+  const onlyComparisons=Array.from({length:12},(_,i)=>({...comparison,id:`only-${i}`,contrast_group:`group-${i}`}));
+  assert.equal(createSession(onlyComparisons,()=>0.5).questions.length,10);
+});
+
+test('homonym choices and corrupt options never enter a practice round',()=>{
+  const homonyms={...questions[0],id:'homonyms',options:[fraction,fountain]};
+  const spaced={...questions[0],id:'spaced',options:[fraction,{word:'분 수',hanja:'噴水'}]};
+  const decomposed={...questions[0],id:'decomposed',options:[fraction,{word:'분수'.normalize('NFD'),hanja:'噴水'}]};
+  const corrupt=[null,{...questions[0],id:"null-answer",answer:null},{...questions[0],id:'null-option',options:[fraction,null]},{...questions[0],id:'blank',options:[fraction,{word:' ',hanja:'水'}]},{...questions[0],id:'missing-answer',answer:{word:'없음',hanja:'無'}}];
+  assert.deepEqual(createSession([homonyms,spaced,decomposed,...corrupt,...questions],()=>0.9).questions.map(q=>q.id),['first','second']);
+});
