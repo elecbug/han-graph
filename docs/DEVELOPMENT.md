@@ -29,7 +29,7 @@ go run ./cmd -addr 127.0.0.1:18080 serve
 
 ### 계정 데이터 보관
 
-계정 데이터는 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
+계정 데이터는 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·개인 사전·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
 
 백업할 때는 서버를 정상 종료한 뒤 데이터베이스 파일을 복사합니다. 복원할 때도 서버가 정지한 상태에서 되돌려 놓으세요. 파일 권한은 소유자만 읽고 쓰도록 설정됩니다. 같은 파일을 두 서버 프로세스가 동시에 열 수 없습니다. 컨테이너나 임시 실행 환경을 사용한다면 `-accounts` 위치를 영구 볼륨에 두세요.
 
@@ -99,13 +99,20 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 | --- | --- |
 | `POST /api/auth/register` | `{username,password}`로 가입하고 로그인 |
 | `POST /api/auth/login` | `{username,password}`로 로그인 |
-| `GET /api/auth/session` | 현재 사용자와 단어장·노트 조회; 비회원은 `user: null` |
+| `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트 조회; 비회원은 `user: null` |
 | `POST /api/auth/logout` | `{}`로 현재 로그인 종료 |
 | `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |
 | `DELETE /api/account/words` | `{word,hanja}`를 단어장에서 삭제 |
+| `GET /api/account/dictionary` | 본인의 개인 사전 항목 조회 |
+| `POST /api/account/dictionary` | `{words,characters,meta,examples}` 배열로 개인 사전에 추가 |
+| `DELETE /api/account/dictionary` | `{kind:"word",word,hanja}` 또는 `{kind:"character"/"meta",id}`로 개인 항목 삭제 |
 | `PUT /api/account/note` | `{word,hanja,text,revision}`으로 노트 저장; 빈 내용은 삭제 |
 
 요청 본문은 JSON입니다. 로그인 쿠키는 HttpOnly·SameSite로 설정하고 다른 출처의 쓰기 요청은 거부합니다. 로그아웃과 개인 자료 변경에는 현재 세션 응답의 사용자 ID를 `X-Account-ID` 헤더로 전달해야 합니다. 브라우저의 다른 탭에서 계정이 바뀌더라도 이전 계정에서 작성한 내용이 잘못 저장되는 것을 막습니다.
+
+로그인한 사전 조회는 공개 사전과 본인의 개인 사전을 합쳐 반환합니다. 읽기 요청에 `X-Account-ID`를 넣으면 현재 세션의 사용자와 일치해야 하며, `guest`를 넣으면 공개 사전만 조회합니다. 사전 응답은 `Vary: Cookie, X-Account-ID`와 `Cache-Control: no-store`를 사용합니다. 첫 화면의 HTML에는 공개 자료만 포함합니다.
+
+계정 응답의 `dictionary`는 네 배열을 담고, `dictionary_revision`은 개인 사전이 변경될 때 증가합니다. 등록·삭제는 하나의 저장 작업으로 처리하며 필드·연결 오류는 `400 dictionary_invalid`, 중복은 `409 dictionary_duplicate`로 반환합니다. 오류의 `detail`에는 배열과 항목 위치, 이유를 담습니다. 기존 사전 항목은 변경하지 않습니다. 등록 형식과 한도는 [개인 사전 안내](WEB_APP.md#나만의-사전)를 참고하세요.
 
 노트의 첫 저장은 `revision: 0`, 이후 수정은 서버에서 받은 버전을 보냅니다. 버전이 다르면 `409 conflict`를 반환합니다. 계정 응답은 캐시하지 않으며 아이디 중복은 `409`, 인증 실패는 `401`, 저장 한도 초과는 `422`, 과도한 로그인 시도는 `429`입니다. 비밀번호는 개별 salt를 사용한 PBKDF2-HMAC-SHA256 해시로 저장합니다.
 

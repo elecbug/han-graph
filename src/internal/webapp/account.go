@@ -29,6 +29,15 @@ func accountJSON(w http.ResponseWriter, status int, value any) {
 }
 func accountError(w http.ResponseWriter, err error) {
 	status, code := http.StatusInternalServerError, "server_error"
+	var input *graph.InputError
+	if errors.As(err, &input) {
+		status, code = http.StatusBadRequest, "dictionary_invalid"
+		if input.Duplicate {
+			status, code = http.StatusConflict, "dictionary_duplicate"
+		}
+		accountJSON(w, status, map[string]string{"error": code, "detail": input.Error()})
+		return
+	}
 	switch {
 	case errors.Is(err, account.ErrInvalid):
 		status, code = 400, "invalid"
@@ -273,18 +282,56 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		found := false
-		for _, match := range g.FindWords(body.Word) {
-			if match.Word.Hanja == body.Hanja {
-				found = true
-				break
-			}
-		}
-		if !found {
-			accountError(w, account.ErrInvalid)
+		result, err := store.SaveNote(id, body, g)
+		if err != nil {
+			accountError(w, err)
 			return
 		}
-		result, err := store.SaveNote(id, body)
+		accountJSON(w, 200, result)
+	})
+
+	mux.HandleFunc("GET /api/account/dictionary", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, false)
+		if !ok {
+			return
+		}
+		if expected := r.Header.Get("X-Account-ID"); expected != "" && expected != id {
+			accountError(w, account.ErrUnauthorized)
+			return
+		}
+		snap, err := store.Snapshot(id)
+		if err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, 200, snap.Dictionary)
+	})
+	mux.HandleFunc("POST /api/account/dictionary", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, true)
+		if !ok {
+			return
+		}
+		var body graph.Additions
+		if !accountBody(w, r, &body) {
+			return
+		}
+		result, err := store.AddDictionary(id, g, body)
+		if err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, 200, result)
+	})
+	mux.HandleFunc("DELETE /api/account/dictionary", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, true)
+		if !ok {
+			return
+		}
+		var body account.DictionaryRemoval
+		if !accountBody(w, r, &body) {
+			return
+		}
+		result, err := store.RemoveDictionary(id, g, body)
 		if err != nil {
 			accountError(w, err)
 			return

@@ -18,6 +18,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
+	"github.com/elecbug/han-graph/internal/graph"
+
 	bolt "go.etcd.io/bbolt"
 )
 
@@ -59,17 +61,21 @@ type User struct {
 	Username string `json:"username"`
 }
 type Snapshot struct {
-	User  *User  `json:"user"`
-	Words []Ref  `json:"words"`
-	Notes []Note `json:"notes"`
+	User               *User           `json:"user"`
+	Words              []Ref           `json:"words"`
+	Notes              []Note          `json:"notes"`
+	Dictionary         graph.Additions `json:"dictionary"`
+	DictionaryRevision uint64          `json:"dictionary_revision"`
 }
 type record struct {
-	User       User
-	Salt       []byte
-	Hash       []byte
-	Iterations int
-	Words      []Ref
-	Notes      []Note
+	User               User
+	Salt               []byte
+	Hash               []byte
+	Iterations         int
+	Words              []Ref
+	Notes              []Note
+	Dictionary         graph.Additions
+	DictionaryRevision uint64
 }
 type session struct {
 	UserID  string
@@ -148,7 +154,7 @@ func snapshot(u record) Snapshot {
 	if u.Notes == nil {
 		u.Notes = []Note{}
 	}
-	return Snapshot{&u.User, u.Words, u.Notes}
+	return Snapshot{User: &u.User, Words: u.Words, Notes: u.Notes, Dictionary: u.Dictionary.Arrays(), DictionaryRevision: u.DictionaryRevision}
 }
 func (s *Store) Register(name, password string) (User, error) {
 	name = NormalizeUsername(name)
@@ -348,12 +354,29 @@ func (s *Store) RemoveWord(id string, ref Ref) (Snapshot, error) {
 		return nil
 	})
 }
-func (s *Store) SaveNote(id string, note Note) (Snapshot, error) {
+func (s *Store) SaveNote(id string, note Note, dictionaries ...*graph.Graph) (Snapshot, error) {
 	note.Text = strings.TrimSpace(note.Text)
 	if !note.Ref.Valid() || !utf8.ValidString(note.Text) || utf8.RuneCountInString(note.Text) > 5000 {
 		return Snapshot{}, ErrInvalid
 	}
 	return s.change(id, func(u *record) error {
+		if len(dictionaries) > 0 {
+			view, err := dictionaries[0].WithAdditions(u.Dictionary)
+			if err != nil {
+				return err
+			}
+			found := false
+			for _, w := range view.FindWords(note.Word) {
+				if w.Word.Hanja == note.Hanja {
+					found = true
+					break
+				}
+			}
+			if !found {
+				return ErrInvalid
+			}
+		}
+
 		active := 0
 		for _, old := range u.Notes {
 			if old.Text != "" {

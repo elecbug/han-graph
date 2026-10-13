@@ -69,3 +69,32 @@ test('sound and full searches keep separate caches for the same query and empty 
   assert.equal(calls[1].searchParams.get('q'),'하');
   assert.equal(calls[1].searchParams.get('mode'),'sound');
 });
+
+test('account identity and dictionary revision reset bootstrap and lookup caches',async()=>{
+  const owners=[];
+  const get=createDataClient({origin,seed:{'/api/words?q=개인':[]},fetcher:async(_,options)=>{owners.push(options.headers['X-Account-ID']);return reply([owners.length]);}});
+  assert.deepEqual(await get('/api/words','개인'),[]);
+  assert.equal(get.setScope('alice',1),true);
+  assert.deepEqual(await get('/api/words','개인'),[1]);
+  assert.equal(get.setScope('alice',1),false);
+  assert.deepEqual(await get('/api/words','개인'),[1]);
+  get.setScope('alice',2);assert.deepEqual(await get('/api/words','개인'),[2]);
+  get.setScope('bob',1);assert.deepEqual(await get('/api/words','개인'),[3]);
+  get.setScope('guest',0);assert.deepEqual(await get('/api/words','개인'),[4]);
+  assert.deepEqual(owners,['alice','alice','bob','guest']);
+});
+
+test('an in-flight result from the previous account is rejected and cannot replace the new cache',async()=>{
+  let release;
+  const get=createDataClient({origin,fetcher:async(_,options)=>{
+    if(options.headers['X-Account-ID']==='alice')return new Promise(resolve=>{release=()=>resolve(reply(['private alice']));});
+    return reply(['public']);
+  }});
+  get.setScope('alice',1);
+  const stale=get('/api/words','개인'),rejected=assert.rejects(stale,{name:'AbortError'});
+  await new Promise(resolve=>setImmediate(resolve));
+  get.setScope('guest');
+  assert.deepEqual(await get('/api/words','개인'),['public']);
+  release();await rejected;
+  assert.deepEqual(await get('/api/words','개인'),['public']);
+});

@@ -24,6 +24,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		options = configs[0]
 	}
 	mux := http.NewServeMux()
+	dictionary := &dictionaryViews{base: g, store: options.Accounts, cache: make(map[dictionaryKey]*graph.Graph)}
 	registerAccounts(mux, g, options)
 	jsonReply := func(w http.ResponseWriter, value any) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
@@ -50,8 +51,18 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		}
 		return q, true
 	}
-	mux.HandleFunc("GET /api/stats", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, g.Stats()) })
+	mux.HandleFunc("GET /api/stats", func(w http.ResponseWriter, r *http.Request) {
+		current, ok := dictionary.view(w, r)
+		if !ok {
+			return
+		}
+		jsonReply(w, current.Stats())
+	})
 	mux.HandleFunc("GET /api/search", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if !available {
+			return
+		}
 		level, valid := wordLevel(w, r)
 		if !valid {
 			return
@@ -59,9 +70,9 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		if q, ok := query(w, r, false); ok {
 			switch r.URL.Query().Get("mode") {
 			case "", "all":
-				jsonReply(w, g.SearchByLevel(q, 60, level))
+				jsonReply(w, current.SearchByLevel(q, 60, level))
 			case "sound":
-				jsonReply(w, g.SearchSoundByLevel(q, 60, level))
+				jsonReply(w, current.SearchSoundByLevel(q, 60, level))
 			default:
 				w.Header().Set("Content-Type", "application/json; charset=utf-8")
 				w.WriteHeader(http.StatusBadRequest)
@@ -70,11 +81,19 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		}
 	})
 	mux.HandleFunc("GET /api/words", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if !available {
+			return
+		}
 		if q, ok := query(w, r, true); ok {
-			jsonReply(w, g.FindWords(q))
+			jsonReply(w, current.FindWords(q))
 		}
 	})
 	mux.HandleFunc("GET /api/random-word", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if !available {
+			return
+		}
 		level, valid := wordLevel(w, r)
 		if !valid {
 			return
@@ -88,7 +107,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 			jsonReply(w, map[string]string{"error": "excluded word and hanja must be at most 100 characters"})
 			return
 		}
-		selected, ok := g.RandomWordByLevel(word, hanja, level)
+		selected, ok := current.RandomWordByLevel(word, hanja, level)
 		if !ok {
 			w.WriteHeader(http.StatusNotFound)
 			jsonReply(w, map[string]string{"error": "no words available"})
@@ -97,14 +116,22 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		jsonReply(w, selected)
 	})
 	mux.HandleFunc("GET /api/characters", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if !available {
+			return
+		}
 		if q, ok := query(w, r, true); ok {
-			jsonReply(w, g.FindCharacters(q))
+			jsonReply(w, current.FindCharacters(q))
 		}
 	})
 	mux.HandleFunc("GET /api/practice", func(w http.ResponseWriter, r *http.Request) { jsonReply(w, practice) })
 	mux.HandleFunc("GET /api/neighborhood", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if !available {
+			return
+		}
 		if q, ok := query(w, r, true); ok {
-			jsonReply(w, g.Neighborhood(q))
+			jsonReply(w, current.Neighborhood(q))
 		}
 	})
 	// The graph is immutable until restart. Prepare the initial view once so
@@ -135,6 +162,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		"/app.js":                          "text/javascript; charset=utf-8",
 		"/examples.mjs":                    "text/javascript; charset=utf-8",
 		"/learning.mjs":                    "text/javascript; charset=utf-8",
+		"/personal-dictionary.mjs":         "text/javascript; charset=utf-8",
 		"/data-client.mjs":                 "text/javascript; charset=utf-8",
 		"/network.mjs":                     "text/javascript; charset=utf-8",
 		"/network-view.mjs":                "text/javascript; charset=utf-8",

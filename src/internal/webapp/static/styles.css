@@ -2003,3 +2003,21 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 .word-example .example-translation { margin-top:5px;color:var(--muted);font-size:13px;line-height:1.65;word-break:normal }
 .note-editor { border-top:1px solid var(--line);padding:24px 28px;display:grid;gap:12px }
 @media(max-width:640px) { .account-card { padding:22px }.topbar-actions { gap:14px }.account-link { max-width:110px }.word-example { margin:0 20px 20px }.note-editor { padding:20px } }
+
+/* Personal entries share the explorer and retain an explicit ownership label. */
+.personal-badge { display:inline-block;color:#805821;background:#fbefda;border:1px solid #ead4ab;border-radius:5px;padding:2px 7px;font-size:10px;line-height:1.5;vertical-align:middle;margin-left:6px }
+.personal-dictionary { margin-top:28px }
+#dictionary-form { display:grid;gap:12px }
+#dictionary-form label { font-weight:600;font-size:14px }
+#dictionary-form textarea { box-sizing:border-box;width:100%;max-width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:#fafbf6;color:var(--ink);padding:14px;font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical;tab-size:2 }
+.dictionary-extra { border-top:1px solid var(--line);padding-top:16px }
+.dictionary-extra summary { cursor:pointer;color:var(--green);font-size:13px;font-weight:600 }
+.dictionary-extra>div { display:grid;gap:12px;margin-top:18px }
+.dictionary-list-heading { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px }
+.dictionary-list-heading h3 { font-size:16px }
+.dictionary-list { max-height:350px;overflow:auto;overscroll-behavior:contain }
+.dictionary-entry { display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line) }
+.dictionary-entry>div { min-width:0;overflow-wrap:anywhere }
+.dictionary-entry p { color:var(--muted);font-size:12px;line-height:1.7;margin-top:5px }
+.dictionary-delete { color:var(--accent);flex-shrink:0;font-size:11px }
+@media(max-width:640px) { .dictionary-entry { gap:10px }.dictionary-list-heading { align-items:flex-start }.personal-dictionary { padding:20px } }
