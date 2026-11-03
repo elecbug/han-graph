@@ -1,0 +1,27 @@
+services:
+  han-graph:
+    build: .
+    restart: unless-stopped
+    user: "${HAN_GRAPH_UID:-1000}:${HAN_GRAPH_GID:-1000}"
+    ports:
+      - "${HAN_GRAPH_HOST:-0.0.0.0}:${HAN_GRAPH_PORT:-18080}:18080"
+    volumes:
+      - type: bind
+        source: ./var
+        target: /app/var
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:18080/api/stats"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+    stop_grace_period: 10s
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.230.9.0/24

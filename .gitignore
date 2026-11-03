@@ -1,2 +1,5 @@
 # Private account database (configure another location with -accounts).
 /var/
+
+# Local Docker Compose settings.
+/.env

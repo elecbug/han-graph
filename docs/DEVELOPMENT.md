@@ -6,9 +6,54 @@
 
 ## 준비하기
 
-Go 1.26.2 이상과 웹 브라우저가 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 계정 저장에는 Go 내장형 데이터베이스 라이브러리 bbolt를 사용하며, 필요한 모듈은 첫 실행 시 Go가 내려받습니다. 저장소를 내려받은 뒤 터미널에서 `src` 디렉터리로 이동하세요. 아래 명령은 모두 그 위치에서 실행합니다.
+웹 브라우저와 Docker Engine·Docker Compose 또는 Go 1.26.2 이상이 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 계정 저장에는 Go 내장형 데이터베이스 라이브러리 bbolt를 사용합니다. Docker 명령은 저장소 루트에서, `go` 명령은 `src` 디렉터리에서 실행합니다.
+
+## Docker Compose로 실행
+
+저장소 루트에서 처음 한 번 계정 폴더와 `.env`를 준비합니다. Linux에서는 컨테이너가 `var` 폴더 소유자의 UID·GID로 실행되어야 기존 계정 파일에 접근할 수 있습니다.
+
+```sh
+mkdir -p var
+printf 'HAN_GRAPH_UID=%s\nHAN_GRAPH_GID=%s\n' "$(id -u)" "$(id -g)" > .env
+```
+
+이미 `.env`가 있으면 덮어쓰지 말고 필요한 설정만 수정하세요. 다른 사용자가 만든 `var` 폴더를 사용하는 경우에는 해당 소유자의 UID·GID를 지정합니다. 설정 예시는 [`.env.example`](../.env.example)에 있습니다.
+
+기존 수동 서버를 정상 종료한 뒤 실행합니다. 동일한 계정 파일과 포트를 함께 사용할 수 없습니다.
+
+```sh
+docker compose up -d --build
+docker compose ps
+docker compose logs -f han-graph
+```
+
+기본 접속 주소는 <http://127.0.0.1:18080>이며 모든 호스트 인터페이스에서 접속을 받습니다. 로컬에서만 접속하려면 `.env`에 `HAN_GRAPH_HOST=127.0.0.1`, 포트를 바꾸려면 `HAN_GRAPH_PORT=8081`처럼 추가한 뒤 `docker compose up -d`로 적용합니다. 기본 bridge 네트워크의 서브넷은 `10.230.9.0/24`로 고정되어 있습니다.
+
+공개 사전과 웹 화면은 이미지에 포함되고, `./var`는 컨테이너의 `/app/var`에 연결됩니다. 기존 `var/accounts.db`를 그대로 사용하며 컨테이너 재생성이나 `docker compose down` 후에도 보존됩니다. `var`와 `.env`, Git 이력은 이미지 빌드에 포함하지 않습니다. 소스나 공개 데이터를 수정한 뒤에는 `docker compose up -d --build`로 다시 빌드합니다. 상태 검사는 `/api/stats`를 사용하며, Docker Engine이 재시작되면 수동으로 중지하지 않은 서버도 자동으로 다시 실행됩니다.
+
+```sh
+docker compose down
+```
+
+위 명령은 서버를 정상 종료합니다. 백업은 종료한 뒤 `var/accounts.db`를 복사하세요.
+
+이미지에 포함된 사전은 다음과 같이 검사할 수 있습니다. 계정 데이터베이스를 열지 않으므로 서버가 실행 중이어도 사용할 수 있습니다.
+
+```sh
+docker compose exec han-graph han-graph -data /app/dataset validate
+```
+
+HTTPS 프록시 뒤에서 운영한다면 `compose.override.yaml`의 명령을 다음과 같이 설정한 뒤 `docker compose up -d`로 적용하세요.
+
+```yaml
+services:
+  han-graph:
+    command: ["-data", "/app/dataset", "-accounts", "/app/var/accounts.db", "-addr", "0.0.0.0:18080", "-secure-cookies", "serve"]
+```
 
 ## 웹 앱 실행
+
+아래 명령은 `src` 디렉터리에서 실행합니다. 첫 실행 시 Go가 필요한 모듈을 내려받습니다.
 
 ```sh
 go run ./cmd -addr 127.0.0.1:18080 serve
