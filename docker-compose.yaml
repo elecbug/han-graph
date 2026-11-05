@@ -18,9 +18,11 @@ services:
       start_period: 10s
       retries: 3
     stop_grace_period: 10s
+    networks:
+      - han-graph-net
 
 networks:
-  default:
+  han-graph-net:
     driver: bridge
     ipam:
       config:
