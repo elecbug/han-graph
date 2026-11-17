@@ -2025,6 +2025,15 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 .dictionary-list { max-height:350px;overflow:auto;overscroll-behavior:contain }
 .dictionary-entry { display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line) }
 .dictionary-entry>div { min-width:0;overflow-wrap:anywhere }
+
+/* Keep all navigation labels readable on narrow screens in every language. */
+@media(max-width:640px) {
+  .sidebar nav { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px }
+  .nav-link { display:grid;grid-template-rows:17px auto;justify-items:center;align-content:start;position:relative;min-width:0;padding:9px 5px;white-space:normal;text-align:center }
+  .nav-link svg { grid-row:1 }
+  .nav-link [data-i18n] { grid-row:2;min-width:0;overflow-wrap:anywhere;line-height:1.4 }
+  .nav-link .nav-count { position:absolute;right:4px;top:5px }
+}
 .dictionary-entry p { color:var(--muted);font-size:12px;line-height:1.7;margin-top:5px }
 .dictionary-delete { color:var(--accent);flex-shrink:0;font-size:11px }
 @media(max-width:640px) { .dictionary-entry { gap:10px }.dictionary-list-heading { align-items:flex-start }.personal-dictionary { padding:20px } }

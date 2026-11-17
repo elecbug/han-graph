@@ -1,6 +1,6 @@
 import {exampleLines} from './examples.mjs';
 import {wordKey, wordCategory} from './learning.mjs';
-import {localized, normalizeLanguage} from './localization.mjs';
+import {localized, localizedDate, normalizeLanguage, copy as interfaceCopy} from './localization.mjs';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const copy = {
@@ -27,6 +27,22 @@ const copy = {
     easy:'Базовая', normal:'Общая', hard:'Продвинутая', classical:'Классическая',
     note:'Значения и чтения иероглифа зависят от слова и контекста.',
     footer:'Новое понимание начинается с одного слова.',
+  },
+  uz: {
+    title:'Mening soʻzlarim', subtitle:'Maʼnoni oʻqing. Tarkibni oʻrganing. Bogʻlanishni eslab qoling.',
+    count:count=>`${count} ta soʻz`, missing:'Joriy lugʻatda izoh topilmadi. Saqlangan yozuv oʻz holicha qoldirildi.',
+    example:'Misol', meaning:'Maʼno', hint:'Maʼnoga ishora', characters:'Soʻz tarkibidagi iyerogliflar',
+    easy:'Boshlangʻich', normal:'Umumiy', hard:'Murakkab', classical:'Klassik',
+    note:'Iyeroglif maʼnosi va oʻqilishi soʻz hamda kontekstga qarab oʻzgarishi mumkin.',
+    footer:'Yangi tushuncha bir soʻzdan boshlanadi.',
+  },
+  ky: {
+    title:'Менин сөздөрүм', subtitle:'Маанисин окуңуз. Курамын караңыз. Байланышын эстеп калыңыз.',
+    count:count=>`Сөздөр: ${count}`, missing:'Учурдагы сөздүктө түшүндүрмө жок. Сакталган жазылышы өзгөртүлгөн жок.',
+    example:'Мисал', meaning:'Мааниси', hint:'Мааниге ишарат', characters:'Сөздүн курамындагы иероглифтер',
+    easy:'Баштапкы', normal:'Жалпы', hard:'Татаал', classical:'Классикалык',
+    note:'Иероглифтин мааниси жана окулушу сөзгө жана контекстке жараша өзгөрүшү мүмкүн.',
+    footer:'Жаңы түшүнүк бир сөздөн башталат.',
   },
 };
 
@@ -75,13 +91,13 @@ function characterDetails(components, language) {
 
 export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = {}) {
   const language=normalizeLanguage(lang), labels=copy[language];
-  const dateLabel=new Intl.DateTimeFormat({ko:'ko-KR',en:'en-GB',ru:'ru-RU'}[language],{year:'numeric',month:'long',day:'numeric'}).format(date);
+  const dateLabel=localizedDate(date,language);
   const counts=new Map();
   for(const {result} of entries)if(result)counts.set(wordCategory(result.word),(counts.get(wordCategory(result.word))??0)+1);
   const categories=['easy','normal','hard','classical'].filter(level=>counts.has(level));
   return `<section class="print-sheet" aria-label="${labels.title}">
-    <header class="print-cover"><div class="print-masthead"><span>漢—GRAPH</span><span>${{ko:'단어에서 시작하는 연결.',en:'WORDS, CONNECTED.',ru:'СЛОВА И СВЯЗИ.'}[language]}</span></div>
-      <p class="print-eyebrow">${{ko:'나의 어휘 학습 노트',en:'MY VOCABULARY NOTEBOOK',ru:'МОЙ СЛОВАРИК'}[language]}</p><h1>${labels.title}</h1><p class="print-subtitle">${labels.subtitle}</p>
+    <header class="print-cover"><div class="print-masthead"><span>漢—GRAPH</span><span>${interfaceCopy[language].brandMotto}</span></div>
+      <p class="print-eyebrow">${interfaceCopy[language].savedEye}</p><h1>${labels.title}</h1><p class="print-subtitle">${labels.subtitle}</p>
       <div class="print-meta"><strong>${labels.count(entries.length)}</strong><span>${escape(dateLabel)}</span></div>
       ${categories.length?`<p class="print-categories">${categories.map(level=>`${labels[level]} ${counts.get(level)}`).join(' · ')}</p>`:''}
     </header>

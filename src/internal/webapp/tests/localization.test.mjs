@@ -26,8 +26,8 @@ test('Russian quantities use the correct singular, few and many forms',()=>{
 });
 
 test('meanings, hints, examples and private translation fallbacks never mix interface languages',()=>{
-  const entry={meaning_ko:'한국어 뜻',meaning_en:'English meaning',meaning_ru:'Русское значение',semantic_hint:'한국어 힌트',semantic_hint_en:'English hint',semantic_hint_ru:'Русская подсказка'};
-  const examples={example:'한국어 예문',example_en:'English example',example_ru:'Русский пример'};
+  const entry={meaning_ko:'한국어 뜻',meaning_en:'English meaning',meaning_ru:'Русское значение',meaning_uz:'Oʻzbekcha maʼno',meaning_ky:'Кыргызча маани',semantic_hint:'한국어 힌트',semantic_hint_en:'English hint',semantic_hint_ru:'Русская подсказка'};
+  const examples={example:'한국어 예문',example_en:'English example',example_ru:'Русский пример',example_uz:'Oʻzbekcha misol',example_ky:'Кыргызча мисал'};
   for(const language of LANGUAGES) {
     assert.equal(localized(entry,'meaning',language),entry[`meaning_${language}`]);
     assert.deepEqual(exampleLines(examples,language),[{text:examples[language==='ko'?'example':`example_${language}`],lang:language,secondary:false}]);

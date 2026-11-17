@@ -96,7 +96,7 @@ func (g *Graph) WithAdditions(a Additions) (*Graph, error) {
 	for i, c := range a.Characters {
 		parts := characterID.FindStringSubmatch(c.ID)
 		glyph := []rune(c.Hanja)
-		if c.Type != "character" || parts == nil || len(c.ID) > 48 || len(glyph) != 1 || !unicode.Is(unicode.Han, glyph[0]) || !personalMeanings(c.MeaningKo) || !personalMeanings(c.MeaningEn) || (c.MeaningRu != nil && !personalMeanings(c.MeaningRu)) {
+		if c.Type != "character" || parts == nil || len(c.ID) > 48 || len(glyph) != 1 || !unicode.Is(unicode.Han, glyph[0]) || !personalMeanings(c.MeaningKo) || !personalMeanings(c.MeaningEn) || !optionalMeaningArrays(c.MeaningRu, c.MeaningUz, c.MeaningKy) {
 			return fail("characters", i, "use type=character, id=<meta>-<3+ digits>, one Han character and nonempty meaning arrays", false)
 		}
 		if _, ok := next.meta[parts[1]]; !ok {
@@ -120,7 +120,7 @@ func (g *Graph) WithAdditions(a Additions) (*Graph, error) {
 		refs[[2]string{w.Word, w.Hanja}] = true
 	}
 	for i, w := range a.Words {
-		if !ValidWordLevel(w.Level) || !personalText(w.Word, 100, true) || !personalText(w.Hanja, 100, false) || !personalText(w.MeaningKo, 2000, true) || !personalText(w.MeaningEn, 2000, true) || !personalText(w.MeaningRu, 2000, false) || !personalText(w.SemanticHint, 2000, false) || !personalText(w.SemanticHintEn, 2000, false) || !personalText(w.SemanticHintRu, 2000, false) || w.Components == nil {
+		if !ValidWordLevel(w.Level) || !personalText(w.Word, 100, true) || !personalText(w.Hanja, 100, false) || !personalText(w.MeaningKo, 2000, true) || !personalText(w.MeaningEn, 2000, true) || !optionalTexts(2000, w.MeaningRu, w.MeaningUz, w.MeaningKy, w.SemanticHint, w.SemanticHintEn, w.SemanticHintRu, w.SemanticHintUz, w.SemanticHintKy) || w.Components == nil {
 			return fail("words", i, "use a valid level, word, Korean/English meanings and a components array", false)
 		}
 		if err := validateWordForm(w); err != nil {
@@ -147,8 +147,8 @@ func (g *Graph) WithAdditions(a Additions) (*Graph, error) {
 		if _, ok := next.examples[key]; ok {
 			return fail("examples", i, "word example already exists: "+e.Word+"/"+e.Hanja, true)
 		}
-		if !personalText(e.ExampleKo, 500, true) || !personalText(e.ExampleEn, 500, false) || !personalText(e.ExampleRu, 500, false) {
-			return fail("examples", i, "use a single Korean sentence and optional English/Russian translations, each at most 500 characters", false)
+		if !personalText(e.ExampleKo, 500, true) || !optionalTexts(500, e.ExampleEn, e.ExampleRu, e.ExampleUz, e.ExampleKy) {
+			return fail("examples", i, "use a single Korean sentence and optional translations, each at most 500 characters", false)
 		}
 		next.examples[key] = e
 	}

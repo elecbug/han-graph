@@ -1,5 +1,6 @@
+import {LANGUAGES} from './localization.mjs';
 const han = glyph => /\p{Script=Han}/u.test(glyph);
-export const WORD_FORM_FIELDS = ['word','hanja','level','meaning_ko','meaning_en','meaning_ru','example_ko','example_en','example_ru'];
+export const WORD_FORM_FIELDS = ['word','hanja','level',...LANGUAGES.map(language=>`meaning_${language}`),...LANGUAGES.map(language=>`example_${language}`)];
 export const emptyWordDraft = () => Object.fromEntries(WORD_FORM_FIELDS.map(field=>[field,field==='level'?'normal':'']));
 export class WordFormError extends Error {
   constructor(code, field='', glyph='') { super(code); Object.assign(this,{code,field,glyph}); }
@@ -16,16 +17,16 @@ export function wordFormPayload(draft) {
   const spelling=[...word.word.replace(/\s/gu,'')], form=[...word.hanja];
   word.components=form.filter(han);
   if(word.hanja&&(!word.components.length||form.some((glyph,index)=>!han(glyph)&&(form.length!==spelling.length||glyph!==spelling[index]||!/[가-힣]/u.test(glyph)))))throw new WordFormError('wordFormSpelling','hanja');
-  for(const language of ['ko','en','ru']) {
-    const field=`meaning_${language}`,value=text(draft[field],2000,language!=='ru',field);
+  for(const language of LANGUAGES) {
+    const field=`meaning_${language}`,value=text(draft[field],2000,['ko','en'].includes(language),field);
     if(value)word[field]=value;
   }
   const examples={word:word.word,hanja:word.hanja};
-  for(const language of ['ko','en','ru']) {
+  for(const language of LANGUAGES) {
     const field=`example_${language}`,value=text(draft[field],500,false,field);
     if(value)examples[field]=value;
   }
-  if((examples.example_en||examples.example_ru)&&!examples.example_ko)throw new WordFormError('wordFormExample','example_ko');
+  if(LANGUAGES.some(language=>language!=='ko'&&examples[`example_${language}`])&&!examples.example_ko)throw new WordFormError('wordFormExample','example_ko');
   return {words:[word],characters:[],meta:[],examples:examples.example_ko?[examples]:[]};
 }
 
@@ -37,7 +38,7 @@ export async function findMissingCharacters(word,lookup) {
     for(const {glyph,readings} of results)if(!readings.length) {
       const index=[...word.hanja].indexOf(glyph);
       const sound=[...word.word.replace(/\s/gu,'')][index]??'';
-      missing.push({glyph,sound_ko:/^[가-힣]$/u.test(sound)?sound:'',sound_en:'',meaning_ko:'',meaning_en:'',meaning_ru:''});
+      missing.push({glyph,sound_ko:/^[가-힣]$/u.test(sound)?sound:'',sound_en:'',...Object.fromEntries(LANGUAGES.map(language=>[`meaning_${language}`,'']))});
     }
   }
   return missing;
@@ -64,9 +65,9 @@ export function addMissingCharacters(payload,drafts,groups,id=()=>String(9000+cr
     while(usedIDs.has(`${group.id}-${suffix}`))suffix=String(Number(suffix)+1);
     const character={type:'character',id:`${group.id}-${suffix}`,hanja:glyph};
     usedIDs.add(character.id);
-    for(const language of ['ko','en','ru']) {
+    for(const language of LANGUAGES) {
       const field=`meaning_${language}`;
-      const value=characterText(draft[field],200,language!=='ru',field);
+      const value=characterText(draft[field],200,['ko','en'].includes(language),field);
       if(value)character[field]=[value];
     }
     result.characters.push(character);

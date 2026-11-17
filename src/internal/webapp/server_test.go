@@ -39,6 +39,8 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/app.js", 200, "javascript"},
 		{"GET", "/localization.mjs", 200, "javascript"},
 		{"GET", "/localization-ru.mjs", 200, "javascript"},
+		{"GET", "/localization-uz.mjs", 200, "javascript"},
+		{"GET", "/localization-ky.mjs", 200, "javascript"},
 		{"GET", "/dictionary-form.mjs", 200, "javascript"},
 		{"GET", "/learning.mjs", 200, "javascript"},
 		{"GET", "/examples.mjs", 200, "javascript"},

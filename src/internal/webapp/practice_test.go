@@ -28,6 +28,36 @@ func TestPracticeRejectsHomonymousOptions(t *testing.T) {
 	}
 }
 
+func TestAdditionalPracticeLanguages(t *testing.T) {
+	g, practice, _ := testApp(t)
+	practice.Questions = practice.Questions[:1]
+	practice.Questions[0].PromptUz = "Qaysi soʻz mos?"
+	practice.Questions[0].ExplanationUz = "Toʻgʻri soʻzni tanlang."
+	practice.Questions[0].PromptKy = "Кайсы сөз туура келет?"
+	practice.Questions[0].ExplanationKy = "Туура сөздү тандаңыз."
+	file := filepath.Join(t.TempDir(), "practice.json")
+	write := func() {
+		t.Helper()
+		data, err := json.Marshal(practice)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(file, data, 0600); err != nil {
+			t.Fatal(err)
+		}
+	}
+	write()
+	loaded, err := LoadPractice(file, g)
+	if err != nil || loaded.Questions[0].PromptKy != practice.Questions[0].PromptKy || loaded.Questions[0].ExplanationUz != practice.Questions[0].ExplanationUz {
+		t.Fatal("additional question languages were lost", err)
+	}
+	practice.Questions[0].ExplanationKy = "Бир.\nЭки."
+	write()
+	if _, err := LoadPractice(file, g); err == nil {
+		t.Fatal("multiline translated question accepted")
+	}
+}
+
 func TestMeaningContrastGroups(t *testing.T) {
 	g, practice, _ := testApp(t)
 	for _, tc := range []struct {

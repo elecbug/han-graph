@@ -1,4 +1,6 @@
 import {ru} from './localization-ru.mjs';
+import {uz} from './localization-uz.mjs';
+import {ky} from './localization-ky.mjs';
 
 export const copy = {
   ko: {
@@ -45,6 +47,8 @@ export const copy = {
   },
 };
 copy.ru=ru;
+copy.uz=uz;
+copy.ky=ky;
 copy.ko.languageLabel='화면 언어';
 copy.en.languageLabel='Interface language';
 copy.ko.studio='학습 공간';
@@ -58,8 +62,19 @@ copy.en.practiceDraft='Korean, English and Russian explanations · Draft example
 copy.ko.searchHint='다른 단어, 한자 또는 영어·러시아어 뜻으로 찾아보세요.';
 copy.en.searchHint='Try another Korean word, character, or English or Russian meaning.';
 
-export const LANGUAGES = ['ko', 'en', 'ru'];
+export const LANGUAGES = ['ko', 'en', 'ru', 'uz', 'ky'];
+export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG'};
 export const normalizeLanguage = value => LANGUAGES.includes(value) ? value : 'ko';
+
+export function localizedDate(date, language = 'ko') {
+  const locale = DATE_LOCALES[normalizeLanguage(language)];
+  if (Intl.DateTimeFormat.supportedLocalesOf([locale]).length) {
+    return new Intl.DateTimeFormat(locale, {year:'numeric',month:'long',day:'numeric'}).format(date);
+  }
+  // Some browsers lack Kyrgyz locale data and would silently show English months.
+  return [date.getDate(), date.getMonth() + 1, date.getFullYear()]
+    .map((value, index) => index < 2 ? String(value).padStart(2, '0') : value).join('.');
+}
 
 // Keep interface languages separate; missing private translations get a local label.
 export function localized(record, field, language = 'ko') {
@@ -135,10 +150,15 @@ Object.assign(copy.ko,{home:'漢-Graph 처음으로',mainNavigation:'주요 메�
 Object.assign(copy.en,{home:'HAN-GRAPH home',mainNavigation:'Main navigation',brandMotto:'WORDS, CONNECTED.',appDescription:'Connect Korean words through Hanja meanings and understand them in context.'});
 Object.assign(copy.ru,{home:'На главную HAN-GRAPH',mainNavigation:'Главное меню',brandMotto:'СЛОВА И СВЯЗИ.',appDescription:'Находите связи между корейскими словами через значения иероглифов и контекст.'});
 
+Object.assign(copy.ko,{wordFormUz:'우즈베크어 뜻 (선택)',wordFormKy:'키르기스어 뜻 (선택)',wordFormExampleUz:'우즈베크어 번역 (선택)',wordFormExampleKy:'키르기스어 번역 (선택)',wordFormHelp:'단어와 뜻을 입력하세요. 구성 한자는 자동으로 연결해요. 한국어·영어 뜻은 필수이고 다른 언어의 뜻과 예문은 선택이에요.',practiceDraft:'다국어 해설 · 예문·번역 검수 전',searchHint:'다른 단어, 한자 또는 뜻으로 찾아보세요.'});
+Object.assign(copy.en,{wordFormUz:'Uzbek meaning (optional)',wordFormKy:'Kyrgyz meaning (optional)',wordFormExampleUz:'Uzbek translation (optional)',wordFormExampleKy:'Kyrgyz translation (optional)',wordFormHelp:'Enter the word and its meanings. Hanja components are linked automatically. Korean and English meanings are required; other translations and examples are optional.',practiceDraft:'Multilingual explanations · Draft examples and translations',searchHint:'Try another Korean word, character, or meaning.'});
+Object.assign(copy.ru,{wordFormUz:'Значение на узбекском (необязательно)',wordFormKy:'Значение на кыргызском (необязательно)',wordFormExampleUz:'Узбекский перевод (необязательно)',wordFormExampleKy:'Кыргызский перевод (необязательно)',wordFormHelp:'Введите слово и его значения. Иероглифы связываются автоматически. Корейское и английское значения обязательны; другие переводы и примеры — по желанию.',practiceDraft:'Пояснения на нескольких языках · Примеры и переводы требуют проверки'});
 const pluralRules=Object.fromEntries(LANGUAGES.map(language=>[language,new Intl.PluralRules(language)]));
 const nouns={
   en:{words:{one:'word',other:'words'},characters:{one:'character',other:'characters'},questions:{one:'question',other:'questions'}},
   ru:{words:{one:'слово',few:'слова',many:'слов',other:'слова'},characters:{one:'иероглиф',few:'иероглифа',many:'иероглифов',other:'иероглифа'},questions:{one:'задание',few:'задания',many:'заданий',other:'задания'}},
+  uz:{words:{other:'ta soʻz'},characters:{other:'ta iyeroglif'},questions:{other:'ta savol'}},
+  ky:{words:{other:'сөз'},characters:{other:'иероглиф'},questions:{other:'суроо'}},
 };
 export function countText(count,key,language='ko') {
   const lang=normalizeLanguage(language),forms=nouns[lang]?.[key];

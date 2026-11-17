@@ -53,6 +53,8 @@ type WordResult struct {
 	Example    string      `json:"example,omitempty"`
 	ExampleEn  string      `json:"example_en,omitempty"`
 	ExampleRu  string      `json:"example_ru,omitempty"`
+	ExampleUz  string      `json:"example_uz,omitempty"`
+	ExampleKy  string      `json:"example_ky,omitempty"`
 	Word       Word        `json:"word"`
 	Components []Component `json:"components"`
 }
@@ -127,7 +129,7 @@ func (g *Graph) FindWords(query string) []WordResult {
 	for _, index := range g.wordsByQuery[query] {
 		w := g.words[index]
 		example := g.examples[[2]string{w.Word, w.Hanja}]
-		result := WordResult{Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu, Word: w, Components: make([]Component, 0, len(w.Components))}
+		result := WordResult{Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu, ExampleUz: example.ExampleUz, ExampleKy: example.ExampleKy, Word: w, Components: make([]Component, 0, len(w.Components))}
 		for _, hanja := range w.Components {
 			component := Component{Hanja: hanja, Readings: make([]Reading, 0)}
 			for _, c := range g.characters[hanja] {
@@ -174,13 +176,13 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 // when at least one connected word belongs to the selected category.
 func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResult {
 	result := SearchResult{Words: []Word{}, Characters: []Reading{}}
-	query = strings.ToLower(strings.TrimSpace(query))
+	query = foldSearch(strings.TrimSpace(query))
 	if limit < 1 {
 		limit = 60
 	}
 	matches := func(values ...string) bool {
 		for _, value := range values {
-			if strings.Contains(strings.ToLower(value), query) {
+			if strings.Contains(foldSearch(value), query) {
 				return true
 			}
 		}
@@ -191,7 +193,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	for _, exactPass := range []bool{true, false} {
 		for _, word := range g.words {
 			exact := query != "" && (strings.EqualFold(word.Word, query) || strings.EqualFold(word.Hanja, query))
-			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu) {
+			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu, word.MeaningUz, word.MeaningKy) {
 				continue
 			}
 			result.WordCount++
@@ -202,7 +204,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)
-		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "), strings.Join(character.MeaningRu, " ")) {
+		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "), strings.Join(character.MeaningRu, " "), strings.Join(character.MeaningUz, " "), strings.Join(character.MeaningKy, " ")) {
 			result.CharacterCount++
 			if len(result.Characters) < limit {
 				result.Characters = append(result.Characters, reading)
@@ -263,3 +265,7 @@ func (g *Graph) SearchSoundByLevel(query string, limit int, level string) Search
 	}
 	return result
 }
+
+var searchApostrophes = strings.NewReplacer("ʻ", "'", "ʼ", "'", "‘", "'", "’", "'")
+
+func foldSearch(value string) string { return strings.ToLower(searchApostrophes.Replace(value)) }

@@ -1,0 +1,236 @@
+#!/usr/bin/env python3
+"""Generate local Uzbek/Kyrgyz translation drafts, applying and checking 10 records at a time.
+
+Requires CTranslate2 and SentencePiece only for this maintenance command. The
+application uses the saved JSON fields and needs neither library nor model.
+"""
+import argparse
+import json
+from pathlib import Path
+import re
+import time
+
+from localized_dataset import apply_batch, check_all, check_row, identity, read_rows
+
+CODES = {'uz': 'uzn_Latn', 'ky': 'kir_Cyrl'}
+TERMS = re.compile(r'[\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af]+(?:\[[가-힣]+\])?|[가-힣]+')
+READINGS = re.compile(r'([\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af])\[([가-힣]+)\]')
+
+
+class DraftTranslator:
+    def __init__(self, model, cache_path):
+        import ctranslate2
+        import sentencepiece
+        self.tokenizer = sentencepiece.SentencePieceProcessor(model_file=str(model / 'sentencepiece.bpe.model'))
+        self.model = ctranslate2.Translator(str(model), compute_type='int8', intra_threads=6, inter_threads=4)
+        self.path = cache_path
+        self.cache = {}
+        if cache_path.exists():
+            for line in cache_path.read_text().splitlines():
+                row = json.loads(line)
+                self.cache[row['language'], row.get('source_language','rus_Cyrl'), row['source']] = row['text']
+        # Reviewed dictionary forms. Russian senses already distinguish homonyms.
+        glossary = {
+            'предполагать': ('taxmin qilmoq', 'болжолдоо'),
+            'ценность; стоимость': ('qadr-qiymat; narx', 'баалуулук; нарк'),
+            'песня': ('qoʻshiq', 'ыр'), 'петь': ('kuylamoq', 'ырдоо'),
+            'улицы': ('koʻcha', 'көчө'), 'проспект': ('shohkoʻcha', 'проспект'),
+            'рама; каркас': ('rom; karkas', 'алкак; каркас'),
+            'подставка; стойка': ('taglik; tokcha', 'таяныч; текче'),
+            'возводить': ('barpo etmoq', 'куруу'),
+            'свободное время': ('boʻsh vaqt', 'бош убакыт'),
+            'правильный': ('toʻgʻri', 'туура'), 'возможный': ('mumkin boʻlgan', 'мүмкүн болгон'),
+            'поражение': ('magʻlubiyat', 'жеңилүү'),
+            'проигрывать': ('yutqazmoq', 'утулуу'), 'флейта': ('nay', 'чоор'),
+            'скала; камень': ('qoya; tosh', 'аска; таш'),
+            'утёс; обрыв': ('qoya; jarlik', 'аска; жар'),
+            'сеянец; росток': ('koʻchat; nihol', 'көчөт; бүчүр'),
+            'ноты; партитура': ('notalar; partitura', 'ноталар; партитура'),
+            'цена': ('narx', 'баа'), 'стоимость': ('qiymat', 'нарк'),
+            'вода': ('suv', 'суу'), 'огонь': ('olov', 'от'), 'дерево': ('daraxt', 'дарак'),
+            'золото': ('oltin', 'алтын'), 'земля': ('yer', 'жер'), 'небо': ('osmon', 'асман'),
+            'человек': ('inson', 'адам'), 'люди': ('odamlar', 'адамдар'),
+            'красивый': ('chiroyli', 'сулуу'), 'хороший': ('yaxshi', 'жакшы'),
+            'ложный': ('yolgʻon', 'жалган'), 'временный': ('vaqtinchalik', 'убактылуу'),
+            'дом': ('uy', 'үй'), 'семья': ('oila', 'үй-бүлө'), 'школа': ('maktab', 'мектеп'),
+            'имя': ('ism', 'ат'), 'число': ('son', 'сан'), 'цвет': ('rang', 'түс'),
+            'делить': ('boʻlmoq', 'бөлүү'), 'сверкать': ('chaqnamoq', 'жаркылдоо'),
+            'свет': ('yorugʻlik', 'жарык'), 'лёгкий': ('yengil', 'жеңил'),
+            'характер': ('feʼl-atvor', 'мүнөз'), 'иероглиф': ('iyeroglif', 'иероглиф'),
+            'письменный знак': ('yozuv belgisi', 'жазуу белгиси'),
+            'интерес': ('qiziqish', 'кызыгуу'), 'родник': ('buloq', 'булак'),
+            'колодец': ('quduq', 'кудук'), 'берег': ('qirgʻoq', 'жээк'),
+            'вид': ('tur', 'түр'), 'право': ('huquq', 'укук'), 'власть': ('hokimiyat', 'бийлик'),
+            'сила': ('kuch', 'күч'), 'приказ': ('buyruq', 'буйрук'), 'письмо': ('xat', 'кат'),
+            'линейка': ('chizgʻich', 'сызгыч'), 'секунда': ('soniya', 'секунда'),
+            'солнце': ('quyosh', 'күн'), 'луна': ('oy', 'ай'), 'звезда': ('yulduz', 'жылдыз'),
+            'гора': ('togʻ', 'тоо'), 'река': ('daryo', 'дарыя'), 'море': ('dengiz', 'деңиз'),
+            'дождь': ('yomgʻir', 'жамгыр'), 'снег': ('qor', 'кар'), 'ветер': ('shamol', 'шамал'),
+            'камень': ('tosh', 'таш'), 'сердце': ('yurak', 'жүрөк'), 'тело': ('tana', 'дене'),
+            'рука': ('qoʻl', 'кол'), 'глаз': ('koʻz', 'көз'), 'ухо': ('quloq', 'кулак'),
+            'голова': ('bosh', 'баш'), 'рот': ('ogʻiz', 'ооз'), 'день': ('kun', 'күн'),
+            'месяц': ('oy', 'ай'), 'год': ('yil', 'жыл'), 'время': ('vaqt', 'убакыт'),
+            'слово': ('soʻz', 'сөз'), 'книга': ('kitob', 'китеп'), 'тетрадь': ('daftar', 'дептер'),
+            'пот': ('ter', 'тер'), 'молодой побег': ('yosh nihol', 'жаш бүчүр'),
+            'восток': ('sharq', 'чыгыш'), 'запад': ('gʻarb', 'батыш'),
+            'север': ('shimol', 'түндүк'), 'юг': ('janub', 'түштүк'),
+            'белый': ('oq', 'ак'), 'чёрный': ('qora', 'кара'), 'красный': ('qizil', 'кызыл'),
+            'синий': ('koʻk', 'көк'), 'зелёный': ('yashil', 'жашыл'), 'жёлтый': ('sariq', 'сары'),
+        }
+        for (language, source_language, source), value in list(self.cache.items()):
+            if language == "uz":
+                self.cache[language, source_language, source] = re.sub(r"([oOgG])\s*[ʻʼ‘’'`´]\s*", r"\1ʻ", value)
+        self.reviewed = set(glossary)
+        for source, targets in glossary.items():
+            for language, translated in zip(('uz', 'ky'), targets):
+                self.cache[language, 'rus_Cyrl', source] = translated
+
+    def remember(self, language, source, translated, source_language="rus_Cyrl"):
+        self.cache[language, source_language, source] = translated
+        with self.path.open('a') as output:
+            output.write(json.dumps({'language': language, 'source_language': source_language, 'source': source, 'text': translated}, ensure_ascii=False) + '\n')
+
+    def translate(self, requests, source_language="rus_Cyrl"):
+        pending = list(dict.fromkeys((lang, text) for lang, text in requests if (lang, source_language, text) not in self.cache))
+        simple, tokens, prefixes, protected = [], [], [], []
+        for language, source in pending:
+            # Keep dictionary headword labels outside the translation model.
+            label = re.match(r'^([가-힣]+):\s*(.+)$', source)
+            if label:
+                self.translate([(language, label.group(2))], source_language)
+                self.remember(language, source, label.group(1) + ': ' + self.cache[language, source_language, label.group(2)], source_language)
+                continue
+            parts = []
+            def replace(match):
+                marker = str(98700 + len(parts)); parts.append((marker, match.group()))
+                return marker
+            prepared = TERMS.sub(replace, source)
+            simple.append((language, source)); protected.append(parts)
+            tokens.append(self.tokenizer.encode(prepared, out_type=str) + ['</s>', source_language])
+            prefixes.append([CODES[language]])
+        if not tokens:
+            return
+        outputs = self.model.translate_batch(tokens, target_prefix=prefixes, beam_size=4, max_batch_size=5, max_decoding_length=512)
+        for (language, source), parts, result in zip(simple, protected, outputs):
+            translated = self.tokenizer.decode(result.hypotheses[0][1:]).strip()
+            lost = False
+            for marker, literal in parts:
+                translated = re.sub(r'(?<!\d)' + r'[\s,.-]*'.join(marker) + r'(?!\d)', marker, translated)
+                if marker not in translated:
+                    lost = True
+                    break
+                translated = translated.replace(marker, literal)
+            if lost:
+                # Short prose fragments avoid losing teaching terms to paraphrases.
+                fragments = []
+                position = 0
+                for match in TERMS.finditer(source):
+                    fragments.extend([(False, source[position:match.start()]), (True, match.group())])
+                    position = match.end()
+                fragments.append((False, source[position:]))
+                prose = [part.strip() for keep, part in fragments if not keep and re.search(r'[A-Za-zА-Яа-яЁё]', part)]
+                self.translate([(language, text) for text in prose], source_language)
+                translated = ' '.join(part if keep or not re.search(r'[A-Za-zА-Яа-яЁё]', part) else self.cache[language, source_language, part.strip()] for keep, part in fragments)
+            translated = re.sub(r'\s+', ' ', translated).strip()
+            if language == 'uz':
+                translated = re.sub(r"([oOgG])\s*[ʻʼ‘’'`´]\s*", r'\1ʻ', translated)
+            if '<unk>' in translated or not translated:
+                raise ValueError(f'Empty/unknown {language} translation: {source!r} => {translated!r}')
+            self.remember(language, source, translated, source_language)
+
+    def sentences(self, language, text):
+        parts = re.split(r'(?<=[.!?;])\s+', text)
+        self.translate([(language, part) for part in parts])
+        return ' '.join(self.cache[language, "rus_Cyrl", part] for part in parts)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dataset', type=Path, default=Path(__file__).resolve().parents[1] / 'dataset')
+    parser.add_argument('--languages', nargs='+', choices=CODES, default=['uz', 'ky'])
+    parser.add_argument('--model', type=Path, required=True)
+    parser.add_argument('--validator', type=Path, required=True)
+    parser.add_argument('--work-dir', type=Path, required=True)
+    parser.add_argument('--limit-records', type=int)
+    parser.add_argument('--rewrite-characters', action='store_true')
+    parser.add_argument('--rewrite-words', action='store_true')
+    args = parser.parse_args()
+    args.work_dir.mkdir(parents=True, exist_ok=True)
+    translator = DraftTranslator(args.model, args.work_dir / 'drafts.jsonl')
+    groups = {row['id']: row for row in read_rows(args.dataset / 'meta.jsonl')}
+    characters = {}
+    total = 0; started = time.monotonic()
+    with (args.work_dir / 'batches.jsonl').open('a') as log:
+        for filename in ['character.jsonl', 'word.jsonl', 'example.jsonl', 'practice.json']:
+            if filename == 'word.jsonl':
+                for row in read_rows(args.dataset / 'character.jsonl'):
+                    sound = groups[row['id'].rsplit('-', 1)[0]]['sound_ko']
+                    characters[row['hanja'], sound] = row
+                    characters.setdefault((row['hanja'], ''), row)
+            rows = read_rows(args.dataset / filename)
+            pending = []
+            for row in rows:
+                try:
+                    if (args.rewrite_characters and filename == 'character.jsonl') or (args.rewrite_words and filename == 'word.jsonl'):
+                        raise ValueError('Rewrite draft dictionary forms')
+                    check_row(filename, row, args.languages)
+                    if filename == 'word.jsonl':
+                        code, source = ('rus_Cyrl',row['meaning_ru']) if row['meaning_ru'] in translator.reviewed else ('eng_Latn',row['meaning_en'])
+                        if any(translator.cache.get((language,code,source)) != row.get(f'meaning_{language}') for language in args.languages):
+                            raise ValueError('Refresh from the primary definition')
+                except ValueError:
+                    pending.append(row)
+            print(filename, 'pending', len(pending), flush=True)
+            for offset in range(0, len(pending), 10):
+                batch = pending[offset:offset + 10]
+                if args.limit_records:
+                    batch = batch[:max(0, args.limit_records - total)]
+                if not batch:
+                    return
+                requests, english_requests = [], []
+                for row in batch:
+                    if filename == 'word.jsonl':
+                        if row['meaning_ru'] not in translator.reviewed:
+                            english_requests.extend((language,row['meaning_en']) for language in args.languages)
+                    else:
+                        sources = row['meaning_ru'] if filename == 'character.jsonl' else [row['example_ru']] if filename == 'example.jsonl' else [part for field in ('prompt_ru','explanation_ru') for part in re.split(r'(?<=[.!?;])\s+',row[field])]
+                        requests.extend((language, text) for text in sources for language in args.languages)
+                translator.translate(requests)
+                translator.translate(english_requests, "eng_Latn")
+                patches = []
+                for row in batch:
+                    updates = {}
+                    for language in args.languages:
+                        if filename == 'character.jsonl':
+                            updates[f'meaning_{language}'] = list(dict.fromkeys(translator.cache[language, 'rus_Cyrl', value] for value in row['meaning_ru']))
+                        elif filename == 'word.jsonl':
+                            meaning = (translator.cache[language, 'rus_Cyrl', row['meaning_ru']] if row['meaning_ru'] in translator.reviewed else translator.cache[language, 'eng_Latn', row['meaning_en']])
+                            updates[f'meaning_{language}'] = meaning
+                            if row.get('semantic_hint'):
+                                references = list(dict.fromkeys(READINGS.findall(row['semantic_hint'])))
+                                if not references:
+                                    spelling = list(re.sub(r'\s', '', row['word']))
+                                    references = [(glyph, spelling[i] if i < len(spelling) else '') for i, glyph in enumerate(row['hanja']) if TERMS.fullmatch(glyph) and not ('가' <= glyph <= '힣')]
+                                details = []
+                                for glyph, sound in references:
+                                    reading = characters.get((glyph, sound), characters.get((glyph, '')))
+                                    label = f'{glyph}[{sound}]' if sound else glyph
+                                    details.append(label + ' — ' + ', '.join(reading[f'meaning_{language}']) if reading else label)
+                                heading = 'Iyerogliflar va ularning maʼnolari: ' if language == 'uz' else 'Иероглифтердин маанилери: '
+                                ending = f'«{row["word"]}» ({row["hanja"]}) soʻzining maʼnosi: ' if language == 'uz' else f'«{row["word"]}» ({row["hanja"]}) сөзүнүн мааниси: '
+                                updates[f'semantic_hint_{language}'] = heading + '; '.join(details).rstrip('.') + '. ' + ending + meaning.rstrip('.') + '.'
+                        elif filename == 'example.jsonl':
+                            updates[f'example_{language}'] = translator.cache[language, 'rus_Cyrl', row['example_ru']]
+                        else:
+                            updates[f'prompt_{language}'] = translator.sentences(language, row['prompt_ru'])
+                            updates[f'explanation_{language}'] = translator.sentences(language, row['explanation_ru'])
+                    patches.append({'file': filename, 'key': identity(filename, row), 'updates': updates})
+                apply_batch(args.dataset, patches, args.validator.resolve(), log, args.languages)
+                total += len(batch)
+                if offset % 100 == 0 or offset + len(batch) == len(pending):
+                    print(filename, offset + len(batch), '/', len(pending), 'validated; total', total, 'seconds', round(time.monotonic() - started), flush=True)
+    print('Complete:', check_all(args.dataset, args.languages), flush=True)
+
+
+if __name__ == '__main__':
+    main()
