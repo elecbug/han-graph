@@ -41,6 +41,13 @@ WORD_REVIEW = {
     'health, physical and mental well-being': ('sogʻliq, jismoniy va ruhiy farovonlik', 'ден соолук, дененин жана психиканын жакшы абалы'),
     'sheet music; musical score': ('notalar; partitura', 'ноталар; партитура'),
     'being struck with astonishment': ('hayratdan lol qolish', 'таң калуудан нес болуу'),
+    'adverb': ('ravish', 'тактооч'),
+    'tripod': ('uchoyoqli taglik', 'үч буттуу таяныч'),
+    'May': ('may', 'май'), 'Purple.': ('binafsha rang', 'кызгылт көк түс'),
+    'larva': ('lichinka', 'личинка'), 'novella': ('qissa', 'повесть'),
+    'alveolus': ('alveola', 'альвеола'),
+    'empress dowager': ('imperatorning onasi boʻlgan beva imperatritsa', 'императордун жесир калган энеси'),
+    'larynx': ('hiqildoq', 'кекиртек'),
 }
 
 SENSE_REVIEW = {
@@ -60,7 +67,50 @@ SENSE_REVIEW = {
     'shallow': ('sayoz', 'тайыз'), 'cold': ('sovuq', 'суук'), 'hot': ('issiq', 'ысык'),
     'warm': ('iliq', 'жылуу'), 'high': ('baland', 'бийик'), 'low': ('past', 'төмөн'),
     'not yet': ('hali emas', 'али жок'),
+    'universal': ('umumiy', 'жалпы'), 'token': ('belgi', 'белги'),
+    'talisman': ('tumor', 'тумар'), 'aspen': ('togʻterak', 'көктерек'),
+    'ballad': ('ballada', 'баллада'), 'anchor': ('langar', 'кеме казыгы'),
+    'marten': ('suvsar', 'суусар'), 'fragment': ('parcha', 'үзүндү'),
+    'linchpin': ('oʻqni mahkamlovchi shtift', 'окту бекитүүчү төөнөгүч'),
     'heavenly stem': ('anʼanaviy taqvimdagi osmon belgisi', 'салттуу жылнаамадагы асман белгиси'),
+}
+EXAMPLE_REVIEW = {
+    '소설 속 인물은 가랄한 태도로 묘사되어 있어요.': (
+        'Romandagi qahramon nihoyatda qoʻpol va shafqatsiz qilib tasvirlangan.',
+        'Романдагы каарман өтө катаал жана ырайымсыз болуп сүрөттөлөт.'),
+    '그 기술은 환경 문제를 해결할 대안으로 각광을 받고 있어요.': (
+        'Bu texnologiya ekologik muammolarni hal qilishning muqobil usuli sifatida eʼtibor qozonmoqda.',
+        'Бул технология экологиялык көйгөйлөрдү чечүүнүн башка жолу катары көңүл чордонунда турат.'),
+    '소설 속 인물은 간악한 태도로 주변 사람들을 대했어요.': (
+        'Romandagi qahramon atrofidagilarga makkorlik va yovuzlik bilan munosabatda boʻldi.',
+        'Романдагы каарман айланасындагыларга амалкөйлүк жана кара ниеттик менен мамиле кылган.'),
+    '오래 걸은 뒤 물을 마시니 갈증이 가셨어요.': (
+        'Uzoq yurganimdan keyin suv ichib chanqogʻimni qondirdim.',
+        'Узак баскандан кийин суу ичип, суусунумду кандырдым.'),
+    '전문가는 작은 차이를 살펴 대상을 감별했어요.': (
+        'Mutaxassis kichik farqlarni oʻrganib, buyumni ajratib oldi.',
+        'Адис кичинекей айырмачылыктарды карап, буюмду айырмалап тааныды.'),
+    '방문객들은 전시된 작품을 조용히 감상했어요.': (
+        'Tashrifchilar koʻrgazmadagi asarlarni jimgina tomosha qilishdi.',
+        'Көрүүчүлөр көргөзмөдөгү чыгармаларды унчукпай карап турушту.'),
+    '꾸준한 연습을 통해 강단을 기르려고 해요.': (
+        'Muntazam mashq qilib, qatʼiyatimni oshirishga harakat qilyapman.',
+        'Туруктуу машыгуу аркылуу чечкиндүүлүктү өрчүтүүгө аракет кылып жатам.'),
+    '이야기에 등장하는 개선장군의 행동을 살펴보았어요.': (
+        'Hikoyadagi gʻalaba bilan qaytgan sarkardaning harakatlarini oʻrganib chiqdim.',
+        'Аңгемедеги жеңиш менен кайтып келген кол башчынын аракеттерин изилдедим.'),
+    '새로운 정보에 맞추어 기록을 갱신했어요.': (
+        'Yangi maʼlumotga moslab qaydlarimni yangiladim.',
+        'Жазууларымды жаңы маалыматка ылайык жаңырттым.'),
+    '역사책은 나라의 건국 과정부터 설명하고 있어요.': (
+        'Tarix kitobi avval mamlakatning tashkil topish jarayonini tushuntiradi.',
+        'Тарых китеби алгач өлкөнүн түптөлүү жараянын түшүндүрөт.'),
+    '검색어를 구체적으로 입력하면 원하는 정보를 찾기 쉬워요.': (
+        'Aniq qidiruv soʻzini kiritsangiz, kerakli maʼlumotni topish oson boʻladi.',
+        'Так издөө сөзүн киргизсеңиз, керектүү маалыматты табуу оңой болот.'),
+    '소설 속 인물은 겁약한 태도로 묘사되어 있어요.': (
+        'Romandagi qahramon tortinchoq sifatida tasvirlangan.',
+        'Романдагы каарман тартынчаак катары сүрөттөлөт.'),
 }
 _english_ordinals = 'first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth'.split()
 _uzbek_ordinals = 'birinchi ikkinchi uchinchi toʻrtinchi beshinchi oltinchi yettinchi sakkizinchi toʻqqizinchi oʻninchi oʻn_birinchi oʻn_ikkinchi'.split()
@@ -277,6 +327,9 @@ def main():
                     if filename == 'word.jsonl':
                         if any(row.get(key) != value for key, value in word_updates(row, args.languages, translator, characters).items()):
                             raise ValueError('Refresh from the primary definition')
+                    if filename == 'example.jsonl' and row['example_ko'] in EXAMPLE_REVIEW:
+                        if any(row.get(f'example_{lang}') != EXAMPLE_REVIEW[row['example_ko']][('uz','ky').index(lang)] for lang in args.languages):
+                            raise ValueError('Refresh the reviewed example')
                 except ValueError:
                     pending.append(row)
             print(filename, 'pending', len(pending), flush=True)
@@ -303,7 +356,7 @@ def main():
                         if filename == 'character.jsonl':
                             updates.update(character_updates(row, args.languages, translator))
                         elif filename == 'example.jsonl':
-                            updates[f'example_{language}'] = translator.cache[language, 'rus_Cyrl', row['example_ru']]
+                            updates[f'example_{language}'] = EXAMPLE_REVIEW[row['example_ko']][('uz','ky').index(language)] if row['example_ko'] in EXAMPLE_REVIEW else translator.cache[language, 'rus_Cyrl', row['example_ru']]
                         elif filename == 'practice.json':
                             updates[f'prompt_{language}'] = translator.sentences(language, row['prompt_ru'])
                             updates[f'explanation_{language}'] = translator.sentences(language, row['explanation_ru'])
