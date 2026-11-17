@@ -16,6 +16,63 @@ CODES = {'uz': 'uzn_Latn', 'ky': 'kir_Cyrl'}
 TERMS = re.compile(r'[\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af]+(?:\[[가-힣]+\])?|[가-힣]+')
 READINGS = re.compile(r'([\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af])\[([가-힣]+)\]')
 
+# Context-sensitive senses checked against the Korean entry, not a bridge-language
+# homonym (e.g. 將 is a military commander, 堰 is a dam).
+CHARACTER_REVIEW = {
+    'gyeong-001': (['anʼanaviy taqvimdagi yettinchi osmon belgisi'], ['салттуу жылнаамадагы жетинчи асман белгиси']),
+    'gwi-000': (['qaytmoq', 'tegishli boʻlmoq', 'turmushga chiqmoq'], ['кайтуу', 'таандык болуу', 'турмушка чыгуу']),
+    'deok-000': (['ezgulik', 'axloqiy fazilat'], ['адептүүлүк', 'адеп-ахлактык сапат']),
+    'deung-002': (['teng', 'daraja'], ['бирдей', 'даража']),
+    'eon-200': (['toʻgʻon'], ['дамба; суу тосмосу']),
+    'yeom-100': (['boʻyamoq', 'dogʻ tushirmoq'], ['боёо', 'так түшүрүү']),
+    'wi-107': (['aytmoq', 'atamoq'], ['айтуу', 'атоо']),
+    'jang-002': (['kelajakda', 'lashkarboshi'], ['келечекте', 'кол башчы']),
+    'jae-100': (['vazir', 'boshqarmoq', 'mol soʻymoq'], ['вазир', 'башкаруу', 'мал союу']),
+    'ta-201': (['soʻlak'], ['шилекей']),
+    'tak-102': (['loyqa', 'nopok'], ['ылай', 'таза эмес']),
+    'ho-103': (['varvar'], ['варвар']),
+    'bong-100': (['muhrlamoq', 'bermoq', 'toʻsib qoʻymoq', 'tuproq uymoq'], ['мөөр басуу', 'ыйгаруу', 'тосуп коюу', 'топурак үйүү']),
+}
+
+WORD_REVIEW = {
+    'dictionary': ('lugʻat', 'сөздүк'),
+    'a tree nursery': ('koʻchatzor', 'көчөт өстүрүүчү жай'),
+    'perfect-attendance award': ('biror darsni qoldirmaganlik uchun mukofot', 'сабакты калтырбагандыгы үчүн сыйлык'),
+    'health, physical and mental well-being': ('sogʻliq, jismoniy va ruhiy farovonlik', 'ден соолук, дененин жана психиканын жакшы абалы'),
+    'sheet music; musical score': ('notalar; partitura', 'ноталар; партитура'),
+    'being struck with astonishment': ('hayratdan lol qolish', 'таң калуудан нес болуу'),
+}
+
+SENSE_REVIEW = {
+    'armor': ('zirh', 'соот'), 'shell': ('qobiq', 'кабык'),
+    'rabbit': ('quyon', 'коён'), 'tiger': ('yoʻlbars', 'жолборс'),
+    'ox': ('hoʻkiz', 'өгүз'), 'pig': ('choʻchqa', 'чочко'),
+    'rooster': ('xoʻroz', 'короз'), 'monkey': ('maymun', 'маймыл'),
+    'horse': ('ot', 'ат'), 'dog': ('it', 'ит'), 'rat': ('kalamush', 'келемиш'),
+    'sheep': ('qoʻy', 'кой'), 'goat': ('echki', 'эчки'), 'bird': ('qush', 'куш'),
+    'fish': ('baliq', 'балык'), 'dragon': ('ajdarho', 'ажыдаар'),
+    'saliva': ('soʻlak', 'шилекей'), 'muddy': ('loyqa', 'ылайлуу'),
+    'weak': ('zaif', 'алсыз'), 'rich': ('boy', 'бай'), 'wealthy': ('badavlat', 'бай'),
+    'abundant': ('moʻl', 'мол'), 'poverty': ('kambagʻallik', 'жакырчылык'),
+    'clean': ('toza', 'таза'), 'dirty': ('kirli', 'кир'), 'pure': ('sof', 'таза'),
+    'easy': ('oson', 'оңой'), 'early': ('erta', 'эрте'), 'late': ('kech', 'кеч'),
+    'fast': ('tez', 'тез'), 'slow': ('sekin', 'жай'), 'deep': ('chuqur', 'терең'),
+    'shallow': ('sayoz', 'тайыз'), 'cold': ('sovuq', 'суук'), 'hot': ('issiq', 'ысык'),
+    'warm': ('iliq', 'жылуу'), 'high': ('baland', 'бийик'), 'low': ('past', 'төмөн'),
+    'not yet': ('hali emas', 'али жок'),
+    'heavenly stem': ('anʼanaviy taqvimdagi osmon belgisi', 'салттуу жылнаамадагы асман белгиси'),
+}
+_english_ordinals = 'first second third fourth fifth sixth seventh eighth ninth tenth eleventh twelfth'.split()
+_uzbek_ordinals = 'birinchi ikkinchi uchinchi toʻrtinchi beshinchi oltinchi yettinchi sakkizinchi toʻqqizinchi oʻninchi oʻn_birinchi oʻn_ikkinchi'.split()
+_kyrgyz_ordinals = 'биринчи экинчи үчүнчү төртүнчү бешинчи алтынчы жетинчи сегизинчи тогузунчу онунчу он_биринчи он_экинчи'.split()
+for index, ordinal in enumerate(_english_ordinals):
+    for kind, uz_term, ky_term in [('heavenly stem', 'osmon belgisi', 'асман белгиси'), ('earthly branch', 'yer belgisi', 'жер белгиси')]:
+        if kind == 'heavenly stem' and index >= 10:
+            continue
+        uz_ordinal = _uzbek_ordinals[index].replace('_', ' ')
+        ky_ordinal = _kyrgyz_ordinals[index].replace('_', ' ')
+        SENSE_REVIEW[f'{ordinal} {kind}'] = (f'anʼanaviy taqvimdagi {uz_ordinal} {uz_term}', f'салттуу жылнаамадагы {ky_ordinal} {ky_term}')
+
 
 class DraftTranslator:
     def __init__(self, model, cache_path):
@@ -84,6 +141,9 @@ class DraftTranslator:
         for source, targets in glossary.items():
             for language, translated in zip(('uz', 'ky'), targets):
                 self.cache[language, 'rus_Cyrl', source] = translated
+        for source, targets in {**SENSE_REVIEW, **WORD_REVIEW}.items():
+            for language, translated in zip(('uz', 'ky'), targets):
+                self.cache[language, 'eng_Latn', source] = translated
 
     def remember(self, language, source, translated, source_language="rus_Cyrl"):
         self.cache[language, source_language, source] = translated
@@ -144,6 +204,43 @@ class DraftTranslator:
         return ' '.join(self.cache[language, "rus_Cyrl", part] for part in parts)
 
 
+def word_updates(row, languages, translator, characters):
+    updates = {}
+    for language in languages:
+        code, source = ('rus_Cyrl', row['meaning_ru']) if row['meaning_ru'] in translator.reviewed else ('eng_Latn', row['meaning_en'])
+        meaning = translator.cache.get((language, code, source))
+        updates[f'meaning_{language}'] = meaning
+        if not meaning or not row.get('semantic_hint'):
+            continue
+        references = list(dict.fromkeys(READINGS.findall(row['semantic_hint'])))
+        if not references:
+            spelling = list(re.sub(r'\s', '', row['word']))
+            references = [(glyph, spelling[i] if i < len(spelling) else '') for i, glyph in enumerate(row['hanja']) if TERMS.fullmatch(glyph) and not ('가' <= glyph <= '힣')]
+        details = []
+        for glyph, sound in references:
+            reading = characters.get((glyph, sound), characters.get((glyph, '')))
+            label = f'{glyph}[{sound}]' if sound else glyph
+            details.append(label + ' — ' + ', '.join(reading[f'meaning_{language}']) if reading else label)
+        heading = 'Iyerogliflar va ularning maʼnolari: ' if language == 'uz' else 'Иероглифтердин маанилери: '
+        ending = f'«{row["word"]}» ({row["hanja"]}) soʻzining maʼnosi: ' if language == 'uz' else f'«{row["word"]}» ({row["hanja"]}) сөзүнүн мааниси: '
+        updates[f'semantic_hint_{language}'] = heading + '; '.join(details).rstrip('.') + '. ' + ending + meaning.rstrip('.') + '.'
+    return updates
+
+
+def character_updates(row, languages, translator):
+    updates = {}
+    for language in languages:
+        index = ('uz', 'ky').index(language)
+        if row['id'] in CHARACTER_REVIEW:
+            values = CHARACTER_REVIEW[row['id']][index]
+        elif len(row['meaning_en']) == len(row['meaning_ru']):
+            values = [SENSE_REVIEW[en.lower()][index] if en.lower() in SENSE_REVIEW else translator.cache.get((language, 'rus_Cyrl', ru)) for en, ru in zip(row['meaning_en'], row['meaning_ru'])]
+        else:
+            values = [translator.cache.get((language, 'rus_Cyrl', ru)) for ru in row['meaning_ru']]
+        updates[f'meaning_{language}'] = list(dict.fromkeys(values))
+    return updates
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dataset', type=Path, default=Path(__file__).resolve().parents[1] / 'dataset')
@@ -174,9 +271,11 @@ def main():
                     if (args.rewrite_characters and filename == 'character.jsonl') or (args.rewrite_words and filename == 'word.jsonl'):
                         raise ValueError('Rewrite draft dictionary forms')
                     check_row(filename, row, args.languages)
+                    if filename == 'character.jsonl':
+                        if any(row.get(key) != value for key, value in character_updates(row, args.languages, translator).items()):
+                            raise ValueError('Refresh the reviewed character sense')
                     if filename == 'word.jsonl':
-                        code, source = ('rus_Cyrl',row['meaning_ru']) if row['meaning_ru'] in translator.reviewed else ('eng_Latn',row['meaning_en'])
-                        if any(translator.cache.get((language,code,source)) != row.get(f'meaning_{language}') for language in args.languages):
+                        if any(row.get(key) != value for key, value in word_updates(row, args.languages, translator, characters).items()):
                             raise ValueError('Refresh from the primary definition')
                 except ValueError:
                     pending.append(row)
@@ -199,29 +298,13 @@ def main():
                 translator.translate(english_requests, "eng_Latn")
                 patches = []
                 for row in batch:
-                    updates = {}
+                    updates = word_updates(row, args.languages, translator, characters) if filename == 'word.jsonl' else {}
                     for language in args.languages:
                         if filename == 'character.jsonl':
-                            updates[f'meaning_{language}'] = list(dict.fromkeys(translator.cache[language, 'rus_Cyrl', value] for value in row['meaning_ru']))
-                        elif filename == 'word.jsonl':
-                            meaning = (translator.cache[language, 'rus_Cyrl', row['meaning_ru']] if row['meaning_ru'] in translator.reviewed else translator.cache[language, 'eng_Latn', row['meaning_en']])
-                            updates[f'meaning_{language}'] = meaning
-                            if row.get('semantic_hint'):
-                                references = list(dict.fromkeys(READINGS.findall(row['semantic_hint'])))
-                                if not references:
-                                    spelling = list(re.sub(r'\s', '', row['word']))
-                                    references = [(glyph, spelling[i] if i < len(spelling) else '') for i, glyph in enumerate(row['hanja']) if TERMS.fullmatch(glyph) and not ('가' <= glyph <= '힣')]
-                                details = []
-                                for glyph, sound in references:
-                                    reading = characters.get((glyph, sound), characters.get((glyph, '')))
-                                    label = f'{glyph}[{sound}]' if sound else glyph
-                                    details.append(label + ' — ' + ', '.join(reading[f'meaning_{language}']) if reading else label)
-                                heading = 'Iyerogliflar va ularning maʼnolari: ' if language == 'uz' else 'Иероглифтердин маанилери: '
-                                ending = f'«{row["word"]}» ({row["hanja"]}) soʻzining maʼnosi: ' if language == 'uz' else f'«{row["word"]}» ({row["hanja"]}) сөзүнүн мааниси: '
-                                updates[f'semantic_hint_{language}'] = heading + '; '.join(details).rstrip('.') + '. ' + ending + meaning.rstrip('.') + '.'
+                            updates.update(character_updates(row, args.languages, translator))
                         elif filename == 'example.jsonl':
                             updates[f'example_{language}'] = translator.cache[language, 'rus_Cyrl', row['example_ru']]
-                        else:
+                        elif filename == 'practice.json':
                             updates[f'prompt_{language}'] = translator.sentences(language, row['prompt_ru'])
                             updates[f'explanation_{language}'] = translator.sentences(language, row['explanation_ru'])
                     patches.append({'file': filename, 'key': identity(filename, row), 'updates': updates})

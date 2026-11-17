@@ -15,7 +15,7 @@ import unicodedata
 
 BATCH_SIZE = 10
 LANGUAGES = ('ru', 'uz', 'ky')
-CYRILLIC = re.compile(r"[А-Яа-яЁёӨөҮүҢң]")
+CYRILLIC = re.compile(r"[\u0400-\u052f]")
 LATIN = re.compile(r"[A-Za-z]")
 def fields_for(languages):
     fields = {
@@ -45,7 +45,7 @@ def check_text(text, maximum, language="ru"):
         raise ValueError("Translation text must be a nonempty trimmed string")
     if len(text) > maximum or any(unicodedata.category(c) == "Cc" for c in text):
         raise ValueError("Translation text has a control character or exceeds the field limit")
-    if not (LATIN if language == "uz" else CYRILLIC).search(text) or (language == "uz" and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b", text):
+    if not (LATIN if language == "uz" else CYRILLIC).search(text) or (language == "uz" and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b|&(?:amp;|#)", text):
         raise ValueError(f"Untranslated {language} text or unresolved placeholder: {text!r}")
 
 

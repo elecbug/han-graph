@@ -242,11 +242,14 @@ export function edgePaths(edge, nodes) {
 
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 
-export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel='단어 살펴보기',characterLabel='한자',label='한자와 단어 연결 그래프'} = {}) {
+export function renderNetworkSVG(layout, {lang='ko',highlighted,wordLabel,characterLabel,label} = {}) {
   const wordHref=word=>`#explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`;
   const characterHref=glyph=>`#explore?${new URLSearchParams({character:glyph})}`;
   const category=wordCategory;
   const labels=copy[normalizeLanguage(lang)];
+  wordLabel??=labels.openWord;
+  characterLabel??=labels.characters;
+  label??=labels.graphRegion;
   const categoryNames={easy:labels.levelEasy,normal:labels.levelNormal,hard:labels.levelHard,classical:labels.levelClassical};
   const categoryLabel=word=>categoryNames[category(word)];
   const paths=layout.edges.map(edge=>`<a href="${esc(wordHref(edge.word))}" tabindex="-1" aria-hidden="true" data-edge-id="${esc(edge.id)}" class="network-line-link ${category(edge.word)} ${edge.current?'current':''}">${edgePaths(edge,layout.nodes).map(path=>`<path class="network-path-halo" d="${path}"/><path class="network-hit" d="${path}"/><path class="network-path" d="${path}"/>`).join('')}</a>`).join('');

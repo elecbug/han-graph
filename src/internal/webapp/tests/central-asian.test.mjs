@@ -23,8 +23,9 @@ for(const language of ['uz','ky']) {
   });
   test(`${language} remains local in graph categories and accessible meanings`,()=>{
     const network={roots:['學'],words:[word],characters:[result.components[0],{hanja:'習',readings:[]}]};
-    const svg=renderNetworkSVG(layoutNetwork(network,word),{lang:language,wordLabel:copy[language].openWord,characterLabel:copy[language].characters,label:copy[language].graphRegion});
+    const svg=renderNetworkSVG(layoutNetwork(network,word),{lang:language});
     assert(svg.includes(copy[language].levelNormal));assert(svg.includes(word[`meaning_${language}`]));
+    assert(svg.includes(copy[language].graphRegion));assert(svg.includes(copy[language].openWord));
     assert(!svg.includes('English meaning'));assert(!svg.includes('Русское значение'));
   });
 }
