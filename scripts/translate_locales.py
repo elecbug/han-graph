@@ -5,9 +5,11 @@ Requires CTranslate2 and SentencePiece only for this maintenance command. The
 application uses the saved JSON fields and needs neither library nor model.
 """
 import argparse
+import html
 import json
 from pathlib import Path
 import re
+import signal
 import time
 
 from localized_dataset import apply_batch, check_all, check_row, identity, read_rows
@@ -15,6 +17,12 @@ from localized_dataset import apply_batch, check_all, check_row, identity, read_
 CODES = {'uz': 'uzn_Latn', 'ky': 'kir_Cyrl'}
 TERMS = re.compile(r'[\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af]+(?:\[[가-힣]+\])?|[가-힣]+')
 READINGS = re.compile(r'([\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af])\[([가-힣]+)\]')
+
+
+def source_text(text):
+    for _ in range(3):
+        text = html.unescape(text)
+    return re.sub(r'>\s*>', '»', re.sub(r'<\s*<', '«', text))
 
 # Context-sensitive senses checked against the Korean entry, not a bridge-language
 # homonym (e.g. 將 is a military commander, 堰 is a dam).
@@ -75,6 +83,57 @@ SENSE_REVIEW = {
     'heavenly stem': ('anʼanaviy taqvimdagi osmon belgisi', 'салттуу жылнаамадагы асман белгиси'),
 }
 EXAMPLE_REVIEW = {
+    '같은 물건이라도 가게마다 가격이 달라요.': (
+        'Bir xil mahsulotning narxi ham doʻkonga qarab farq qiladi.',
+        'Бир эле товардын баасы дүкөнгө жараша айырмаланат.'),
+    '가정에서 서로의 이야기를 듣는 시간을 가지려고 해요.': (
+        'Uyda bir-birimizning gapimizni tinglashga vaqt ajratishga harakat qilaman.',
+        'Үйдө бири-бирибизди угууга убакыт бөлүүгө аракет кылам.'),
+    '모든 조건이 같다는 가정 아래 두 실험을 비교했어요.': (
+        'Barcha sharoitlar bir xil degan faraz asosida ikki tajribani taqqosladim.',
+        'Бардык шарттар бирдей деген божомол менен эки тажрыйбаны салыштырдым.'),
+    '주말에는 가족과 함께 저녁을 먹어요.': (
+        'Dam olish kunlari oilam bilan kechki ovqatni birga yeyman.',
+        'Дем алыш күндөрү үй-бүлөм менен бирге кечки тамак ичем.'),
+    '동아리에서는 개인의 의견도 빠짐없이 들으려고 해요.': (
+        'Toʻgarakda har bir kishining fikrini eʼtiborsiz qoldirmay tinglashga harakat qilamiz.',
+        'Ийримде ар бир адамдын пикирин калтырбай угууга аракет кылабыз.'),
+    '도서관에서 친구와 함께 한국어를 공부했어요.': (
+        'Kutubxonada doʻstim bilan koreys tilini oʻrgandim.',
+        'Китепканада досум менен корей тилин үйрөндүм.'),
+    '박물관에서는 어린이를 위한 역사 교육을 진행해요.': (
+        'Muzeyda bolalar uchun tarix darslari oʻtkaziladi.',
+        'Музейде балдарга тарых боюнча билим берилет.'),
+    '여행 중에 본 것과 느낀 것을 기록으로 남겼어요.': (
+        'Sayohatda koʻrganlarim va his qilganlarimni yozib qoldirdim.',
+        'Сапарда көргөндөрүмдү жана сезимдеримди жазып калтырдым.'),
+    '서로에 대한 신뢰는 협력의 기초가 돼요.': (
+        'Bir-biriga ishonch hamkorlikning asosidir.',
+        'Бири-бирине болгон ишеним кызматташуунун негизи болот.'),
+    '사전에서 모르는 단어의 뜻을 찾아보았어요.': (
+        'Lugʻatdan bilmagan soʻzimning maʼnosini izladim.',
+        'Билбеген сөзүмдүн маанисин сөздүктөн издедим.'),
+    '사전에서 단어의 뜻과 쓰임을 함께 확인했어요.': (
+        'Lugʻatdan soʻzning maʼnosi va qoʻllanishini birga tekshirdim.',
+        'Сөздүктөн сөздүн маанисин жана колдонулушун чогуу карадым.'),
+    '오늘 수업에서는 한국어로 길을 묻는 연습을 했어요.': (
+        'Bugungi darsda koreys tilida yoʻl soʻrashni mashq qildik.',
+        'Бүгүнкү сабакта корей тилинде жол суроону машыктык.'),
+    '서로 다른 언어를 배우며 문화를 이해해요.': (
+        'Turli tillarni oʻrganib, madaniyatlarni tushunamiz.',
+        'Ар түрдүү тилдерди үйрөнүп, маданияттарды түшүнөбүз.'),
+    '오랜만에 만난 친구와 밤늦도록 이야기를 나누었어요.': (
+        'Anchadan beri koʻrmagan doʻstim bilan kech tungacha suhbatlashdik.',
+        'Көптөн бери көрүшпөгөн досум менен түн бир оокумга чейин сүйлөштүм.'),
+    '집에서 학교까지 걸어서 다녀요.': (
+        'Uydan maktabgacha piyoda qatnayman.',
+        'Үйдөн мектепке жөө барып келем.'),
+    '학생들은 모둠을 이루어 발표 자료를 만들었어요.': (
+        'Oʻquvchilar guruhlar tuzib, taqdimot materiallarini tayyorlashdi.',
+        'Окуучулар топторго бөлүнүп, баяндама үчүн материал даярдашты.'),
+    '지도를 보며 한국의 위치를 살펴보았어요.': (
+        'Xaritadan Janubiy Koreyaning qayerda joylashganini koʻrdim.',
+        'Картадан Түштүк Кореянын жайгашкан жерин карадым.'),
     '소설 속 인물은 가랄한 태도로 묘사되어 있어요.': (
         'Romandagi qahramon nihoyatda qoʻpol va shafqatsiz qilib tasvirlangan.',
         'Романдагы каарман өтө катаал жана ырайымсыз болуп сүрөттөлөт.'),
@@ -135,7 +194,11 @@ class DraftTranslator:
         if cache_path.exists():
             for line in cache_path.read_text().splitlines():
                 row = json.loads(line)
-                self.cache[row['language'], row.get('source_language','rus_Cyrl'), row['source']] = row['text']
+                key = (row['language'], row.get('source_language','rus_Cyrl'), row['source'])
+                if not re.search(r'&(?:amp;|#)', row['text']):
+                    self.cache[key] = row['text']
+                else:
+                    self.cache.pop(key, None)
         # Reviewed dictionary forms. Russian senses already distinguish homonyms.
         glossary = {
             'предполагать': ('taxmin qilmoq', 'болжолдоо'),
@@ -214,7 +277,7 @@ class DraftTranslator:
             def replace(match):
                 marker = str(98700 + len(parts)); parts.append((marker, match.group()))
                 return marker
-            prepared = TERMS.sub(replace, source)
+            prepared = TERMS.sub(replace, source_text(source))
             simple.append((language, source)); protected.append(parts)
             tokens.append(self.tokenizer.encode(prepared, out_type=str) + ['</s>', source_language])
             prefixes.append([CODES[language]])
@@ -234,10 +297,11 @@ class DraftTranslator:
                 # Short prose fragments avoid losing teaching terms to paraphrases.
                 fragments = []
                 position = 0
-                for match in TERMS.finditer(source):
-                    fragments.extend([(False, source[position:match.start()]), (True, match.group())])
+                clean_source = source_text(source)
+                for match in TERMS.finditer(clean_source):
+                    fragments.extend([(False, clean_source[position:match.start()]), (True, match.group())])
                     position = match.end()
-                fragments.append((False, source[position:]))
+                fragments.append((False, clean_source[position:]))
                 prose = [part.strip() for keep, part in fragments if not keep and re.search(r'[A-Za-zА-Яа-яЁё]', part)]
                 self.translate([(language, text) for text in prose], source_language)
                 translated = ' '.join(part if keep or not re.search(r'[A-Za-zА-Яа-яЁё]', part) else self.cache[language, source_language, part.strip()] for keep, part in fragments)
@@ -292,6 +356,9 @@ def character_updates(row, languages, translator):
 
 
 def main():
+    def interrupted(_signum, _frame):
+        raise KeyboardInterrupt
+    signal.signal(signal.SIGTERM, interrupted)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dataset', type=Path, default=Path(__file__).resolve().parents[1] / 'dataset')
     parser.add_argument('--languages', nargs='+', choices=CODES, default=['uz', 'ky'])
