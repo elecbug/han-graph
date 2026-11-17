@@ -11,7 +11,7 @@ class AdditionalLocales(unittest.TestCase):
     def test_scripts_and_empty_translations_are_checked(self):
         check_text('oʻquv daftari', 200, 'uz')
         check_text('окуу дептери', 200, 'ky')
-        for value, language in [('китеп', 'uz'), ('kitob', 'ky'), (' ', 'uz'), ('баа\n', 'ky'), ('soʻz Қ', 'uz'), ('&amp; soʻz', 'uz')]:
+        for value, language in [('китеп', 'uz'), ('kitob', 'ky'), (' ', 'uz'), ('баа\n', 'ky'), ('soʻz Қ', 'uz'), ('&amp; soʻz', 'uz'), ('soʻz ⁇', 'uz'), ('маани \ufffd', 'ky')]:
             with self.assertRaises(ValueError):
                 check_text(value, 200, language)
         with self.assertRaises(ValueError):

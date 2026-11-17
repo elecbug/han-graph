@@ -58,6 +58,15 @@ func TestAdditionalPracticeLanguages(t *testing.T) {
 	}
 }
 
+func TestPublicPracticeHasUzbekAndKyrgyzTranslations(t *testing.T) {
+	_, practice, _ := testApp(t)
+	for _, question := range practice.Questions {
+		if question.PromptUz == "" || question.ExplanationUz == "" || question.PromptKy == "" || question.ExplanationKy == "" {
+			t.Fatalf("%s: missing Uzbek/Kyrgyz practice translation", question.ID)
+		}
+	}
+}
+
 func TestMeaningContrastGroups(t *testing.T) {
 	g, practice, _ := testApp(t)
 	for _, tc := range []struct {

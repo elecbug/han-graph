@@ -22,7 +22,12 @@ READINGS = re.compile(r'([\u3400-\u4dbf\u4e00-\u9fff\U00020000-\U000323af])\[([�
 def source_text(text):
     for _ in range(3):
         text = html.unescape(text)
-    return re.sub(r'>\s*>', '»', re.sub(r'<\s*<', '«', text))
+    text = re.sub(r'>\s*>', '»', re.sub(r'<\s*<', '«', text))
+    return text.translate(str.maketrans({'«':'"','»':'"','“':'"','”':'"','‘':"'",'’':"'",'–':'-','—':'-','…':'...','\u00a0':' '}))
+
+
+def broken_translation(text):
+    return any(token in text for token in ('<unk>', '⁇', '\ufffd')) or bool(re.search(r'&(?:amp;|#)', text))
 
 # Context-sensitive senses checked against the Korean entry, not a bridge-language
 # homonym (e.g. 將 is a military commander, 堰 is a dam).
@@ -183,6 +188,34 @@ for index, ordinal in enumerate(_english_ordinals):
         SENSE_REVIEW[f'{ordinal} {kind}'] = (f'anʼanaviy taqvimdagi {uz_ordinal} {uz_term}', f'салттуу жылнаамадагы {ky_ordinal} {ky_term}')
 
 
+PRACTICE_REVIEW = {
+    'alias': {
+        'prompt_uz': 'Yozuvchi haqiqiy ismini oshkor qilmay, kitobini boshqa ism bilan nashr etdi. Bunday ism nima deb ataladi?',
+        'prompt_ky': 'Жазуучу чыныгы атын айтпай, китебин башка ат менен чыгарды. Мындай ат кандай аталат?',
+        'explanation_uz': '假[가] soxtalik yoki shartli narsani, 名[명] esa ismni bildiradi. 가명 — taxallus, yaʼni haqiqiy ism oʻrniga ishlatiladigan ism. Ishora — yozuvchi haqiqiy ismini oshkor qilmagan.',
+        'explanation_ky': '假[가] жасалма же шарттуу нерсеге байланыштуу, ал эми 名[명] «ат» дегенди билдирет. 가명 — чыныгы аттын ордуна колдонулган жасалма ат, башкача айтканда, псевдоним. Белги — жазуучу чыныгы атын ачык айткан эмес.',
+    },
+    'price': {
+        'prompt_uz': 'Doʻkonda bir kishi koʻylakni koʻrsatib: «Bu qancha turadi?» deb soʻradi. U nimani bilmoqchi?',
+        'prompt_ky': 'Дүкөндө бирөө көйнөктү көрсөтүп: «Бул канча турат?» — деп сурады. Ал эмнени билгиси келет?',
+        'explanation_uz': '價[가] qiymat yoki narxni anglatadi. 가격 buyumni sotib olish uchun toʻlanadigan pulni, 가치 esa uning qadr-qiymati yoki ahamiyatini bildiradi. «Qancha turadi?» savoli 가격 soʻziga ishora qiladi.',
+        'explanation_ky': '價[가] нарк же баа менен байланыштуу. 가격 — буюм үчүн төлөнгөн акча, ал эми 가치 анын баалуулугун же маанилүүлүгүн билдирет. «Канча турат?» деген суроо 가격 сөзүнө ишарат кылат.',
+    },
+    'permission': {
+        'prompt_uz': 'Sinf xonasidan foydalanishga oʻqituvchingizdan ruxsat soʻradingiz. Oʻqituvchi rozi boʻldi. Siz nima oldingiz?',
+        'prompt_ky': 'Мугалимден классты колдонууга уруксат сурадыңыз. Мугалим макул болду. Сиз эмне алдыңыз?',
+        'explanation_uz': '許[허] va 可[가] ruxsat berish maʼnosiga ega. 허가 — ruxsat. 가능 biror narsaning mumkinligi yoki uni qila olishni anglatadi. Bu vaziyatda ruxsat olingan, shuning uchun 허가 mos keladi.',
+        'explanation_ky': '許[허] жана 可[가] уруксат берүүгө байланышкан маанилерди билдирет. 허가 — уруксат. 가능 мүмкүнчүлүктү же бир нерсени кыла алууну билдирет. Бул жагдайда уруксат алынгандыктан, 허가 туура келет.',
+    },
+    'acceleration': {
+        'prompt_uz': 'Avtomobil yoʻlga chiqqach, tezligini tobora oshiryapti. Tezlikdagi bu oʻzgarishni qaysi soʻz ifodalaydi?',
+        'prompt_ky': 'Унаа жолго чыккандан кийин ылдамдыгын улам көбөйтүп жатат. Ылдамдыктын бул өзгөрүшүн кайсы сөз билдирет?',
+        'explanation_uz': '加[가] qoʻshish yoki oshirishni, 速[속] esa tezlikni bildiradi. Tezlikning ortishi 가속 deyiladi. 가산 soʻzida ham 加[가] bor, lekin 算[산] hisob-kitob bilan bogʻliq.',
+        'explanation_ky': '加[가] кошууну же көбөйтүүнү, ал эми 速[속] ылдамдыкты билдирет. Ылдамдыктын өсүшү 가속 деп аталат. 가산 сөзүндө да 加[가] бар, бирок 算[산] эсептөөгө байланыштуу.',
+    },
+}
+
+
 class DraftTranslator:
     def __init__(self, model, cache_path):
         import ctranslate2
@@ -195,7 +228,7 @@ class DraftTranslator:
             for line in cache_path.read_text().splitlines():
                 row = json.loads(line)
                 key = (row['language'], row.get('source_language','rus_Cyrl'), row['source'])
-                if not re.search(r'&(?:amp;|#)', row['text']):
+                if not broken_translation(row['text']):
                     self.cache[key] = row['text']
                 else:
                     self.cache.pop(key, None)
@@ -308,7 +341,12 @@ class DraftTranslator:
             translated = re.sub(r'\s+', ' ', translated).strip()
             if language == 'uz':
                 translated = re.sub(r"([oOgG])\s*[ʻʼ‘’'`´]\s*", r'\1ʻ', translated)
-            if '<unk>' in translated or not translated:
+            if broken_translation(translated):
+                retry = source_text(source).replace('"', '').strip()
+                if retry != source:
+                    self.translate([(language, retry)], source_language)
+                    translated = self.cache[language, source_language, retry]
+            if broken_translation(translated) or not translated:
                 raise ValueError(f'Empty/unknown {language} translation: {source!r} => {translated!r}')
             self.remember(language, source, translated, source_language)
 
@@ -397,6 +435,9 @@ def main():
                     if filename == 'example.jsonl' and row['example_ko'] in EXAMPLE_REVIEW:
                         if any(row.get(f'example_{lang}') != EXAMPLE_REVIEW[row['example_ko']][('uz','ky').index(lang)] for lang in args.languages):
                             raise ValueError('Refresh the reviewed example')
+                    if filename == 'practice.json' and row['id'] in PRACTICE_REVIEW:
+                        if any(row.get(key) != value for key, value in PRACTICE_REVIEW[row['id']].items() if key.rsplit('_', 1)[1] in args.languages):
+                            raise ValueError('Refresh the reviewed practice translation')
                 except ValueError:
                     pending.append(row)
             print(filename, 'pending', len(pending), flush=True)
@@ -408,6 +449,8 @@ def main():
                     return
                 requests, english_requests = [], []
                 for row in batch:
+                    if (filename == 'character.jsonl' and row['id'] in CHARACTER_REVIEW) or (filename == 'example.jsonl' and row['example_ko'] in EXAMPLE_REVIEW) or (filename == 'practice.json' and row['id'] in PRACTICE_REVIEW):
+                        continue
                     if filename == 'word.jsonl':
                         if row['meaning_ru'] not in translator.reviewed:
                             english_requests.extend((language,row['meaning_en']) for language in args.languages)
@@ -424,6 +467,8 @@ def main():
                             updates.update(character_updates(row, args.languages, translator))
                         elif filename == 'example.jsonl':
                             updates[f'example_{language}'] = EXAMPLE_REVIEW[row['example_ko']][('uz','ky').index(language)] if row['example_ko'] in EXAMPLE_REVIEW else translator.cache[language, 'rus_Cyrl', row['example_ru']]
+                        elif filename == 'practice.json' and row['id'] in PRACTICE_REVIEW:
+                            updates.update({key:value for key,value in PRACTICE_REVIEW[row['id']].items() if key.endswith('_' + language)})
                         elif filename == 'practice.json':
                             updates[f'prompt_{language}'] = translator.sentences(language, row['prompt_ru'])
                             updates[f'explanation_{language}'] = translator.sentences(language, row['explanation_ru'])

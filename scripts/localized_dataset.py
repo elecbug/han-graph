@@ -45,6 +45,8 @@ def check_text(text, maximum, language="ru"):
         raise ValueError("Translation text must be a nonempty trimmed string")
     if len(text) > maximum or any(unicodedata.category(c) == "Cc" for c in text):
         raise ValueError("Translation text has a control character or exceeds the field limit")
+    if language in ('uz', 'ky') and any(token in text for token in ('⁇', '\ufffd')):
+        raise ValueError(f'Unresolved {language} translation symbol: {text!r}')
     if not (LATIN if language == "uz" else CYRILLIC).search(text) or (language == "uz" and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b|&(?:amp;|#)", text):
         raise ValueError(f"Untranslated {language} text or unresolved placeholder: {text!r}")
 

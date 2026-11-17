@@ -2,9 +2,34 @@ package graph
 
 import (
 	"encoding/json"
+	"path/filepath"
 	"strings"
 	"testing"
 )
+
+func TestPublicCentralAsianTranslationsAreComplete(t *testing.T) {
+	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, character := range g.characterOrder {
+		if len(character.MeaningUz) == 0 || len(character.MeaningKy) == 0 {
+			t.Fatalf("%s: missing Uzbek/Kyrgyz character meanings", character.ID)
+		}
+	}
+	for _, word := range g.words {
+		if word.MeaningUz == "" || word.MeaningKy == "" {
+			t.Fatalf("%s/%s: missing Uzbek/Kyrgyz word meaning", word.Word, word.Hanja)
+		}
+		if word.SemanticHint != "" && (word.SemanticHintUz == "" || word.SemanticHintKy == "") {
+			t.Fatalf("%s/%s: missing translated composition hint", word.Word, word.Hanja)
+		}
+		example := g.examples[[2]string{word.Word, word.Hanja}]
+		if example.ExampleUz == "" || example.ExampleKy == "" {
+			t.Fatalf("%s/%s: missing Uzbek/Kyrgyz example", word.Word, word.Hanja)
+		}
+	}
+}
 
 func centralAsianFixture(t *testing.T) map[string]string {
 	t.Helper()
