@@ -18,6 +18,15 @@ import (
 	"github.com/elecbug/han-graph/internal/webapp"
 )
 
+func validateOptionalPractice(dir string, g *graph.Graph) error {
+	filename := filepath.Join(dir, "practice.json")
+	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
+		return nil
+	}
+	_, err := webapp.LoadPractice(filename, g)
+	return err
+}
+
 func serve(g *graph.Graph, dir, addr, accountPath string, secureCookies bool, stdout, stderr io.Writer) int {
 	practice, err := webapp.LoadPractice(filepath.Join(dir, "practice.json"), g)
 	if err != nil {

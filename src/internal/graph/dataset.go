@@ -29,6 +29,7 @@ type Character struct {
 	Hanja     string   `json:"hanja"`
 	MeaningKo []string `json:"meaning_ko"`
 	MeaningEn []string `json:"meaning_en"`
+	MeaningRu []string `json:"meaning_ru,omitempty"`
 }
 
 type WordExample struct {
@@ -36,16 +37,20 @@ type WordExample struct {
 	Hanja     string `json:"hanja"`
 	ExampleKo string `json:"example_ko"`
 	ExampleEn string `json:"example_en,omitempty"`
+	ExampleRu string `json:"example_ru,omitempty"`
 }
 
 type Word struct {
-	Level        string   `json:"level"`
-	Word         string   `json:"word"`
-	Hanja        string   `json:"hanja"`
-	MeaningKo    string   `json:"meaning_ko"`
-	MeaningEn    string   `json:"meaning_en"`
-	Components   []string `json:"components"`
-	SemanticHint string   `json:"semantic_hint,omitempty"`
+	Level          string   `json:"level"`
+	Word           string   `json:"word"`
+	Hanja          string   `json:"hanja"`
+	MeaningKo      string   `json:"meaning_ko"`
+	MeaningEn      string   `json:"meaning_en"`
+	MeaningRu      string   `json:"meaning_ru,omitempty"`
+	Components     []string `json:"components"`
+	SemanticHint   string   `json:"semantic_hint,omitempty"`
+	SemanticHintEn string   `json:"semantic_hint_en,omitempty"`
+	SemanticHintRu string   `json:"semantic_hint_ru,omitempty"`
 }
 
 // ValidWordLevel reports whether level is a supported vocabulary category.
@@ -105,7 +110,7 @@ func Load(dir string) (*Graph, error) {
 	for _, row := range characters {
 		c := row.value
 		parts := characterID.FindStringSubmatch(c.ID)
-		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) {
+		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) || (c.MeaningRu != nil && !personalMeanings(c.MeaningRu)) {
 			return fail("character.jsonl", row.line, "expected type=character, id=<meta>-<3+ digits>, one hanja character and nonempty meaning arrays")
 		}
 		if _, exists := g.meta[parts[1]]; !exists {
@@ -125,7 +130,7 @@ func Load(dir string) (*Graph, error) {
 	seenWords := make(map[[2]string]bool)
 	for _, row := range words {
 		w := row.value
-		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || w.Components == nil {
+		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || !personalText(w.MeaningRu, 2000, false) || !personalText(w.SemanticHintEn, 2000, false) || !personalText(w.SemanticHintRu, 2000, false) || w.Components == nil {
 			return fail("word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
 		}
 		if !ValidWordLevel(w.Level) {
@@ -177,6 +182,9 @@ func Load(dir string) (*Graph, error) {
 		}
 		if e.ExampleEn != "" && (strings.TrimSpace(e.ExampleEn) != e.ExampleEn || utf8.RuneCountInString(e.ExampleEn) > 500 || strings.ContainsAny(e.ExampleEn, "\r\n")) {
 			return fail("example.jsonl", row.line, "example_en must be a single nonempty line of at most 500 characters")
+		}
+		if !personalText(e.ExampleRu, 500, false) {
+			return fail("example.jsonl", row.line, "example_ru must be a single nonempty line of at most 500 characters")
 		}
 		g.examples[key] = e
 	}

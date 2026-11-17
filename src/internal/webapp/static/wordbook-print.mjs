@@ -1,5 +1,6 @@
 import {exampleLines} from './examples.mjs';
 import {wordKey, wordCategory} from './learning.mjs';
+import {localized, normalizeLanguage} from './localization.mjs';
 
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const copy = {
@@ -18,6 +19,14 @@ const copy = {
     easy:'Easy', normal:'General', hard:'Advanced', classical:'Classical',
     note:'A character’s meanings and readings can vary with the word and context.',
     footer:'A new understanding starts with one word.',
+  },
+  ru: {
+    title:'Мой словарик', subtitle:'Прочитайте значение. Изучите состав. Запомните связь.',
+    count:count=>`Слов: ${count}`, missing:'Описание отсутствует в текущем словаре. Сохранённое написание оставлено без изменений.',
+    example:'Пример', meaning:'Значение', hint:'Подсказка к значению', characters:'Иероглифы в составе',
+    easy:'Базовая', normal:'Общая', hard:'Продвинутая', classical:'Классическая',
+    note:'Значения и чтения иероглифа зависят от слова и контекста.',
+    footer:'Новое понимание начинается с одного слова.',
   },
 };
 
@@ -61,18 +70,18 @@ function wordForm(value) {
 }
 
 function characterDetails(components, language) {
-  return components.map(component=>`<span class="print-character"><span class="print-glyph" lang="ko">${escape(component.hanja)}</span>${component.readings.map(reading=>`<span class="print-reading">[<strong lang="ko">${escape(reading.sound_ko)}</strong>/<span lang="en">${escape(reading.sound_en)}</span>] <span lang="${language}">${escape(reading[language==='ko'?'meaning_ko':'meaning_en'].join(', '))}</span></span>`).join(' / ')}</span>`).join(' · ');
+  return components.map(component=>`<span class="print-character"><span class="print-glyph" lang="ko">${escape(component.hanja)}</span>${component.readings.map(reading=>`<span class="print-reading">[<strong lang="ko">${escape(reading.sound_ko)}</strong>/<span lang="en">${escape(reading.sound_en)}</span>] <span lang="${language}">${escape(localized(reading,'meaning',language).join(', '))}</span></span>`).join(' / ')}</span>`).join(' · ');
 }
 
 export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = {}) {
-  const language=lang==='en'?'en':'ko', labels=copy[language];
-  const dateLabel=new Intl.DateTimeFormat(language==='ko'?'ko-KR':'en-GB',{year:'numeric',month:'long',day:'numeric'}).format(date);
+  const language=normalizeLanguage(lang), labels=copy[language];
+  const dateLabel=new Intl.DateTimeFormat({ko:'ko-KR',en:'en-GB',ru:'ru-RU'}[language],{year:'numeric',month:'long',day:'numeric'}).format(date);
   const counts=new Map();
   for(const {result} of entries)if(result)counts.set(wordCategory(result.word),(counts.get(wordCategory(result.word))??0)+1);
   const categories=['easy','normal','hard','classical'].filter(level=>counts.has(level));
   return `<section class="print-sheet" aria-label="${labels.title}">
-    <header class="print-cover"><div class="print-masthead"><span>漢—GRAPH</span><span>WORDS, CONNECTED.</span></div>
-      <p class="print-eyebrow">MY VOCABULARY NOTEBOOK</p><h1>${labels.title}</h1><p class="print-subtitle">${labels.subtitle}</p>
+    <header class="print-cover"><div class="print-masthead"><span>漢—GRAPH</span><span>${{ko:'단어에서 시작하는 연결.',en:'WORDS, CONNECTED.',ru:'СЛОВА И СВЯЗИ.'}[language]}</span></div>
+      <p class="print-eyebrow">${{ko:'나의 어휘 학습 노트',en:'MY VOCABULARY NOTEBOOK',ru:'МОЙ СЛОВАРИК'}[language]}</p><h1>${labels.title}</h1><p class="print-subtitle">${labels.subtitle}</p>
       <div class="print-meta"><strong>${labels.count(entries.length)}</strong><span>${escape(dateLabel)}</span></div>
       ${categories.length?`<p class="print-categories">${categories.map(level=>`${labels[level]} ${counts.get(level)}`).join(' · ')}</p>`:''}
     </header>
@@ -80,9 +89,9 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
       const word=result?.word??ref;
       return `<li class="print-entry"><article>
         <header class="print-entry-heading"><span class="print-number">${String(index+1).padStart(2,'0')}</span><div class="print-word-title"><h2 lang="ko">${escape(word.word)}</h2>${word.hanja?`<p class="print-word-form" lang="ko">${wordForm(word.hanja)}</p>`:''}</div>${result?`<span class="print-level">${labels[wordCategory(word)]}</span>`:''}</header>
-        <div class="print-entry-content">${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="ko">${escape(word.meaning_ko)}</p><p class="print-english" lang="en">${escape(word.meaning_en)}</p></div>
+        <div class="print-entry-content">${result?`<div class="print-definition"><h3>${labels.meaning}</h3><p lang="${language}">${escape(localized(word,'meaning',language))}</p></div>
           ${exampleLines(result,language).length?`<div class="print-hint print-example"><h3>${labels.example}</h3>${exampleLines(result,language).map(line=>`<p lang="${line.lang}" class="${line.secondary?'example-translation':'example-primary'}">${escape(line.text)}</p>`).join('')}</div>`:''}
-          ${word.semantic_hint?`<div class="print-hint"><h3>${labels.hint}</h3><p lang="ko">${escape(word.semantic_hint)}</p></div>`:''}
+          ${localized(word,'semantic_hint',language)?`<div class="print-hint"><h3>${labels.hint}</h3><p lang="${language}">${escape(localized(word,'semantic_hint',language))}</p></div>`:''}
           ${result.components?.length?`<div class="print-breakdown"><h3>${labels.characters}</h3> | <div class="print-characters">${characterDetails(result.components,language)}</div></div>`:''}`
           :`<p class="print-missing">${labels.missing}</p>`}</div>
       </article></li>`;

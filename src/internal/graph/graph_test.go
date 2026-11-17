@@ -25,15 +25,15 @@ func fixture(t *testing.T) map[string]string {
 	}
 	encode("meta.jsonl", Meta{"meta", "bun", "분", "bun"}, Meta{"meta", "su", "수", "su"}, Meta{"meta", "sak", "삭", "sak"})
 	encode("character.jsonl",
-		Character{"character", "bun-000", "分", []string{"나누다"}, []string{"divide"}},
-		Character{"character", "bun-200", "噴", []string{"뿜다"}, []string{"spray"}},
-		Character{"character", "su-000", "數", []string{"수"}, []string{"number"}},
-		Character{"character", "su-001", "水", []string{"물"}, []string{"water"}},
-		Character{"character", "sak-000", "數", []string{"자주"}, []string{"frequently"}})
+		Character{Type: "character", ID: "bun-000", Hanja: "分", MeaningKo: []string{"나누다"}, MeaningEn: []string{"divide"}},
+		Character{Type: "character", ID: "bun-200", Hanja: "噴", MeaningKo: []string{"뿜다"}, MeaningEn: []string{"spray"}},
+		Character{Type: "character", ID: "su-000", Hanja: "數", MeaningKo: []string{"수"}, MeaningEn: []string{"number"}},
+		Character{Type: "character", ID: "su-001", Hanja: "水", MeaningKo: []string{"물"}, MeaningEn: []string{"water"}},
+		Character{Type: "character", ID: "sak-000", Hanja: "數", MeaningKo: []string{"자주"}, MeaningEn: []string{"frequently"}})
 	encode("word.jsonl",
-		Word{"normal", "분수", "分數", "나눈 수", "fraction", []string{"分", "數"}, "나눈 수"},
-		Word{"normal", "분수", "噴水", "물을 뿜음", "fountain", []string{"噴", "水"}, ""},
-		Word{"normal", "반복테스트", "水水", "테스트", "test", []string{"水", "水"}, ""})
+		Word{Level: "normal", Word: "분수", Hanja: "分數", MeaningKo: "나눈 수", MeaningEn: "fraction", Components: []string{"分", "數"}, SemanticHint: "나눈 수"},
+		Word{Level: "normal", Word: "분수", Hanja: "噴水", MeaningKo: "물을 뿜음", MeaningEn: "fountain", Components: []string{"噴", "水"}, SemanticHint: ""},
+		Word{Level: "normal", Word: "반복테스트", Hanja: "水水", MeaningKo: "테스트", MeaningEn: "test", Components: []string{"水", "水"}, SemanticHint: ""})
 	return files
 }
 

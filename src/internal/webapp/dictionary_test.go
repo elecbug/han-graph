@@ -53,7 +53,7 @@ func TestPersonalDictionaryAPIVisibilityAndCacheInvalidation(t *testing.T) {
 	if r := request("GET", wordsURL, "", a, aid); r.Code != 200 || r.Body.String() != "[]\n" {
 		t.Fatal("private word existed before registration", r.Body.String())
 	}
-	batch := `{"characters":[{"type":"character","id":"seom-9000","hanja":"閃","meaning_ko":["번쩍이다"],"meaning_en":["flash"]}],"words":[{"level":"normal","word":"섬광","hanja":"閃光","meaning_ko":"나만의 번쩍이는 빛","meaning_en":"PRIVATE OWNER A FLASH","components":["閃","光"]}],"examples":[{"word":"섬광","hanja":"閃光","example_ko":"하늘에서 섬광이 번쩍였어요.","example_en":"A flash lit up the sky."}]}`
+	batch := `{"meta":[{"type":"meta","id":"privatezz","sound_ko":"쯔","sound_en":"privatezz"}],"characters":[{"type":"character","id":"seom-9000","hanja":"閃","meaning_ko":["번쩍이다"],"meaning_en":["flash"]}],"words":[{"level":"normal","word":"섬광","hanja":"閃光","meaning_ko":"나만의 번쩍이는 빛","meaning_en":"PRIVATE OWNER A FLASH","components":["閃","光"]}],"examples":[{"word":"섬광","hanja":"閃光","example_ko":"하늘에서 섬광이 번쩍였어요.","example_en":"A flash lit up the sky."}]}`
 	for _, tc := range []struct {
 		cookie *http.Cookie
 		id     string
@@ -63,6 +63,19 @@ func TestPersonalDictionaryAPIVisibilityAndCacheInvalidation(t *testing.T) {
 		if r.Code != tc.status {
 			t.Fatalf("add %d: %s", r.Code, r.Body.String())
 		}
+	}
+	for _, who := range []struct {
+		cookie  *http.Cookie
+		id      string
+		private bool
+	}{{a, aid, true}, {b, bid, false}, {nil, "", false}, {a, "guest", false}} {
+		response := request("GET", "/api/readings", "", who.cookie, who.id)
+		if response.Code != 200 || strings.Contains(response.Body.String(), "privatezz") != who.private {
+			t.Fatalf("reading group exposure: %d %s", response.Code, response.Body.String())
+		}
+	}
+	if response := request("GET", "/api/readings", "", b, aid); response.Code != 401 {
+		t.Fatal("reading groups accepted a different account identity")
 	}
 	paths := []string{wordsURL, "/api/search?q=" + url.QueryEscape("섬광"), "/api/search?mode=sound&level=normal&q=" + url.QueryEscape("섬"), "/api/characters?q=" + url.QueryEscape("光"), "/api/neighborhood?q=" + url.QueryEscape("光")}
 	for _, path := range paths {

@@ -2,9 +2,20 @@ package graph
 
 import (
 	"math/rand/v2"
+	"slices"
 	"strings"
 	"unicode"
 )
+
+// ReadingGroups returns the public/account view's registered sound groups.
+func (g *Graph) ReadingGroups() []Meta {
+	groups := make([]Meta, 0, len(g.meta))
+	for _, group := range g.meta {
+		groups = append(groups, group)
+	}
+	slices.SortFunc(groups, func(a, b Meta) int { return strings.Compare(a.SoundKo, b.SoundKo) })
+	return groups
+}
 
 // Graph is a bipartite graph of hanja glyphs and (word, hanja) entries.
 // Reading records remain separate metadata, so a glyph can have several sounds.
@@ -41,6 +52,7 @@ type Component struct {
 type WordResult struct {
 	Example    string      `json:"example,omitempty"`
 	ExampleEn  string      `json:"example_en,omitempty"`
+	ExampleRu  string      `json:"example_ru,omitempty"`
 	Word       Word        `json:"word"`
 	Components []Component `json:"components"`
 }
@@ -115,7 +127,7 @@ func (g *Graph) FindWords(query string) []WordResult {
 	for _, index := range g.wordsByQuery[query] {
 		w := g.words[index]
 		example := g.examples[[2]string{w.Word, w.Hanja}]
-		result := WordResult{Example: example.ExampleKo, ExampleEn: example.ExampleEn, Word: w, Components: make([]Component, 0, len(w.Components))}
+		result := WordResult{Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu, Word: w, Components: make([]Component, 0, len(w.Components))}
 		for _, hanja := range w.Components {
 			component := Component{Hanja: hanja, Readings: make([]Reading, 0)}
 			for _, c := range g.characters[hanja] {
@@ -179,7 +191,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	for _, exactPass := range []bool{true, false} {
 		for _, word := range g.words {
 			exact := query != "" && (strings.EqualFold(word.Word, query) || strings.EqualFold(word.Hanja, query))
-			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn) {
+			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu) {
 				continue
 			}
 			result.WordCount++
@@ -190,7 +202,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)
-		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " ")) {
+		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "), strings.Join(character.MeaningRu, " ")) {
 			result.CharacterCount++
 			if len(result.Characters) < limit {
 				result.Characters = append(result.Characters, reading)

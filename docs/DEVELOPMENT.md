@@ -119,6 +119,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 | 경로 | 입력 | 반환 내용 |
 | --- | --- | --- |
 | `GET /api/stats` | 없음 | 어휘·한자·독음·연결 수 |
+| `GET /api/readings` | 없음 | 현재 공개·개인 사전의 독음 그룹 목록 |
 | `GET /api/search` | 선택적 `q`, `mode`, `level` | 단어·한자 목록과 전체 일치 수 |
 | `GET /api/words` | 필수 `q` | 정확히 일치한 단어, 구성 한자와 `example` 예문 |
 | `GET /api/characters` | 필수 `q` | 글자·독음·ID에 일치한 한자와 연결 단어 |
@@ -169,7 +170,7 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 go run ./cmd validate
 ```
 
-이 명령은 `meta.jsonl`, `character.jsonl`, `word.jsonl`의 형식·중복·참조와 연결 수를 확인하며, `example.jsonl`이 있으면 예문의 참조·중복·문장 형식도 검사합니다. 웹 연습 파일은 서버 시작 시 따로 검사합니다. 내용의 정확성과 출처 기준은 [콘텐츠 원칙](DATA_GUIDELINES.md)을 참고하세요.
+이 명령은 `meta.jsonl`, `character.jsonl`, `word.jsonl`의 형식·중복·참조와 연결 수를 확인하며, `example.jsonl`이 있으면 예문의 참조·중복·문장 형식도 검사합니다. `practice.json`이 있으면 선택지·정답·문맥·해설도 함께 검사합니다. 내용의 정확성과 출처 기준은 [콘텐츠 원칙](DATA_GUIDELINES.md)을 참고하세요.
 
 <details>
 <summary>코드를 수정한 경우 확인하기</summary>

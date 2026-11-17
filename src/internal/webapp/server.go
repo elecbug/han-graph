@@ -80,6 +80,12 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 			}
 		}
 	})
+	mux.HandleFunc("GET /api/readings", func(w http.ResponseWriter, r *http.Request) {
+		current, available := dictionary.view(w, r)
+		if available {
+			jsonReply(w, current.ReadingGroups())
+		}
+	})
 	mux.HandleFunc("GET /api/words", func(w http.ResponseWriter, r *http.Request) {
 		current, available := dictionary.view(w, r)
 		if !available {
@@ -160,9 +166,12 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 	for path, contentType := range map[string]string{
 		"/":                                "text/html; charset=utf-8",
 		"/app.js":                          "text/javascript; charset=utf-8",
+		"/localization.mjs":                "text/javascript; charset=utf-8",
+		"/localization-ru.mjs":             "text/javascript; charset=utf-8",
 		"/examples.mjs":                    "text/javascript; charset=utf-8",
 		"/learning.mjs":                    "text/javascript; charset=utf-8",
 		"/personal-dictionary.mjs":         "text/javascript; charset=utf-8",
+		"/dictionary-form.mjs":             "text/javascript; charset=utf-8",
 		"/data-client.mjs":                 "text/javascript; charset=utf-8",
 		"/network.mjs":                     "text/javascript; charset=utf-8",
 		"/network-view.mjs":                "text/javascript; charset=utf-8",

@@ -23,10 +23,12 @@ type Question struct {
 	ID            string    `json:"id"`
 	PromptKo      string    `json:"prompt_ko"`
 	PromptEn      string    `json:"prompt_en"`
+	PromptRu      string    `json:"prompt_ru,omitempty"`
 	Answer        WordRef   `json:"answer"`
 	Options       []WordRef `json:"options"`
 	ExplanationKo string    `json:"explanation_ko"`
 	ExplanationEn string    `json:"explanation_en"`
+	ExplanationRu string    `json:"explanation_ru,omitempty"`
 }
 
 type Practice struct {
@@ -64,6 +66,11 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 		for _, value := range []string{q.ID, q.PromptKo, q.PromptEn, q.ExplanationKo, q.ExplanationEn} {
 			if strings.TrimSpace(value) == "" {
 				return fail("missing question text")
+			}
+		}
+		for _, value := range []string{q.PromptRu, q.ExplanationRu} {
+			if value != "" && (strings.TrimSpace(value) != value || strings.ContainsAny(value, "\r\n")) {
+				return fail("Russian question text must be a single nonempty line")
 			}
 		}
 		if ids[q.ID] || len(q.Options) < 2 || len(q.Options) > 4 {

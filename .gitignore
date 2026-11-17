@@ -3,3 +3,7 @@
 
 # Local Docker Compose settings.
 /.env
+
+# Python maintenance tools.
+__pycache__/
+*.py[cod]

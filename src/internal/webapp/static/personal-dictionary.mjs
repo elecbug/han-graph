@@ -39,8 +39,8 @@ export function parseDictionaryInput(input) {
   return data;
 }
 export const DICTIONARY_SAMPLE = {
-  words:JSON.stringify({level:'normal',word:'학습노트',hanja:'學習노트',meaning_ko:'배운 내용을 정리하는 노트',meaning_en:'a notebook for organizing what you have learned',components:['學','習']},null,2),
-  characters:JSON.stringify({type:'character',id:'seom-9000',hanja:'閃',meaning_ko:['번쩍이다'],meaning_en:['flash']},null,2),
+  words:JSON.stringify({level:'normal',word:'학습노트',hanja:'學習노트',meaning_ko:'배운 내용을 정리하는 노트',meaning_en:'a notebook for organizing what you have learned',meaning_ru:'тетрадь для записей изученного материала',components:['學','習']},null,2),
+  characters:JSON.stringify({type:'character',id:'seom-9000',hanja:'閃',meaning_ko:['번쩍이다'],meaning_en:['flash'],meaning_ru:['сверкать']},null,2),
   meta:JSON.stringify({type:'meta',id:'seom',sound_ko:'섬',sound_en:'seom'},null,2),
-  examples:JSON.stringify({word:'학습노트',hanja:'學習노트',example_ko:'새로 배운 단어를 학습노트에 정리했어요.',example_en:'I organized the new words I learned in my study notebook.'},null,2),
+  examples:JSON.stringify({word:'학습노트',hanja:'學習노트',example_ko:'새로 배운 단어를 학습노트에 정리했어요.',example_en:'I organized the new words I learned in my study notebook.',example_ru:'Я записал новые слова в свою учебную тетрадь.'},null,2),
 };

@@ -52,6 +52,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 	case "serve":
 		return serve(g, *data, *addr, *accounts, *secureCookies, stdout, stderr)
 	case "validate":
+		if err := validateOptionalPractice(*data, g); err != nil {
+			fmt.Fprintln(stderr, "Error:", err)
+			return 1
+		}
 		stats := g.Stats()
 		result = stats
 		if !*jsonOutput {

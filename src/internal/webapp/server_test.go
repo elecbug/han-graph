@@ -37,6 +37,9 @@ func TestRoutes(t *testing.T) {
 	}{
 		{"GET", "/", 200, "text/html"},
 		{"GET", "/app.js", 200, "javascript"},
+		{"GET", "/localization.mjs", 200, "javascript"},
+		{"GET", "/localization-ru.mjs", 200, "javascript"},
+		{"GET", "/dictionary-form.mjs", 200, "javascript"},
 		{"GET", "/learning.mjs", 200, "javascript"},
 		{"GET", "/examples.mjs", 200, "javascript"},
 		{"GET", "/data-client.mjs", 200, "javascript"},
@@ -45,6 +48,7 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/styles.css", 200, "text/css"},
 		{"GET", "/favicon.svg", 200, "image/svg+xml"},
 		{"GET", "/api/stats", 200, "application/json"},
+		{"GET", "/api/readings", 200, "application/json"},
 		{"GET", "/api/search?q=" + url.QueryEscape("家"), 200, "application/json"},
 		{"GET", "/api/search", 200, "application/json"},
 		{"GET", "/api/random-word", 200, "application/json"},

@@ -19,11 +19,11 @@
   <script type="module" src="/app.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">본문으로 이동 · Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="skipToMain">본문으로 이동</a>
   <aside class="sidebar">
-    <a class="brand" href="#explore" aria-label="HAN-GRAPH home"><span class="brand-mark"><span class="brand-glyph">漢</span></span><span>HAN<span class="brand-light">—</span>GRAPH<small>WORDS, CONNECTED.</small></span></a>
+    <a class="brand" href="#explore" aria-label="漢-Graph 처음으로" data-i18n-aria="home"><span class="brand-mark"><span class="brand-glyph">漢</span></span><span>HAN<span class="brand-light">—</span>GRAPH<small data-i18n="brandMotto">단어를 잇는 배움.</small></span></a>
     <div class="sidebar-label" data-i18n="workspace">나의 학습 공간</div>
-    <nav aria-label="Main navigation">
+    <nav aria-label="주요 메뉴" data-i18n-aria="mainNavigation">
       <a class="nav-link" href="#explore" data-page="explore"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="7" r="3"/><circle cx="18" cy="7" r="3"/><circle cx="12" cy="18" r="3"/><path d="M9 7h6M7.5 9.5l3 6M16.5 9.5l-3 6"/></svg><span data-i18n="explore">단어 탐색</span></a>
       <a class="nav-link" href="#practice" data-page="practice"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/></svg><span data-i18n="practice">문맥 연습</span></a>
       <a class="nav-link" href="#saved" data-page="saved"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z"/></svg><span data-i18n="saved">내 단어장</span><span class="nav-count" id="saved-count">0</span></a>
@@ -32,8 +32,8 @@
     <div class="sidebar-footer"><span class="status-dot"></span><span data-i18n="local">나만의 한국어 학습 공간</span></div>
   </aside>
   <div class="workspace">
-    <header class="topbar"><span class="breadcrumb">LEARNING STUDIO <span>/</span> <span id="page-label">단어 탐색</span></span><div class="topbar-actions"><a id="account-link" class="account-link" href="#account">로그인</a><button class="language-button" id="language" type="button" aria-label="Switch to English">KO <span>/ EN</span></button></div></header>
-    <main id="main" tabindex="-1"><div class="loading-panel" role="status">단어의 연결을 불러오고 있어요… / Loading your words…</div></main>
+    <header class="topbar"><span class="breadcrumb"><span data-i18n="studio">학습 공간</span> <span>/</span> <span id="page-label">단어 탐색</span></span><div class="topbar-actions"><a id="account-link" class="account-link" href="#account">로그인</a><select class="language-button" id="language" aria-label="화면 언어"><option value="ko" lang="ko">한국어</option><option value="en" lang="en">English</option><option value="ru" lang="ru">Русский</option></select></div></header>
+    <main id="main" tabindex="-1"><div class="loading-panel" role="status">단어의 연결을 불러오고 있어요…</div></main>
     <footer class="page-footer"><div class="footer-identity"><span class="footer-brand">漢-Graph</span><span>© 2026 elecbug</span><span data-i18n="footer">하나의 단어에서 시작되는 새로운 이해.</span></div><a class="footer-repository" href="https://github.com/elecbug/han-graph" target="_blank" rel="noopener noreferrer">github.com/elecbug/han-graph <span aria-hidden="true">↗</span></a></footer>
   </div>
   <div id="toast" role="status" aria-live="polite"></div>

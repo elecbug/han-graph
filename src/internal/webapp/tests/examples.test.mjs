@@ -4,10 +4,9 @@ import {exampleLines} from '../static/examples.mjs';
 
 const entry={example:'가게마다 가격이 달라요.',example_en:'Prices vary from store to store.'};
 
-test('Korean examples include a secondary English translation',()=>{
+test('Korean examples stay in Korean',()=>{
   assert.deepEqual(exampleLines(entry,'ko'),[
     {text:entry.example,lang:'ko',secondary:false},
-    {text:entry.example_en,lang:'en',secondary:true},
   ]);
 });
 

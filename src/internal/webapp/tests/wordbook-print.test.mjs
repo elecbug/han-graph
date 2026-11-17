@@ -51,17 +51,19 @@ test('leaving a print preview stops subsequent batches and retains the original 
   assert.deepEqual((await pending)[0].ref,fountain);
 });
 
-test('the document includes bilingual definitions, hints, component readings and mixed Hangul/Hanja',()=>{
+test('the document uses the selected language for definitions and retains mixed Hangul/Hanja',()=>{
   const ref={word:'검은색',hanja:'검은色'};
   const entry={ref,result:{...result(ref,{semantic_hint:'色[색]은 빛깔을 뜻해요.'}),components:[{
     hanja:'色',readings:[{sound_ko:'색',sound_en:'saek',meaning_ko:['빛깔'],meaning_en:['color']}],
   }]}};
   const date=new Date(2026,8,19);
   const ko=renderPrintableWordbook([entry],{date});
-  for(const text of ['나의 단어 모음','한국어 뜻','English meaning','色[색]은 빛깔을 뜻해요.','saek','빛깔','기초','2026','19'])assert(ko.includes(text),text);
+  for(const text of ['나의 단어 모음','한국어 뜻','色[색]은 빛깔을 뜻해요.','saek','빛깔','기초','2026','19'])assert(ko.includes(text),text);
+  assert(!ko.includes('English meaning'));
   assert(ko.includes('<span>검</span><span>은</span><strong>色</strong>'));
   const en=renderPrintableWordbook([entry],{lang:'en',date});
-  for(const text of ['My word collection','한국어 뜻','English meaning','color','Easy','1 word'])assert(en.includes(text),text);
+  for(const text of ['My word collection','English meaning','color','Easy','1 word'])assert(en.includes(text),text);
+  assert(!en.includes('한국어 뜻'));
   assert.equal(wordbookPrintFilename(date),'han-graph-words-2026-09-19');
 });
 
@@ -82,7 +84,7 @@ test('words without a Hanja breakdown remain printable without blank character s
   const ref={word:'나무',hanja:''};
   const html=renderPrintableWordbook([{ref,result:result(ref)}]);
   assert(html.includes('나무'));
-  assert(html.includes('English meaning'));
+  assert(html.includes('한국어 뜻'));
   assert(!html.includes('class="print-breakdown"'));
   assert(!html.includes('class="print-word-form"'));
 });
@@ -104,8 +106,7 @@ test('PDF examples follow the display language, including missing translations',
   const entry={ref:fraction,result:{...result(fraction),example:'분수를 배웠어요.',example_en:'I learned about fractions.'}};
   const ko=renderPrintableWordbook([entry],{lang:'ko'});
   assert(ko.includes('분수를 배웠어요.'));
-  assert(ko.includes('lang="en" class="example-translation"'));
-  assert(ko.includes('I learned about fractions.'));
+  assert(!ko.includes('I learned about fractions.'));
   const en=renderPrintableWordbook([entry],{lang:'en'});
   assert(en.includes('I learned about fractions.'));
   assert(!en.includes('분수를 배웠어요.'));
