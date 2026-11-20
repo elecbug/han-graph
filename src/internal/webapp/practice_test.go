@@ -58,11 +58,29 @@ func TestAdditionalPracticeLanguages(t *testing.T) {
 	}
 }
 
-func TestPublicPracticeHasUzbekAndKyrgyzTranslations(t *testing.T) {
+func TestPublicPracticeHasThreeChoicesAndFiveLanguages(t *testing.T) {
 	_, practice, _ := testApp(t)
-	for _, question := range practice.Questions {
-		if question.PromptUz == "" || question.ExplanationUz == "" || question.PromptKy == "" || question.ExplanationKy == "" {
-			t.Fatalf("%s: missing Uzbek/Kyrgyz practice translation", question.ID)
+	for _, q := range practice.Questions {
+		if len(q.Options) != 3 {
+			t.Fatalf("%s: got %d choices, want 3", q.ID, len(q.Options))
+		}
+		for _, text := range []struct{ language, prompt, explanation string }{
+			{"ko", q.PromptKo, q.ExplanationKo},
+			{"en", q.PromptEn, q.ExplanationEn},
+			{"ru", q.PromptRu, q.ExplanationRu},
+			{"uz", q.PromptUz, q.ExplanationUz},
+			{"ky", q.PromptKy, q.ExplanationKy},
+		} {
+			if text.prompt == "" || text.explanation == "" {
+				t.Fatalf("%s: missing %s prompt or explanation", q.ID, text.language)
+			}
+			if q.ContrastGroup != "" {
+				for _, option := range q.Options {
+					if !strings.Contains(text.explanation, option.Word) {
+						t.Fatalf("%s: %s explanation missing %s", q.ID, text.language, option.Word)
+					}
+				}
+			}
 		}
 	}
 }
@@ -126,9 +144,6 @@ func TestDatasetMeaningContrastsCoverEveryLevel(t *testing.T) {
 				if match.Word.Hanja == option.Hanja && match.Word.Level != q.WordLevel {
 					t.Fatalf("%s mixes a %s option into %s contrasts", q.ID, match.Word.Level, q.WordLevel)
 				}
-			}
-			if !strings.Contains(q.ExplanationKo, option.Word) || !strings.Contains(q.ExplanationEn, option.Word) {
-				t.Fatalf("%s must explain every compared option in both languages", q.ID)
 			}
 		}
 	}

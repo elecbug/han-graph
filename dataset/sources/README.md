@@ -38,6 +38,7 @@
 | 한국학중앙연구원 한국민족문화대백과사전: 생활·전통 어휘 | [근친과 귀녕](https://encykorea.aks.ac.kr/Article/E0007466), [이화주](https://encykorea.aks.ac.kr/Article/E0046614), [소풍](https://encykorea.aks.ac.kr/Article/E0030330)의 뜻과 사용 맥락 |
 | 국사편찬위원회 조선왕조실록 | [이혁의 용례](https://sillok.history.go.kr/id/kwa_10806030_002): 폐단을 고치는 문맥 |
 | 전통문화연구회 사이버서당 | [문전작라의 뜻과 용례](https://hm.cyberseodang.or.kr/verbaltrans/classic_view.asp?idx=13294&listLevel=2) |
+| 길벗 · 여양고등학교 | 사자성어 표제어와 한자 표기를 대조한 학습 자료. [길벗 시나공 한자·고사성어](https://www.sinagong.co.kr/pds/009005001/books/540/download-data/120) · [여양고등학교 고등학교 필수 사자성어](https://yeoyang.hs.jne.kr/data/attach_data/yeosu/yeoyang_hs/k2board/na/bbs_152187/ntt_1800443381/doc_07cevdda4%3D09v1d%3D46v42%3D99v21%3D53d5v2de4v6326_v339.pdf) |
 | 한국학중앙연구원 한국민족문화대백과사전: 역사·문학 | [여나산](https://encykorea.aks.ac.kr/Article/E0036297)의 가사 전승 여부, [도목정사](https://encykorea.aks.ac.kr/Article/E0015631)의 이조 인사 업무, [재정](https://encykorea.aks.ac.kr/Article/E0049047)의 호조 업무 |
 | 국립국어원 한국어기초사전: 생활 용례 | [지갑](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=31502)의 한자 표기와 돈·카드를 넣는 물건이라는 뜻 |
 | 한국학중앙연구원 한국민족문화대백과사전: 학파·음악 기관 | [기호학파](https://encykorea.aks.ac.kr/Article/E0008489)의 학문 계승, [장악원](https://encykorea.aks.ac.kr/Article/E0048643)의 이원 명칭 |

@@ -2377,3 +2377,7 @@
 {"type":"character","id":"hui-001","hanja":"希","meaning_ko":["바라다"],"meaning_en":["hope","rare"],"meaning_ru":["надежда","редкость"],"meaning_uz":["umid","kamchilik"],"meaning_ky":["үмүт","сейрек кездешет"]}
 {"type":"character","id":"hui-100","hanja":"戲","meaning_ko":["놀이","연극"],"meaning_en":["play","game","drama"],"meaning_ru":["играть","игры","драма"],"meaning_uz":["oʻynash","oʻyinlar","drama"],"meaning_ky":["ойноо","оюндар","драма"]}
 {"type":"character","id":"hui-101","hanja":"稀","meaning_ko":["드물다"],"meaning_en":["rare","sparse"],"meaning_ru":["редкость"],"meaning_uz":["kamchilik"],"meaning_ky":["сейрек кездешет"]}
+{"type":"character","id":"su-204","hanja":"髓","meaning_ko":["골수"],"meaning_en":["marrow"],"meaning_ru":["костный мозг"],"meaning_uz":["ilik"],"meaning_ky":["чучук"]}
+{"type":"character","id":"yeo-203","hanja":"濾","meaning_ko":["거르다"],"meaning_en":["to filter"],"meaning_ru":["фильтровать"],"meaning_uz":["filtrlamoq"],"meaning_ky":["чыпкалоо"]}
+{"type":"character","id":"i-213","hanja":"姨","meaning_ko":["이모"],"meaning_en":["maternal aunt"],"meaning_ru":["сестра матери"],"meaning_uz":["xola"],"meaning_ky":["таяже"]}
+{"type":"character","id":"nak-202","hanja":"洛","meaning_ko":["물이름"],"meaning_en":["river name"],"meaning_ru":["название реки"],"meaning_uz":["daryo nomi"],"meaning_ky":["дарыянын аталышы"]}
