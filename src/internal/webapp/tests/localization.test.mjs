@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {copy, LANGUAGES, normalizeLanguage, localized, countText} from '../static/localization.mjs';
+import {copy, LANGUAGES, normalizeLanguage, localized, countText, languageLabel, orderedLanguages} from '../static/localization.mjs';
 import {exampleLines} from '../static/examples.mjs';
 import {renderPrintableWordbook} from '../static/wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG} from '../static/network.mjs';
@@ -14,6 +14,14 @@ test('all languages have every UI message and the same interpolation variables',
     assert.equal(normalizeLanguage(language),language);
   }
   for(const value of [null,'fr',{},''])assert.equal(normalizeLanguage(value),'ko');
+});
+
+test('language menus put the preferred supported browser language first, then English and English-name order',()=>{
+  const englishFirst=['en','zh','ja','ko','ky','ru','es','uz','vi'];
+  for(const preferences of [[],['fr-CA'],['en-US','es']])assert.deepEqual(orderedLanguages(preferences),englishFirst);
+  assert.deepEqual(orderedLanguages(['fr-CA','VI-vn','ru']),['vi','en','zh','ja','ko','ky','ru','es','uz']);
+  assert.deepEqual(orderedLanguages(['zh-Hans-CN']).slice(0,2),['zh','en']);
+  assert.deepEqual(englishFirst.map(languageLabel),['English(English)','简体中文(Chinese)','日本語(Japanese)','한국어(Korean)','Кыргызча(Kyrgyz)','Русский(Russian)','Español(Spanish)','Oʻzbekcha(Uzbek)','Tiếng Việt(Vietnamese)']);
 });
 
 test('Russian quantities use the correct singular, few and many forms',()=>{

@@ -102,7 +102,28 @@ copy.en.dictionaryExamplesHelp+=' Other translations are optional.';
 copy.ko.searchHint='다른 단어, 한자 또는 영어·러시아어 뜻으로 찾아보세요.';
 copy.en.searchHint='Try another Korean word, character, or English or Russian meaning.';
 
-export const LANGUAGES = ['ko', 'en', 'ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi'];
+const languageNames = {
+  ko: {native:'한국어', english:'Korean'},
+  en: {native:'English', english:'English'},
+  ru: {native:'Русский', english:'Russian'},
+  uz: {native:'Oʻzbekcha', english:'Uzbek'},
+  ky: {native:'Кыргызча', english:'Kyrgyz'},
+  zh: {native:'简体中文', english:'Chinese'},
+  ja: {native:'日本語', english:'Japanese'},
+  es: {native:'Español', english:'Spanish'},
+  vi: {native:'Tiếng Việt', english:'Vietnamese'},
+};
+export const LANGUAGES = Object.keys(languageNames);
+export function languageLabel(language) {
+  const {native,english}=languageNames[language];
+  return `${native}(${english})`;
+}
+export function orderedLanguages(browserLanguages) {
+  const preferred=browserLanguages.map(tag=>tag.toLowerCase().split('-')[0]).find(lang=>LANGUAGES.includes(lang));
+  const first=preferred && preferred!=='en'?[preferred,'en']:['en'];
+  const remaining=LANGUAGES.filter(lang=>!first.includes(lang));
+  return first.concat(remaining.sort((a,b)=>languageNames[a].english.localeCompare(languageNames[b].english,'en')));
+}
 export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG',zh:'zh-Hans',ja:'ja-JP',es:'es',vi:'vi-VN'};
 export const normalizeLanguage = value => LANGUAGES.includes(value) ? value : 'ko';
 

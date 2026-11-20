@@ -1,5 +1,5 @@
 import {WORD_FORM_FIELDS, emptyWordDraft, wordFormPayload, findMissingCharacters, addMissingCharacters} from './dictionary-form.mjs';
-import {copy, normalizeLanguage, localized, localizedDate, countText, LANGUAGES} from './localization.mjs';
+import {copy, normalizeLanguage, localized, localizedDate, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
 import {parseDictionaryInput, DICTIONARY_FIELDS, DICTIONARY_SAMPLE} from './personal-dictionary.mjs';
 import {exampleLines} from './examples.mjs';
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions} from './learning.mjs';
@@ -52,6 +52,25 @@ const levelControls = () => `<div class="vocabulary-filters" role="group" aria-l
 const meaning = word => localized(word, 'meaning', state.lang);
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
+function languageOptions(excluded=[]) {
+  const preferences=navigator.languages?.length?navigator.languages:[navigator.language];
+  return orderedLanguages(preferences).filter(lang=>!excluded.includes(lang)).map(lang=>
+    `<option value="${lang}" lang="${lang==='zh'?'zh-Hans':lang}">${languageLabel(lang)}</option>`
+  ).join('');
+}
+function refreshLanguageOptions() {
+  const language=$('#language');
+  language.innerHTML=languageOptions();
+  language.value=state.lang;
+  const translation=$('#translation-language');
+  if(translation) {
+    const selected=translation.value;
+    translation.innerHTML=languageOptions(['ko',...state.translationLanguages]);
+    translation.value=selected;
+  }
+}
+refreshLanguageOptions();
+window.addEventListener('languagechange',refreshLanguageOptions);
 function updateShell() {
   document.documentElement.lang=state.lang;
   document.body.classList.toggle('wordbook-print-view',state.page==='print');
@@ -534,8 +553,8 @@ function wordRegistrationForm() {
   const field=(name,label,required=false,max=2000)=>`<div class="word-field"><label for="personal-${name}">${t(label)}${required?' *':''}</label><input id="personal-${name}" name="${name}" value="${esc(state.wordDraft[name])}" maxlength="${max}" ${required?'required':''} ${state.privateBusy?'readonly':''} ${LANGUAGES.includes(name.split('_').at(-1))?`lang="${name.split('_').at(-1)}"`:['word','hanja'].includes(name)?'lang="ko"':''}></div>`;
   const newField=(entry,index,name,label,required,max)=>`<div class="word-field"><label for="new-${index}-${name}">${t(label)}${required?' *':''}</label><input id="new-${index}-${name}" name="new-${index}-${name}" data-character-index="${index}" data-character-field="${name}" value="${esc(entry[name])}" maxlength="${max}" ${required?'required':''} ${state.privateBusy?'readonly':''}></div>`;
   const languages=['ko',...state.translationLanguages];
-  const available=LANGUAGES.filter(language=>!languages.includes(language));
-  const languagePicker=available.length?`<div class="translation-picker"><select id="translation-language" aria-label="${t('addLanguage')}">${available.map(lang=>`<option value="${lang}">${t('wordForm'+lang[0].toUpperCase()+lang.slice(1))}</option>`).join('')}</select>
+  const available=languageOptions(languages);
+  const languagePicker=available?`<div class="translation-picker"><select id="translation-language" aria-label="${t('addLanguage')}">${available}</select>
     <button type="button" class="secondary-button" data-action="add-language" ${state.privateBusy?'disabled':''}>${t('addLanguage')}</button></div>`:'';
   return `<form id="personal-word-form" novalidate><h3>${t('wordFormTitle')}</h3><p class="field-help">${t('wordFormHelp')}</p><div class="word-form-grid">${field('word','wordFormWord',true,100)}${field('hanja','wordFormHanja',false,100)}</div><p class="field-help">${t('wordFormHanjaHelp')}</p><label for="personal-level">${t('wordLevel')}</label><select id="personal-level" name="level" ${state.privateBusy?'disabled':''}>${['easy','normal','hard','classical'].map(level=>`<option value="${level}" ${state.wordDraft.level===level?'selected':''}>${levelLabel(level)}</option>`).join('')}</select>${languages.map(language=>field(`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko')).join('')}${languagePicker}<details class="dictionary-extra" ${LANGUAGES.some(language=>state.wordDraft[`example_${language}`])?'open':''}><summary>${t('wordFormExamples')}</summary><div>${languages.map(language=>field(`example_${language}`,`wordFormExample${language[0].toUpperCase()+language.slice(1)}`,false,500)).join('')}</div></details>${state.characterDrafts.length?`<section id="new-characters"><h3>${t('wordFormMissing')}</h3><p class="field-help">${t('wordFormMissingHelp')}</p>${state.characterDrafts.map((entry,index)=>`<fieldset class="new-character"><legend lang="ko">${esc(entry.glyph)}</legend><div class="word-form-grid">${newField(entry,index,'sound_ko','wordFormSound',true,1)}${newField(entry,index,'sound_en','wordFormRoman',false,32)}</div><p class="field-help">${t('wordFormRomanHelp')}</p>${languages.map(language=>newField(entry,index,`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko',200)).join('')}</fieldset>`).join('')}</section>`:''}<p id="word-form-status" class="form-status" role="alert"></p><div class="account-actions"><button class="primary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('wordFormAdd')}</button><button class="secondary-button" type="button" data-action="word-sample" ${state.privateBusy?'disabled':''}>${t('wordFormSample')}</button></div></form>`;
 }
@@ -724,7 +743,7 @@ function renderAccount() {
     return;
   }
   const registering=state.accountMode==='register';
-  const opening=`${head}<section class="account-card account-form-card"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div>`;
+  const opening=`${head}<section class="account-card account-form-card${state.googleClientID?' google-enabled':''}"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div>`;
   const proof=registering?state.googleProof:null;
   const needsGoogle=registering && state.googleClientID && !proof;
   const googlePanel=state.googleClientID?(proof?`<p>${t('emailLabel')} · ${esc(proof.email)}</p><button class="text-button" type="button" data-action="google-again">${t('googleChoose')}</button>`:googleButton()):'';
@@ -790,7 +809,23 @@ async function mountGoogleButton(intent) {
         }
       } catch(error){if(error.code==='google_invalid'){renderAccount();toast(accountMessage(error));}else status.textContent=accountMessage(error);}
     }});
-    google.renderButton(target,{theme:'outline',size:'large',locale:state.lang,text:intent==='login'?'signin_with':'continue_with'});
+    const options={theme:'outline',size:'large',locale:state.lang,text:intent==='login'?'signin_with':'continue_with'};
+    let renderedWidth=0, resizeTimer;
+    function renderButton(width) {
+      if(!target.isConnected || width<=0 || width===renderedWidth)return;
+      renderedWidth=width;
+      target.replaceChildren();
+      try {google.renderButton(target,{...options,width:String(width)});}
+      catch {status.textContent=t('googleUnavailable');}
+    }
+    renderButton(Math.floor(target.getBoundingClientRect().width));
+    const observer=new ResizeObserver(([entry])=>{
+      clearTimeout(resizeTimer);
+      if(!target.isConnected){observer.disconnect();return;}
+      const width=Math.floor(entry.contentRect.width);
+      if(width!==renderedWidth)resizeTimer=setTimeout(()=>renderButton(width),120);
+    });
+    observer.observe(target);
   } catch {if(target.isConnected)status.textContent=t('googleUnavailable');}
 }
 function emailSettingsForm() {
