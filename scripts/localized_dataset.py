@@ -14,9 +14,15 @@ import tempfile
 import unicodedata
 
 BATCH_SIZE = 10
-LANGUAGES = ('ru', 'uz', 'ky')
+LANGUAGES = ('ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi')
 CYRILLIC = re.compile(r"[\u0400-\u052f]")
-LATIN = re.compile(r"[A-Za-z]")
+LATIN = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḀ-ỿ]")
+HAN = re.compile(r"[㐀-䶿一-鿿豈-﫿\U00020000-\U000323af]")
+JAPANESE = re.compile(r"[ぁ-ゖァ-ヺー㐀-䶿一-鿿々]")
+SCRIPTS = {'ru': CYRILLIC, 'ky': CYRILLIC, 'uz': LATIN, 'zh': HAN,
+           'ja': JAPANESE, 'es': LATIN, 'vi': LATIN}
+
+
 def fields_for(languages):
     fields = {
         "character.jsonl": {f"meaning_{lang}" for lang in languages},
@@ -45,9 +51,9 @@ def check_text(text, maximum, language="ru"):
         raise ValueError("Translation text must be a nonempty trimmed string")
     if len(text) > maximum or any(unicodedata.category(c) == "Cc" for c in text):
         raise ValueError("Translation text has a control character or exceeds the field limit")
-    if language in ('uz', 'ky') and any(token in text for token in ('⁇', '\ufffd')):
+    if language != 'ru' and any(token in text for token in ('⁇', '\ufffd')):
         raise ValueError(f'Unresolved {language} translation symbol: {text!r}')
-    if not (LATIN if language == "uz" else CYRILLIC).search(text) or (language == "uz" and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b|&(?:amp;|#)", text):
+    if not SCRIPTS[language].search(text) or (language in ('uz', 'es', 'vi') and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b|&(?:amp;|#)", text):
         raise ValueError(f"Untranslated {language} text or unresolved placeholder: {text!r}")
 
 

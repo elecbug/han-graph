@@ -5,28 +5,32 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"golang.org/x/text/unicode/norm"
 )
 
-func TestPublicCentralAsianTranslationsAreComplete(t *testing.T) {
+func TestPublicTranslationsAreComplete(t *testing.T) {
 	g, err := Load(filepath.Join("..", "..", "..", "dataset"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, character := range g.characterOrder {
-		if len(character.MeaningUz) == 0 || len(character.MeaningKy) == 0 {
-			t.Fatalf("%s: missing Uzbek/Kyrgyz character meanings", character.ID)
+		for _, values := range [][]string{character.MeaningRu, character.MeaningUz, character.MeaningKy, character.MeaningZh, character.MeaningJa, character.MeaningEs, character.MeaningVi} {
+			if !meanings(values) {
+				t.Fatalf("%s: missing translated character meanings", character.ID)
+			}
 		}
 	}
 	for _, word := range g.words {
-		if word.MeaningUz == "" || word.MeaningKy == "" {
-			t.Fatalf("%s/%s: missing Uzbek/Kyrgyz word meaning", word.Word, word.Hanja)
+		if !nonempty(word.MeaningRu, word.MeaningUz, word.MeaningKy, word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi) {
+			t.Fatalf("%s/%s: missing translated word meaning", word.Word, word.Hanja)
 		}
-		if word.SemanticHint != "" && (word.SemanticHintUz == "" || word.SemanticHintKy == "") {
+		if word.SemanticHint != "" && !nonempty(word.SemanticHintEn, word.SemanticHintRu, word.SemanticHintUz, word.SemanticHintKy, word.SemanticHintZh, word.SemanticHintJa, word.SemanticHintEs, word.SemanticHintVi) {
 			t.Fatalf("%s/%s: missing translated composition hint", word.Word, word.Hanja)
 		}
 		example := g.examples[[2]string{word.Word, word.Hanja}]
-		if example.ExampleUz == "" || example.ExampleKy == "" {
-			t.Fatalf("%s/%s: missing Uzbek/Kyrgyz example", word.Word, word.Hanja)
+		if !nonempty(example.ExampleEn, example.ExampleRu, example.ExampleUz, example.ExampleKy, example.ExampleZh, example.ExampleJa, example.ExampleEs, example.ExampleVi) {
+			t.Fatalf("%s/%s: missing translated example", word.Word, word.Hanja)
 		}
 	}
 }
@@ -92,8 +96,15 @@ func TestPrivateCentralAsianTranslations(t *testing.T) {
 		t.Fatal(err)
 	}
 	input := Additions{
-		Words:    []Word{{Level: "normal", Word: "수분", Hanja: "水分", MeaningKo: "물기", MeaningEn: "moisture", MeaningUz: "namlik", MeaningKy: "нымдуулук", Components: []string{"水", "分"}}},
-		Examples: []WordExample{{Word: "수분", Hanja: "水分", ExampleKo: "수분을 보충해요.", ExampleUz: "Suv iching.", ExampleKy: "Суу ичиңиз."}},
+		Words: []Word{{
+			Level: "normal", Word: "수분", Hanja: "水分", Components: []string{"水", "分"},
+			MeaningKo: "물기", MeaningEn: "moisture", MeaningUz: "namlik", MeaningKy: "нымдуулук",
+			MeaningZh: "水分；湿气", MeaningJa: "水分・みずけ", MeaningEs: "humedad", MeaningVi: "độ ẩm",
+		}},
+		Examples: []WordExample{{
+			Word: "수분", Hanja: "水分", ExampleKo: "수분을 보충해요.", ExampleUz: "Suv iching.", ExampleKy: "Суу ичиңиз.",
+			ExampleZh: "补充水分。", ExampleJa: "水分を補給します。", ExampleEs: "Me hidrato.", ExampleVi: "Tôi bổ sung nước.",
+		}},
 	}
 	view, err := g.WithAdditions(input)
 	if err != nil {
@@ -102,7 +113,27 @@ func TestPrivateCentralAsianTranslations(t *testing.T) {
 	if view.Search("NYMLIK", 60).WordCount != 0 || view.Search("NAMLIK", 60).WordCount != 1 || view.Search("НЫМДУУЛУК", 60).WordCount != 1 || g.Search("namlik", 60).WordCount != 0 {
 		t.Fatal("private translations not isolated/searchable")
 	}
-	if view.FindWords("수분")[0].ExampleKy != "Суу ичиңиз." {
+	for _, query := range []string{"湿气", "みずけ", "HUMEDAD", norm.NFD.String("ĐỘ ẨM")} {
+		if view.Search(query, 60).WordCount != 1 || g.Search(query, 60).WordCount != 0 {
+			t.Fatalf("private translation search for %q", query)
+		}
+	}
+	result := view.FindWords("수분")[0]
+	if result.ExampleKy != "Суу ичиңиз." || result.ExampleZh != "补充水分。" || result.ExampleJa != "水分を補給します。" || result.ExampleEs != "Me hidrato." || result.ExampleVi != "Tôi bổ sung nước." {
 		t.Fatal("private translated example lost")
+	}
+}
+
+func TestTranslatedCharacterSearch(t *testing.T) {
+	files := fixture(t)
+	files["character.jsonl"] = strings.Replace(files["character.jsonl"], `"meaning_en":["divide"]`, `"meaning_en":["divide"],"meaning_zh":["划分"],"meaning_ja":["分ける"],"meaning_es":["división"],"meaning_vi":["phân chia"]`, 1)
+	g, err := Load(writeFixture(t, files))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, query := range []string{"划分", "分ける", norm.NFD.String("DIVISIÓN"), norm.NFD.String("PHÂN CHIA")} {
+		if result := g.Search(query, 60); result.CharacterCount != 1 {
+			t.Fatalf("expected one character for %q, got %d", query, result.CharacterCount)
+		}
 	}
 }

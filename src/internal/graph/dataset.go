@@ -32,6 +32,10 @@ type Character struct {
 	MeaningRu []string `json:"meaning_ru,omitempty"`
 	MeaningUz []string `json:"meaning_uz,omitempty"`
 	MeaningKy []string `json:"meaning_ky,omitempty"`
+	MeaningZh []string `json:"meaning_zh,omitempty"`
+	MeaningJa []string `json:"meaning_ja,omitempty"`
+	MeaningEs []string `json:"meaning_es,omitempty"`
+	MeaningVi []string `json:"meaning_vi,omitempty"`
 }
 
 type WordExample struct {
@@ -42,6 +46,10 @@ type WordExample struct {
 	ExampleRu string `json:"example_ru,omitempty"`
 	ExampleUz string `json:"example_uz,omitempty"`
 	ExampleKy string `json:"example_ky,omitempty"`
+	ExampleZh string `json:"example_zh,omitempty"`
+	ExampleJa string `json:"example_ja,omitempty"`
+	ExampleEs string `json:"example_es,omitempty"`
+	ExampleVi string `json:"example_vi,omitempty"`
 }
 
 type Word struct {
@@ -53,12 +61,20 @@ type Word struct {
 	MeaningRu      string   `json:"meaning_ru,omitempty"`
 	MeaningUz      string   `json:"meaning_uz,omitempty"`
 	MeaningKy      string   `json:"meaning_ky,omitempty"`
+	MeaningZh      string   `json:"meaning_zh,omitempty"`
+	MeaningJa      string   `json:"meaning_ja,omitempty"`
+	MeaningEs      string   `json:"meaning_es,omitempty"`
+	MeaningVi      string   `json:"meaning_vi,omitempty"`
 	Components     []string `json:"components"`
 	SemanticHint   string   `json:"semantic_hint,omitempty"`
 	SemanticHintEn string   `json:"semantic_hint_en,omitempty"`
 	SemanticHintRu string   `json:"semantic_hint_ru,omitempty"`
 	SemanticHintUz string   `json:"semantic_hint_uz,omitempty"`
 	SemanticHintKy string   `json:"semantic_hint_ky,omitempty"`
+	SemanticHintZh string   `json:"semantic_hint_zh,omitempty"`
+	SemanticHintJa string   `json:"semantic_hint_ja,omitempty"`
+	SemanticHintEs string   `json:"semantic_hint_es,omitempty"`
+	SemanticHintVi string   `json:"semantic_hint_vi,omitempty"`
 }
 
 // ValidWordLevel reports whether level is a supported vocabulary category.
@@ -118,7 +134,7 @@ func Load(dir string) (*Graph, error) {
 	for _, row := range characters {
 		c := row.value
 		parts := characterID.FindStringSubmatch(c.ID)
-		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) || !optionalMeaningArrays(c.MeaningRu, c.MeaningUz, c.MeaningKy) {
+		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) || !optionalMeaningArrays(c.MeaningRu, c.MeaningUz, c.MeaningKy, c.MeaningZh, c.MeaningJa, c.MeaningEs, c.MeaningVi) {
 			return fail("character.jsonl", row.line, "expected type=character, id=<meta>-<3+ digits>, one hanja character and nonempty meaning arrays")
 		}
 		if _, exists := g.meta[parts[1]]; !exists {
@@ -138,7 +154,7 @@ func Load(dir string) (*Graph, error) {
 	seenWords := make(map[[2]string]bool)
 	for _, row := range words {
 		w := row.value
-		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || !optionalTexts(2000, w.MeaningRu, w.MeaningUz, w.MeaningKy, w.SemanticHintEn, w.SemanticHintRu, w.SemanticHintUz, w.SemanticHintKy) || w.Components == nil {
+		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || !optionalTexts(2000, w.MeaningRu, w.MeaningUz, w.MeaningKy, w.MeaningZh, w.MeaningJa, w.MeaningEs, w.MeaningVi, w.SemanticHintEn, w.SemanticHintRu, w.SemanticHintUz, w.SemanticHintKy, w.SemanticHintZh, w.SemanticHintJa, w.SemanticHintEs, w.SemanticHintVi) || w.Components == nil {
 			return fail("word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
 		}
 		if !ValidWordLevel(w.Level) {
@@ -191,7 +207,7 @@ func Load(dir string) (*Graph, error) {
 		if e.ExampleEn != "" && (strings.TrimSpace(e.ExampleEn) != e.ExampleEn || utf8.RuneCountInString(e.ExampleEn) > 500 || strings.ContainsAny(e.ExampleEn, "\r\n")) {
 			return fail("example.jsonl", row.line, "example_en must be a single nonempty line of at most 500 characters")
 		}
-		if !optionalTexts(500, e.ExampleRu, e.ExampleUz, e.ExampleKy) {
+		if !optionalTexts(500, e.ExampleRu, e.ExampleUz, e.ExampleKy, e.ExampleZh, e.ExampleJa, e.ExampleEs, e.ExampleVi) {
 			return fail("example.jsonl", row.line, "translated examples must be a single nonempty line of at most 500 characters")
 		}
 		g.examples[key] = e

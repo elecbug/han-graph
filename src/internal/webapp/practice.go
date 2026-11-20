@@ -26,6 +26,10 @@ type Question struct {
 	PromptRu      string    `json:"prompt_ru,omitempty"`
 	PromptUz      string    `json:"prompt_uz,omitempty"`
 	PromptKy      string    `json:"prompt_ky,omitempty"`
+	PromptZh      string    `json:"prompt_zh,omitempty"`
+	PromptJa      string    `json:"prompt_ja,omitempty"`
+	PromptEs      string    `json:"prompt_es,omitempty"`
+	PromptVi      string    `json:"prompt_vi,omitempty"`
 	Answer        WordRef   `json:"answer"`
 	Options       []WordRef `json:"options"`
 	ExplanationKo string    `json:"explanation_ko"`
@@ -33,13 +37,16 @@ type Question struct {
 	ExplanationRu string    `json:"explanation_ru,omitempty"`
 	ExplanationUz string    `json:"explanation_uz,omitempty"`
 	ExplanationKy string    `json:"explanation_ky,omitempty"`
+	ExplanationZh string    `json:"explanation_zh,omitempty"`
+	ExplanationJa string    `json:"explanation_ja,omitempty"`
+	ExplanationEs string    `json:"explanation_es,omitempty"`
+	ExplanationVi string    `json:"explanation_vi,omitempty"`
 }
 
 type Practice struct {
-	Version      int        `json:"version"`
-	Source       string     `json:"source"`
-	ReviewStatus string     `json:"review_status"`
-	Questions    []Question `json:"questions"`
+	Version   int        `json:"version"`
+	Source    string     `json:"source"`
+	Questions []Question `json:"questions"`
 }
 
 func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
@@ -50,14 +57,19 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 	}
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	if err := decoder.Decode(&practice); err != nil {
+	// Older version-1 files may carry additional editorial metadata.
+	input := struct {
+		*Practice
+		LegacyStatus string `json:"review_status"`
+	}{Practice: &practice}
+	if err := decoder.Decode(&input); err != nil {
 		return practice, fmt.Errorf("%s: %w", filename, err)
 	}
 	if err := decoder.Decode(new(any)); err != io.EOF {
 		return practice, fmt.Errorf("%s: expected one JSON object", filename)
 	}
-	if practice.Version != 1 || strings.TrimSpace(practice.Source) == "" || practice.ReviewStatus != "draft" || len(practice.Questions) == 0 {
-		return practice, fmt.Errorf("%s: expected version=1, source, review_status=draft and questions", filename)
+	if practice.Version != 1 || strings.TrimSpace(practice.Source) == "" || len(practice.Questions) == 0 {
+		return practice, fmt.Errorf("%s: expected version=1, source and questions", filename)
 	}
 	ids := make(map[string]bool)
 	contrastGroups := make(map[string]map[WordRef]bool)
@@ -72,7 +84,7 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 				return fail("missing question text")
 			}
 		}
-		for _, value := range []string{q.PromptRu, q.PromptUz, q.PromptKy, q.ExplanationRu, q.ExplanationUz, q.ExplanationKy} {
+		for _, value := range []string{q.PromptRu, q.PromptUz, q.PromptKy, q.PromptZh, q.PromptJa, q.PromptEs, q.PromptVi, q.ExplanationRu, q.ExplanationUz, q.ExplanationKy, q.ExplanationZh, q.ExplanationJa, q.ExplanationEs, q.ExplanationVi} {
 			if value != "" && (strings.TrimSpace(value) != value || strings.ContainsAny(value, "\r\n")) {
 				return fail("Translated question text must be a single nonempty line")
 			}

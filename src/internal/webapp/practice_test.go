@@ -28,6 +28,30 @@ func TestPracticeRejectsHomonymousOptions(t *testing.T) {
 	}
 }
 
+func TestPracticeAcceptsLegacyMetadataWithoutPublishingIt(t *testing.T) {
+	g, practice, _ := testApp(t)
+	practice.Questions = practice.Questions[:1]
+	input, err := json.Marshal(struct {
+		Practice
+		LegacyStatus string `json:"review_status"`
+	}{practice, "draft"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	filename := filepath.Join(t.TempDir(), "practice.json")
+	if err := os.WriteFile(filename, input, 0600); err != nil {
+		t.Fatal(err)
+	}
+	loaded, err := LoadPractice(filename, g)
+	if err != nil {
+		t.Fatal(err)
+	}
+	output, err := json.Marshal(loaded)
+	if err != nil || strings.Contains(string(output), "review_status") || len(loaded.Questions) != 1 {
+		t.Fatal("legacy file did not round-trip to the current practice format", err)
+	}
+}
+
 func TestAdditionalPracticeLanguages(t *testing.T) {
 	g, practice, _ := testApp(t)
 	practice.Questions = practice.Questions[:1]
@@ -58,7 +82,7 @@ func TestAdditionalPracticeLanguages(t *testing.T) {
 	}
 }
 
-func TestPublicPracticeHasThreeChoicesAndFiveLanguages(t *testing.T) {
+func TestPublicPracticeHasThreeChoicesAndAllTranslations(t *testing.T) {
 	_, practice, _ := testApp(t)
 	for _, q := range practice.Questions {
 		if len(q.Options) != 3 {
@@ -70,6 +94,10 @@ func TestPublicPracticeHasThreeChoicesAndFiveLanguages(t *testing.T) {
 			{"ru", q.PromptRu, q.ExplanationRu},
 			{"uz", q.PromptUz, q.ExplanationUz},
 			{"ky", q.PromptKy, q.ExplanationKy},
+			{"zh", q.PromptZh, q.ExplanationZh},
+			{"ja", q.PromptJa, q.ExplanationJa},
+			{"es", q.PromptEs, q.ExplanationEs},
+			{"vi", q.PromptVi, q.ExplanationVi},
 		} {
 			if text.prompt == "" || text.explanation == "" {
 				t.Fatalf("%s: missing %s prompt or explanation", q.ID, text.language)
@@ -106,7 +134,7 @@ func TestMeaningContrastGroups(t *testing.T) {
 			if tc.changeOptions {
 				second.Options[0] = WordRef{"가격", "價格"}
 			}
-			data, err := json.Marshal(Practice{Version: 1, Source: "test", ReviewStatus: "draft", Questions: []Question{first, second}})
+			data, err := json.Marshal(Practice{Version: 1, Source: "test", Questions: []Question{first, second}})
 			if err != nil {
 				t.Fatal(err)
 			}

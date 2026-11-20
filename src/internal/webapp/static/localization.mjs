@@ -1,6 +1,10 @@
 import {ru} from './localization-ru.mjs';
 import {uz} from './localization-uz.mjs';
 import {ky} from './localization-ky.mjs';
+import {zh} from './localization-zh.mjs';
+import {ja} from './localization-ja.mjs';
+import {es} from './localization-es.mjs';
+import {vi} from './localization-vi.mjs';
 
 export const copy = {
   ko: {
@@ -22,7 +26,7 @@ export const copy = {
     noResults:'일치하는 항목이 없어요.', searchHint:'다른 단어, 한자 또는 영어 뜻으로 찾아보세요.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'저장하기', savedButton:'저장됨', removed:'단어장에서 삭제했어요.', added:'내 단어장에 저장했어요.', maxSaved:'단어장에 최대 500개까지 저장할 수 있어요.', storageFailed:'이 브라우저에서는 저장할 수 없어 이번 방문 동안만 유지됩니다.',
     breakDown:'단어를 이루는 한자', tapCharacter:'한자를 누르면 관련 단어를 볼 수 있어요', readingNote:'한자의 뜻은 단어와 문맥에 따라 달라질 수 있어요.', mixedWordNote:'한글 부분은 그대로 읽고, 굵게 표시한 한자 부분만 연결해요.', connections:'같은 한자, 다른 단어', graphHint:'가운데 한자와 관련 단어를 연결해요. 단어를 누르면 뜻과 구성을 볼 수 있어요.', graphScope:'선택한 한자 하나와 직접 연결된 단어 · 현재 어휘 필터 적용', zoomIn:'확대', zoomOut:'축소', fitGraph:'전체 보기', graphPan:'드래그하거나 그래프에 초점을 두고 방향키로 이동해요. 휠은 페이지를 스크롤해요.', graphRegion:'한자와 단어 연결 그래프', graphSelected:'선택한 한자', currentWord:'선택한 단어', noConnections:'아직 연결된 단어가 없어요.', noConnectionsSub:'이 한자의 단어는 앞으로 채워 갈 예정이에요.', readings:'독음과 뜻', notFound:'이 항목을 찾을 수 없어요.', notFoundSub:'검색 목록에서 다른 항목을 선택해 주세요.',
     savedTitle:'기억하고 싶은 단어들.', savedSub:'다시 만나고 싶은 단어를 한곳에 모아 보세요.', savedEye:'YOUR WORD COLLECTION', storageNote:'단어장은 이 브라우저에 저장됩니다. 다른 기기와는 동기화되지 않아요.', savedEmpty:'아직 모아 둔 단어가 없어요.', savedEmptySub:'탐색 중 마음에 남는 단어를 저장해 보세요.', startExplore:'단어 탐색하기', openWord:'단어 살펴보기', remove:'저장 취소', missingSaved:'현재 데이터에서 찾을 수 없는 저장 항목',
-    practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'문장의 단서로 상황에 맞는 단어를 골라 보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 한글 선택지에서 어울리는 단어를 골라 보세요. 답을 고른 뒤 뜻풀이와 한자 구성 해설로 이해를 넓힐 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceRound:'전체 {pool}문항 중 무작위 {count}문항', practiceDraft:'한국어·영어 해설 · 예문 검수 전', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
+    practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'문장의 단서로 상황에 맞는 단어를 골라 보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 한글 선택지에서 어울리는 단어를 골라 보세요. 답을 고른 뒤 뜻풀이와 한자 구성 해설로 이해를 넓힐 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceRound:'전체 {pool}문항 중 무작위 {count}문항', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'진행 중인 연습은 페이지를 새로고침하면 초기화됩니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
   en: {
     "personal":"My entry", "personalCharacter":"My character", "dictionaryTitle":"My personal dictionary", "dictionaryHelp":"Your entries join the public dictionary in searches and connections only while you are signed in. You can save them to your word collection and write notes.", "dictionaryWords":"Word JSON", "dictionaryCharacters":"New character JSON (optional)", "dictionaryMeta":"New reading JSON (optional)", "dictionaryExamples":"Example JSON (optional)", "dictionaryFormat":"Enter one JSON object, an array, or JSONL with one object per line. You can also paste downloaded personal dictionary JSON here. Words use level, word, hanja, meaning_ko, meaning_en, and components.", "dictionaryOptional":"Add characters, readings, or examples", "dictionaryCharactersHelp":"Add characters missing from the dictionary. An id is a reading group ID followed by at least three digits, such as seom-9000. You can also add a new reading for a character.", "dictionaryMetaHelp":"Only add a reading group if the prefix of the character id is missing. Omit groups already registered, such as seom (섬).", "dictionaryExamplesHelp":"Match a personal word using word and hanja. example_ko is one Korean sentence; example_en is its optional English translation.", "dictionaryAdd":"Add to personal dictionary", "dictionarySample":"Fill word example", "dictionaryEmptyList":"You have not registered any words yet.", "dictionarySaved":"Added to your personal dictionary.", "dictionaryDeleted":"Removed from your personal dictionary.", "dictionaryDelete":"Delete entry", "dictionaryDeleteHelp":"Deleting a word also deletes its example, saved reference, and note. Characters and reading groups cannot be deleted while entries still depend on them.", "dictionaryRegistered":"Registered words", "dictionaryRegisteredCharacters":"Registered characters and readings", "dictionaryDownload":"Download personal dictionary JSON", "dictionaryJSON":"Check line {line} of {field}. A JSON object is required.", "dictionaryEmpty":"Enter words, characters, or readings to add.", "dictionarySize":"The combined input must be at most 1 MiB.", "dictionaryInvalid":"Check the JSON fields and character/reading references.", "dictionaryDuplicate":"A word, character, or reading is already registered. Remove duplicates and try again.", "dictionaryLimit":"Your personal dictionary can hold 1,000 words, 500 character readings, and 100 new reading groups.",
@@ -43,27 +47,23 @@ export const copy = {
     noResults:'No matches yet.', searchHint:'Try another Korean word, character, or English meaning.', wordTag:'WORD EXPLORER', charTag:'CHARACTER EXPLORER', save:'Save word', savedButton:'Saved', removed:'Removed from your words.', added:'Added to your words.', maxSaved:'You can save up to 500 words.', storageFailed:'Storage is unavailable. Your changes will last for this visit only.',
     breakDown:'The characters inside', tapCharacter:'Select a character to see its related words', readingNote:'A character’s meaning can change with the word and context.', mixedWordNote:'Read the Hangul portions as written. Only the bold Hanja portions form connections.', connections:'One character. More connections.', graphHint:'The central character connects to related words. Select a word to see its meaning and characters.', graphScope:'One selected character and its directly related words · Vocabulary filter applied', zoomIn:'Zoom in', zoomOut:'Zoom out', fitGraph:'Fit all', graphPan:'Drag to move, or focus the graph and use arrow keys. Scroll the wheel to move the page.', graphRegion:'Character and word connection graph', graphSelected:'Selected character', currentWord:'Selected word', noConnections:'No connected words yet.', noConnectionsSub:'Vocabulary for this character will be added over time.', readings:'Readings and meanings', notFound:'This entry could not be found.', notFoundSub:'Choose another entry from the search results.',
     savedTitle:'Words worth coming back to.', savedSub:'Keep the connections you want to remember.', savedEye:'YOUR WORD COLLECTION', storageNote:'Your collection is saved in this browser. It does not sync to other devices.', savedEmpty:'Your collection starts here.', savedEmptySub:'Save a word as you explore to find it here later.', startExplore:'Explore words', openWord:'Explore this word', remove:'Remove saved word', missingSaved:'Saved entries no longer in the current dataset',
-    practiceTitle:'Find meaning in context.', practiceSub:'Use the sentence clues to choose the word that fits.', practiceEye:'A LITTLE PRACTICE', introTitle:'Read. Infer. Understand.', introSub:'Read a short situation and choose from Korean word options. After answering, explore the meaning and character explanation.', step1:'Read the context', step2:'Choose a word', step3:'See why', startPractice:'Start practicing', questions:'questions', practiceRound:'{count} random questions from a pool of {pool}', practiceDraft:'Korean and English explanations · Draft examples', chooseWord:'Which word fits this situation?', pickOnce:'Choose an answer to reveal the explanation.', showTranslation:'Show English translation', hideTranslation:'Hide English translation', correct:'You’ve got it!', incorrect:'Let’s take a closer look.', yourChoice:'Your choice', answer:'Answer', next:'Next question', finish:'See results', exitPractice:'Back to exploring', practiceNote:'An unfinished practice session resets when you reload the page.', summaryTitle:'One step closer to understanding.', summarySub:'More than a score, it’s about knowing why a word means what it does.', restart:'Practice again', review:'Words to revisit', allCorrect:'You got every question right. Keep exploring new connections with these words.', latest:'Last practice', loading:'Loading your word connections…', errorTitle:'We couldn’t load the connections.', errorSub:'Check that the server is running, then try again.', retry:'Try again', looking:'Searching…',
+    practiceTitle:'Find meaning in context.', practiceSub:'Use the sentence clues to choose the word that fits.', practiceEye:'A LITTLE PRACTICE', introTitle:'Read. Infer. Understand.', introSub:'Read a short situation and choose from Korean word options. After answering, explore the meaning and character explanation.', step1:'Read the context', step2:'Choose a word', step3:'See why', startPractice:'Start practicing', questions:'questions', practiceRound:'{count} random questions from a pool of {pool}', chooseWord:'Which word fits this situation?', pickOnce:'Choose an answer to reveal the explanation.', showTranslation:'Show English translation', hideTranslation:'Hide English translation', correct:'You’ve got it!', incorrect:'Let’s take a closer look.', yourChoice:'Your choice', answer:'Answer', next:'Next question', finish:'See results', exitPractice:'Back to exploring', practiceNote:'An unfinished practice session resets when you reload the page.', summaryTitle:'One step closer to understanding.', summarySub:'More than a score, it’s about knowing why a word means what it does.', restart:'Practice again', review:'Words to revisit', allCorrect:'You got every question right. Keep exploring new connections with these words.', latest:'Last practice', loading:'Loading your word connections…', errorTitle:'We couldn’t load the connections.', errorSub:'Check that the server is running, then try again.', retry:'Try again', looking:'Searching…',
   },
 };
-copy.ru=ru;
-copy.uz=uz;
-copy.ky=ky;
+Object.assign(copy, {ru, uz, ky, zh, ja, es, vi});
 copy.ko.languageLabel='화면 언어';
 copy.en.languageLabel='Interface language';
 copy.ko.studio='학습 공간';
 copy.en.studio='LEARNING STUDIO';
-copy.ko.dictionaryFormat+=' meaning_ru는 선택적인 러시아어 뜻이에요.';
-copy.en.dictionaryFormat+=' meaning_ru is an optional Russian translation.';
-copy.ko.dictionaryExamplesHelp+=' example_ru는 선택적인 러시아어 번역이에요.';
-copy.en.dictionaryExamplesHelp+=' example_ru is an optional Russian translation.';
-copy.ko.practiceDraft='한국어·영어·러시아어 해설 · 예문·번역 검수 전';
-copy.en.practiceDraft='Korean, English and Russian explanations · Draft examples and translations';
+copy.ko.dictionaryFormat+=' 추가 언어의 뜻은 선택해서 입력할 수 있어요.';
+copy.en.dictionaryFormat+=' Translations into additional languages are optional.';
+copy.ko.dictionaryExamplesHelp+=' 다른 언어의 번역도 선택해서 입력할 수 있어요.';
+copy.en.dictionaryExamplesHelp+=' Other translations are optional.';
 copy.ko.searchHint='다른 단어, 한자 또는 영어·러시아어 뜻으로 찾아보세요.';
 copy.en.searchHint='Try another Korean word, character, or English or Russian meaning.';
 
-export const LANGUAGES = ['ko', 'en', 'ru', 'uz', 'ky'];
-export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG'};
+export const LANGUAGES = ['ko', 'en', 'ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi'];
+export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG',zh:'zh-Hans',ja:'ja-JP',es:'es',vi:'vi-VN'};
 export const normalizeLanguage = value => LANGUAGES.includes(value) ? value : 'ko';
 
 export function localizedDate(date, language = 'ko') {
@@ -150,17 +150,72 @@ Object.assign(copy.ko,{home:'漢-Graph 처음으로',mainNavigation:'주요 메�
 Object.assign(copy.en,{home:'HAN-GRAPH home',mainNavigation:'Main navigation',brandMotto:'WORDS, CONNECTED.',appDescription:'Connect Korean words through Hanja meanings and understand them in context.'});
 Object.assign(copy.ru,{home:'На главную HAN-GRAPH',mainNavigation:'Главное меню',brandMotto:'СЛОВА И СВЯЗИ.',appDescription:'Находите связи между корейскими словами через значения иероглифов и контекст.'});
 
-Object.assign(copy.ko,{wordFormUz:'우즈베크어 뜻 (선택)',wordFormKy:'키르기스어 뜻 (선택)',wordFormExampleUz:'우즈베크어 번역 (선택)',wordFormExampleKy:'키르기스어 번역 (선택)',wordFormHelp:'단어와 뜻을 입력하세요. 구성 한자는 자동으로 연결해요. 한국어·영어 뜻은 필수이고 다른 언어의 뜻과 예문은 선택이에요.',practiceDraft:'다국어 해설 · 예문·번역 검수 전',searchHint:'다른 단어, 한자 또는 뜻으로 찾아보세요.'});
-Object.assign(copy.en,{wordFormUz:'Uzbek meaning (optional)',wordFormKy:'Kyrgyz meaning (optional)',wordFormExampleUz:'Uzbek translation (optional)',wordFormExampleKy:'Kyrgyz translation (optional)',wordFormHelp:'Enter the word and its meanings. Hanja components are linked automatically. Korean and English meanings are required; other translations and examples are optional.',practiceDraft:'Multilingual explanations · Draft examples and translations',searchHint:'Try another Korean word, character, or meaning.'});
-Object.assign(copy.ru,{wordFormUz:'Значение на узбекском (необязательно)',wordFormKy:'Значение на кыргызском (необязательно)',wordFormExampleUz:'Узбекский перевод (необязательно)',wordFormExampleKy:'Кыргызский перевод (необязательно)',wordFormHelp:'Введите слово и его значения. Иероглифы связываются автоматически. Корейское и английское значения обязательны; другие переводы и примеры — по желанию.',practiceDraft:'Пояснения на нескольких языках · Примеры и переводы требуют проверки'});
+Object.assign(copy.ko,{wordFormUz:'우즈베크어 뜻 (선택)',wordFormKy:'키르기스어 뜻 (선택)',wordFormExampleUz:'우즈베크어 번역 (선택)',wordFormExampleKy:'키르기스어 번역 (선택)',wordFormHelp:'단어와 뜻을 입력하세요. 구성 한자는 자동으로 연결해요. 한국어·영어 뜻은 필수이고 다른 언어의 뜻과 예문은 선택이에요.',searchHint:'다른 단어, 한자 또는 뜻으로 찾아보세요.'});
+Object.assign(copy.en,{wordFormUz:'Uzbek meaning (optional)',wordFormKy:'Kyrgyz meaning (optional)',wordFormExampleUz:'Uzbek translation (optional)',wordFormExampleKy:'Kyrgyz translation (optional)',wordFormHelp:'Enter the word and its meanings. Hanja components are linked automatically. Korean and English meanings are required; other translations and examples are optional.',searchHint:'Try another Korean word, character, or meaning.'});
+Object.assign(copy.ru,{wordFormUz:'Значение на узбекском (необязательно)',wordFormKy:'Значение на кыргызском (необязательно)',wordFormExampleUz:'Узбекский перевод (необязательно)',wordFormExampleKy:'Кыргызский перевод (необязательно)',wordFormHelp:'Введите слово и его значения. Иероглифы связываются автоматически. Корейское и английское значения обязательны; другие переводы и примеры — по желанию.'});
+Object.assign(copy.ko, {
+  wordFormZh: "중국어 뜻 (선택)",
+  wordFormExampleZh: "중국어 번역 (선택)",
+  wordFormJa: "일본어 뜻 (선택)",
+  wordFormExampleJa: "일본어 번역 (선택)",
+  wordFormEs: "스페인어 뜻 (선택)",
+  wordFormExampleEs: "스페인어 번역 (선택)",
+  wordFormVi: "베트남어 뜻 (선택)",
+  wordFormExampleVi: "베트남어 번역 (선택)",
+});
+Object.assign(copy.en, {
+  wordFormZh: "Chinese meaning (optional)",
+  wordFormExampleZh: "Chinese translation (optional)",
+  wordFormJa: "Japanese meaning (optional)",
+  wordFormExampleJa: "Japanese translation (optional)",
+  wordFormEs: "Spanish meaning (optional)",
+  wordFormExampleEs: "Spanish translation (optional)",
+  wordFormVi: "Vietnamese meaning (optional)",
+  wordFormExampleVi: "Vietnamese translation (optional)",
+});
+Object.assign(copy.ru, {
+  wordFormZh: "Значение на китайском (необязательно)",
+  wordFormExampleZh: "Перевод на китайском (необязательно)",
+  wordFormJa: "Значение на японском (необязательно)",
+  wordFormExampleJa: "Перевод на японском (необязательно)",
+  wordFormEs: "Значение на испанском (необязательно)",
+  wordFormExampleEs: "Перевод на испанском (необязательно)",
+  wordFormVi: "Значение на вьетнамском (необязательно)",
+  wordFormExampleVi: "Перевод на вьетнамском (необязательно)",
+});
+Object.assign(copy.uz, {
+  wordFormZh: "xitoy tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleZh: "xitoy tiliga tarjima (ixtiyoriy)",
+  wordFormJa: "yapon tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleJa: "yapon tiliga tarjima (ixtiyoriy)",
+  wordFormEs: "ispan tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleEs: "ispan tiliga tarjima (ixtiyoriy)",
+  wordFormVi: "vyetnam tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleVi: "vyetnam tiliga tarjima (ixtiyoriy)",
+});
+Object.assign(copy.ky, {
+  wordFormZh: "Кытайча мааниси (милдеттүү эмес)",
+  wordFormExampleZh: "Кытайча котормосу (милдеттүү эмес)",
+  wordFormJa: "Жапончо мааниси (милдеттүү эмес)",
+  wordFormExampleJa: "Жапончо котормосу (милдеттүү эмес)",
+  wordFormEs: "Испанча мааниси (милдеттүү эмес)",
+  wordFormExampleEs: "Испанча котормосу (милдеттүү эмес)",
+  wordFormVi: "Вьетнамча мааниси (милдеттүү эмес)",
+  wordFormExampleVi: "Вьетнамча котормосу (милдеттүү эмес)",
+});
 const pluralRules=Object.fromEntries(LANGUAGES.map(language=>[language,new Intl.PluralRules(language)]));
 const nouns={
   en:{words:{one:'word',other:'words'},characters:{one:'character',other:'characters'},questions:{one:'question',other:'questions'}},
   ru:{words:{one:'слово',few:'слова',many:'слов',other:'слова'},characters:{one:'иероглиф',few:'иероглифа',many:'иероглифов',other:'иероглифа'},questions:{one:'задание',few:'задания',many:'заданий',other:'задания'}},
   uz:{words:{other:'ta soʻz'},characters:{other:'ta iyeroglif'},questions:{other:'ta savol'}},
+  zh:{words:{other:'个词'},characters:{other:'个汉字'},questions:{other:'道题'}},
+  ja:{words:{other:'語'},characters:{other:'字'},questions:{other:'問'}},
+  es:{words:{one:'palabra',other:'palabras'},characters:{one:'carácter',other:'caracteres'},questions:{one:'pregunta',other:'preguntas'}},
+  vi:{words:{other:'từ'},characters:{other:'chữ Hán'},questions:{other:'câu hỏi'}},
   ky:{words:{other:'сөз'},characters:{other:'иероглиф'},questions:{other:'суроо'}},
 };
 export function countText(count,key,language='ko') {
   const lang=normalizeLanguage(language),forms=nouns[lang]?.[key];
-  return `${count.toLocaleString(lang)} ${forms?(forms[pluralRules[lang].select(count)]??forms.other):copy[lang][key]}`;
+  const separator = ['zh','ja'].includes(lang) ? '' : ' ';
+  return `${count.toLocaleString(lang)}${separator}${forms?(forms[pluralRules[lang].select(count)]??forms.other):copy[lang][key]}`;
 }

@@ -80,4 +80,4 @@
 
 </details>
 
-사전 예문의 영어 초안에는 [QuickMT 한국어–영어 모델](https://huggingface.co/quickmt/quickmt-ko-en)의 로컬 자동번역을 참고했습니다. 반복 문장을 정리하고 발견한 오역을 일부 교정했으며, 전체 번역은 내용 검토 중입니다. 번역 문장은 `example.jsonl`에 저장되어 있어 앱 실행 중 번역 서비스에 접속하지 않습니다.
+사전 예문의 영어 번역에는 [QuickMT 한국어–영어 모델](https://huggingface.co/quickmt/quickmt-ko-en)의 로컬 자동번역을 참고했습니다. 반복 문장을 정리하고 오역을 교정했습니다. 번역 문장은 `example.jsonl`에 저장되어 있어 앱 실행 중 번역 서비스에 접속하지 않습니다.

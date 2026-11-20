@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate local Uzbek/Kyrgyz translation drafts, applying and checking 10 records at a time.
+"""Generate local Uzbek/Kyrgyz translations, applying and checking 10 records at a time.
 
 Requires CTranslate2 and SentencePiece only for this maintenance command. The
 application uses the saved JSON fields and needs neither library nor model.

@@ -44,6 +44,34 @@ const copy = {
     note:'Иероглифтин мааниси жана окулушу сөзгө жана контекстке жараша өзгөрүшү мүмкүн.',
     footer:'Жаңы түшүнүк бир сөздөн башталат.',
   },
+  zh: {
+    title:'我的生词本', subtitle:'读懂词义，观察构成，记住词语间的联系。',
+    count:count=>`${count}个词`, missing:'当前词典中暂无说明，已保留收藏时的写法。',
+    example:'例句', meaning:'释义', hint:'理解提示', characters:'组成汉字',
+    easy:'基础', normal:'一般', hard:'进阶', classical:'古典',
+    note:'汉字的读音和意思会随词语和语境而变化。', footer:'从一个词开始新的理解。',
+  },
+  ja: {
+    title:'私の単語帳', subtitle:'意味を読み、構成を見て、つながりを覚えましょう。',
+    count:count=>`${count}語`, missing:'現在の辞書に説明がありません。保存した表記を表示しています。',
+    example:'例文', meaning:'意味', hint:'理解のヒント', characters:'構成する漢字',
+    easy:'初級', normal:'一般', hard:'上級', classical:'古典',
+    note:'漢字の意味や読みは単語や文脈によって変わります。', footer:'理解の始まりは、一つの単語から。',
+  },
+  es: {
+    title:'Mi colección de palabras', subtitle:'Lee el significado, observa las partes y recuerda su relación.',
+    count:count=>`${count} ${count===1?'palabra':'palabras'}`, missing:'La descripción no está en el diccionario actual. Se conserva la grafía guardada.',
+    example:'Ejemplo', meaning:'Significado', hint:'Pista para entender la palabra', characters:'Caracteres que la componen',
+    easy:'Básico', normal:'General', hard:'Avanzado', classical:'Clásico',
+    note:'El significado y la lectura de un carácter pueden variar según la palabra y el contexto.', footer:'Un nuevo aprendizaje empieza con una palabra.',
+  },
+  vi: {
+    title:'Sổ từ của tôi', subtitle:'Đọc nghĩa, xem các chữ cấu thành và ghi nhớ mối liên hệ.',
+    count:count=>`${count} từ`, missing:'Từ điển hiện tại chưa có phần giải thích. Cách viết đã lưu vẫn được giữ lại.',
+    example:'Câu ví dụ', meaning:'Nghĩa', hint:'Gợi ý để hiểu nghĩa', characters:'Các chữ Hán cấu thành',
+    easy:'Cơ bản', normal:'Phổ thông', hard:'Nâng cao', classical:'Cổ điển',
+    note:'Nghĩa và âm đọc của chữ Hán có thể thay đổi theo từ và ngữ cảnh.', footer:'Mỗi từ mở ra một cách hiểu mới.',
+  },
 };
 
 // Keep a successful font load for later previews; a failed load can be retried.

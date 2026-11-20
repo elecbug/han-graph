@@ -9,7 +9,19 @@ import {layoutNetwork,renderNetworkSVG} from '../static/network.mjs';
 const word={word:'학습노트',hanja:'學習노트',level:'normal',components:['學','習'],meaning_ko:'한국어 뜻',meaning_en:'English meaning',meaning_ru:'Русское значение',meaning_uz:'oʻquv daftari',meaning_ky:'окуу дептери',semantic_hint:'한국어 힌트',semantic_hint_en:'English hint',semantic_hint_ru:'Русская подсказка',semantic_hint_uz:'Soʻzni oʻrganish uchun daftar.',semantic_hint_ky:'Сөздү үйрөнүү үчүн дептер.'};
 const result={word,example:'한국어 예문',example_en:'English example',example_ru:'Русский пример',example_uz:'Soʻzni daftarimga yozdim.',example_ky:'Сөздү дептериме жаздым.',components:[{hanja:'學',readings:[{sound_ko:'학',sound_en:'hak',meaning_ko:['배우다'],meaning_en:['learn'],meaning_ru:['учиться'],meaning_uz:['oʻrganmoq'],meaning_ky:['үйрөнүү']}]}]};
 
-for(const language of ['uz','ky']) {
+const additionalLocales={
+  zh:['学习笔记本','记录学到的内容。','我记下了新词。','学习'],
+  ja:['学習ノート','学んだことをまとめる。','新しい単語を書き留めました。','学ぶ'],
+  es:['cuaderno de estudio','Sirve para organizar lo aprendido.','Anoté las palabras nuevas.','aprender'],
+  vi:['vở học tập','Dùng để ghi lại kiến thức đã học.','Tôi ghi lại các từ mới.','học'],
+};
+for(const [language,[meaning,hint,example,character]] of Object.entries(additionalLocales)) {
+  word[`meaning_${language}`]=meaning;
+  word[`semantic_hint_${language}`]=hint;
+  result[`example_${language}`]=example;
+  result.components[0].readings[0][`meaning_${language}`]=[character];
+}
+for(const language of ['uz','ky',...Object.keys(additionalLocales)]) {
   test(`${language} uses its own meanings, examples, PDF and fallback labels`,()=>{
     assert.equal(normalizeLanguage(language),language);
     assert.equal(localized(word,'meaning',language),word[`meaning_${language}`]);
@@ -29,6 +41,28 @@ for(const language of ['uz','ky']) {
     assert(!svg.includes('English meaning'));assert(!svg.includes('Русское значение'));
   });
 }
+
+test('all four new translations survive word, example and character registration', async () => {
+  const draft = {...emptyWordDraft(), ...word, example_ko: '학습노트에 썼어요.'};
+  for (const language of Object.keys(additionalLocales)) {
+    draft[`example_${language}`] = result[`example_${language}`];
+  }
+  const payload = wordFormPayload(draft);
+  const missing = await findMissingCharacters(payload.words[0], async () => []);
+  for (const character of missing) {
+    Object.assign(character, {meaning_ko: '배우다', meaning_en: 'learn'});
+    for (const [language, values] of Object.entries(additionalLocales)) {
+      character[`meaning_${language}`] = values[3];
+    }
+  }
+  const groups = [{id:'hak', sound_ko:'학'}, {id:'seup', sound_ko:'습'}];
+  const registered = addMissingCharacters(payload, missing, groups, () => '9001');
+  for (const [language, [meaning, , example, character]] of Object.entries(additionalLocales)) {
+    assert.equal(registered.words[0][`meaning_${language}`], meaning);
+    assert.equal(registered.examples[0][`example_${language}`], example);
+    assert.deepEqual(registered.characters[0][`meaning_${language}`], [character]);
+  }
+});
 
 test('browsers without Kyrgyz date support use a numeric date instead of another language',()=>{
   const supported = Intl.DateTimeFormat.supportedLocalesOf;
