@@ -3,6 +3,7 @@
 !Dockerfile
 !src/
 !src/**
+src/.env
 !dataset/
 !dataset/**
 !LICENSE

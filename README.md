@@ -25,13 +25,15 @@ Docker Engine과 Docker Compose를 준비하고, 저장소 루트에서 실행�
 
 ```sh
 mkdir -p var
-printf 'HAN_GRAPH_UID=%s\nHAN_GRAPH_GID=%s\n' "$(id -u)" "$(id -g)" > .env
+test -f .env || printf 'HAN_GRAPH_UID=%s\nHAN_GRAPH_GID=%s\nHAN_GRAPH_DB_BACKEND=file\n' "$(id -u)" "$(id -g)" > .env
 docker compose up -d --build
 ```
 
-브라우저에서 <http://127.0.0.1:18080>을 여세요. 기본 포트는 `18080`이고 Docker 네트워크 서브넷은 `10.230.9.0/24`입니다. 계정 데이터는 호스트의 `var/accounts.db`에 유지되며, 중지는 `docker compose down`, 로그 확인은 `docker compose logs -f`로 합니다. `.env`는 최초 설정 때만 만들고, 포트·접속 주소 변경은 [.env.example](.env.example)을 참고하세요.
+브라우저에서 <http://127.0.0.1:18080>을 여세요. 기본 포트는 `18080`이고 Docker 네트워크 서브넷은 `10.230.9.0/24`입니다. 기본 파일 모드에서는 계정 데이터가 호스트의 `var/accounts.db`에 유지되며, 중지는 `docker compose down`, 로그 확인은 `docker compose logs -f`로 합니다. `.env`는 최초 설정 때만 만들고, 포트·접속 주소 변경은 [.env.example](.env.example)을 참고하세요.
 
-기존 수동 서버를 사용 중이라면 먼저 종료한 뒤 Compose를 실행하세요. 같은 `var/accounts.db`를 그대로 사용하므로 기존 계정·개인 사전·단어장·노트가 유지됩니다.
+기존 수동 서버를 사용 중이라면 먼저 종료한 뒤 Compose를 실행하세요. 파일 모드에서는 같은 `var/accounts.db`를 사용하므로 기존 계정·개인 사전·단어장·노트가 유지됩니다.
+
+계정 저장소는 저장소 루트의 `.env`에서 선택합니다. `HAN_GRAPH_DB_BACKEND=file`이 기본값입니다. Firestore는 `HAN_GRAPH_DB_BACKEND=firestore`와 `GOOGLE_CLOUD_PROJECT`를 설정한 뒤 서버를 다시 시작하세요. [Firestore 연결과 인증](docs/DEVELOPMENT.md#계정-데이터-보관)
 
 Go 1.26.2 이상이 설치되어 있으면 직접 실행할 수도 있습니다.
 

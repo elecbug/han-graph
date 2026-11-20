@@ -8,7 +8,8 @@ RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/han-graph ./cmd
 
 FROM alpine:3.24.3
 
-RUN addgroup -S -g 1000 app \
+RUN apk add --no-cache ca-certificates \
+    && addgroup -S -g 1000 app \
     && adduser -S -D -H -u 1000 -G app app \
     && mkdir -p /app/var \
     && chown app:app /app/var

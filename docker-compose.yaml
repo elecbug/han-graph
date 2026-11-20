@@ -3,6 +3,12 @@ services:
     build: .
     restart: unless-stopped
     user: "${HAN_GRAPH_UID:-1000}:${HAN_GRAPH_GID:-1000}"
+    environment:
+      HAN_GRAPH_DB_BACKEND: ${HAN_GRAPH_DB_BACKEND:-file}
+      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
+      FIRESTORE_DATABASE_ID: ${FIRESTORE_DATABASE_ID:-(default)}
+      GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS:-}
+      FIRESTORE_EMULATOR_HOST: ${FIRESTORE_EMULATOR_HOST:-}
     ports:
       - "${HAN_GRAPH_HOST:-0.0.0.0}:${HAN_GRAPH_PORT:-18080}:18080"
     volumes:

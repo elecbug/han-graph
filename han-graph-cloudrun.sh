@@ -3,8 +3,7 @@
 # 사용 환경: Google Cloud Shell (bash, gcloud, curl, Python3)
 # 실행: bash han-graph-cloudrun.sh help
 #
-# 현재 Cloud Run 배포는 /app/var/accounts.db 를 영구 저장하지 않습니다.
-# 회원가입/개인 데이터의 실제 운영에는 별도 영구 DB가 필요합니다.
+# Cloud Run에서 계정을 영구 보관하려면 HAN_GRAPH_DB_BACKEND=firestore 를 설정합니다.
 
 set -Eeuo pipefail
 
@@ -75,6 +74,8 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   MEMORY=1Gi                   CPU=1
   MIN_INSTANCES=0              MAX_INSTANCES=1
   CONCURRENCY=20               HAN_GRAPH_DIR=~/han-graph
+  HAN_GRAPH_DB_BACKEND=file 또는 firestore (생략 시 서비스의 설정 유지)
+  GOOGLE_CLOUD_PROJECT=PROJECT_ID의 값   FIRESTORE_DATABASE_ID=(default)
 
 예시:
   bash han-graph-cloudrun.sh deploy
@@ -84,8 +85,8 @@ HAN-Graph / Google Cloud Run 관리 스크립트
 주의:
   1) setup, fix-iam, deploy, public, domain은 클라우드 구성을 변경합니다.
   2) 빌드·저장·전송에 비용이 발생할 수 있습니다.
-  3) Cloud Run의 /app/var/accounts.db 는 휘발성입니다. 본 스크립트는
-     계정 DB 영속화나 백업을 구현하지 않습니다.
+  3) Cloud Run의 파일 DB는 휘발성입니다. Firestore는 미리 만든 데이터베이스와
+     런타임 서비스 계정의 데이터 접근 권한을 사용합니다.
   4) GitHub 원본의 정적 폰트 파일이 누락되면 fonts 명령으로 생성합니다.
 HELP
 }
@@ -260,12 +261,54 @@ PY
   info "폰트 준비 완료"
 }
 
+# Forward only database selection settings from .env, never local credentials.
+db_setting() {
+  local key="$1"
+  if [[ -v "$key" ]]; then
+    printf '%s' "${!key}"
+    return
+  fi
+  [[ -f "$REPO_DIR/.env" ]] || return 0
+  python3 - "$key" "$REPO_DIR/.env" <<'PY'
+import re
+import shlex
+import sys
+
+key, path = sys.argv[1:]
+assignment = re.compile(r"^\s*(?:export\s+)?" + key + r"\s*=\s*(.*)$")
+value = ""
+with open(path, encoding="utf-8") as source:
+    for line in source:
+        match = assignment.match(line)
+        if match:
+            parts = shlex.split(match[1], comments=True)
+            if len(parts) > 1:
+                sys.exit(f"Invalid value for {key} in .env")
+            value = parts[0] if parts else ""
+print(value, end="")
+PY
+}
+
 deploy() {
   require_cloud
   require_repo
   fonts
-  warn "계정 DB(/app/var/accounts.db)는 Cloud Run 인스턴스 종료/재배포 시 사라질 수 있습니다."
-  warn "정식 회원가입 운영 전 외부 영구 저장소를 연결해야 합니다."
+  local -a db_args=()
+  local backend db_project database
+  backend="$(db_setting HAN_GRAPH_DB_BACKEND)"
+  case "$backend" in
+    firestore)
+      db_project="$(db_setting GOOGLE_CLOUD_PROJECT)"
+      database="$(db_setting FIRESTORE_DATABASE_ID)"
+      db_args+=("--update-env-vars=HAN_GRAPH_DB_BACKEND=firestore,GOOGLE_CLOUD_PROJECT=${db_project:-$PROJECT_ID},FIRESTORE_DATABASE_ID=${database:-(default)}")
+      ;;
+    file)
+      db_args+=("--update-env-vars=HAN_GRAPH_DB_BACKEND=file")
+      warn "Cloud Run 인스턴스의 파일 DB는 재배포 시 사라질 수 있습니다."
+      ;;
+    "") ;;
+    *) die "HAN_GRAPH_DB_BACKEND에는 file 또는 firestore를 지정하세요." ;;
+  esac
   info "Cloud Run 배포: ${PROJECT_ID}/${SERVICE} (${REGION})"
   cloud run deploy "$SERVICE" \
     --source="$REPO_DIR" \
@@ -276,6 +319,7 @@ deploy() {
     --min="$MIN_INSTANCES" \
     --max="$MAX_INSTANCES" \
     --concurrency="$CONCURRENCY" \
+    "${db_args[@]}" \
     --cpu-throttling \
     --allow-unauthenticated \
     --args="-data,/app/dataset,-accounts,/app/var/accounts.db,-addr,0.0.0.0:${PORT},-secure-cookies,serve"

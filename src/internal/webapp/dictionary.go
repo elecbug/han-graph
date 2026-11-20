@@ -35,7 +35,7 @@ func (d *dictionaryViews) view(w http.ResponseWriter, r *http.Request) (*graph.G
 		}
 		return d.base, true
 	}
-	id, err := d.store.Resolve(cookieToken(r))
+	id, err := d.store.WithContext(r.Context()).Resolve(cookieToken(r))
 	if errors.Is(err, account.ErrUnauthorized) && expected == "" {
 		return d.base, true
 	}
@@ -47,7 +47,7 @@ func (d *dictionaryViews) view(w http.ResponseWriter, r *http.Request) (*graph.G
 		accountError(w, account.ErrUnauthorized)
 		return nil, false
 	}
-	snap, err := d.store.Snapshot(id)
+	snap, err := d.store.WithContext(r.Context()).Snapshot(id)
 	if err != nil {
 		accountError(w, err)
 		return nil, false

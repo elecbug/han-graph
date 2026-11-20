@@ -1,8 +1,9 @@
 # Private account database (configure another location with -accounts).
 /var/
 
-# Local Docker Compose settings.
+# Local server and Docker Compose settings.
 /.env
+/src/.env
 
 # Python maintenance tools.
 __pycache__/

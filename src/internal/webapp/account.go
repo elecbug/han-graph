@@ -131,7 +131,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !available(w) {
 			return "", false
 		}
-		id, err := store.Resolve(cookieToken(r))
+		id, err := store.WithContext(r.Context()).Resolve(cookieToken(r))
 		if err != nil {
 			accountError(w, err)
 			return "", false
@@ -158,7 +158,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 			accountJSON(w, 200, map[string]any{"user": nil, "words": []account.Ref{}, "notes": []account.Note{}, "enabled": false})
 			return
 		}
-		id, err := store.Resolve(cookieToken(r))
+		id, err := store.WithContext(r.Context()).Resolve(cookieToken(r))
 		if errors.Is(err, account.ErrUnauthorized) {
 			accountJSON(w, 200, account.Snapshot{Words: []account.Ref{}, Notes: []account.Note{}})
 			return
@@ -167,7 +167,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 			accountError(w, err)
 			return
 		}
-		result, err := store.Snapshot(id)
+		result, err := store.WithContext(r.Context()).Snapshot(id)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -202,20 +202,20 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 			var user account.User
 			var err error
 			if action == "register" {
-				user, err = store.Register(credentials.Username, credentials.Password)
+				user, err = store.WithContext(r.Context()).Register(credentials.Username, credentials.Password)
 			} else {
-				user, err = store.Login(credentials.Username, credentials.Password)
+				user, err = store.WithContext(r.Context()).Login(credentials.Username, credentials.Password)
 			}
 			if err != nil {
 				accountError(w, err)
 				return
 			}
-			token, err := store.StartSession(user.ID, cookieToken(r))
+			token, err := store.WithContext(r.Context()).StartSession(user.ID, cookieToken(r))
 			if err != nil {
 				accountError(w, err)
 				return
 			}
-			result, err := store.Snapshot(user.ID)
+			result, err := store.WithContext(r.Context()).Snapshot(user.ID)
 			if err != nil {
 				accountError(w, err)
 				return
@@ -232,7 +232,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &empty) {
 			return
 		}
-		if err := store.EndSession(cookieToken(r)); err != nil {
+		if err := store.WithContext(r.Context()).EndSession(cookieToken(r)); err != nil {
 			accountError(w, err)
 			return
 		}
@@ -250,7 +250,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		result, err := store.AddWords(id, body.Words)
+		result, err := store.WithContext(r.Context()).AddWords(id, body.Words)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -266,7 +266,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		result, err := store.RemoveWord(id, body)
+		result, err := store.WithContext(r.Context()).RemoveWord(id, body)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -282,7 +282,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		result, err := store.SaveNote(id, body, g)
+		result, err := store.WithContext(r.Context()).SaveNote(id, body, g)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -299,7 +299,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 			accountError(w, account.ErrUnauthorized)
 			return
 		}
-		snap, err := store.Snapshot(id)
+		snap, err := store.WithContext(r.Context()).Snapshot(id)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -315,7 +315,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		result, err := store.AddDictionary(id, g, body)
+		result, err := store.WithContext(r.Context()).AddDictionary(id, g, body)
 		if err != nil {
 			accountError(w, err)
 			return
@@ -331,7 +331,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, options Options) {
 		if !accountBody(w, r, &body) {
 			return
 		}
-		result, err := store.RemoveDictionary(id, g, body)
+		result, err := store.WithContext(r.Context()).RemoveDictionary(id, g, body)
 		if err != nil {
 			accountError(w, err)
 			return

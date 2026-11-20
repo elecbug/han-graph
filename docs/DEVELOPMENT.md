@@ -6,7 +6,7 @@
 
 ## 준비하기
 
-웹 브라우저와 Docker Engine·Docker Compose 또는 Go 1.26.2 이상이 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 계정 저장에는 Go 내장형 데이터베이스 라이브러리 bbolt를 사용합니다. Docker 명령은 저장소 루트에서, `go` 명령은 `src` 디렉터리에서 실행합니다.
+웹 브라우저와 Docker Engine·Docker Compose 또는 Go 1.26.2 이상이 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 기본 계정 저장소는 bbolt 파일이며 Firestore도 선택할 수 있습니다. Docker 명령은 저장소 루트에서, `go` 명령은 `src` 디렉터리에서 실행합니다.
 
 ## Docker Compose로 실행
 
@@ -14,7 +14,7 @@
 
 ```sh
 mkdir -p var
-printf 'HAN_GRAPH_UID=%s\nHAN_GRAPH_GID=%s\n' "$(id -u)" "$(id -g)" > .env
+test -f .env || printf 'HAN_GRAPH_UID=%s\nHAN_GRAPH_GID=%s\nHAN_GRAPH_DB_BACKEND=file\n' "$(id -u)" "$(id -g)" > .env
 ```
 
 이미 `.env`가 있으면 덮어쓰지 말고 필요한 설정만 수정하세요. 다른 사용자가 만든 `var` 폴더를 사용하는 경우에는 해당 소유자의 UID·GID를 지정합니다. 설정 예시는 [`.env.example`](../.env.example)에 있습니다.
@@ -29,13 +29,13 @@ docker compose logs -f han-graph
 
 기본 접속 주소는 <http://127.0.0.1:18080>이며 모든 호스트 인터페이스에서 접속을 받습니다. 로컬에서만 접속하려면 `.env`에 `HAN_GRAPH_HOST=127.0.0.1`, 포트를 바꾸려면 `HAN_GRAPH_PORT=8081`처럼 추가한 뒤 `docker compose up -d`로 적용합니다. 기본 bridge 네트워크의 서브넷은 `10.230.9.0/24`로 고정되어 있습니다.
 
-공개 사전과 웹 화면은 이미지에 포함되고, `./var`는 컨테이너의 `/app/var`에 연결됩니다. 기존 `var/accounts.db`를 그대로 사용하며 컨테이너 재생성이나 `docker compose down` 후에도 보존됩니다. `var`와 `.env`, Git 이력은 이미지 빌드에 포함하지 않습니다. 소스나 공개 데이터를 수정한 뒤에는 `docker compose up -d --build`로 다시 빌드합니다. 상태 검사는 `/api/stats`를 사용하며, Docker Engine이 재시작되면 수동으로 중지하지 않은 서버도 자동으로 다시 실행됩니다.
+공개 사전과 웹 화면은 이미지에 포함되고, `./var`는 컨테이너의 `/app/var`에 연결됩니다. 파일 모드에서는 기존 `var/accounts.db`를 사용하며 컨테이너 재생성이나 `docker compose down` 후에도 보존됩니다. `var`와 `.env`, Git 이력은 이미지 빌드에 포함하지 않습니다. 소스나 공개 데이터를 수정한 뒤에는 `docker compose up -d --build`로 다시 빌드합니다. 상태 검사는 `/api/stats`를 사용하며, Docker Engine이 재시작되면 수동으로 중지하지 않은 서버도 자동으로 다시 실행됩니다.
 
 ```sh
 docker compose down
 ```
 
-위 명령은 서버를 정상 종료합니다. 백업은 종료한 뒤 `var/accounts.db`를 복사하세요.
+위 명령은 서버를 정상 종료합니다. 파일 모드에서 백업은 종료한 뒤 `var/accounts.db`를 복사하세요.
 
 이미지에 포함된 사전은 다음과 같이 검사할 수 있습니다. 계정 데이터베이스를 열지 않으므로 서버가 실행 중이어도 사용할 수 있습니다.
 
@@ -74,7 +74,34 @@ go run ./cmd -addr 127.0.0.1:18080 serve
 
 ### 계정 데이터 보관
 
-계정 데이터는 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·개인 사전·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
+저장소 루트의 `.env`에서 **계정·세션·단어장·노트·개인 사전**의 저장소를 선택합니다. 설정을 바꾼 뒤 Compose는 `docker compose up -d`, 직접 실행한 서버는 재시작으로 적용합니다. 두 저장소는 독립적이며 다시 선택하면 해당 저장소에 있던 계정을 사용합니다. 공개 어휘·예문·문항은 두 모드 모두 `-data` 디렉터리에서 읽습니다.
+
+| `.env` 설정 | 용도 |
+| --- | --- |
+| `HAN_GRAPH_DB_BACKEND=file` | 기본값. 기존 bbolt 파일 사용 |
+| `HAN_GRAPH_DB_BACKEND=firestore` | Cloud Firestore 사용 |
+| `GOOGLE_CLOUD_PROJECT` | Firestore 데이터베이스가 속한 프로젝트 ID |
+| `FIRESTORE_DATABASE_ID` | 생략하면 `(default)`. 이름 있는 데이터베이스도 선택 가능 |
+| `GOOGLE_APPLICATION_CREDENTIALS` | 인증 파일을 사용할 때 서버 프로세스가 읽을 수 있는 경로 |
+| `FIRESTORE_EMULATOR_HOST` | 로컬 에뮬레이터를 쓸 때만 지정하는 `호스트:포트` |
+
+직접 실행한 서버는 작업 디렉터리의 `.env`를 읽습니다. 저장소의 `src`에서 실행하면 그곳에 `.env`가 없을 때 상위 저장소 루트의 파일을 읽습니다. 셸이나 컨테이너에 이미 설정된 환경변수가 우선합니다.
+
+**Firestore로 실행하는 예시**
+
+```dotenv
+HAN_GRAPH_DB_BACKEND=firestore
+GOOGLE_CLOUD_PROJECT=my-project-id
+FIRESTORE_DATABASE_ID=(default)
+```
+
+선택할 Firestore Native 데이터베이스를 먼저 생성하고, 서버의 실행 계정에 읽기·쓰기 권한인 `roles/datastore.user`를 부여합니다. Cloud Run에서는 연결된 서비스 계정으로 인증합니다. 직접 실행할 때는 `gcloud auth application-default login`으로 만든 로컬 인증 정보 또는 `GOOGLE_APPLICATION_CREDENTIALS`를 사용할 수 있습니다. [Firestore 서버 IAM](https://docs.cloud.google.com/firestore/native/docs/security/iam) · [기본 인증 정보](https://cloud.google.com/docs/authentication/application-default-credentials)
+
+Compose에서 인증 파일을 쓸 때는 컨테이너 내부 경로를 지정하세요. 예를 들어 기본 마운트를 이용해 호스트의 `var/google-credentials.json`을 `GOOGLE_APPLICATION_CREDENTIALS=/app/var/google-credentials.json`으로 참조할 수 있습니다. 파일은 컨테이너 실행 사용자가 읽을 수 있어야 합니다. Cloud Run 배포 스크립트는 저장소 선택·프로젝트·데이터베이스 ID만 서비스 설정에 전달합니다.
+
+Firestore 에뮬레이터가 실행 중이면 `src`에서 `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 go test -count=1 -run TestFirestorePersistence ./internal/account`로 계정 저장과 동시 수정을 확인할 수 있습니다. 에뮬레이터 주소에는 스킴 없이 호스트와 포트를 지정하세요. [Firestore 에뮬레이터 연결 안내](https://firebase.google.com/docs/emulator-suite/connect_firestore)
+
+**파일 모드**에서는 계정 데이터를 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·개인 사전·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
 
 백업할 때는 서버를 정상 종료한 뒤 데이터베이스 파일을 복사합니다. 복원할 때도 서버가 정지한 상태에서 되돌려 놓으세요. 파일 권한은 소유자만 읽고 쓰도록 설정됩니다. 같은 파일을 두 서버 프로세스가 동시에 열 수 없습니다. 컨테이너나 임시 실행 환경을 사용한다면 `-accounts` 위치를 영구 볼륨에 두세요.
 

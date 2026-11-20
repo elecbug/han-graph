@@ -96,7 +96,7 @@ func TestAccountsPersistAndIsolate(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = s.db.Update(func(tx *bolt.Tx) error {
+	err = s.storage.(*fileBackend).db.Update(func(tx *bolt.Tx) error {
 		return putJSON(tx.Bucket(sessionsBucket), tokenKey(token), session{a.ID, time.Now().Add(-time.Minute)})
 	})
 	if err != nil {
