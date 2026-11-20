@@ -18,7 +18,7 @@ export function wordFormPayload(draft) {
   word.components=form.filter(han);
   if(word.hanja&&(!word.components.length||form.some((glyph,index)=>!han(glyph)&&(form.length!==spelling.length||glyph!==spelling[index]||!/[가-힣]/u.test(glyph)))))throw new WordFormError('wordFormSpelling','hanja');
   for(const language of LANGUAGES) {
-    const field=`meaning_${language}`,value=text(draft[field],2000,['ko','en'].includes(language),field);
+    const field=`meaning_${language}`,value=text(draft[field],2000,language==='ko',field);
     if(value)word[field]=value;
   }
   const examples={word:word.word,hanja:word.hanja};
@@ -67,7 +67,7 @@ export function addMissingCharacters(payload,drafts,groups,id=()=>String(9000+cr
     usedIDs.add(character.id);
     for(const language of LANGUAGES) {
       const field=`meaning_${language}`;
-      const value=characterText(draft[field],200,['ko','en'].includes(language),field);
+      const value=characterText(draft[field],200,language==='ko',field);
       if(value)character[field]=[value];
     }
     result.characters.push(character);

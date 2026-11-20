@@ -15,13 +15,16 @@ import (
 type firestoreBackend struct{ client *firestore.Client }
 
 type accountDocument struct {
+	GoogleSubject      string `firestore:",omitempty"`
 	Username           string
+	Email              string `firestore:",omitempty"`
 	DictionaryRevision int64
 	Pages              map[string][]string
 	SessionKeys        []string
 }
 
 type loginDocument struct {
+	Email      string `firestore:",omitempty"`
 	UserID     string
 	Salt       []byte
 	Hash       []byte
@@ -65,10 +68,16 @@ func (b *firestoreBackend) sessions() *firestore.CollectionRef {
 
 func (b *firestoreBackend) create(ctx context.Context, u record) error {
 	err := b.client.RunTransaction(ctx, func(_ context.Context, tx *firestore.Transaction) error {
-		if err := tx.Create(b.login(u.User.Username), loginDocument{u.User.ID, u.Salt, u.Hash, u.Iterations}); err != nil {
+		if u.GoogleSubject != "" {
+			err := b.bindGoogle(tx, u.User.ID, GoogleIdentity{}, GoogleIdentity{Subject: u.GoogleSubject, Email: u.User.Email})
+			if err != nil {
+				return err
+			}
+		}
+		if err := tx.Create(b.login(u.User.Username), loginDocument{UserID: u.User.ID, Salt: u.Salt, Hash: u.Hash, Iterations: u.Iterations, Email: u.User.Email}); err != nil {
 			return err
 		}
-		return tx.Create(b.user(u.User.ID), accountDocument{Username: u.User.Username})
+		return tx.Create(b.user(u.User.ID), accountDocument{Username: u.User.Username, Email: u.User.Email, GoogleSubject: u.GoogleSubject})
 	})
 	if status.Code(err) == codes.AlreadyExists {
 		return ErrExists
@@ -88,7 +97,7 @@ func (b *firestoreBackend) byName(ctx context.Context, name string) (record, err
 	if err = doc.DataTo(&login); err != nil {
 		return record{}, err
 	}
-	return record{User: User{login.UserID, name}, Salt: login.Salt, Hash: login.Hash, Iterations: login.Iterations}, nil
+	return record{User: User{ID: login.UserID, Username: name, Email: login.Email}, Salt: login.Salt, Hash: login.Hash, Iterations: login.Iterations}, nil
 }
 
 func (b *firestoreBackend) access(ctx context.Context, id string, edit func(*record) error) (Snapshot, error) {
@@ -110,7 +119,7 @@ func (b *firestoreBackend) access(ctx context.Context, id string, edit func(*rec
 		if err = doc.DataTo(&header); err != nil {
 			return err
 		}
-		r := record{User: User{id, header.Username}, DictionaryRevision: uint64(header.DictionaryRevision)}
+		r := record{User: User{ID: id, Username: header.Username, Email: header.Email}, DictionaryRevision: uint64(header.DictionaryRevision)}
 		pages := ref.Collection("pages")
 		previous, err := readPages(tx, pages, header.Pages, &r)
 		if err != nil {

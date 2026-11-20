@@ -1984,9 +1984,14 @@ main:focus {
 .account-heading,.account-actions,.account-tabs,.note-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap }
 .account-heading { justify-content:space-between }
 .account-card h2 { font-size:26px;overflow-wrap:anywhere }
-#account-form { display:grid;gap:12px }
-#account-form label,.note-editor label { font-weight:600 }
-#account-form input,.note-editor textarea { width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font:inherit }
+:is(#account-form,#email-settings-form) { display:grid;gap:12px }
+:is(#account-form,#email-settings-form) label,.note-editor label { font-weight:600 }
+:is(#account-form,#email-settings-form) input,.note-editor textarea { width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font:inherit }
+.email-settings summary,.history-round summary { cursor:pointer;font-weight:600 }
+.email-settings form { margin-top:16px;max-width:480px }
+.history-round { padding:16px 0;border-bottom:1px solid var(--line) }
+.history-round ol { padding-inline-start:1.6em }
+.history-round li { margin-top:12px }
 .note-editor textarea { resize:vertical;min-height:110px;line-height:1.7 }
 textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 .field-help { color:var(--muted);font-size:12px }
@@ -2037,3 +2042,18 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 .dictionary-entry p { color:var(--muted);font-size:12px;line-height:1.7;margin-top:5px }
 .dictionary-delete { color:var(--accent);flex-shrink:0;font-size:11px }
 @media(max-width:640px) { .dictionary-entry { gap:10px }.dictionary-list-heading { align-items:flex-start }.personal-dictionary { padding:20px } }
+
+.account-sections { margin:0 0 20px }
+.account-sections + .personal-dictionary { margin-top:0 }
+#account-form[hidden] { display:none }
+.google-auth { margin:12px 0 }
+.translation-picker,.dictionary-file-picker { display:flex;align-items:center;gap:10px;flex-wrap:wrap }
+.translation-picker select { max-width:100% }
+.dictionary-file-picker {
+  border:1px dashed var(--line);
+  border-radius:10px;
+  background:var(--paper);
+  padding:12px 14px;
+}
+#dictionary-filename { font-size:14px;color:var(--muted) }
+#dictionary-filename,.account-heading p { overflow-wrap:anywhere }

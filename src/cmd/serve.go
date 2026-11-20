@@ -75,13 +75,19 @@ func serve(g *graph.Graph, dir, addr, accountPath string, secureCookies bool, st
 		return 1
 	}
 	defer accounts.Close()
+	options := webapp.Options{Accounts: accounts, SecureCookies: secureCookies}
+	options.GoogleClientID = os.Getenv("HAN_GRAPH_GOOGLE_CLIENT_ID")
+	if options.GoogleClientID != "" && !webapp.ValidGoogleClientID(options.GoogleClientID) {
+		fmt.Fprintln(stderr, "Invalid HAN_GRAPH_GOOGLE_CLIENT_ID (expected a Google web client ID)")
+		return 1
+	}
 	listener, err := net.Listen("tcp", addr)
 	if err != nil {
 		fmt.Fprintln(stderr, "Error:", err)
 		return 1
 	}
 	server := &http.Server{
-		Handler:           webapp.New(g, practice, webapp.Options{Accounts: accounts, SecureCookies: secureCookies}),
+		Handler:           webapp.New(g, practice, options),
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      15 * time.Second,

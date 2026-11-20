@@ -17,6 +17,7 @@ type fileBackend struct{ db *bolt.DB }
 var usersBucket = []byte("users")
 var namesBucket = []byte("usernames")
 var sessionsBucket = []byte("sessions")
+var googleBucket = []byte("google-identities")
 
 func Open(path string) (*Store, error) {
 	if err := os.MkdirAll(filepath.Dir(path), 0700); err != nil {
@@ -38,7 +39,7 @@ func Open(path string) (*Store, error) {
 		return nil, err
 	}
 	err = db.Update(func(tx *bolt.Tx) error {
-		for _, name := range [][]byte{usersBucket, namesBucket, sessionsBucket} {
+		for _, name := range [][]byte{usersBucket, namesBucket, sessionsBucket, googleBucket} {
 			if _, err := tx.CreateBucketIfNotExists(name); err != nil {
 				return err
 			}
@@ -74,6 +75,11 @@ func (s *fileBackend) create(_ context.Context, u record) error {
 		if names.Get([]byte(u.User.Username)) != nil {
 			return ErrExists
 		}
+		if u.GoogleSubject != "" {
+			if err := bindFileGoogle(tx, u.User.ID, GoogleIdentity{}, GoogleIdentity{Subject: u.GoogleSubject, Email: u.User.Email}); err != nil {
+				return err
+			}
+		}
 		if err := putJSON(tx.Bucket(usersBucket), []byte(u.User.ID), u); err != nil {
 			return err
 		}
@@ -93,6 +99,7 @@ func (s *fileBackend) byName(_ context.Context, name string) (record, error) {
 	})
 	return u, err
 }
+
 func (s *fileBackend) startSession(_ context.Context, id, previous, token string) error {
 	now := time.Now()
 	return s.db.Update(func(tx *bolt.Tx) error {
@@ -172,4 +179,8 @@ func (s *fileBackend) access(_ context.Context, id string, edit func(*record) er
 		return nil
 	})
 	return result, err
+}
+
+func orderedTimeKey(t time.Time, key string) []byte {
+	return []byte(t.UTC().Format("20060102150405.000000000") + key)
 }

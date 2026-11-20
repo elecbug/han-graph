@@ -97,7 +97,7 @@ FIRESTORE_DATABASE_ID=(default)
 
 선택할 Firestore Native 데이터베이스를 먼저 생성하고, 서버의 실행 계정에 읽기·쓰기 권한인 `roles/datastore.user`를 부여합니다. Cloud Run에서는 연결된 서비스 계정으로 인증합니다. 직접 실행할 때는 `gcloud auth application-default login`으로 만든 로컬 인증 정보 또는 `GOOGLE_APPLICATION_CREDENTIALS`를 사용할 수 있습니다. [Firestore 서버 IAM](https://docs.cloud.google.com/firestore/native/docs/security/iam) · [기본 인증 정보](https://cloud.google.com/docs/authentication/application-default-credentials)
 
-Compose에서 인증 파일을 쓸 때는 컨테이너 내부 경로를 지정하세요. 예를 들어 기본 마운트를 이용해 호스트의 `var/google-credentials.json`을 `GOOGLE_APPLICATION_CREDENTIALS=/app/var/google-credentials.json`으로 참조할 수 있습니다. 파일은 컨테이너 실행 사용자가 읽을 수 있어야 합니다. Cloud Run 배포 스크립트는 저장소 선택·프로젝트·데이터베이스 ID만 서비스 설정에 전달합니다.
+Compose에서 인증 파일을 쓸 때는 컨테이너 내부 경로를 지정하세요. 예를 들어 기본 마운트를 이용해 호스트의 `var/google-credentials.json`을 `GOOGLE_APPLICATION_CREDENTIALS=/app/var/google-credentials.json`으로 참조할 수 있습니다. 파일은 컨테이너 실행 사용자가 읽을 수 있어야 합니다. Cloud Run 배포 스크립트는 저장소 선택·프로젝트·데이터베이스 ID와 Google 로그인용 웹 클라이언트 ID를 서비스 설정에 전달합니다.
 
 Firestore 에뮬레이터가 실행 중이면 `src`에서 `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 go test -count=1 -run TestFirestorePersistence ./internal/account`로 계정 저장과 동시 수정을 확인할 수 있습니다. 에뮬레이터 주소에는 스킴 없이 호스트와 포트를 지정하세요. [Firestore 에뮬레이터 연결 안내](https://firebase.google.com/docs/emulator-suite/connect_firestore)
 
@@ -166,14 +166,26 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 
 </details>
 
+### Google 계정 연동
+
+Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을 설정하고 **웹 애플리케이션** 유형의 OAuth 클라이언트를 만드세요. **승인된 자바스크립트 원본**에 사용자가 실제 접속하는 HTTPS 주소를 등록합니다. Cloud Run이라면 서비스 URL 또는 사용자 도메인을, 로컬 테스트라면 `http://localhost:18080`을 등록하세요. 테스트 모드에서는 사용할 Google 계정을 테스트 사용자로 추가합니다. [Google 공식 설정 안내](https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid)
+
+웹 클라이언트 ID를 `.env`의 `HAN_GRAPH_GOOGLE_CLIENT_ID`에 지정한 뒤 Compose는 `docker compose up -d --build`, 직접 실행은 재시작으로 적용하세요. Cloud Run 배포 스크립트도 이 공개 값을 서비스에 전달합니다. Google에서 발급한 ID 토큰으로 주소를 확인하므로 필요한 설정값은 클라이언트 ID 하나입니다. Gmail과 Google이 관리하는 Workspace 주소를 지원합니다.
+
+클라이언트 ID를 설정하면 신규 회원은 Google 계정을 확인한 뒤 아이디와 비밀번호를 정합니다. 기존 회원은 이메일 없이 계속 로그인할 수 있습니다. 개인 설정에서 현재 비밀번호로 Google 계정을 연결하거나 교체하면 연결된 Google 계정으로도 로그인할 수 있습니다. 서버는 Google 서명, 발급자, 클라이언트 ID, 만료 시간, 브라우저 인증 요청 및 검증된 주소를 확인하고 Google 계정 고유 ID로 연결을 찾습니다. [Google ID 토큰 검증 안내](https://developers.google.com/identity/gsi/web/guides/verify-google-id-token)
+
 ### 계정 API
 
 | 경로 | 용도 |
 | --- | --- |
-| `POST /api/auth/register` | `{username,password}`로 가입하고 로그인 |
-| `POST /api/auth/login` | `{username,password}`로 로그인 |
-| `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트 조회; 비회원은 `user: null` |
+| `POST /api/auth/google/challenge` | `{intent}`로 login, register 또는 link 용도의 인증 요청 생성 |
+| `POST /api/auth/register` | `{username,password}`로 가입하고 로그인. Google 연동 시 ID 토큰을 `credential`로 함께 전송 |
+| `POST /api/auth/login` | `{username,password}` 또는 연결된 Google 계정의 `{credential}`로 로그인 |
+| `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트, Google 연동 설정(`google_client_id`) 조회. 비회원은 `user: null` |
 | `POST /api/auth/logout` | `{}`로 현재 로그인 종료 |
+| `POST /api/account/google` | `{username,password,credential}`로 로그인한 계정에 Google 계정 연결 또는 교체 |
+| `POST /api/account/practice` | 완료한 회차의 `{id,level,answers:[{question,selected:{word,hanja}}]}` 저장. 서버가 출제 자료에서 정답을 확인하며 같은 회차의 재시도는 한 번만 저장 |
+| `GET /api/account/practice` | 본인의 완료 기록을 최근 순으로 20회씩 조회. 응답의 `next`를 `after`로 보내면 다음 페이지 조회 |
 | `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |
 | `DELETE /api/account/words` | `{word,hanja}`를 단어장에서 삭제 |
 | `GET /api/account/dictionary` | 본인의 개인 사전 항목 조회 |

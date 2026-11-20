@@ -25,7 +25,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 	}
 	mux := http.NewServeMux()
 	dictionary := &dictionaryViews{base: g, store: options.Accounts, cache: make(map[dictionaryKey]*graph.Graph)}
-	registerAccounts(mux, g, options)
+	registerAccounts(mux, g, practice, options)
 	jsonReply := func(w http.ResponseWriter, value any) {
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.Header().Set("Cache-Control", "no-store")
@@ -222,11 +222,18 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		accountJSON(w, 403, map[string]string{"error": "cross_origin"})
 	}))
 	protected := protection.Handler(mux)
+	policy := "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+	if options.GoogleClientID != "" {
+		policy = "default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self'; connect-src 'self' https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
-		// Graph node positions use inline styles; scripts and data stay same-origin.
-		w.Header().Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
+		if options.GoogleClientID != "" {
+			w.Header().Set("Cross-Origin-Opener-Policy", "same-origin-allow-popups")
+			w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
+		}
+		w.Header().Set("Content-Security-Policy", policy)
 		protected.ServeHTTP(w, r)
 	})
 }

@@ -52,6 +52,7 @@ type Note struct {
 type User struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
+	Email    string `json:"email,omitempty"`
 }
 type Snapshot struct {
 	User               *User           `json:"user"`
@@ -61,6 +62,7 @@ type Snapshot struct {
 	DictionaryRevision uint64          `json:"dictionary_revision"`
 }
 type record struct {
+	GoogleSubject      string `json:",omitempty"`
 	User               User
 	Salt               []byte
 	Hash               []byte
@@ -76,6 +78,10 @@ type session struct {
 }
 type backend interface {
 	create(ctx context.Context, user record) error
+	googleUser(ctx context.Context, subject string) (string, error)
+	linkGoogle(ctx context.Context, id string, identity GoogleIdentity) error
+	savePractice(ctx context.Context, id string, round PracticeRound) error
+	practiceHistory(ctx context.Context, id, after string) ([]PracticeRound, error)
 	byName(ctx context.Context, name string) (record, error)
 	// A nil edit reads a snapshot. An edit commits atomically and may be retried.
 	access(ctx context.Context, id string, edit func(*record) error) (Snapshot, error)
@@ -96,7 +102,8 @@ func digest(password string, salt []byte, iterations int) ([]byte, error) {
 	return pbkdf2.Key(sha256.New, password, salt, iterations, 32)
 }
 func validPassword(password string) bool {
-	return utf8.ValidString(password) && utf8.RuneCountInString(password) >= 12 && utf8.RuneCountInString(password) <= 128 && len(password) <= 512
+	length := utf8.RuneCountInString(password)
+	return utf8.ValidString(password) && length >= 10 && length <= 128
 }
 func NormalizeUsername(name string) string { return strings.ToLower(strings.TrimSpace(name)) }
 func randomHex(size int) (string, error) {
@@ -116,6 +123,9 @@ func snapshot(u record) Snapshot {
 	return Snapshot{User: &u.User, Words: u.Words, Notes: u.Notes, Dictionary: u.Dictionary.Arrays(), DictionaryRevision: u.DictionaryRevision}
 }
 func (s *Store) Register(name, password string) (User, error) {
+	return s.register(name, password, GoogleIdentity{})
+}
+func (s *Store) register(name, password string, identity GoogleIdentity) (User, error) {
 	name = NormalizeUsername(name)
 	if !usernamePattern.MatchString(name) || !validPassword(password) {
 		return User{}, ErrInvalid
@@ -132,7 +142,7 @@ func (s *Store) Register(name, password string) (User, error) {
 	if err != nil {
 		return User{}, err
 	}
-	u := record{User: User{id, name}, Salt: salt, Hash: hash, Iterations: passwordIterations}
+	u := record{User: User{ID: id, Username: name, Email: identity.Email}, GoogleSubject: identity.Subject, Salt: salt, Hash: hash, Iterations: passwordIterations}
 	err = s.storage.create(s.ctx, u)
 	return u.User, err
 }

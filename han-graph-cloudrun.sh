@@ -74,6 +74,7 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   MEMORY=1Gi                   CPU=1
   MIN_INSTANCES=0              MAX_INSTANCES=1
   CONCURRENCY=20               HAN_GRAPH_DIR=~/han-graph
+  HAN_GRAPH_GOOGLE_CLIENT_ID=Google 웹 클라이언트 ID (생략 시 서비스의 설정 유지)
   HAN_GRAPH_DB_BACKEND=file 또는 firestore (생략 시 서비스의 설정 유지)
   GOOGLE_CLOUD_PROJECT=PROJECT_ID의 값   FIRESTORE_DATABASE_ID=(default)
 
@@ -261,8 +262,8 @@ PY
   info "폰트 준비 완료"
 }
 
-# Forward only database selection settings from .env, never local credentials.
-db_setting() {
+# Forward explicitly supported public deployment settings.
+deploy_setting() {
   local key="$1"
   if [[ -v "$key" ]]; then
     printf '%s' "${!key}"
@@ -294,21 +295,31 @@ deploy() {
   require_repo
   fonts
   local -a db_args=()
-  local backend db_project database
-  backend="$(db_setting HAN_GRAPH_DB_BACKEND)"
+  local backend db_project database google_client_id
+  local -a settings=()
+  backend="$(deploy_setting HAN_GRAPH_DB_BACKEND)"
   case "$backend" in
     firestore)
-      db_project="$(db_setting GOOGLE_CLOUD_PROJECT)"
-      database="$(db_setting FIRESTORE_DATABASE_ID)"
-      db_args+=("--update-env-vars=HAN_GRAPH_DB_BACKEND=firestore,GOOGLE_CLOUD_PROJECT=${db_project:-$PROJECT_ID},FIRESTORE_DATABASE_ID=${database:-(default)}")
+      db_project="$(deploy_setting GOOGLE_CLOUD_PROJECT)"
+      database="$(deploy_setting FIRESTORE_DATABASE_ID)"
+      settings+=("HAN_GRAPH_DB_BACKEND=firestore" "GOOGLE_CLOUD_PROJECT=${db_project:-$PROJECT_ID}" "FIRESTORE_DATABASE_ID=${database:-(default)}")
       ;;
     file)
-      db_args+=("--update-env-vars=HAN_GRAPH_DB_BACKEND=file")
+      settings+=("HAN_GRAPH_DB_BACKEND=file")
       warn "Cloud Run 인스턴스의 파일 DB는 재배포 시 사라질 수 있습니다."
       ;;
     "") ;;
     *) die "HAN_GRAPH_DB_BACKEND에는 file 또는 firestore를 지정하세요." ;;
   esac
+  google_client_id="$(deploy_setting HAN_GRAPH_GOOGLE_CLIENT_ID)"
+  if [[ -n "$google_client_id" ]]; then
+    [[ "$google_client_id" =~ ^[0-9]+-[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$ ]] || die "Google 웹 클라이언트 ID 형식을 확인하세요."
+    settings+=("HAN_GRAPH_GOOGLE_CLIENT_ID=$google_client_id")
+  fi
+  if (( ${#settings[@]} )); then
+    local IFS=,
+    db_args+=("--update-env-vars=${settings[*]}")
+  fi
   info "Cloud Run 배포: ${PROJECT_ID}/${SERVICE} (${REGION})"
   cloud run deploy "$SERVICE" \
     --source="$REPO_DIR" \

@@ -30,9 +30,15 @@ test('new reading groups are generated once and failures remain attached to the 
   const newCharacter={glyph:'閃',sound_ko:'섬',sound_en:'seom',meaning_ko:'번쩍이다',meaning_en:'flash'};
   const result=addMissingCharacters(payload,[newCharacter,{...newCharacter,glyph:'陝'}],[],()=> '9001');
   assert.equal(result.meta.length,1);assert.equal(result.characters.length,2);
-  for(const [data,field] of [[{...draft,hanja:'學習메모'},'hanja'],[{...draft,meaning_en:' '},'meaning_en'],[{...draft,example_en:'Example without source'},'example_ko']]) {
+  for(const [data,field] of [[{...draft,hanja:'學習메모'},'hanja'],[{...draft,meaning_ko:' '},'meaning_ko'],[{...draft,example_en:'Example without source'},'example_ko']]) {
     assert.throws(()=>wordFormPayload(data),error=>error.field===field);
   }
   assert.throws(()=>addMissingCharacters(payload,[{...newCharacter,sound_en:'bad-reading'}],[]),error=>error.code==='wordFormReading');
   assert.throws(()=>wordFormPayload({...draft,meaning_ru:'bad\nline'}),error=>error.field==='meaning_ru');
+});
+
+test('a private word may contain only its Korean meaning',()=>{
+  const result=wordFormPayload({...emptyWordDraft(),word:'노트',meaning_ko:'필기장'});
+  assert.equal(result.words[0].meaning_ko,'필기장');
+  assert.equal(result.words[0].meaning_en,undefined);
 });

@@ -33,6 +33,7 @@ const state = {
   selection:null, detail:null, glyph:null, session:null, index:0, translation:false,
   ready:false, importingWords:false, wordbookStatus:null,
   dictionary:{words:[],characters:[],meta:[],examples:[]}, dictionaryRevision:0, dictionaryNeedsRefresh:false, wordDraft:emptyWordDraft(), characterDrafts:[],
+  googleClientID:'', googleProof:null, translationLanguages:[],
   user:null, notes:[], accountReady:false, accountEnabled:true, accountMode:'login', privateBusy:false, accountRefreshPending:false, accountFailure:null, noteDrafts:new Map(),
 };
 let pageEpoch=0, detailEpoch=0, componentEpoch=0, searchEpoch=0, searchTimer, toastTimer;
@@ -63,7 +64,8 @@ function updateShell() {
     link.classList.toggle('active', active);
     if(active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
   });
-  $('#page-label').textContent=t(state.page);
+  const accountLabel=location.hash==='#account?view=dictionary'?'dictionaryTitle':location.hash==='#account?history=1'?'historyTitle':'personalSettings';
+  $('#page-label').textContent=t(state.page==='account' && state.user?accountLabel:state.page);
   $('#account-link').textContent=state.user?.username??t('login');
   $('#saved-count').textContent=state.saved.length;
   $('#language').value=state.lang;
@@ -459,9 +461,9 @@ function renderPractice() {
   if(!state.session) {
     const poolSize=filterPracticeQuestions(state.practice.questions,state.practiceSettings).length;
     const roundLabel=t('practiceRound').replace('{pool}',poolSize).replace('{count}',Math.min(poolSize,PRACTICE_SESSION_SIZE));
-    const last=readStorage('han-graph.practice.v1',null);
+    const last=state.user?null:readStorage('han-graph.practice.v1',null);
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
-    $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="practice-art" aria-hidden="true"><span>文</span><i>＋</i><span>脈</span></div><h2>${t('introTitle')}</h2><p>${t('introSub')}</p>${practiceSettingsControls()}<p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="primary-button" data-action="start-practice" ${poolSize?'':'disabled'}>${t('startPractice')} →</button>${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</section></div>`;
+    $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="practice-art" aria-hidden="true"><span>文</span><i>＋</i><span>脈</span></div><h2>${t('introTitle')}</h2><p>${t('introSub')}</p>${practiceSettingsControls()}<p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="primary-button" data-action="start-practice" ${poolSize?'':'disabled'}>${t('startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</section></div>`;
     return;
   }
   const result=sessionResult(state.session);
@@ -475,21 +477,73 @@ function renderPractice() {
 }
 function renderSummary(head,result) {
   const {level}=state.session;
-  if(!state.session.recorded&&result.complete) {saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});state.session.recorded=true;}
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p><div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong>${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
+  if(!state.session.owner && !state.session.recorded && result.complete) {saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});state.session.recorded=true;}
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong>${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
+
+async function savePracticeRound(session) {
+  if(!session?.owner || session.owner!==state.user?.id || ['saving','saved'].includes(session.saveState))return;
+  session.saveState='saving';
+  const answers=session.questions.map(q=>({question:q.id,selected:session.answers.get(q.id).selected}));
+  try {
+    session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,level:session.level,answers},{keepalive:true});
+    await session.pending;
+    session.saveState='saved';
+  } catch {
+    session.saveState='error';
+  }
+  if(state.session===session && state.page==='practice' && state.index>=session.questions.length)renderPractice();
+}
+function renderPracticeHistory() {
+  const owner=state.user.id;
+  $('#main').innerHTML=`<section class="account-card"><h1>${t('historyTitle')}</h1><a href="#account" class="text-button">${t('account')}</a>
+    <div id="history-rounds"></div><p class="form-status" role="status"></p><button class="secondary-button" id="history-more" hidden></button></section>`;
+  const list=$('#history-rounds'),button=$('#history-more'),status=list.nextElementSibling;
+  let next='';
+  async function loadPage() {
+    button.disabled=true;status.textContent=t('loading');
+    try {
+      if(state.session?.saveState==='saving')await state.session.pending;
+      const data=await accountRequest('/api/account/practice'+(next?'?after='+encodeURIComponent(next):''));
+      if(!list.isConnected || owner!==state.user?.id)return;
+      for(const round of data.rounds) {
+        const date=new Date(round.completed_at);
+        const time=String(date.getHours()).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0');
+        const row=answer=>{
+          const prompt=answer.prompts?.[state.lang], correct=wordKey(answer.selected)===wordKey(answer.answer);
+          const label=ref=>esc(ref.word)+(ref.hanja?' · '+esc(ref.hanja):'');
+          return `<li>${prompt?`<p>${esc(prompt)}</p>`:''}<strong>${t(correct?'correct':'incorrect')}</strong> · ${t('yourChoice')} · ${label(answer.selected)}${correct?'':`<br>${t('answer')} · ${label(answer.answer)}`}</li>`;
+        };
+        list.insertAdjacentHTML('beforeend',`<details class="history-round"><summary><time datetime="${esc(round.completed_at)}">${localizedDate(date,state.lang)} ${time}</time> · ${levelLabel(round.level)} · ${round.correct} / ${round.answers.length}</summary>
+          <ol>${round.answers.map(row).join('')}</ol></details>`);
+      }
+      next=data.next??'';
+      status.textContent=list.children.length?'':t('historyEmpty');
+      button.hidden=!next;button.textContent=t('historyMore');
+    } catch(error) {
+      if(!list.isConnected)return;
+      status.textContent=accountMessage(error);button.hidden=false;button.textContent=t('retry');
+    } finally {button.disabled=false;}
+  }
+  button.addEventListener('click',loadPage);
+  loadPage();
+}
 
 function wordRegistrationForm() {
   const field=(name,label,required=false,max=2000)=>`<div class="word-field"><label for="personal-${name}">${t(label)}${required?' *':''}</label><input id="personal-${name}" name="${name}" value="${esc(state.wordDraft[name])}" maxlength="${max}" ${required?'required':''} ${state.privateBusy?'readonly':''} ${LANGUAGES.includes(name.split('_').at(-1))?`lang="${name.split('_').at(-1)}"`:['word','hanja'].includes(name)?'lang="ko"':''}></div>`;
   const newField=(entry,index,name,label,required,max)=>`<div class="word-field"><label for="new-${index}-${name}">${t(label)}${required?' *':''}</label><input id="new-${index}-${name}" name="new-${index}-${name}" data-character-index="${index}" data-character-field="${name}" value="${esc(entry[name])}" maxlength="${max}" ${required?'required':''} ${state.privateBusy?'readonly':''}></div>`;
-  return `<form id="personal-word-form" novalidate><h3>${t('wordFormTitle')}</h3><p class="field-help">${t('wordFormHelp')}</p><div class="word-form-grid">${field('word','wordFormWord',true,100)}${field('hanja','wordFormHanja',false,100)}</div><p class="field-help">${t('wordFormHanjaHelp')}</p><label for="personal-level">${t('wordLevel')}</label><select id="personal-level" name="level" ${state.privateBusy?'disabled':''}>${['easy','normal','hard','classical'].map(level=>`<option value="${level}" ${state.wordDraft.level===level?'selected':''}>${levelLabel(level)}</option>`).join('')}</select>${LANGUAGES.map(language=>field(`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,['ko','en'].includes(language))).join('')}<details class="dictionary-extra" ${LANGUAGES.some(language=>state.wordDraft[`example_${language}`])?'open':''}><summary>${t('wordFormExamples')}</summary><div>${LANGUAGES.map(language=>field(`example_${language}`,`wordFormExample${language[0].toUpperCase()+language.slice(1)}`,false,500)).join('')}</div></details>${state.characterDrafts.length?`<section id="new-characters"><h3>${t('wordFormMissing')}</h3><p class="field-help">${t('wordFormMissingHelp')}</p>${state.characterDrafts.map((entry,index)=>`<fieldset class="new-character"><legend lang="ko">${esc(entry.glyph)}</legend><div class="word-form-grid">${newField(entry,index,'sound_ko','wordFormSound',true,1)}${newField(entry,index,'sound_en','wordFormRoman',false,32)}</div><p class="field-help">${t('wordFormRomanHelp')}</p>${LANGUAGES.map(language=>newField(entry,index,`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,['ko','en'].includes(language),200)).join('')}</fieldset>`).join('')}</section>`:''}<p id="word-form-status" class="form-status" role="alert"></p><div class="account-actions"><button class="primary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('wordFormAdd')}</button><button class="secondary-button" type="button" data-action="word-sample" ${state.privateBusy?'disabled':''}>${t('wordFormSample')}</button></div></form>`;
+  const languages=['ko',...state.translationLanguages];
+  const available=LANGUAGES.filter(language=>!languages.includes(language));
+  const languagePicker=available.length?`<div class="translation-picker"><select id="translation-language" aria-label="${t('addLanguage')}">${available.map(lang=>`<option value="${lang}">${t('wordForm'+lang[0].toUpperCase()+lang.slice(1))}</option>`).join('')}</select>
+    <button type="button" class="secondary-button" data-action="add-language" ${state.privateBusy?'disabled':''}>${t('addLanguage')}</button></div>`:'';
+  return `<form id="personal-word-form" novalidate><h3>${t('wordFormTitle')}</h3><p class="field-help">${t('wordFormHelp')}</p><div class="word-form-grid">${field('word','wordFormWord',true,100)}${field('hanja','wordFormHanja',false,100)}</div><p class="field-help">${t('wordFormHanjaHelp')}</p><label for="personal-level">${t('wordLevel')}</label><select id="personal-level" name="level" ${state.privateBusy?'disabled':''}>${['easy','normal','hard','classical'].map(level=>`<option value="${level}" ${state.wordDraft.level===level?'selected':''}>${levelLabel(level)}</option>`).join('')}</select>${languages.map(language=>field(`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko')).join('')}${languagePicker}<details class="dictionary-extra" ${LANGUAGES.some(language=>state.wordDraft[`example_${language}`])?'open':''}><summary>${t('wordFormExamples')}</summary><div>${languages.map(language=>field(`example_${language}`,`wordFormExample${language[0].toUpperCase()+language.slice(1)}`,false,500)).join('')}</div></details>${state.characterDrafts.length?`<section id="new-characters"><h3>${t('wordFormMissing')}</h3><p class="field-help">${t('wordFormMissingHelp')}</p>${state.characterDrafts.map((entry,index)=>`<fieldset class="new-character"><legend lang="ko">${esc(entry.glyph)}</legend><div class="word-form-grid">${newField(entry,index,'sound_ko','wordFormSound',true,1)}${newField(entry,index,'sound_en','wordFormRoman',false,32)}</div><p class="field-help">${t('wordFormRomanHelp')}</p>${languages.map(language=>newField(entry,index,`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko',200)).join('')}</fieldset>`).join('')}</section>`:''}<p id="word-form-status" class="form-status" role="alert"></p><div class="account-actions"><button class="primary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('wordFormAdd')}</button><button class="secondary-button" type="button" data-action="word-sample" ${state.privateBusy?'disabled':''}>${t('wordFormSample')}</button></div></form>`;
 }
 
 function personalDictionaryEditor() {
   const words=[...state.dictionary.words].sort((a,b)=>a.word.localeCompare(b.word,'ko'));
   const remove=(kind,entry)=>`<button type="button" class="text-button dictionary-delete" data-action="dictionary-delete" data-kind="${kind}" ${kind==='word'?wordAttrs(entry):`data-id="${esc(entry.id)}"`} ${state.privateBusy?'disabled':''}>${t('dictionaryDelete')}</button>`;
-  return `<section class="account-card personal-dictionary"><h2>${t('dictionaryTitle')}</h2><p>${t('dictionaryHelp')}</p>${wordRegistrationForm()}<details class="dictionary-extra"><summary>${t('dictionaryImport')}</summary><form id="dictionary-import-form"><p class="field-help">${t('dictionaryImportHelp')}</p><label for="dictionary-file">${t('dictionaryImport')}</label><input id="dictionary-file" name="file" type="file" accept=".json,.jsonl,application/json,application/x-ndjson" ${state.privateBusy?'disabled':''}><p id="dictionary-status" class="form-status" role="alert"></p><button class="secondary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('dictionaryImportButton')}</button></form></details><div class="dictionary-list-heading"><h3>${t('dictionaryRegistered')} · ${words.length}</h3>${DICTIONARY_FIELDS.some(field=>state.dictionary[field].length)?`<button class="text-button" data-action="dictionary-download">${t('dictionaryDownload')}</button>`:''}</div>${words.length?`<div class="dictionary-list">${words.map(word=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-word" ${wordAttrs(word)}>${esc(word.word)} · ${esc(word.hanja)} ↗</button>${levelBadge(word)}<p>${esc(meaning(word))}</p></div>${remove('word',word)}</article>`).join('')}</div>`:`<p class="field-help">${t('dictionaryEmptyList')}</p>`}${state.dictionary.characters.length||state.dictionary.meta.length?`<details class="dictionary-extra"><summary>${t('dictionaryRegisteredCharacters')} · ${state.dictionary.characters.length} / ${state.dictionary.meta.length}</summary><div class="dictionary-list">${state.dictionary.characters.map(c=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-character" data-glyph="${esc(c.hanja)}">${esc(c.hanja)} ↗</button><p>${esc(localized(c, 'meaning', state.lang).join(', '))}</p></div>${remove('character',c)}</article>`).join('')}${state.dictionary.meta.map(m=>`<article class="dictionary-entry"><div>${esc(m.sound_ko)} · ${esc(m.sound_en)}</div>${remove('meta',m)}</article>`).join('')}</div></details>`:''}<p class="field-help">${t('dictionaryDeleteHelp')}</p></section>`;
+  return `<section class="account-card personal-dictionary"><h2>${t('dictionaryTitle')}</h2><p>${t('dictionaryHelp')}</p>${wordRegistrationForm()}<details class="dictionary-extra"><summary>${t('dictionaryImport')}</summary><form id="dictionary-import-form"><p class="field-help">${t('dictionaryImportHelp')}</p><div class="dictionary-file-picker"><button type="button" class="secondary-button" data-action="choose-file" ${state.privateBusy?'disabled':''}>${t('chooseFile')}</button><span id="dictionary-filename" aria-live="polite"></span></div><input hidden id="dictionary-file" name="file" type="file" accept=".json,.jsonl,application/json,application/x-ndjson" ${state.privateBusy?'disabled':''}><p id="dictionary-status" class="form-status" role="alert"></p><button class="secondary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('dictionaryImportButton')}</button></form></details><div class="dictionary-list-heading"><h3>${t('dictionaryRegistered')} · ${words.length}</h3>${DICTIONARY_FIELDS.some(field=>state.dictionary[field].length)?`<button class="text-button" data-action="dictionary-download">${t('dictionaryDownload')}</button>`:''}</div>${words.length?`<div class="dictionary-list">${words.map(word=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-word" ${wordAttrs(word)}>${esc(word.word)} · ${esc(word.hanja)} ↗</button>${levelBadge(word)}<p>${esc(meaning(word))}</p></div>${remove('word',word)}</article>`).join('')}</div>`:`<p class="field-help">${t('dictionaryEmptyList')}</p>`}${state.dictionary.characters.length||state.dictionary.meta.length?`<details class="dictionary-extra"><summary>${t('dictionaryRegisteredCharacters')} · ${state.dictionary.characters.length} / ${state.dictionary.meta.length}</summary><div class="dictionary-list">${state.dictionary.characters.map(c=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-character" data-glyph="${esc(c.hanja)}">${esc(c.hanja)} ↗</button><p>${esc(localized(c, 'meaning', state.lang).join(', '))}</p></div>${remove('character',c)}</article>`).join('')}${state.dictionary.meta.map(m=>`<article class="dictionary-entry"><div>${esc(m.sound_ko)} · ${esc(m.sound_en)}</div>${remove('meta',m)}</article>`).join('')}</div></details>`:''}<p class="field-help">${t('dictionaryDeleteHelp')}</p></section>`;
 }
 function dictionaryMessage(error) {
   if(error.field)return t('dictionaryJSON').replace('{field}',t({words:'dictionaryWords',characters:'dictionaryCharacters',meta:'dictionaryMeta',examples:'dictionaryExamples'}[error.field])).replace('{line}',error.line);
@@ -523,7 +577,7 @@ async function addPersonalWord(event) {
     payload=addMissingCharacters(payload,current,groups);
     const result=await accountRequest('/api/account/dictionary','POST',payload);
     if(state.user?.id!==owner)return;
-    state.wordDraft=emptyWordDraft();state.characterDrafts=[];
+    state.wordDraft=emptyWordDraft();state.characterDrafts=[];state.translationLanguages=[];
     applyAccount(result);announceAccountChange();toast(t('dictionarySaved'));
   } catch(error) {
     failure=error;
@@ -534,10 +588,10 @@ async function addPersonalWord(event) {
     finishPrivateRequest();
     form.querySelectorAll('input').forEach(input=>input.readOnly=false);
     form.querySelectorAll('button,select').forEach(input=>input.disabled=false);
-    if(showCharacters&&state.user?.id===owner&&state.page==='account') {
+    if(showCharacters&&state.user?.id===owner&&location.hash==='#account?view=dictionary') {
       renderAccount();$('#word-form-status').textContent=t('wordFormReady');$('#new-characters input')?.focus();
     } else if(state.dictionaryNeedsRefresh)await renderPage();
-    else if(!form.isConnected&&state.user?.id===owner&&state.page==='account') {
+    else if(!form.isConnected&&state.user?.id===owner&&location.hash==='#account?view=dictionary') {
       renderAccount();
       if(failure?.account)$('#word-form-status').textContent=dictionaryMessage(failure);
       else if(failure?.code)wordFormFailure($('#personal-word-form'),failure);
@@ -562,7 +616,7 @@ async function importPersonalDictionary(event) {
   finally {
     finishPrivateRequest();form.querySelectorAll('input,button').forEach(input=>input.disabled=false);
     if(state.dictionaryNeedsRefresh)await renderPage();
-    else if(!form.isConnected&&state.user?.id===owner&&state.page==='account') {
+    else if(!form.isConnected&&state.user?.id===owner&&location.hash==='#account?view=dictionary') {
       renderAccount();
       if(failure)$('#dictionary-status').textContent=dictionaryMessage(failure);
     }
@@ -600,12 +654,12 @@ $('#main').addEventListener('input',event=>{
 });
 
 function accountErrorKey(error) {
-  return ({invalid:'accountInvalid',credentials:'accountCredentials',username_taken:'accountTaken',unauthorized:'accountExpired',rate_limit:'accountRate',limit:'accountLimit',conflict:'noteConflict',accounts_unavailable:'accountUnavailable'})[error.code]??'accountFailed';
+  return ({invalid:'accountInvalid',google_taken:'googleTaken',google_invalid:'googleInvalid',google_unknown:'googleUnknown',credentials:'accountCredentials',username_taken:'accountTaken',unauthorized:'accountExpired',rate_limit:'accountRate',limit:'accountLimit',conflict:'noteConflict',accounts_unavailable:'accountUnavailable'})[error.code]??'accountFailed';
 }
 const accountMessage=error=>t(accountErrorKey(error));
-async function accountRequest(path,method='GET',body) {
+async function accountRequest(path,method='GET',body,{keepalive=false}={}) {
   let response;
-  try {response=await fetch(path,{method,credentials:'same-origin',cache:'no-store',headers:body===undefined?{}:{'Content-Type':'application/json','X-Account-ID':state.user?.id??''},...(body===undefined?{}:{body:JSON.stringify(body)})});}
+  try {response=await fetch(path,{method,keepalive,credentials:'same-origin',cache:'no-store',headers:body===undefined?(state.user?{'X-Account-ID':state.user.id}:{}):{'Content-Type':'application/json','X-Account-ID':state.user?.id??''},...(body===undefined?{}:{body:JSON.stringify(body)})});}
   catch {throw Object.assign(new Error('network'),{account:true});}
   let data;
   try {data=await response.json();}catch {throw Object.assign(new Error('response'),{account:true});}
@@ -613,6 +667,8 @@ async function accountRequest(path,method='GET',body) {
   return data;
 }
 function applyAccount(data) {
+  if('google_client_id' in data)state.googleClientID=data.google_client_id;
+  if((state.user?.id??null)!==(data.user?.id??null)){state.session=null;state.googleProof=null;state.translationLanguages=[];}
   if(state.user?.id!==(data.user?.id??null)){state.noteDrafts.clear();state.wordbookStatus=null;state.wordDraft=emptyWordDraft();state.characterDrafts=[];}
   state.user=data.user??null;state.notes=data.notes??[];
   state.dictionary=state.user?(data.dictionary??{words:[],characters:[],meta:[],examples:[]}):{words:[],characters:[],meta:[],examples:[]};
@@ -651,28 +707,112 @@ function renderAccount() {
     $('#main').innerHTML=`${head}<section class="account-card"><p role="alert">${t(state.accountReady?'accountUnavailable':state.accountFailure??'accountFailed')}</p><button class="primary-button" data-action="account-refresh">${t('accountRefresh')}</button></section>`;
     return;
   }
+  if(state.user && location.hash==='#account?history=1'){renderPracticeHistory();return;}
+  if(state.user && location.hash==='#account?view=dictionary'){
+    $('#main').innerHTML=accountNavigation('dictionary')+personalDictionaryEditor();
+    $('#personal-word-form').addEventListener('submit',addPersonalWord);
+    $('#dictionary-import-form').addEventListener('submit',importPersonalDictionary);
+    $('#dictionary-file').addEventListener('change',event=>{$('#dictionary-filename').textContent=event.target.files[0]?.name??'';});
+    return;
+  }
   if(state.user) {
     const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
     const guests=normalizeSaved(readStorage('han-graph.words.v1',[]));
-    $('#main').innerHTML=`${head}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2></div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div>${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section>${personalDictionaryEditor()}<section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
-    $('#personal-word-form').addEventListener('submit',addPersonalWord);
-    $('#dictionary-import-form').addEventListener('submit',importPersonalDictionary);
+    $('#main').innerHTML=`${accountNavigation('settings')}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2>${state.user.email?`<p>${t('emailLabel')} · ${esc(state.user.email)}</p>`:''}</div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><a class="secondary-button" href="#account?history=1">${t('historyTitle')}</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div>${emailSettingsForm()}${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section><section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+    $('#email-settings-form')?.addEventListener('submit',linkGoogle);
+    if(state.googleClientID && !state.googleProof)mountGoogleButton('link');
     return;
   }
   const registering=state.accountMode==='register';
-  $('#main').innerHTML=`${head}<section class="account-card account-form-card"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div><form id="account-form"><label for="account-username">${t('username')}</label><input id="account-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9][a-zA-Z0-9_-]{2,31}" aria-describedby="username-help"><p id="username-help" class="field-help">${t('usernameHelp')}</p><label for="account-password">${t('password')}</label><input id="account-password" name="password" type="password" autocomplete="${registering?'new-password':'current-password'}" required minlength="${registering?12:1}" maxlength="256" aria-describedby="password-help"><p id="password-help" class="field-help">${t('passwordHelp')}</p>${registering?`<label for="account-confirm">${t('confirmPassword')}</label><input id="account-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">`:''}<p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form></section>`;
+  const opening=`${head}<section class="account-card account-form-card"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div>`;
+  const proof=registering?state.googleProof:null;
+  const needsGoogle=registering && state.googleClientID && !proof;
+  const googlePanel=state.googleClientID?(proof?`<p>${t('emailLabel')} · ${esc(proof.email)}</p><button class="text-button" type="button" data-action="google-again">${t('googleChoose')}</button>`:googleButton()):'';
+  $('#main').innerHTML=`${opening}${googlePanel}<form id="account-form" ${needsGoogle?'hidden':''}>
+    <label for="account-username">${t('username')}</label><input id="account-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9](?:[a-zA-Z0-9_]|-){2,31}" aria-describedby="username-help">
+    <p id="username-help" class="field-help">${t('usernameHelp')}</p>
+    <label for="account-password">${t('password')}</label><input id="account-password" name="password" type="password" autocomplete="${registering?'new-password':'current-password'}" required minlength="${registering?10:1}" maxlength="256" ${registering?'aria-describedby="password-help"':''}>
+    ${registering?`<p id="password-help" class="field-help">${t('passwordHelp')}</p><label for="account-confirm">${t('confirmPassword')}</label><input id="account-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">`:''}
+    <p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form></section>`;
+  if(state.googleClientID && !proof)mountGoogleButton(registering?'register':'login');
   $('#account-form').addEventListener('submit',async event=>{
     event.preventDefault();if(state.privateBusy)return;
     const form=event.currentTarget,button=form.querySelector('[type="submit"]'),error=form.querySelector('#account-error');
     const values=new FormData(form),password=values.get('password');
+    if(registering && ([...password].length<10 || [...password].length>128)){error.textContent=t('passwordHelp');return;}
     if(registering && password!==values.get('confirm')){error.textContent=t('passwordMismatch');return;}
     state.privateBusy=true;button.disabled=true;button.textContent=t('accountWorking');
     try {
-      applyAccount(await accountRequest(`/api/auth/${registering?'register':'login'}`,'POST',{username:values.get('username'),password}));
+      applyAccount(await accountRequest(`/api/auth/${registering?'register':'login'}`,'POST',{username:values.get('username'),password,...(proof?{credential:proof.credential}:{})}));
+      state.googleProof=null;
       announceAccountChange();toast(t(registering?'accountCreated':'accountWelcome'));updateShell();
-    } catch(failure){error.textContent=accountMessage(failure);}
+    } catch(failure){if(failure.code==='google_invalid'){state.googleProof=null;renderAccount();toast(accountMessage(failure));}else error.textContent=accountMessage(failure);}
     finally {finishPrivateRequest();button.disabled=false;button.textContent=t(registering?'register':'login');if(state.user)await renderPage();}
   });
+}
+function accountNavigation(active) {
+  return `<nav class="account-tabs account-sections" aria-label="${t('account')}">${[['settings','#account','personalSettings'],['dictionary','#account?view=dictionary','dictionaryTitle']].map(([key,url,label])=>`<a class="${active===key?'primary-button':'secondary-button'}" href="${url}" ${active===key?'aria-current="page"':''}>${t(label)}</a>`).join('')}</nav>`;
+}
+function googleButton() {
+  return `<div class="google-auth"><div id="google-button"></div><p class="field-help" role="status" id="google-status"></p></div>`;
+}
+let googleScript;
+function loadGoogle() {
+  if(!googleScript)googleScript=new Promise((resolve,reject)=>{
+    const script=document.createElement('script');
+    script.src='https://accounts.google.com/gsi/client';script.async=true;
+    script.onload=()=>{if(window.google?.accounts?.id)resolve(window.google.accounts.id);else{googleScript=null;script.remove();reject(new Error('Google'));}};
+    script.onerror=()=>{googleScript=null;script.remove();reject(new Error('Google'));};
+    document.head.append(script);
+  });
+  return googleScript;
+}
+async function mountGoogleButton(intent) {
+  const target=$('#google-button'),status=$('#google-status');
+  if(!target || !status)return;
+  try {
+    const [google,challenge]=await Promise.all([loadGoogle(),accountRequest('/api/auth/google/challenge','POST',{intent})]);
+    if(!target.isConnected)return;
+    google.initialize({client_id:state.googleClientID,nonce:challenge.nonce,auto_select:false,callback:async({credential})=>{
+      if(!target.isConnected || state.privateBusy)return;
+      try {
+        if(intent==='login') {
+          state.privateBusy=true;
+          try {applyAccount(await accountRequest('/api/auth/login','POST',{credential}));}
+          finally {finishPrivateRequest();}
+          announceAccountChange();toast(t('accountWelcome'));updateShell();await renderPage();
+        } else {
+          // This decoded address is only a preview. The server verifies every claim.
+          const raw=credential.split('.')[1].replaceAll('-','+').replaceAll('_','/');
+          const payload=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(raw),c=>c.charCodeAt(0))));
+          state.googleProof={credential,email:payload.email};renderAccount();
+          $(intent==='link'?'#settings-password':'#account-username')?.focus();
+        }
+      } catch(error){if(error.code==='google_invalid'){renderAccount();toast(accountMessage(error));}else status.textContent=accountMessage(error);}
+    }});
+    google.renderButton(target,{theme:'outline',size:'large',locale:state.lang,text:intent==='login'?'signin_with':'continue_with'});
+  } catch {if(target.isConnected)status.textContent=t('googleUnavailable');}
+}
+function emailSettingsForm() {
+  if(!state.googleClientID)return '';
+  const proof=state.googleProof;
+  const controls=proof?`<form id="email-settings-form"><p>${t('emailLabel')} · ${esc(proof.email)}</p>
+    <label for="settings-password">${t('currentPassword')}</label><input id="settings-password" name="password" type="password" autocomplete="current-password" required>
+    <p role="status" class="form-status"></p><button class="primary-button" type="submit">${t('googleLink')}</button>
+    <button type="button" class="text-button" data-action="google-again">${t('googleChoose')}</button></form>`:googleButton();
+  return `<section class="email-settings"><h3>${t('emailSettings')}</h3><p>${t('googleHelp')}</p>${controls}</section>`;
+}
+async function linkGoogle(event) {
+  event.preventDefault();if(state.privateBusy || !state.googleProof || !state.user)return;
+  const form=event.currentTarget,button=form.querySelector('[type="submit"]');
+  state.privateBusy=true;button.disabled=true;
+  try {
+    const data=await accountRequest('/api/account/google','POST',{credential:state.googleProof.credential,username:state.user.username,password:form.elements.password.value});
+    state.googleProof=null;applyAccount(data);announceAccountChange();toast(t('emailChanged'));
+  } catch(error){
+    if(error.code==='google_invalid'){state.googleProof=null;toast(accountMessage(error));}
+    else form.querySelector('[role="status"]').textContent=accountMessage(error);
+  } finally {finishPrivateRequest();button.disabled=false;if(!state.googleProof && form.isConnected)renderAccount();}
 }
 async function logoutAccount() {
   if(state.privateBusy)return;state.privateBusy=true;
@@ -761,8 +901,18 @@ $('#main').addEventListener('click',event=>{
   else if(action==='network-retry')changeComponent(state.glyph);
   else if(action.startsWith('network-'))sizeNetwork(action);
   else if(action==='save')toggleSaved({word,hanja});
-  else if(action==='account-mode'){if(!state.privateBusy){state.accountMode=button.dataset.mode;renderAccount();}}
-  else if(action==='word-sample'){const sample={...JSON.parse(DICTIONARY_SAMPLE.words),...JSON.parse(DICTIONARY_SAMPLE.examples)};state.wordDraft=Object.fromEntries(WORD_FORM_FIELDS.map(field=>[field,sample[field]??'']));state.characterDrafts=[];renderAccount();$('#personal-word')?.focus();}
+  else if(action==='account-mode' && !state.privateBusy){state.accountMode=button.dataset.mode;state.googleProof=null;renderAccount();}
+  else if(action==='google-again' && !state.privateBusy){state.googleProof=null;renderAccount();}
+  else if(action==='choose-file')$('#dictionary-file')?.click();
+  else if(action==='add-language' && !state.privateBusy){
+    const lang=$('#translation-language').value;
+    if(LANGUAGES.includes(lang) && !state.translationLanguages.includes(lang)){
+      state.translationLanguages.push(lang);
+      $('#personal-word-form').outerHTML=wordRegistrationForm();$('#personal-word-form').addEventListener('submit',addPersonalWord);
+      $('#personal-meaning_'+lang)?.focus();
+    }
+  }
+  else if(action==='word-sample'){const sample={...JSON.parse(DICTIONARY_SAMPLE.words),...JSON.parse(DICTIONARY_SAMPLE.examples)};state.wordDraft=Object.fromEntries(WORD_FORM_FIELDS.map(field=>[field,field.startsWith('meaning_')||field.startsWith('example_')?(['ko',...state.translationLanguages].includes(field.split('_')[1])?sample[field]??'':''):sample[field]??'']));state.characterDrafts=[];renderAccount();$('#personal-word')?.focus();}
   else if(action==='dictionary-delete')removePersonalDictionary(button);
   else if(action==='dictionary-download')downloadPersonalDictionary();
   else if(action==='account-refresh')refreshAccount(true);
@@ -783,14 +933,17 @@ $('#main').addEventListener('click',event=>{
   else if(action==='start-practice'){
     const session=createSession(state.practice.questions,Math.random,state.practiceSettings);
     if(!session.questions.length)return;
+    session.owner=state.user?.id??null;
+    if(session.owner)session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
     state.session=session;state.index=0;state.translation=false;renderPractice();
     $('.question-prompt')?.scrollIntoView({block:'nearest'});
   }
+  else if(action==='retry-practice'){savePracticeRound(state.session);}
   else if(action==='practice-settings'){state.session=null;renderPractice();$('.practice-settings input:checked')?.focus({preventScroll:true});}
   else if(action==='translation'){state.translation=!state.translation;renderPractice();$('[data-action="translation"]')?.focus({preventScroll:true});}
   else if(action==='answer'){
     const question=state.session?.questions[state.index];
-    if(question&&answerQuestion(state.session,state.index,question.options[Number(index)])){renderPractice();$('.answer-feedback')?.focus({preventScroll:true});}
+    if(question&&answerQuestion(state.session,state.index,question.options[Number(index)])){if(state.session.owner && state.session.answers.size===state.session.questions.length)savePracticeRound(state.session);renderPractice();$('.answer-feedback')?.focus({preventScroll:true});}
   }
   else if(action==='next-question'&&state.session?.answers.has(state.session.questions[state.index]?.id)){state.index++;state.translation=false;renderPractice();$('.question-prompt, .result-number')?.scrollIntoView({block:'nearest'});}
 });
