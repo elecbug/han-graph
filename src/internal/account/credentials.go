@@ -5,6 +5,8 @@ import (
 	"context"
 	"crypto/rand"
 	"encoding/json"
+	"errors"
+	"time"
 
 	"cloud.google.com/go/firestore"
 	bolt "go.etcd.io/bbolt"
@@ -64,10 +66,55 @@ func (s *Store) GoogleSession(subject, previous string) (id, token string, err e
 }
 
 type credentialEdit struct {
-	username    string
-	password    *passwordKey
-	keepSession string
-	google      *GoogleIdentity
+	username        string
+	password        *passwordKey
+	keepSession     string
+	google          *GoogleIdentity
+	recoveryStarted time.Time
+}
+
+const RecoveryLifetime = 10 * time.Minute
+
+var ErrRecoveryExpired = errors.New("Google recovery verification expired")
+
+// RecoverPassword verifies the Google subject that the server authenticated.
+// A nil password checks eligibility before the user enters a new password.
+func (s *Store) RecoverPassword(owner, subject string, started time.Time, password *string) error {
+	change := credentialEdit{recoveryStarted: started}
+	if subject == "" || started.IsZero() {
+		return ErrRecoveryExpired
+	}
+	if password != nil && !validPassword(*password) {
+		return ErrInvalid
+	}
+	id, err := s.GoogleUser(subject)
+	if err != nil {
+		return err
+	}
+	if owner != "" && owner != id {
+		return ErrGoogleUnknown
+	}
+	if password != nil {
+		change.password, err = newPasswordKey(*password)
+		if err != nil {
+			return err
+		}
+	}
+	return s.storage.updateCredentials(s.ctx, id, loginProof{subject: subject}, change)
+}
+
+// Check inside the same transaction that rotates the password and revokes
+// sessions. Concurrent submissions of one Google challenge can only win once.
+func (change credentialEdit) checkRecovery(after int64) error {
+	if change.recoveryStarted.IsZero() {
+		return nil
+	}
+	now := time.Now()
+	if change.recoveryStarted.UnixMicro() <= after || change.recoveryStarted.After(now) ||
+		!now.Before(change.recoveryStarted.Add(RecoveryLifetime)) {
+		return ErrRecoveryExpired
+	}
+	return nil
 }
 
 func (s *Store) ownerProof(id, username, password string) (loginProof, error) {
@@ -127,6 +174,12 @@ func (b *fileBackend) updateCredentials(_ context.Context, id string, proof logi
 		if err := proof.check(u.User.Username, u.Hash, u.GoogleSubject); err != nil {
 			return err
 		}
+		if err := change.checkRecovery(u.RecoveryAfter); err != nil {
+			return err
+		}
+		if !change.recoveryStarted.IsZero() && change.password == nil {
+			return nil
+		}
 		if change.username != "" && change.username != u.User.Username {
 			names := tx.Bucket(namesBucket)
 			if names.Get([]byte(change.username)) != nil {
@@ -151,6 +204,9 @@ func (b *fileBackend) updateCredentials(_ context.Context, id string, proof logi
 			if err := revokeFileSessions(tx, id, tokenKey(change.keepSession)); err != nil {
 				return err
 			}
+		}
+		if change.google != nil || change.password != nil {
+			u.RecoveryAfter = max(u.RecoveryAfter, time.Now().UnixMicro())
 		}
 		return putJSON(tx.Bucket(usersBucket), []byte(id), u)
 	})
@@ -218,8 +274,17 @@ func (b *firestoreBackend) updateCredentials(ctx context.Context, id string, pro
 		if err := proof.check(header.Username, login.Hash, header.GoogleSubject); err != nil {
 			return err
 		}
+		if err := change.checkRecovery(header.RecoveryAfter); err != nil {
+			return err
+		}
+		if !change.recoveryStarted.IsZero() && change.password == nil {
+			return nil
+		}
 		oldName := header.Username
 		var updates []firestore.Update
+		if change.google != nil || change.password != nil {
+			updates = append(updates, firestore.Update{Path: "RecoveryAfter", Value: max(header.RecoveryAfter, time.Now().UnixMicro())})
+		}
 		if change.google != nil {
 			if err := b.bindGoogle(tx, id, GoogleIdentity{header.GoogleSubject, header.Email}, *change.google); err != nil {
 				return err

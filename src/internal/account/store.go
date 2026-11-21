@@ -63,6 +63,7 @@ type Snapshot struct {
 }
 type record struct {
 	GoogleSubject      string `json:",omitempty"`
+	RecoveryAfter      int64  `json:",omitempty"` // Unix microseconds of the last credential change.
 	User               User
 	Salt               []byte
 	Hash               []byte
@@ -140,6 +141,7 @@ func (s *Store) register(name, password string, identity GoogleIdentity) (User, 
 		return User{}, err
 	}
 	u := record{User: User{ID: id, Username: name, Email: identity.Email}, GoogleSubject: identity.Subject, Salt: passwordKey.salt, Hash: passwordKey.hash, Iterations: passwordIterations}
+	u.RecoveryAfter = time.Now().UnixMicro()
 	err = s.storage.create(s.ctx, u)
 	return u.User, err
 }

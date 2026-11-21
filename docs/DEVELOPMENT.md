@@ -180,7 +180,9 @@ Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을
 
 | 경로 | 용도 |
 | --- | --- |
-| `POST /api/auth/google/challenge` | `{intent}`로 login, register 또는 link 용도의 인증 요청 생성 |
+| `POST /api/auth/google/challenge` | `{intent}`로 login, register, link 또는 recover 용도의 인증 요청 생성 |
+| `POST /api/auth/recovery/verify` | `{credential}`로 복구용 Google 인증과 기존 계정 연결을 확인하고 검증된 이메일 반환 |
+| `POST /api/auth/recovery/reset` | 같은 브라우저에서 `{credential,new_password}`로 10분 안에 비밀번호를 재설정하고 모든 세션 종료. 기존 Google 클라이언트 ID 설정만 사용 |
 | `POST /api/auth/register` | `{username,password}`로 가입하고 로그인. Google 연동 시 ID 토큰을 `credential`로 함께 전송 |
 | `POST /api/auth/login` | `{username,password}` 또는 연결된 Google 계정의 `{credential}`로 로그인 |
 | `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트, Google 연동 설정(`google_client_id`) 조회. 비회원은 `user: null` |

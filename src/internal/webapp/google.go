@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"crypto/sha256"
 	"crypto/subtle"
+	"encoding/binary"
 	"encoding/hex"
 	"errors"
 	"net/http"
@@ -30,8 +31,14 @@ func googleNonce(secret, intent, owner string) string {
 	sum := sha256.Sum256([]byte(secret + "\x00" + intent + "\x00" + owner))
 	return hex.EncodeToString(sum[:])
 }
-func (o Options) googleIdentity(r *http.Request, intent, owner, credential string) (account.GoogleIdentity, error) {
-	var empty account.GoogleIdentity
+
+type verifiedGoogle struct {
+	account.GoogleIdentity
+	recoveryStarted time.Time
+}
+
+func (o Options) googleIdentity(r *http.Request, intent, owner, credential string) (verifiedGoogle, error) {
+	var empty verifiedGoogle
 	cookie, err := r.Cookie("han_graph_google_" + intent)
 	if o.GoogleClientID == "" || err != nil || len(cookie.Value) != 64 || len(credential) == 0 || len(credential) > 16384 {
 		return empty, errGoogleCredential
@@ -65,10 +72,29 @@ func (o Options) googleIdentity(r *http.Request, intent, owner, credential strin
 	if !verified || !identity.Valid() || (!strings.HasSuffix(identity.Email, "@gmail.com") && hostedDomain == "") {
 		return empty, errGoogleCredential
 	}
-	return identity, nil
+	result := verifiedGoogle{GoogleIdentity: identity}
+	if intent == "recover" {
+		// The signed nonce covers the timestamp and random bytes together.
+		secret, err := hex.DecodeString(cookie.Value)
+		if err != nil {
+			return empty, errGoogleCredential
+		}
+		result.recoveryStarted = time.UnixMicro(int64(binary.BigEndian.Uint64(secret)))
+		if result.recoveryStarted.After(now) || result.recoveryStarted.Unix() > payload.IssuedAt ||
+			!now.Before(result.recoveryStarted.Add(account.RecoveryLifetime)) {
+			return empty, account.ErrRecoveryExpired
+		}
+	}
+	return result, nil
 }
 
 func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, resolve func(http.ResponseWriter, *http.Request, bool) (string, bool), limiter *loginLimiter, beginHash func(http.ResponseWriter) bool, endHash func(), respond func(http.ResponseWriter, account.Snapshot)) {
+	recoveryOwner := func(w http.ResponseWriter, r *http.Request) (string, bool) {
+		if r.Header.Get("X-Account-ID") == "" {
+			return "", true
+		}
+		return resolve(w, r, true)
+	}
 	mux.HandleFunc("POST /api/auth/google/challenge", func(w http.ResponseWriter, r *http.Request) {
 		var body struct {
 			Intent string `json:"intent"`
@@ -84,6 +110,12 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 			if !ok {
 				return
 			}
+		case "recover":
+			var ok bool
+			owner, ok = recoveryOwner(w, r)
+			if !ok {
+				return
+			}
 		case "login", "register":
 		default:
 			accountError(w, account.ErrInvalid)
@@ -92,7 +124,7 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 		// Only the digest is given to Google. The browser keeps the preimage
 		// in a host-only HttpOnly cookie scoped to our API.
 		secret := ""
-		if cookie, err := r.Cookie("han_graph_google_" + body.Intent); err == nil && len(cookie.Value) == 64 {
+		if cookie, err := r.Cookie("han_graph_google_" + body.Intent); body.Intent != "recover" && err == nil && len(cookie.Value) == 64 {
 			secret = cookie.Value
 		} else {
 			var salt [32]byte
@@ -100,19 +132,71 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 				accountError(w, err)
 				return
 			}
+			if body.Intent == "recover" {
+				binary.BigEndian.PutUint64(salt[:8], uint64(time.Now().UnixMicro()))
+			}
 			secret = hex.EncodeToString(salt[:])
 		}
-		o.googleCookie(w, r, body.Intent, secret, int(googleLifetime.Seconds()))
+		lifetime := googleLifetime
+		if body.Intent == "recover" {
+			lifetime = account.RecoveryLifetime
+		}
+		o.googleCookie(w, r, body.Intent, secret, int(lifetime.Seconds()))
 		accountJSON(w, 200, map[string]string{"nonce": googleNonce(secret, body.Intent, owner)})
 	})
+	for _, step := range []string{"verify", "reset"} {
+		mux.HandleFunc("POST /api/auth/recovery/"+step, func(w http.ResponseWriter, r *http.Request) {
+			if store == nil {
+				accountJSON(w, 503, map[string]string{"error": "accounts_unavailable"})
+				return
+			}
+			if !limiter.allowAttempt(w, r) {
+				return
+			}
+			var body struct {
+				Credential  string  `json:"credential"`
+				NewPassword *string `json:"new_password"`
+			}
+			if !accountBody(w, r, &body) {
+				return
+			}
+			if (step == "reset") != (body.NewPassword != nil) {
+				accountError(w, account.ErrInvalid)
+				return
+			}
+			owner, ok := recoveryOwner(w, r)
+			if !ok {
+				return
+			}
+			if !beginHash(w) {
+				return
+			}
+			defer endHash()
+			proof, err := o.googleIdentity(r, "recover", owner, body.Credential)
+			if err != nil {
+				accountError(w, err)
+				return
+			}
+			err = store.WithContext(r.Context()).RecoverPassword(owner, proof.Subject, proof.recoveryStarted, body.NewPassword)
+			if err != nil {
+				accountError(w, err)
+				return
+			}
+			if step == "reset" {
+				o.googleCookie(w, r, "recover", "", -1)
+				if owner != "" {
+					o.setSessionCookie(w, r, "")
+				}
+			}
+			accountJSON(w, 200, map[string]string{"email": proof.Email})
+		})
+	}
 	mux.HandleFunc("POST /api/account/google", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, true)
 		if !ok {
 			return
 		}
-		if !limiter.allow(r) {
-			w.Header().Set("Retry-After", "900")
-			accountJSON(w, 429, map[string]string{"error": "rate_limit"})
+		if !limiter.allowAttempt(w, r) {
 			return
 		}
 		var body struct {
@@ -133,7 +217,7 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 			accountError(w, err)
 			return
 		}
-		if err := db.ChangeGoogle(id, body.Username, body.Password, identity); err != nil {
+		if err := db.ChangeGoogle(id, body.Username, body.Password, identity.GoogleIdentity); err != nil {
 			accountError(w, err)
 			return
 		}

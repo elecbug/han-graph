@@ -6,9 +6,104 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/elecbug/han-graph/internal/graph"
 )
+
+func TestGooglePasswordRecovery(t *testing.T) {
+	testBackends(t, func(t *testing.T, s *Store, name string) {
+		const original = "original password"
+		identity := GoogleIdentity{Subject: name, Email: name + "@gmail.com"}
+		user, err := s.RegisterGoogle(name, original, identity)
+		if err != nil {
+			t.Fatal(err)
+		}
+		other, err := s.Register(name+"_other", original)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var sessions []string
+		for _, id := range []string{user.ID, user.ID, other.ID} {
+			token, err := s.StartSession(id, "")
+			if err != nil {
+				t.Fatal(err)
+			}
+			sessions = append(sessions, token)
+		}
+		word := Ref{"단어", "單語"}
+		if _, err := s.AddWords(user.ID, []Ref{word}); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.RecoverPassword("", identity.Subject, time.Now().Add(-RecoveryLifetime), nil); !errors.Is(err, ErrRecoveryExpired) {
+			t.Fatal("expired proof", err)
+		}
+		start := time.Now()
+		if err := s.RecoverPassword("", identity.Subject, start, nil); err != nil {
+			t.Fatal(err)
+		}
+		if id, err := s.Resolve(sessions[0]); err != nil || id != user.ID {
+			t.Fatal("verification changed sessions", err)
+		}
+		type result struct {
+			password string
+			err      error
+		}
+		results := make(chan result, 2)
+		for _, password := range []string{"first replacement", "second replacement"} {
+			go func() { results <- result{password, s.RecoverPassword("", identity.Subject, start, &password)} }()
+		}
+		var winner string
+		for range 2 {
+			got := <-results
+			if got.err == nil && winner == "" {
+				winner = got.password
+			} else if !errors.Is(got.err, ErrRecoveryExpired) {
+				t.Fatalf("duplicate reset: %v", got.err)
+			}
+		}
+		if winner == "" {
+			t.Fatal("no reset succeeded")
+		}
+		if _, err := s.Login(name, original); !errors.Is(err, ErrCredentials) {
+			t.Fatal("previous password accepted", err)
+		}
+		if u, err := s.Login(name, winner); err != nil || u.ID != user.ID {
+			t.Fatal("new login", err)
+		}
+		for _, token := range sessions[:2] {
+			if _, err := s.Resolve(token); !errors.Is(err, ErrUnauthorized) {
+				t.Fatal("live session after recovery", err)
+			}
+		}
+		if id, err := s.Resolve(sessions[2]); err != nil || id != other.ID {
+			t.Fatal("unrelated session", err)
+		}
+		if snap, err := s.Snapshot(user.ID); err != nil || len(snap.Words) != 1 || snap.Words[0] != word {
+			t.Fatal("lost saved word", err)
+		}
+		start = time.Now()
+		if err := s.ChangeCredentials(user.ID, "", CredentialChange{Username: name, CurrentPassword: winner, NewPassword: original}); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.RecoverPassword("", identity.Subject, start, &winner); !errors.Is(err, ErrRecoveryExpired) {
+			t.Fatal("used proof predating password change", err)
+		}
+		start = time.Now()
+		if err := s.ChangeGoogle(user.ID, name, original, GoogleIdentity{Subject: name + "2", Email: name + "2@gmail.com"}); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.RecoverPassword("", identity.Subject, start, &winner); !errors.Is(err, ErrGoogleUnknown) {
+			t.Fatal("used unlinked Google identity", err)
+		}
+		if err := s.LinkGoogle(other.ID, identity); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.RecoverPassword("", identity.Subject, start, &winner); !errors.Is(err, ErrRecoveryExpired) {
+			t.Fatal("recovery transferred to another account", err)
+		}
+	})
+}
 
 func TestCredentialChanges(t *testing.T) {
 	testBackends(t, func(t *testing.T, s *Store, name string) {

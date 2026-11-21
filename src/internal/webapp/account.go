@@ -49,6 +49,8 @@ func accountError(w http.ResponseWriter, err error) {
 		status, code = 409, "google_taken"
 	case errors.Is(err, account.ErrGoogleUnknown):
 		status, code = 401, "google_unknown"
+	case errors.Is(err, account.ErrRecoveryExpired):
+		status, code = 401, "recovery_expired"
 	case errors.Is(err, errGoogleCredential):
 		status, code = 400, "google_invalid"
 	case errors.Is(err, account.ErrCredentials):
@@ -90,6 +92,16 @@ func cookieToken(r *http.Request) string {
 	return c.Value
 }
 
+func (options Options) setSessionCookie(w http.ResponseWriter, r *http.Request, token string) {
+	age := int(account.SessionLifetime.Seconds())
+	expires := time.Now().Add(account.SessionLifetime)
+	if token == "" {
+		age = -1
+		expires = time.Unix(1, 0)
+	}
+	http.SetCookie(w, &http.Cookie{Name: sessionCookie, Value: token, Path: "/", MaxAge: age, Expires: expires, HttpOnly: true, Secure: options.SecureCookies || r.TLS != nil, SameSite: http.SameSiteLaxMode})
+}
+
 type loginAttempt struct {
 	count   int
 	expires time.Time
@@ -126,6 +138,15 @@ func (l *loginLimiter) allow(r *http.Request) bool {
 	l.entries[host] = attempt
 	return true
 }
+
+func (l *loginLimiter) allowAttempt(w http.ResponseWriter, r *http.Request) bool {
+	if l.allow(r) {
+		return true
+	}
+	w.Header().Set("Retry-After", "900")
+	accountJSON(w, 429, map[string]string{"error": "rate_limit"})
+	return false
+}
 func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, options Options) {
 	store := options.Accounts
 	limiter := loginLimiter{entries: make(map[string]loginAttempt)}
@@ -154,15 +175,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 		}
 		return id, true
 	}
-	setCookie := func(w http.ResponseWriter, r *http.Request, token string) {
-		age := int(account.SessionLifetime.Seconds())
-		expires := time.Now().Add(account.SessionLifetime)
-		if token == "" {
-			age = -1
-			expires = time.Unix(1, 0)
-		}
-		http.SetCookie(w, &http.Cookie{Name: sessionCookie, Value: token, Path: "/", MaxAge: age, Expires: expires, HttpOnly: true, Secure: options.SecureCookies || r.TLS != nil, SameSite: http.SameSiteLaxMode})
-	}
+
 	beginHash := func(w http.ResponseWriter) bool {
 		select {
 		case hashing <- struct{}{}:
@@ -204,17 +217,9 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 	if options.GoogleClientID != "" {
 		registerGoogleRoutes(mux, options, store, resolve, &limiter, beginHash, func() { <-hashing }, sessionResponse)
 	}
-	allowAttempt := func(w http.ResponseWriter, r *http.Request) bool {
-		if limiter.allow(r) {
-			return true
-		}
-		w.Header().Set("Retry-After", "900")
-		accountJSON(w, 429, map[string]string{"error": "rate_limit"})
-		return false
-	}
 	mux.HandleFunc("PUT /api/account/credentials", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, true)
-		if !ok || !allowAttempt(w, r) {
+		if !ok || !limiter.allowAttempt(w, r) {
 			return
 		}
 		var input account.CredentialChange
@@ -236,7 +241,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 	})
 	mux.HandleFunc("DELETE /api/account", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, true)
-		if !ok || !allowAttempt(w, r) {
+		if !ok || !limiter.allowAttempt(w, r) {
 			return
 		}
 		var input struct {
@@ -259,7 +264,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			accountError(w, err)
 			return
 		}
-		setCookie(w, r, "")
+		options.setSessionCookie(w, r, "")
 		sessionResponse(w, account.Snapshot{Words: []account.Ref{}, Notes: []account.Note{}})
 	})
 	for _, action := range []string{"register", "login"} {
@@ -267,7 +272,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			if !available(w) {
 				return
 			}
-			if !allowAttempt(w, r) {
+			if !limiter.allowAttempt(w, r) {
 				return
 			}
 			var credentials struct {
@@ -294,7 +299,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 					return
 				}
 				if action == "register" {
-					user, err = db.RegisterGoogle(credentials.Username, credentials.Password, identity)
+					user, err = db.RegisterGoogle(credentials.Username, credentials.Password, identity.GoogleIdentity)
 				} else {
 					user.ID, token, err = db.GoogleSession(identity.Subject, cookieToken(r))
 				}
@@ -323,7 +328,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			if usingGoogle {
 				options.googleCookie(w, r, action, "", -1)
 			}
-			setCookie(w, r, token)
+			options.setSessionCookie(w, r, token)
 			sessionResponse(w, result)
 		})
 	}
@@ -339,7 +344,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			accountError(w, err)
 			return
 		}
-		setCookie(w, r, "")
+		options.setSessionCookie(w, r, "")
 		accountJSON(w, 200, account.Snapshot{Words: []account.Ref{}, Notes: []account.Note{}})
 	})
 	mux.HandleFunc("POST /api/account/words", func(w http.ResponseWriter, r *http.Request) {

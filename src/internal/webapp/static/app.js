@@ -687,6 +687,9 @@ async function accountRequest(path,method='GET',body,{keepalive=false}={}) {
 }
 function applyAccount(data) {
   if('google_client_id' in data)state.googleClientID=data.google_client_id;
+  if(state.accountMode==='recover' && (!state.googleClientID || (state.user?.id??null)!==(data.user?.id??null))){
+    state.accountMode='login';state.googleProof=null;
+  }
   if((state.user?.id??null)!==(data.user?.id??null)){state.session=null;state.googleProof=null;state.translationLanguages=[];}
   if(state.user?.id!==(data.user?.id??null)){state.noteDrafts.clear();state.wordbookStatus=null;state.wordDraft=emptyWordDraft();state.characterDrafts=[];}
   state.user=data.user??null;state.notes=data.notes??[];
@@ -734,6 +737,7 @@ function renderAccount() {
     $('#dictionary-file').addEventListener('change',event=>{$('#dictionary-filename').textContent=event.target.files[0]?.name??'';});
     return;
   }
+  if(state.accountMode==='recover' && state.googleClientID){renderRecovery(head);return;}
   if(state.user) {
     const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
     const guests=normalizeSaved(readStorage('han-graph.words.v1',[]));
@@ -758,7 +762,8 @@ function renderAccount() {
     <p id="username-help" class="field-help">${t('usernameHelp')}</p>
     <label for="account-password">${t('password')}</label><input id="account-password" name="password" type="password" autocomplete="${registering?'new-password':'current-password'}" required minlength="${registering?10:1}" maxlength="256" ${registering?'aria-describedby="password-help"':''}>
     ${registering?`<p id="password-help" class="field-help">${t('passwordHelp')}</p><label for="account-confirm">${t('confirmPassword')}</label><input id="account-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">`:''}
-    <p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form></section>`;
+    <p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form>
+    ${!registering && state.googleClientID?recoveryButton():''}</section>`;
   if(state.googleClientID && !proof)mountGoogleButton(registering?'register':'login');
   $('#account-form').addEventListener('submit',async event=>{
     event.preventDefault();if(state.privateBusy)return;
@@ -773,6 +778,49 @@ function renderAccount() {
       announceAccountChange();toast(t(registering?'accountCreated':'accountWelcome'));updateShell();
     } catch(failure){if(failure.code==='google_invalid'){state.googleProof=null;renderAccount();toast(accountMessage(failure));}else error.textContent=accountMessage(failure);}
     finally {finishPrivateRequest();button.disabled=false;button.textContent=t(registering?'register':'login');if(state.user)await renderPage();}
+  });
+}
+function recoveryButton() {
+  return `<button class="text-button" type="button" data-action="account-mode" data-mode="recover">${t('forgotPassword')}</button>`;
+}
+function recoveryMessage(error) {
+  if(error.code==='google_unknown')return t('recoveryUnknown');
+  if(['recovery_expired','google_invalid','credentials','unauthorized'].includes(error.code))return t('recoveryExpired');
+  return accountMessage(error);
+}
+function renderRecovery(head) {
+  const proof=state.googleProof;
+  const controls=proof?`<p>${t('emailLabel')} · ${esc(proof.email)}</p>
+    <form id="recovery-form" class="credential-form">
+      <label for="recover-password">${t('newPassword')}</label>
+      <input id="recover-password" name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="256" aria-describedby="recover-help">
+      <p id="recover-help" class="field-help">${t('passwordHelp')}</p>
+      <label for="recover-confirm">${t('confirmPassword')}</label>
+      <input id="recover-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">
+      <p class="form-status" role="alert"></p><button class="primary-button" type="submit">${t('resetPassword')}</button>
+    </form><button type="button" class="text-button" data-action="google-again">${t('googleChoose')}</button>`:googleButton();
+  $('#main').innerHTML=`${head}<section class="account-card account-form-card google-enabled"><h2>${t('resetPassword')}</h2>
+    <p>${t('recoveryHelp')}</p>${controls}<button type="button" class="text-button" data-action="account-mode" data-mode="login">${t(state.user?'personalSettings':'backToLogin')}</button></section>`;
+  if(!proof){mountGoogleButton('recover');return;}
+  $('#recovery-form').addEventListener('submit',async event=>{
+    event.preventDefault();if(state.privateBusy)return;
+    const form=event.currentTarget,button=form.querySelector('[type="submit"]'),status=form.querySelector('[role="alert"]');
+    const password=form.elements.password.value;
+    if([...password].length<10 || [...password].length>128){status.textContent=t('passwordHelp');return;}
+    if(password!==form.elements.confirm.value){status.textContent=t('passwordMismatch');return;}
+    state.privateBusy=true;button.disabled=true;status.textContent=t('accountWorking');
+    try {
+      await accountRequest('/api/auth/recovery/reset','POST',{credential:proof.credential,new_password:password});
+      state.googleProof=null;state.accountMode='login';applyAccount({user:null});
+      announceAccountChange();toast(t('recoveryDone'));updateShell();await renderPage();
+      $('#account-username')?.focus();
+    } catch(error) {
+      if(['recovery_expired','google_invalid','google_unknown','credentials','unauthorized'].includes(error.code)){
+        state.googleProof=null;
+        if(state.page==='account')renderAccount();
+        toast(recoveryMessage(error));
+      } else status.textContent=recoveryMessage(error);
+    } finally {finishPrivateRequest();button.disabled=false;}
   });
 }
 function accountNavigation(active) {
@@ -798,7 +846,7 @@ async function mountGoogleButton(intent) {
   try {
     const [google,challenge]=await Promise.all([loadGoogle(),accountRequest('/api/auth/google/challenge','POST',{intent})]);
     if(!target.isConnected)return;
-    google.initialize({client_id:state.googleClientID,nonce:challenge.nonce,auto_select:false,callback:async({credential})=>{
+    google.initialize({client_id:state.googleClientID,nonce:challenge.nonce,auto_select:false,button_auto_select:false,callback:async({credential})=>{
       if(!target.isConnected || state.privateBusy)return;
       try {
         if(intent==='login') {
@@ -806,6 +854,13 @@ async function mountGoogleButton(intent) {
           try {applyAccount(await accountRequest('/api/auth/login','POST',{credential}));}
           finally {finishPrivateRequest();}
           announceAccountChange();toast(t('accountWelcome'));updateShell();await renderPage();
+        } else if(intent==='recover') {
+          state.privateBusy=true;
+          let verified;
+          try {verified=await accountRequest('/api/auth/recovery/verify','POST',{credential});}
+          finally {finishPrivateRequest();}
+          if(!target.isConnected)return;
+          state.googleProof={credential,email:verified.email};renderAccount();$('#recover-password')?.focus();
         } else {
           // This decoded address is only a preview. The server verifies every claim.
           const raw=credential.split('.')[1].replaceAll('-','+').replaceAll('_','/');
@@ -813,7 +868,14 @@ async function mountGoogleButton(intent) {
           state.googleProof={credential,email:payload.email};renderAccount();
           $(intent==='link'?'#settings-password':'#account-username')?.focus();
         }
-      } catch(error){if(error.code==='google_invalid'){renderAccount();toast(accountMessage(error));}else status.textContent=accountMessage(error);}
+      } catch(error){
+        if(!target.isConnected)return;
+        if(intent==='recover'){
+          if(['google_invalid','recovery_expired'].includes(error.code)){renderAccount();toast(recoveryMessage(error));}
+          else status.textContent=recoveryMessage(error);
+        } else if(error.code==='google_invalid'){renderAccount();toast(accountMessage(error));}
+        else status.textContent=accountMessage(error);
+      }
     }});
     const options={theme:'outline',size:'large',locale:state.lang,text:intent==='login'?'signin_with':'continue_with'};
     let renderedWidth=0, resizeTimer;
@@ -847,7 +909,8 @@ function credentialForm(kind) {
     <input type="hidden" name="username" autocomplete="username" value="${esc(state.user.username)}">
     <label for="current-${kind}-password">${t('currentPassword')}</label>
     <input id="current-${kind}-password" name="current_password" type="password" required autocomplete="current-password">
-    ${fields}<p role="alert" class="form-status"></p><button class="primary-button" type="submit">${title}</button></form></details>`;
+    ${fields}<p role="alert" class="form-status"></p><button class="primary-button" type="submit">${title}</button></form>
+    ${password && state.googleClientID && state.user.email?recoveryButton():''}</details>`;
 }
 async function changeCredentials(event) {
   event.preventDefault();
@@ -1015,7 +1078,7 @@ $('#main').addEventListener('click',event=>{
   else if(action==='account-mode' && !state.privateBusy){state.accountMode=button.dataset.mode;state.googleProof=null;renderAccount();}
   else if(action==='google-again' && !state.privateBusy){
     state.googleProof=null;renderAccount();
-    if(state.user)$('.email-settings').open=true;
+    const settings=$('.email-settings');if(settings)settings.open=true;
   }
   else if(action==='choose-file')$('#dictionary-file')?.click();
   else if(action==='add-language' && !state.privateBusy){

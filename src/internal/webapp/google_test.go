@@ -7,6 +7,8 @@ import (
 	"crypto/rsa"
 	"crypto/sha256"
 	"encoding/base64"
+	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -25,13 +27,23 @@ type keyTransport func(*http.Request) (*http.Response, error)
 
 func (f keyTransport) RoundTrip(r *http.Request) (*http.Response, error) { return f(r) }
 
-func TestGoogleAccountFlow(t *testing.T) {
+type googleTestFlow struct {
+	store     *account.Store
+	user      account.User
+	cookies   map[string]*http.Cookie
+	request   func(string, map[string]string, string, int) *httptest.ResponseRecorder
+	challenge func(string, string) string
+	token     func(string, string, string, map[string]any) string
+}
+
+func newGoogleTestFlow(t *testing.T) googleTestFlow {
+	t.Helper()
 	const clientID = "100000-test.apps.googleusercontent.com"
 	store, err := account.Open(filepath.Join(t.TempDir(), "test.db"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer store.Close()
+	t.Cleanup(func() { store.Close() })
 	user, err := store.Register("returning", "1234567890")
 	if err != nil {
 		t.Fatal(err)
@@ -102,6 +114,12 @@ func TestGoogleAccountFlow(t *testing.T) {
 		}
 		return jwt + "." + encode(signature)
 	}
+	return googleTestFlow{store, user, cookies, request, challenge, token}
+}
+
+func TestGoogleAccountFlow(t *testing.T) {
+	f := newGoogleTestFlow(t)
+	user, request, challenge, token := f.user, f.request, f.challenge, f.token
 	local := map[string]string{"username": "returning", "password": "1234567890"}
 	request("auth/login", local, "", 200)
 	link := map[string]string{"username": "returning", "password": "incorrect", "credential": token(challenge("link", user.ID), "first", "reader@gmail.com", nil)}
@@ -120,7 +138,7 @@ func TestGoogleAccountFlow(t *testing.T) {
 	auth(token(nonce, "unlinked", "reader@gmail.com", nil), 401)
 	valid := token(nonce, "first", "reader@gmail.com", nil)
 	parts := strings.Split(valid, ".")
-	auth(parts[0]+"."+parts[1]+"."+encode(make([]byte, 256)), 400)
+	auth(parts[0]+"."+parts[1]+"."+base64.RawURLEncoding.EncodeToString(make([]byte, 256)), 400)
 	auth(valid, 200)
 	link["credential"] = token(challenge("link", user.ID), "replacement", "next@gmail.com", nil)
 	request("account/google", link, user.ID, 200)
@@ -136,4 +154,79 @@ func TestGoogleAccountFlow(t *testing.T) {
 	request("auth/register", signup, "", 400)
 	signup["password"] = "1234567890"
 	request("auth/register", signup, "", 200)
+}
+
+func TestGooglePasswordRecovery(t *testing.T) {
+	f := newGoogleTestFlow(t)
+	const sub = "linked-reader"
+	const email = "reader@gmail.com"
+	if err := f.store.LinkGoogle(f.user.ID, account.GoogleIdentity{Subject: sub, Email: email}); err != nil {
+		t.Fatal(err)
+	}
+	const verify, reset = "auth/recovery/verify", "auth/recovery/reset"
+	newPassword := "new recovery password"
+	body := map[string]string{"credential": f.token(f.challenge("login", ""), sub, email, nil)}
+	nonce := f.challenge("recover", "")
+	cookie := f.cookies["han_graph_google_recover"]
+	if !cookie.HttpOnly || !cookie.Secure || cookie.SameSite != http.SameSiteStrictMode {
+		t.Fatal("recovery cookie protections")
+	}
+	stale := *cookie
+	secret, err := hex.DecodeString(stale.Value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	binary.BigEndian.PutUint64(secret, uint64(time.Now().Add(-account.RecoveryLifetime-time.Minute).UnixMicro()))
+	stale.Value = hex.EncodeToString(secret)
+	f.cookies["han_graph_google_recover"] = &stale
+	f.request(verify, map[string]string{"credential": f.token(googleNonce(stale.Value, "recover", ""), sub, email, nil)}, "", 401)
+	f.cookies["han_graph_google_recover"] = cookie
+	f.request(verify, body, "", 400)
+	body["credential"] = f.token(nonce, "other-subject", email, nil)
+	f.request(verify, body, "", 401)
+	body["credential"] = f.token(nonce, sub, email, map[string]any{"email_verified": false})
+	f.request(verify, body, "", 400)
+	body["credential"] = f.token(nonce, sub, email, nil)
+	delete(f.cookies, "han_graph_google_recover")
+	f.request(verify, body, "", 400)
+	f.cookies["han_graph_google_recover"] = cookie
+	rec := f.request(verify, body, "", 200)
+	if _, ok := f.cookies[sessionCookie]; ok || !strings.Contains(rec.Body.String(), email) {
+		t.Fatal("verification should only return the verified address")
+	}
+	f.request(reset, body, "", 400)
+	body["new_password"] = "123456789"
+	f.request(reset, body, "", 400)
+	body["new_password"] = newPassword
+	f.request(reset, body, "", 200)
+	if _, ok := f.cookies["han_graph_google_recover"]; ok {
+		t.Fatal("reset did not clear recovery cookie")
+	}
+	f.cookies["han_graph_google_recover"] = cookie
+	f.request(reset, body, "", 401)
+	if _, ok := f.cookies[sessionCookie]; ok {
+		t.Fatal("recovery created a login session")
+	}
+	f.request("auth/login", map[string]string{"username": f.user.Username, "password": "1234567890"}, "", 401)
+	f.request("auth/login", map[string]string{"username": f.user.Username, "password": newPassword}, "", 200)
+	_, err = f.store.RegisterGoogle("another-reader", "another password", account.GoogleIdentity{Subject: "other", Email: "other@gmail.com"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	nonce = f.challenge("recover", f.user.ID)
+	body = map[string]string{"credential": f.token(nonce, "other", "other@gmail.com", nil)}
+	f.request(verify, body, f.user.ID, 401)
+	body["new_password"] = "must not be written"
+	f.request(reset, body, f.user.ID, 401)
+	if _, err := f.store.Login("another-reader", "another password"); err != nil {
+		t.Fatal(err)
+	}
+	body = map[string]string{"credential": f.token(nonce, sub, email, nil)}
+	f.request(verify, body, "", 400)
+	f.request(verify, body, f.user.ID, 200)
+	body["new_password"] = "settings recovery password"
+	f.request(reset, body, f.user.ID, 200)
+	if _, ok := f.cookies[sessionCookie]; ok {
+		t.Fatal("settings recovery did not clear login cookie")
+	}
 }
