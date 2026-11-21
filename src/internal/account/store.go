@@ -79,13 +79,14 @@ type session struct {
 type backend interface {
 	create(ctx context.Context, user record) error
 	googleUser(ctx context.Context, subject string) (string, error)
-	linkGoogle(ctx context.Context, id string, identity GoogleIdentity) error
+	updateCredentials(ctx context.Context, id string, proof loginProof, change credentialEdit) error
+	deleteAccount(ctx context.Context, id string, proof loginProof) error
 	savePractice(ctx context.Context, id string, round PracticeRound) error
 	practiceHistory(ctx context.Context, id, after string) ([]PracticeRound, error)
 	byName(ctx context.Context, name string) (record, error)
 	// A nil edit reads a snapshot. An edit commits atomically and may be retried.
 	access(ctx context.Context, id string, edit func(*record) error) (Snapshot, error)
-	startSession(ctx context.Context, id, previousToken, newToken string) error
+	startSession(ctx context.Context, id, previousToken, newToken string, proof loginProof) error
 	endSession(ctx context.Context, token string) error
 	resolve(ctx context.Context, token string) (string, error)
 	Close() error
@@ -130,11 +131,7 @@ func (s *Store) register(name, password string, identity GoogleIdentity) (User, 
 	if !usernamePattern.MatchString(name) || !validPassword(password) {
 		return User{}, ErrInvalid
 	}
-	salt := make([]byte, 16)
-	if _, err := rand.Read(salt); err != nil {
-		return User{}, err
-	}
-	hash, err := digest(password, salt, passwordIterations)
+	passwordKey, err := newPasswordKey(password)
 	if err != nil {
 		return User{}, err
 	}
@@ -142,14 +139,18 @@ func (s *Store) register(name, password string, identity GoogleIdentity) (User, 
 	if err != nil {
 		return User{}, err
 	}
-	u := record{User: User{ID: id, Username: name, Email: identity.Email}, GoogleSubject: identity.Subject, Salt: salt, Hash: hash, Iterations: passwordIterations}
+	u := record{User: User{ID: id, Username: name, Email: identity.Email}, GoogleSubject: identity.Subject, Salt: passwordKey.salt, Hash: passwordKey.hash, Iterations: passwordIterations}
 	err = s.storage.create(s.ctx, u)
 	return u.User, err
 }
 func (s *Store) Login(name, password string) (User, error) {
+	u, err := s.verifyPassword(name, password)
+	return u.User, err
+}
+func (s *Store) verifyPassword(name, password string) (record, error) {
 	name = NormalizeUsername(name)
 	if len(password) > 512 {
-		return User{}, ErrCredentials
+		return record{}, ErrCredentials
 	}
 	var u record
 	var err error
@@ -159,7 +160,7 @@ func (s *Store) Login(name, password string) (User, error) {
 		err = ErrCredentials
 	}
 	if err != nil && !errors.Is(err, ErrCredentials) {
-		return User{}, err
+		return record{}, err
 	}
 	// Unknown users take the same expensive path as incorrect passwords.
 	salt, iterations := u.Salt, u.Iterations
@@ -169,20 +170,23 @@ func (s *Store) Login(name, password string) (User, error) {
 	}
 	hash, hashErr := digest(password, salt, iterations)
 	if hashErr != nil {
-		return User{}, hashErr
+		return record{}, hashErr
 	}
 	if err != nil || subtle.ConstantTimeCompare(hash, u.Hash) != 1 {
-		return User{}, ErrCredentials
+		return record{}, ErrCredentials
 	}
-	return u.User, nil
+	return u, nil
 }
 func tokenKey(token string) []byte { h := sha256.Sum256([]byte(token)); return h[:] }
 func (s *Store) StartSession(id, previous string) (string, error) {
+	return s.startSession(id, previous, loginProof{})
+}
+func (s *Store) startSession(id, previous string, proof loginProof) (string, error) {
 	token, err := randomHex(32)
 	if err != nil {
 		return "", err
 	}
-	err = s.storage.startSession(s.ctx, id, previous, token)
+	err = s.storage.startSession(s.ctx, id, previous, token, proof)
 	return token, err
 }
 func (s *Store) EndSession(token string) error { return s.storage.endSession(s.ctx, token) }

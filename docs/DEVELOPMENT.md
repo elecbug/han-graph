@@ -103,6 +103,8 @@ Firestore 에뮬레이터가 실행 중이면 `src`에서 `FIRESTORE_EMULATOR_HO
 
 **파일 모드**에서는 계정 데이터를 `-accounts`가 가리키는 파일에 저장합니다. 기본값 `../var/accounts.db`는 실행 디렉터리를 기준으로 하며, 저장소의 `src`에서 실행하면 루트의 `var` 폴더에 만들어집니다. 서버를 재시작해도 같은 파일을 사용하면 계정·개인 사전·단어장·노트가 유지됩니다. 이 파일은 공개 사전 데이터와 별개이며 저장소에 포함하지 않습니다.
 
+회원 탈퇴 시 파일 DB는 한 트랜잭션에서 계정과 학습 데이터를 삭제합니다. Firestore는 계정과 로그인 수단, 세션을 먼저 삭제하고 같은 트랜잭션에 하위 문서 정리 작업을 기록합니다. 개인 사전과 연습 기록의 삭제가 중단되면 서버가 시작할 때와 실행 중에 작업을 재개합니다.
+
 백업할 때는 서버를 정상 종료한 뒤 데이터베이스 파일을 복사합니다. 복원할 때도 서버가 정지한 상태에서 되돌려 놓으세요. 파일 권한은 소유자만 읽고 쓰도록 설정됩니다. 같은 파일을 두 서버 프로세스가 동시에 열 수 없습니다. 컨테이너나 임시 실행 환경을 사용한다면 `-accounts` 위치를 영구 볼륨에 두세요.
 
 외부에 서비스할 때는 HTTPS로 제공하고, HTTPS 리버스 프록시 뒤에서 `-secure-cookies`를 켜 로그인 쿠키를 HTTPS 연결로 제한하세요. 기본 로그인 시도 제한은 서버가 직접 보는 접속 주소에 적용하므로 프록시를 쓰는 경우 여러 이용자가 같은 제한을 공유할 수 있습니다.
@@ -183,7 +185,9 @@ Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을
 | `POST /api/auth/login` | `{username,password}` 또는 연결된 Google 계정의 `{credential}`로 로그인 |
 | `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트, Google 연동 설정(`google_client_id`) 조회. 비회원은 `user: null` |
 | `POST /api/auth/logout` | `{}`로 현재 로그인 종료 |
+| `PUT /api/account/credentials` | `{username,current_password}`와 `new_username` 또는 `new_password`로 로그인 정보 변경. 비밀번호 변경 시 요청 세션을 제외한 기존 세션 종료 |
 | `POST /api/account/google` | `{username,password,credential}`로 로그인한 계정에 Google 계정 연결 또는 교체 |
+| `DELETE /api/account` | `{username,current_password,confirm:true}`로 회원 탈퇴. 모든 세션, 로그인 정보, 개인 학습 데이터 삭제 |
 | `POST /api/account/practice` | 완료한 회차의 `{id,level,answers:[{question,selected:{word,hanja}}]}` 저장. 서버가 출제 자료에서 정답을 확인하며 같은 회차의 재시도는 한 번만 저장 |
 | `GET /api/account/practice` | 본인의 완료 기록을 최근 순으로 20회씩 조회. 응답의 `next`를 `after`로 보내면 다음 페이지 조회 |
 | `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |

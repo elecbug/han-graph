@@ -128,21 +128,12 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 		}
 		defer endHash()
 		db := store.WithContext(r.Context())
-		user, err := db.Login(body.Username, body.Password)
-		if err != nil {
-			accountError(w, err)
-			return
-		}
-		if user.ID != id {
-			accountError(w, account.ErrCredentials)
-			return
-		}
 		identity, err := o.googleIdentity(r, "link", id, body.Credential)
 		if err != nil {
 			accountError(w, err)
 			return
 		}
-		if err := db.LinkGoogle(id, identity); err != nil {
+		if err := db.ChangeGoogle(id, body.Username, body.Password, identity); err != nil {
 			accountError(w, err)
 			return
 		}

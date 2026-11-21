@@ -102,6 +102,30 @@ func TestPrivateAccountAPI(t *testing.T) {
 	if r.Code != 401 {
 		t.Fatal("old cookie works after logout")
 	}
+	change := `{"username":"reader_b","current_password":"a sufficiently long password","new_username":"new_reader"}`
+	if r := request("PUT", "/api/account/credentials", change, b, bid, ""); r.Code != 200 {
+		t.Fatal("changing username", r.Code, r.Body.String())
+	}
+	deletion := `{"username":"new_reader","current_password":"a sufficiently long password","confirm":true}`
+	for _, tc := range []struct {
+		body, id, origin string
+		status           int
+	}{
+		{deletion, aid, "", 401},
+		{deletion, bid, "https://other.test", 403},
+		{strings.Replace(deletion, "true", "false", 1), bid, "", 400},
+		{strings.Replace(deletion, "a sufficiently long password", "wrong", 1), bid, "", 401},
+		{deletion, bid, "", 200},
+		{deletion, bid, "", 401},
+	} {
+		r := request("DELETE", "/api/account", tc.body, b, tc.id, tc.origin)
+		if r.Code != tc.status {
+			t.Fatalf("account deletion: got %d want %d: %s", r.Code, tc.status, r.Body.String())
+		}
+		if tc.status == 200 && (len(r.Result().Cookies()) != 1 || r.Result().Cookies()[0].MaxAge != -1) {
+			t.Fatal("deletion did not clear session cookie")
+		}
+	}
 }
 func TestLoginRateLimit(t *testing.T) {
 	limiter := loginLimiter{entries: map[string]loginAttempt{}}

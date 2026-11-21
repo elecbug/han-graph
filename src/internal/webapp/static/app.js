@@ -737,9 +737,15 @@ function renderAccount() {
   if(state.user) {
     const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
     const guests=normalizeSaved(readStorage('han-graph.words.v1',[]));
-    $('#main').innerHTML=`${accountNavigation('settings')}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2>${state.user.email?`<p>${t('emailLabel')} · ${esc(state.user.email)}</p>`:''}</div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><a class="secondary-button" href="#account?history=1">${t('historyTitle')}</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div>${emailSettingsForm()}${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section><section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+    $('#main').innerHTML=`${accountNavigation('settings')}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2>${state.user.email?`<p>${t('emailLabel')} · ${esc(state.user.email)}</p>`:''}</div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><a class="secondary-button" href="#account?history=1">${t('historyTitle')}</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div><div class="credential-settings">${credentialForm('username')}${credentialForm('password')}${emailSettingsForm()}${deleteAccountForm()}</div>${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section><section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+    document.querySelectorAll('.credential-form').forEach(form=>form.addEventListener('submit',changeCredentials));
     $('#email-settings-form')?.addEventListener('submit',linkGoogle);
-    if(state.googleClientID && !state.googleProof)mountGoogleButton('link');
+    $('#delete-account-form').addEventListener('submit',deleteAccount);
+    if(state.googleClientID && !state.googleProof) {
+      const settings=$('.email-settings');
+      if(settings.open)mountGoogleButton('link');
+      else settings.addEventListener('toggle',()=>{if(settings.open)mountGoogleButton('link');},{once:true});
+    }
     return;
   }
   const registering=state.accountMode==='register';
@@ -828,26 +834,96 @@ async function mountGoogleButton(intent) {
     observer.observe(target);
   } catch {if(target.isConnected)status.textContent=t('googleUnavailable');}
 }
+function credentialForm(kind) {
+  const password=kind==='password', title=t(password?'changePassword':'changeUsername');
+  const fields=password?`<label for="settings-new-password">${t('newPassword')}</label>
+    <input id="settings-new-password" name="new_password" type="password" required minlength="10" maxlength="256" autocomplete="new-password" aria-describedby="settings-password-help">
+    <p id="settings-password-help" class="field-help">${t('passwordHelp')}</p>
+    <label for="settings-confirm-password">${t('confirmPassword')}</label><input id="settings-confirm-password" name="confirm" type="password" required maxlength="256" autocomplete="new-password">
+    <p class="field-help">${t('passwordSessionHint')}</p>`:`<label for="settings-new-username">${t('newUsername')}</label>
+    <input id="settings-new-username" name="new_username" required minlength="3" maxlength="32" autocomplete="off" autocapitalize="none" spellcheck="false" pattern="[a-zA-Z0-9](?:[a-zA-Z0-9_]|-){2,31}" aria-describedby="settings-username-help">
+    <p id="settings-username-help" class="field-help">${t('usernameHelp')}</p>`;
+  return `<details name="account-setting"><summary>${title}</summary><form class="credential-form" data-kind="${kind}">
+    <input type="hidden" name="username" autocomplete="username" value="${esc(state.user.username)}">
+    <label for="current-${kind}-password">${t('currentPassword')}</label>
+    <input id="current-${kind}-password" name="current_password" type="password" required autocomplete="current-password">
+    ${fields}<p role="alert" class="form-status"></p><button class="primary-button" type="submit">${title}</button></form></details>`;
+}
+async function changeCredentials(event) {
+  event.preventDefault();
+  if(state.privateBusy || !state.user)return;
+  const form=event.currentTarget,values=new FormData(form),status=form.querySelector('[role="alert"]'),button=form.querySelector('[type="submit"]');
+  const body={username:state.user.username,current_password:values.get('current_password')};
+  const password=form.dataset.kind==='password';
+  if(password) {
+    body.new_password=values.get('new_password');
+    const length=[...body.new_password].length;
+    if(length<10 || length>128){status.textContent=t('passwordHelp');return;}
+    if(body.new_password!==values.get('confirm')){status.textContent=t('passwordMismatch');return;}
+  } else {body.new_username=values.get('new_username');}
+  state.privateBusy=true;button.disabled=true;status.textContent=t('accountWorking');
+  let saved=false;
+  try {
+    applyAccount(await accountRequest('/api/account/credentials','PUT',body));
+    saved=true;form.reset();announceAccountChange();toast(t(password?'passwordChanged':'usernameChanged'));
+  } catch(error){status.textContent=accountMessage(error);}
+  finally {
+    finishPrivateRequest();button.disabled=false;
+    if(saved){updateShell();if(state.page==='account')renderAccount();}
+  }
+}
 function emailSettingsForm() {
   if(!state.googleClientID)return '';
   const proof=state.googleProof;
+  const action=state.user.email?'changeGoogle':'googleLink';
   const controls=proof?`<form id="email-settings-form"><p>${t('emailLabel')} · ${esc(proof.email)}</p>
     <label for="settings-password">${t('currentPassword')}</label><input id="settings-password" name="password" type="password" autocomplete="current-password" required>
-    <p role="status" class="form-status"></p><button class="primary-button" type="submit">${t('googleLink')}</button>
+    <p role="status" class="form-status"></p><button class="primary-button" type="submit">${t(action)}</button>
     <button type="button" class="text-button" data-action="google-again">${t('googleChoose')}</button></form>`:googleButton();
-  return `<section class="email-settings"><h3>${t('emailSettings')}</h3><p>${t('googleHelp')}</p>${controls}</section>`;
+  return `<details class="email-settings" name="account-setting" ${proof || !state.user.email?'open':''}><summary>${t(state.user.email?'changeGoogle':'emailSettings')}</summary><p>${t('googleHelp')}</p>${controls}</details>`;
 }
 async function linkGoogle(event) {
   event.preventDefault();if(state.privateBusy || !state.googleProof || !state.user)return;
   const form=event.currentTarget,button=form.querySelector('[type="submit"]');
+  let chooseAgain=false;
   state.privateBusy=true;button.disabled=true;
   try {
     const data=await accountRequest('/api/account/google','POST',{credential:state.googleProof.credential,username:state.user.username,password:form.elements.password.value});
     state.googleProof=null;applyAccount(data);announceAccountChange();toast(t('emailChanged'));
   } catch(error){
-    if(error.code==='google_invalid'){state.googleProof=null;toast(accountMessage(error));}
+    if(error.code==='google_invalid'){state.googleProof=null;chooseAgain=true;toast(accountMessage(error));}
     else form.querySelector('[role="status"]').textContent=accountMessage(error);
-  } finally {finishPrivateRequest();button.disabled=false;if(!state.googleProof && form.isConnected)renderAccount();}
+  } finally {
+    finishPrivateRequest();button.disabled=false;
+    if(!state.googleProof && form.isConnected) {
+      renderAccount();
+      if(chooseAgain)$('.email-settings').open=true;
+    }
+  }
+}
+function deleteAccountForm() {
+  return `<details class="delete-account" name="account-setting"><summary>${t('deleteAccount')}</summary>
+    <p class="field-help" id="delete-account-help">${t('deleteAccountHelp')}</p>
+    <form id="delete-account-form" aria-describedby="delete-account-help">
+      <input type="hidden" name="username" autocomplete="username" value="${esc(state.user.username)}">
+      <label for="delete-account-password">${t('currentPassword')}</label>
+      <input id="delete-account-password" type="password" name="current_password" autocomplete="current-password" required>
+      <label class="delete-confirm"><input type="checkbox" name="confirm" required> ${t('deleteAccountConfirm')}</label>
+      <p role="alert" class="form-status"></p><button class="primary-button" type="submit">${t('deleteAccount')}</button>
+    </form></details>`;
+}
+async function deleteAccount(event) {
+  event.preventDefault();
+  if(state.privateBusy || !state.user)return;
+  const form=event.currentTarget,button=form.querySelector('button'),status=form.querySelector('[role="alert"]');
+  const body={username:state.user.username,current_password:form.elements.current_password.value,confirm:form.elements.confirm.checked};
+  state.privateBusy=true;button.disabled=true;status.textContent=t('accountWorking');
+  try {
+    applyAccount(await accountRequest('/api/account','DELETE',body));
+    state.accountMode='login';announceAccountChange();toast(t('accountDeleted'));
+    updateShell();await renderPage();
+  } catch(error){status.textContent=accountMessage(error);}
+  finally {finishPrivateRequest();button.disabled=false;}
 }
 async function logoutAccount() {
   if(state.privateBusy)return;state.privateBusy=true;
@@ -937,7 +1013,10 @@ $('#main').addEventListener('click',event=>{
   else if(action.startsWith('network-'))sizeNetwork(action);
   else if(action==='save')toggleSaved({word,hanja});
   else if(action==='account-mode' && !state.privateBusy){state.accountMode=button.dataset.mode;state.googleProof=null;renderAccount();}
-  else if(action==='google-again' && !state.privateBusy){state.googleProof=null;renderAccount();}
+  else if(action==='google-again' && !state.privateBusy){
+    state.googleProof=null;renderAccount();
+    if(state.user)$('.email-settings').open=true;
+  }
   else if(action==='choose-file')$('#dictionary-file')?.click();
   else if(action==='add-language' && !state.privateBusy){
     const lang=$('#translation-language').value;

@@ -100,10 +100,14 @@ func (s *fileBackend) byName(_ context.Context, name string) (record, error) {
 	return u, err
 }
 
-func (s *fileBackend) startSession(_ context.Context, id, previous, token string) error {
+func (s *fileBackend) startSession(_ context.Context, id, previous, token string, proof loginProof) error {
 	now := time.Now()
 	return s.db.Update(func(tx *bolt.Tx) error {
-		if _, err := getRecord(tx, id); err != nil {
+		u, err := getRecord(tx, id)
+		if err != nil {
+			return err
+		}
+		if err := proof.check(u.User.Username, u.Hash, u.GoogleSubject); err != nil {
 			return err
 		}
 		b := tx.Bucket(sessionsBucket)

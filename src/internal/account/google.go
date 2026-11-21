@@ -41,7 +41,7 @@ func (s *Store) LinkGoogle(id string, identity GoogleIdentity) error {
 	if !identity.Valid() {
 		return ErrInvalid
 	}
-	return s.storage.linkGoogle(s.ctx, id, identity)
+	return s.storage.updateCredentials(s.ctx, id, loginProof{}, credentialEdit{google: &identity})
 }
 func (s *Store) GoogleUser(subject string) (string, error) {
 	return s.storage.googleUser(s.ctx, subject)
@@ -66,19 +66,6 @@ func bindFileGoogle(tx *bolt.Tx, id string, old, next GoogleIdentity) error {
 		}
 	}
 	return nil
-}
-func (b *fileBackend) linkGoogle(_ context.Context, id string, identity GoogleIdentity) error {
-	return b.db.Update(func(tx *bolt.Tx) error {
-		u, err := getRecord(tx, id)
-		if err != nil {
-			return err
-		}
-		if err := bindFileGoogle(tx, id, GoogleIdentity{u.GoogleSubject, u.User.Email}, identity); err != nil {
-			return err
-		}
-		u.GoogleSubject, u.User.Email = identity.Subject, identity.Email
-		return putJSON(tx.Bucket(usersBucket), []byte(id), u)
-	})
 }
 func (b *fileBackend) googleUser(_ context.Context, subject string) (string, error) {
 	var id string
@@ -128,29 +115,6 @@ func (b *firestoreBackend) bindGoogle(tx *firestore.Transaction, id string, old,
 		}
 	}
 	return nil
-}
-func (b *firestoreBackend) linkGoogle(ctx context.Context, id string, identity GoogleIdentity) error {
-	return b.client.RunTransaction(ctx, func(_ context.Context, tx *firestore.Transaction) error {
-		user := b.user(id)
-		doc, err := tx.Get(user)
-		if status.Code(err) == codes.NotFound {
-			return ErrUnauthorized
-		}
-		if err != nil {
-			return err
-		}
-		var header accountDocument
-		if err := doc.DataTo(&header); err != nil {
-			return err
-		}
-		if err := b.bindGoogle(tx, id, GoogleIdentity{header.GoogleSubject, header.Email}, identity); err != nil {
-			return err
-		}
-		if err := tx.Update(b.login(header.Username), []firestore.Update{{Path: "Email", Value: identity.Email}}); err != nil {
-			return err
-		}
-		return tx.Update(user, []firestore.Update{{Path: "Email", Value: identity.Email}, {Path: "GoogleSubject", Value: identity.Subject}})
-	})
 }
 func (b *firestoreBackend) googleUser(ctx context.Context, subject string) (string, error) {
 	doc, err := b.googleRef(googleKey("subject", subject)).Get(ctx)

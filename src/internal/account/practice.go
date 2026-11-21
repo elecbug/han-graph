@@ -112,6 +112,9 @@ func (b *fileBackend) savePractice(_ context.Context, id string, round PracticeR
 func (b *fileBackend) practiceHistory(_ context.Context, id, after string) ([]PracticeRound, error) {
 	rounds := []PracticeRound{}
 	err := b.db.View(func(tx *bolt.Tx) error {
+		if tx.Bucket(usersBucket).Get([]byte(id)) == nil {
+			return ErrUnauthorized
+		}
 		root := tx.Bucket(historyBucket)
 		if root == nil || root.Bucket([]byte(id)) == nil {
 			if after != "" {
@@ -148,43 +151,62 @@ func (b *fileBackend) practiceHistory(_ context.Context, id, after string) ([]Pr
 }
 
 func (b *firestoreBackend) savePractice(ctx context.Context, id string, round PracticeRound) error {
-	ref := b.user(id).Collection("practiceRounds").Doc(round.ID)
-	_, err := ref.Create(ctx, round)
-	if status.Code(err) != codes.AlreadyExists {
-		return err
-	}
-	doc, err := ref.Get(ctx)
-	if err != nil {
-		return err
-	}
-	var old PracticeRound
-	if err := doc.DataTo(&old); err != nil {
-		return err
-	}
-	return sameRound(old, round)
+	user := b.user(id)
+	ref := user.Collection("practiceRounds").Doc(round.ID)
+	return b.client.RunTransaction(ctx, func(_ context.Context, tx *firestore.Transaction) error {
+		// A Firestore subcollection can outlive its parent. Fence late saves
+		// against the transaction that removes the account.
+		docs, err := tx.GetAll([]*firestore.DocumentRef{user, ref})
+		if err != nil {
+			return err
+		}
+		if !docs[0].Exists() {
+			return ErrUnauthorized
+		}
+		if !docs[1].Exists() {
+			return tx.Create(ref, round)
+		}
+		var old PracticeRound
+		if err := docs[1].DataTo(&old); err != nil {
+			return err
+		}
+		return sameRound(old, round)
+	})
 }
 func (b *firestoreBackend) practiceHistory(ctx context.Context, id, after string) ([]PracticeRound, error) {
-	collection := b.user(id).Collection("practiceRounds")
-	query := collection.OrderBy("CompletedAt", firestore.Desc).OrderBy(firestore.DocumentID, firestore.Desc).Limit(historyPageSize + 1)
-	if after != "" {
-		doc, err := collection.Doc(after).Get(ctx)
+	user := b.user(id)
+	collection := user.Collection("practiceRounds")
+	var rounds []PracticeRound
+	err := b.client.RunTransaction(ctx, func(_ context.Context, tx *firestore.Transaction) error {
+		_, err := tx.Get(user)
 		if status.Code(err) == codes.NotFound {
-			return nil, ErrInvalid
+			return ErrUnauthorized
 		}
 		if err != nil {
-			return nil, err
+			return err
 		}
-		query = query.StartAfter(doc)
-	}
-	docs, err := query.Documents(ctx).GetAll()
-	if err != nil {
-		return nil, err
-	}
-	rounds := make([]PracticeRound, len(docs))
-	for i, doc := range docs {
-		if err := doc.DataTo(&rounds[i]); err != nil {
-			return nil, err
+		query := collection.OrderBy("CompletedAt", firestore.Desc).OrderBy(firestore.DocumentID, firestore.Desc).Limit(historyPageSize + 1)
+		if after != "" {
+			doc, err := tx.Get(collection.Doc(after))
+			if status.Code(err) == codes.NotFound {
+				return ErrInvalid
+			}
+			if err != nil {
+				return err
+			}
+			query = query.StartAfter(doc)
 		}
-	}
-	return rounds, nil
+		docs, err := tx.Documents(query).GetAll()
+		if err != nil {
+			return err
+		}
+		rounds = make([]PracticeRound, len(docs))
+		for i, doc := range docs {
+			if err := doc.DataTo(&rounds[i]); err != nil {
+				return err
+			}
+		}
+		return nil
+	}, firestore.ReadOnly)
+	return rounds, err
 }

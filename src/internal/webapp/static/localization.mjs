@@ -19,6 +19,18 @@ export const copy = {
     googleUnknown: "연결된 계정이 없어요. 기존 아이디로 로그인해 Google 계정을 연결하거나 새로 가입하세요.",
     googleInvalid: "Google 인증을 다시 진행해 주세요. Gmail 또는 Google Workspace 계정을 사용하세요.",
     googleUnavailable: "Google 인증을 불러올 수 없어요. 연결을 확인하고 다시 시도해 주세요.",
+    changeUsername: "아이디 변경",
+    newUsername: "새 아이디",
+    usernameChanged: "아이디를 변경했어요.",
+    changePassword: "비밀번호 변경",
+    newPassword: "새 비밀번호",
+    passwordChanged: "비밀번호를 변경했어요.",
+    passwordSessionHint: "비밀번호를 변경하면 다른 브라우저와 기기에서는 다시 로그인해야 해요.",
+    changeGoogle: "연결된 Google 계정 변경",
+    deleteAccount: "회원 탈퇴",
+    deleteAccountHelp: "탈퇴하면 내 단어장, 개인 사전, 노트와 연습 기록이 영구 삭제되고 모든 기기에서 로그아웃돼요.",
+    deleteAccountConfirm: "HAN-GRAPH 계정과 학습 데이터를 영구 삭제하는 데 동의합니다.",
+    accountDeleted: "회원 탈퇴가 완료됐어요.",
     personalSettings: "개인 설정",
     addLanguage: "언어 추가",
     chooseFile: "파일 선택",
@@ -60,6 +72,18 @@ passwordMismatch:'비밀번호가 서로 달라요.', accountStorage:'단어장�
     googleUnknown: "No linked account found. Sign in with your username to link Google, or sign up.",
     googleInvalid: "Verify again with a Gmail or Google Workspace account.",
     googleUnavailable: "Google sign-in could not load. Check your connection and try again.",
+    changeUsername: "Change username",
+    newUsername: "New username",
+    usernameChanged: "Your username has been updated.",
+    changePassword: "Change password",
+    newPassword: "New password",
+    passwordChanged: "Your password has been updated.",
+    passwordSessionHint: "Changing your password signs you out on other browsers and devices.",
+    changeGoogle: "Change linked Google account",
+    deleteAccount: "Delete account",
+    deleteAccountHelp: "Deleting your account permanently removes your saved words, personal dictionary, notes and practice history, and signs you out on all devices.",
+    deleteAccountConfirm: "I agree to permanently delete my HAN-GRAPH account and learning data.",
+    accountDeleted: "Your account has been deleted.",
     personalSettings: "Personal settings",
     addLanguage: "Add language",
     chooseFile: "Choose file",
@@ -120,7 +144,7 @@ export function languageLabel(language) {
 }
 export function orderedLanguages(browserLanguages) {
   const preferred=browserLanguages.map(tag=>tag.toLowerCase().split('-')[0]).find(lang=>LANGUAGES.includes(lang));
-  const first=preferred && preferred!=='en'?[preferred,'en']:['en'];
+  const first=[...new Set([preferred,'ko','en'].filter(Boolean))];
   const remaining=LANGUAGES.filter(lang=>!first.includes(lang));
   return first.concat(remaining.sort((a,b)=>languageNames[a].english.localeCompare(languageNames[b].english,'en')));
 }

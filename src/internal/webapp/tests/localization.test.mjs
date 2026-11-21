@@ -16,12 +16,13 @@ test('all languages have every UI message and the same interpolation variables',
   for(const value of [null,'fr',{},''])assert.equal(normalizeLanguage(value),'ko');
 });
 
-test('language menus put the preferred supported browser language first, then English and English-name order',()=>{
-  const englishFirst=['en','zh','ja','ko','ky','ru','es','uz','vi'];
-  for(const preferences of [[],['fr-CA'],['en-US','es']])assert.deepEqual(orderedLanguages(preferences),englishFirst);
-  assert.deepEqual(orderedLanguages(['fr-CA','VI-vn','ru']),['vi','en','zh','ja','ko','ky','ru','es','uz']);
-  assert.deepEqual(orderedLanguages(['zh-Hans-CN']).slice(0,2),['zh','en']);
-  assert.deepEqual(englishFirst.map(languageLabel),['English(English)','简体中文(Chinese)','日本語(Japanese)','한국어(Korean)','Кыргызча(Kyrgyz)','Русский(Russian)','Español(Spanish)','Oʻzbekcha(Uzbek)','Tiếng Việt(Vietnamese)']);
+test('language menus prioritize the browser language, Korean and English once, then use English-name order',()=>{
+  const remaining=['zh','ja','ky','ru','es','uz','vi'];
+  for(const preferences of [[],['fr-CA'],['ko-KR','en']])assert.deepEqual(orderedLanguages(preferences),['ko','en',...remaining]);
+  assert.deepEqual(orderedLanguages(['en-US','es']),['en','ko',...remaining]);
+  assert.deepEqual(orderedLanguages(['fr-CA','VI-vn','ru']),['vi','ko','en','zh','ja','ky','ru','es','uz']);
+  assert.deepEqual(orderedLanguages(['zh-Hans-CN']).slice(0,3),['zh','ko','en']);
+  assert.deepEqual(remaining.map(languageLabel),['简体中文(Chinese)','日本語(Japanese)','Кыргызча(Kyrgyz)','Русский(Russian)','Español(Spanish)','Oʻzbekcha(Uzbek)','Tiếng Việt(Vietnamese)']);
 });
 
 test('Russian quantities use the correct singular, few and many forms',()=>{

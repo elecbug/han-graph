@@ -12,7 +12,12 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-type firestoreBackend struct{ client *firestore.Client }
+type firestoreBackend struct {
+	client      *firestore.Client
+	stopCleanup context.CancelFunc
+	cleanupDone chan struct{}
+	cleanupWake chan struct{}
+}
 
 type accountDocument struct {
 	GoogleSubject      string `firestore:",omitempty"`
@@ -42,7 +47,7 @@ func OpenFirestore(ctx context.Context, project, database string) (*Store, error
 	if err != nil {
 		return nil, err
 	}
-	b := &firestoreBackend{client}
+	b := &firestoreBackend{client: client}
 	// BatchGet succeeds for an absent probe document and reports connection,
 	// permission and database errors without creating any data.
 	probe, cancel := context.WithTimeout(ctx, 10*time.Second)
@@ -52,10 +57,18 @@ func OpenFirestore(ctx context.Context, project, database string) (*Store, error
 		client.Close()
 		return nil, fmt.Errorf("connect to Firestore: %w", err)
 	}
+	cleanupCtx, cancelCleanup := context.WithCancel(context.Background())
+	b.stopCleanup, b.cleanupDone = cancelCleanup, make(chan struct{})
+	b.cleanupWake = make(chan struct{}, 1)
+	go b.resumeDeletions(cleanupCtx)
 	return newStore(b), nil
 }
 
-func (b *firestoreBackend) Close() error { return b.client.Close() }
+func (b *firestoreBackend) Close() error {
+	b.stopCleanup()
+	<-b.cleanupDone
+	return b.client.Close()
+}
 func (b *firestoreBackend) user(id string) *firestore.DocumentRef {
 	return b.client.Collection("hanGraphUsers").Doc(id)
 }
@@ -147,7 +160,7 @@ func (b *firestoreBackend) access(ctx context.Context, id string, edit func(*rec
 }
 
 func sessionID(token string) string { return hex.EncodeToString(tokenKey(token)) }
-func (b *firestoreBackend) startSession(ctx context.Context, id, previous, token string) error {
+func (b *firestoreBackend) startSession(ctx context.Context, id, previous, token string, proof loginProof) error {
 	key := sessionID(token)
 	return b.client.RunTransaction(ctx, func(_ context.Context, tx *firestore.Transaction) error {
 		ref := b.user(id)
@@ -160,6 +173,16 @@ func (b *firestoreBackend) startSession(ctx context.Context, id, previous, token
 		}
 		var header accountDocument
 		if err = doc.DataTo(&header); err != nil {
+			return err
+		}
+		var login loginDocument
+		if proof.hash != nil {
+			login, err = b.readLogin(tx, header.Username, id)
+			if err != nil {
+				return err
+			}
+		}
+		if err := proof.check(header.Username, login.Hash, header.GoogleSubject); err != nil {
 			return err
 		}
 		// Logged-out sessions can remain in this bounded index until the next

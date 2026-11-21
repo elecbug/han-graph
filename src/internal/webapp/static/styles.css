@@ -1985,11 +1985,17 @@ main:focus {
 .account-heading,.account-actions,.account-tabs,.note-actions { display:flex;align-items:center;gap:14px;flex-wrap:wrap }
 .account-heading { justify-content:space-between }
 .account-card h2 { font-size:26px;overflow-wrap:anywhere }
-:is(#account-form,#email-settings-form) { display:grid;gap:12px }
-:is(#account-form,#email-settings-form) label,.note-editor label { font-weight:600 }
-:is(#account-form,#email-settings-form) input,.note-editor textarea { width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font:inherit }
-.email-settings summary,.history-round summary { cursor:pointer;font-weight:600 }
-.email-settings form { margin-top:16px;max-width:480px }
+:is(#account-form,#email-settings-form,#delete-account-form,.credential-form) { display:grid;gap:12px }
+:is(#account-form,#email-settings-form,#delete-account-form,.credential-form) label,.note-editor label { font-weight:600 }
+:is(#account-form,#email-settings-form,#delete-account-form,.credential-form) input,.note-editor textarea { width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);font:inherit }
+.credential-settings summary,.history-round summary { cursor:pointer;font-weight:600 }
+.credential-settings details { padding:14px 0;border-top:1px solid var(--line) }
+.delete-account > summary { color:#9b352b }
+#delete-account-form .delete-confirm { display:flex;align-items:baseline;gap:8px }
+#delete-account-form input[type=checkbox] { flex:none;width:auto }
+#delete-account-form .primary-button { background:#9b352b;color:white }
+.credential-settings details > p { margin-top:12px }
+.credential-settings form { margin-top:16px;max-width:480px }
 .history-round { padding:16px 0;border-bottom:1px solid var(--line) }
 .history-round ol { padding-inline-start:1.6em }
 .history-round li { margin-top:12px }

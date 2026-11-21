@@ -122,6 +122,12 @@ func TestGoogleAccountFlow(t *testing.T) {
 	parts := strings.Split(valid, ".")
 	auth(parts[0]+"."+parts[1]+"."+encode(make([]byte, 256)), 400)
 	auth(valid, 200)
+	link["credential"] = token(challenge("link", user.ID), "replacement", "next@gmail.com", nil)
+	request("account/google", link, user.ID, 200)
+	request("auth/logout", map[string]string{}, user.ID, 200)
+	nonce = challenge("login", "")
+	auth(token(nonce, "first", "reader@gmail.com", nil), 401)
+	auth(token(nonce, "replacement", "next@gmail.com", nil), 200)
 	request("auth/logout", map[string]string{}, user.ID, 200)
 	signup := map[string]string{"username": "new_user", "password": "1234567890"}
 	request("auth/register", signup, "", 400)

@@ -11,8 +11,60 @@ import (
 	"testing"
 	"time"
 
+	"cloud.google.com/go/firestore"
 	"github.com/elecbug/han-graph/internal/graph"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
+
+func TestFirestoreResumesAccountDeletion(t *testing.T) {
+	if os.Getenv("FIRESTORE_EMULATOR_HOST") == "" {
+		t.Skip("requires Firestore emulator")
+	}
+	const project = "demo-han-graph-cleanup"
+	ctx := t.Context()
+	client, err := firestore.NewClient(ctx, project)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer client.Close()
+	id, err := randomHex(16)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Simulate a shutdown after credentials were removed but before cleanup.
+	user := client.Collection("hanGraphUsers").Doc(id)
+	page, round := user.Collection("pages").Doc("page"), user.Collection("practiceRounds").Doc("round")
+	job := client.Collection("hanGraphAccountDeletions").Doc(id)
+	batch := client.Batch()
+	for _, doc := range []*firestore.DocumentRef{page, round, job} {
+		batch.Create(doc, map[string]string{"test": "pending"})
+	}
+	if _, err := batch.Commit(ctx); err != nil {
+		t.Fatal(err)
+	}
+	store, err := OpenFirestore(ctx, project, "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer store.Close()
+	deadline := time.Now().Add(10 * time.Second)
+	for {
+		_, err := job.Get(ctx)
+		if status.Code(err) == codes.NotFound {
+			break
+		}
+		if err != nil || time.Now().After(deadline) {
+			t.Fatalf("deletion job still pending: %v", err)
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
+	for _, doc := range []*firestore.DocumentRef{page, round} {
+		if _, err := doc.Get(ctx); status.Code(err) != codes.NotFound {
+			t.Fatalf("remaining data: %v", err)
+		}
+	}
+}
 
 func TestLargeFirestoreListReusesPagesAfterDeletion(t *testing.T) {
 	var original bytes.Buffer
