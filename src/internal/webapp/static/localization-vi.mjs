@@ -309,4 +309,10 @@ export const vi = {
   wordFormExampleEs: "Bản dịch tiếng Tây Ban Nha (tùy chọn)",
   wordFormVi: "Nghĩa tiếng Việt (tùy chọn)",
   wordFormExampleVi: "Bản dịch tiếng Việt (tùy chọn)",
+  wordFormNe: "Nghĩa tiếng Nepal (không bắt buộc)",
+  wordFormExampleNe: "Bản dịch tiếng Nepal (không bắt buộc)",
+  wordFormMn: "Nghĩa tiếng Mông Cổ (không bắt buộc)",
+  wordFormExampleMn: "Bản dịch tiếng Mông Cổ (không bắt buộc)",
+  wordFormTh: "Nghĩa tiếng Thái (không bắt buộc)",
+  wordFormExampleTh: "Bản dịch tiếng Thái (không bắt buộc)",
 };

@@ -98,6 +98,9 @@ func TestPublicPracticeHasThreeChoicesAndAllTranslations(t *testing.T) {
 			{"ja", q.PromptJa, q.ExplanationJa},
 			{"es", q.PromptEs, q.ExplanationEs},
 			{"vi", q.PromptVi, q.ExplanationVi},
+			{"ne", q.PromptNe, q.ExplanationNe},
+			{"mn", q.PromptMn, q.ExplanationMn},
+			{"th", q.PromptTh, q.ExplanationTh},
 		} {
 			if text.prompt == "" || text.explanation == "" {
 				t.Fatalf("%s: missing %s prompt or explanation", q.ID, text.language)

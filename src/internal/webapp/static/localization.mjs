@@ -5,6 +5,9 @@ import {zh} from './localization-zh.mjs';
 import {ja} from './localization-ja.mjs';
 import {es} from './localization-es.mjs';
 import {vi} from './localization-vi.mjs';
+import {ne} from './localization-ne.mjs';
+import {mn} from './localization-mn.mjs';
+import {th} from './localization-th.mjs';
 
 export const copy = {
   ko: {
@@ -128,7 +131,7 @@ passwordMismatch:'The passwords do not match.', accountStorage:'Your words and n
     practiceTitle:'Find meaning in context.', practiceSub:'Use the sentence clues to choose the word that fits.', practiceEye:'A LITTLE PRACTICE', introTitle:'Read. Infer. Understand.', introSub:'Read a short situation and choose from Korean word options. After answering, explore the meaning and character explanation.', step1:'Read the context', step2:'Choose a word', step3:'See why', startPractice:'Start practicing', questions:'questions', practiceRound:'{count} random questions from a pool of {pool}', chooseWord:'Which word fits this situation?', pickOnce:'Choose an answer to reveal the explanation.', showTranslation:'Show English translation', hideTranslation:'Hide English translation', correct:'You’ve got it!', incorrect:'Let’s take a closer look.', yourChoice:'Your choice', answer:'Answer', next:'Next question', finish:'See results', exitPractice:'Back to exploring', practiceNote:'An unfinished practice session resets when you reload the page.', summaryTitle:'One step closer to understanding.', summarySub:'More than a score, it’s about knowing why a word means what it does.', restart:'Practice again', review:'Words to revisit', allCorrect:'You got every question right. Keep exploring new connections with these words.', latest:'Last practice', loading:'Loading your word connections…', errorTitle:'We couldn’t load the connections.', errorSub:'Check that the server is running, then try again.', retry:'Try again', looking:'Searching…',
   },
 };
-Object.assign(copy, {ru, uz, ky, zh, ja, es, vi});
+Object.assign(copy, {ru, uz, ky, zh, ja, es, vi, ne, mn, th});
 copy.ko.languageLabel='화면 언어';
 copy.en.languageLabel='Interface language';
 copy.ko.studio='학습 공간';
@@ -149,6 +152,9 @@ const languageNames = {
   zh: {native:'简体中文', english:'Chinese'},
   ja: {native:'日本語', english:'Japanese'},
   es: {native:'Español', english:'Spanish'},
+  ne: {native:'नेपाली', english:'Nepali'},
+  mn: {native:'Монгол хэл', english:'Mongolian'},
+  th: {native:'ไทย', english:'Thai'},
   vi: {native:'Tiếng Việt', english:'Vietnamese'},
 };
 export const LANGUAGES = Object.keys(languageNames);
@@ -162,7 +168,7 @@ export function orderedLanguages(browserLanguages) {
   const remaining=LANGUAGES.filter(lang=>!first.includes(lang));
   return first.concat(remaining.sort((a,b)=>languageNames[a].english.localeCompare(languageNames[b].english,'en')));
 }
-export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG',zh:'zh-Hans',ja:'ja-JP',es:'es',vi:'vi-VN'};
+export const DATE_LOCALES = {ko:'ko-KR',en:'en-GB',ru:'ru-RU',uz:'uz-UZ',ky:'ky-KG',zh:'zh-Hans',ja:'ja-JP',es:'es',vi:'vi-VN',ne:'ne-NP',mn:'mn-MN',th:'th-TH'};
 export const normalizeLanguage = value => LANGUAGES.includes(value) ? value : 'ko';
 
 export function localizedDate(date, language = 'ko') {
@@ -261,6 +267,12 @@ Object.assign(copy.ko, {
   wordFormExampleEs: "스페인어 번역 (선택)",
   wordFormVi: "베트남어 뜻 (선택)",
   wordFormExampleVi: "베트남어 번역 (선택)",
+  wordFormNe: "네팔어 뜻 (선택)",
+  wordFormExampleNe: "네팔어 번역 (선택)",
+  wordFormMn: "몽골어 뜻 (선택)",
+  wordFormExampleMn: "몽골어 번역 (선택)",
+  wordFormTh: "태국어 뜻 (선택)",
+  wordFormExampleTh: "태국어 번역 (선택)",
 });
 Object.assign(copy.en, {
   wordFormZh: "Chinese meaning (optional)",
@@ -271,6 +283,12 @@ Object.assign(copy.en, {
   wordFormExampleEs: "Spanish translation (optional)",
   wordFormVi: "Vietnamese meaning (optional)",
   wordFormExampleVi: "Vietnamese translation (optional)",
+  wordFormNe: "Nepali meaning (optional)",
+  wordFormExampleNe: "Nepali translation (optional)",
+  wordFormMn: "Mongolian meaning (optional)",
+  wordFormExampleMn: "Mongolian translation (optional)",
+  wordFormTh: "Thai meaning (optional)",
+  wordFormExampleTh: "Thai translation (optional)",
 });
 Object.assign(copy.ru, {
   wordFormZh: "Значение на китайском (необязательно)",
@@ -281,6 +299,12 @@ Object.assign(copy.ru, {
   wordFormExampleEs: "Перевод на испанском (необязательно)",
   wordFormVi: "Значение на вьетнамском (необязательно)",
   wordFormExampleVi: "Перевод на вьетнамском (необязательно)",
+  wordFormNe: "Значение на непальском (необязательно)",
+  wordFormExampleNe: "Перевод на непальском (необязательно)",
+  wordFormMn: "Значение на монгольском (необязательно)",
+  wordFormExampleMn: "Перевод на монгольском (необязательно)",
+  wordFormTh: "Значение на тайском (необязательно)",
+  wordFormExampleTh: "Перевод на тайском (необязательно)",
 });
 Object.assign(copy.uz, {
   wordFormZh: "xitoy tilidagi maʼno (ixtiyoriy)",
@@ -291,6 +315,12 @@ Object.assign(copy.uz, {
   wordFormExampleEs: "ispan tiliga tarjima (ixtiyoriy)",
   wordFormVi: "vyetnam tilidagi maʼno (ixtiyoriy)",
   wordFormExampleVi: "vyetnam tiliga tarjima (ixtiyoriy)",
+  wordFormNe: "Nepal tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleNe: "Nepal tilidagi tarjima (ixtiyoriy)",
+  wordFormMn: "Moʻgʻul tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleMn: "Moʻgʻul tilidagi tarjima (ixtiyoriy)",
+  wordFormTh: "Tailand tilidagi maʼno (ixtiyoriy)",
+  wordFormExampleTh: "Tailand tilidagi tarjima (ixtiyoriy)",
 });
 Object.assign(copy.ky, {
   wordFormZh: "Кытайча мааниси (милдеттүү эмес)",
@@ -301,6 +331,12 @@ Object.assign(copy.ky, {
   wordFormExampleEs: "Испанча котормосу (милдеттүү эмес)",
   wordFormVi: "Вьетнамча мааниси (милдеттүү эмес)",
   wordFormExampleVi: "Вьетнамча котормосу (милдеттүү эмес)",
+  wordFormNe: "Непал тилиндеги мааниси (милдеттүү эмес)",
+  wordFormExampleNe: "Непал тилиндеги котормосу (милдеттүү эмес)",
+  wordFormMn: "Монгол тилиндеги мааниси (милдеттүү эмес)",
+  wordFormExampleMn: "Монгол тилиндеги котормосу (милдеттүү эмес)",
+  wordFormTh: "Тай тилиндеги мааниси (милдеттүү эмес)",
+  wordFormExampleTh: "Тай тилиндеги котормосу (милдеттүү эмес)",
 });
 const pluralRules=Object.fromEntries(LANGUAGES.map(language=>[language,new Intl.PluralRules(language)]));
 const nouns={
@@ -310,6 +346,9 @@ const nouns={
   zh:{words:{other:'个词'},characters:{other:'个汉字'},questions:{other:'道题'}},
   ja:{words:{other:'語'},characters:{other:'字'},questions:{other:'問'}},
   es:{words:{one:'palabra',other:'palabras'},characters:{one:'carácter',other:'caracteres'},questions:{one:'pregunta',other:'preguntas'}},
+  ne:{words:{other:'शब्द'},characters:{other:'हान्जा'},questions:{other:'प्रश्न'}},
+  mn:{words:{other:'үг'},characters:{other:'ханз'},questions:{other:'асуулт'}},
+  th:{words:{other:'คำ'},characters:{other:'ตัว'},questions:{other:'ข้อ'}},
   vi:{words:{other:'từ'},characters:{other:'chữ Hán'},questions:{other:'câu hỏi'}},
   ky:{words:{other:'сөз'},characters:{other:'иероглиф'},questions:{other:'суроо'}},
 };

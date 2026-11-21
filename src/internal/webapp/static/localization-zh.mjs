@@ -309,4 +309,10 @@ export const zh = {
   wordFormExampleEs: "西班牙语译文（选填）",
   wordFormVi: "越南语释义（选填）",
   wordFormExampleVi: "越南语译文（选填）",
+  wordFormNe: "尼泊尔语释义（选填）",
+  wordFormExampleNe: "尼泊尔语译文（选填）",
+  wordFormMn: "蒙古语释义（选填）",
+  wordFormExampleMn: "蒙古语译文（选填）",
+  wordFormTh: "泰语释义（选填）",
+  wordFormExampleTh: "泰语译文（选填）",
 };

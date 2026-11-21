@@ -36,6 +36,9 @@ type Character struct {
 	MeaningJa []string `json:"meaning_ja,omitempty"`
 	MeaningEs []string `json:"meaning_es,omitempty"`
 	MeaningVi []string `json:"meaning_vi,omitempty"`
+	MeaningNe []string `json:"meaning_ne,omitempty"`
+	MeaningMn []string `json:"meaning_mn,omitempty"`
+	MeaningTh []string `json:"meaning_th,omitempty"`
 }
 
 type WordExample struct {
@@ -50,6 +53,9 @@ type WordExample struct {
 	ExampleJa string `json:"example_ja,omitempty"`
 	ExampleEs string `json:"example_es,omitempty"`
 	ExampleVi string `json:"example_vi,omitempty"`
+	ExampleNe string `json:"example_ne,omitempty"`
+	ExampleMn string `json:"example_mn,omitempty"`
+	ExampleTh string `json:"example_th,omitempty"`
 }
 
 type Word struct {
@@ -65,6 +71,9 @@ type Word struct {
 	MeaningJa      string   `json:"meaning_ja,omitempty"`
 	MeaningEs      string   `json:"meaning_es,omitempty"`
 	MeaningVi      string   `json:"meaning_vi,omitempty"`
+	MeaningNe      string   `json:"meaning_ne,omitempty"`
+	MeaningMn      string   `json:"meaning_mn,omitempty"`
+	MeaningTh      string   `json:"meaning_th,omitempty"`
 	Components     []string `json:"components"`
 	SemanticHint   string   `json:"semantic_hint,omitempty"`
 	SemanticHintEn string   `json:"semantic_hint_en,omitempty"`
@@ -75,6 +84,9 @@ type Word struct {
 	SemanticHintJa string   `json:"semantic_hint_ja,omitempty"`
 	SemanticHintEs string   `json:"semantic_hint_es,omitempty"`
 	SemanticHintVi string   `json:"semantic_hint_vi,omitempty"`
+	SemanticHintNe string   `json:"semantic_hint_ne,omitempty"`
+	SemanticHintMn string   `json:"semantic_hint_mn,omitempty"`
+	SemanticHintTh string   `json:"semantic_hint_th,omitempty"`
 }
 
 // ValidWordLevel reports whether level is a supported vocabulary category.
@@ -134,7 +146,7 @@ func Load(dir string) (*Graph, error) {
 	for _, row := range characters {
 		c := row.value
 		parts := characterID.FindStringSubmatch(c.ID)
-		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) || !optionalMeaningArrays(c.MeaningRu, c.MeaningUz, c.MeaningKy, c.MeaningZh, c.MeaningJa, c.MeaningEs, c.MeaningVi) {
+		if c.Type != "character" || parts == nil || utf8.RuneCountInString(c.Hanja) != 1 || !nonempty(c.Hanja) || !meanings(c.MeaningKo) || !meanings(c.MeaningEn) || !c.validTranslations() {
 			return fail("character.jsonl", row.line, "expected type=character, id=<meta>-<3+ digits>, one hanja character and nonempty meaning arrays")
 		}
 		if _, exists := g.meta[parts[1]]; !exists {
@@ -154,7 +166,7 @@ func Load(dir string) (*Graph, error) {
 	seenWords := make(map[[2]string]bool)
 	for _, row := range words {
 		w := row.value
-		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || !optionalTexts(2000, w.MeaningRu, w.MeaningUz, w.MeaningKy, w.MeaningZh, w.MeaningJa, w.MeaningEs, w.MeaningVi, w.SemanticHintEn, w.SemanticHintRu, w.SemanticHintUz, w.SemanticHintKy, w.SemanticHintZh, w.SemanticHintJa, w.SemanticHintEs, w.SemanticHintVi) || w.Components == nil {
+		if !nonempty(w.Level, w.Word, w.MeaningKo, w.MeaningEn) || !w.validTranslations() || w.Components == nil {
 			return fail("word.jsonl", row.line, "expected level, word, Korean/English meanings and a components array")
 		}
 		if !ValidWordLevel(w.Level) {
@@ -207,7 +219,7 @@ func Load(dir string) (*Graph, error) {
 		if e.ExampleEn != "" && (strings.TrimSpace(e.ExampleEn) != e.ExampleEn || utf8.RuneCountInString(e.ExampleEn) > 500 || strings.ContainsAny(e.ExampleEn, "\r\n")) {
 			return fail("example.jsonl", row.line, "example_en must be a single nonempty line of at most 500 characters")
 		}
-		if !optionalTexts(500, e.ExampleRu, e.ExampleUz, e.ExampleKy, e.ExampleZh, e.ExampleJa, e.ExampleEs, e.ExampleVi) {
+		if !e.validTranslations() {
 			return fail("example.jsonl", row.line, "translated examples must be a single nonempty line of at most 500 characters")
 		}
 		g.examples[key] = e
@@ -288,6 +300,31 @@ func readJSONL[T any](filename string) ([]located[T], error) {
 		return nil, fmt.Errorf("%s: no records", filename)
 	}
 	return rows, nil
+}
+
+// Additional languages use the same field limits in public and personal dictionaries.
+func (w Word) validTranslations() bool {
+	return optionalTexts(2000,
+		w.MeaningRu, w.MeaningUz, w.MeaningKy, w.MeaningZh, w.MeaningJa,
+		w.MeaningEs, w.MeaningVi, w.MeaningNe, w.MeaningMn, w.MeaningTh,
+		w.SemanticHintEn, w.SemanticHintRu, w.SemanticHintUz, w.SemanticHintKy,
+		w.SemanticHintZh, w.SemanticHintJa, w.SemanticHintEs, w.SemanticHintVi,
+		w.SemanticHintNe, w.SemanticHintMn, w.SemanticHintTh,
+	)
+}
+
+func (c Character) validTranslations() bool {
+	return optionalMeaningArrays(
+		c.MeaningRu, c.MeaningUz, c.MeaningKy, c.MeaningZh, c.MeaningJa,
+		c.MeaningEs, c.MeaningVi, c.MeaningNe, c.MeaningMn, c.MeaningTh,
+	)
+}
+
+func (e WordExample) validTranslations() bool {
+	return optionalTexts(500,
+		e.ExampleRu, e.ExampleUz, e.ExampleKy, e.ExampleZh, e.ExampleJa,
+		e.ExampleEs, e.ExampleVi, e.ExampleNe, e.ExampleMn, e.ExampleTh,
+	)
 }
 
 func optionalTexts(maximum int, values ...string) bool {

@@ -309,4 +309,10 @@ export const ja = {
   wordFormExampleEs: "スペイン語訳（任意）",
   wordFormVi: "ベトナム語の意味（任意）",
   wordFormExampleVi: "ベトナム語訳（任意）",
+  wordFormNe: "ネパール語の意味（任意）",
+  wordFormExampleNe: "ネパール語訳（任意）",
+  wordFormMn: "モンゴル語の意味（任意）",
+  wordFormExampleMn: "モンゴル語訳（任意）",
+  wordFormTh: "タイ語の意味（任意）",
+  wordFormExampleTh: "タイ語訳（任意）",
 };

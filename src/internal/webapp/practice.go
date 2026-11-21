@@ -30,6 +30,9 @@ type Question struct {
 	PromptJa      string    `json:"prompt_ja,omitempty"`
 	PromptEs      string    `json:"prompt_es,omitempty"`
 	PromptVi      string    `json:"prompt_vi,omitempty"`
+	PromptNe      string    `json:"prompt_ne,omitempty"`
+	PromptMn      string    `json:"prompt_mn,omitempty"`
+	PromptTh      string    `json:"prompt_th,omitempty"`
 	Answer        WordRef   `json:"answer"`
 	Options       []WordRef `json:"options"`
 	ExplanationKo string    `json:"explanation_ko"`
@@ -41,6 +44,9 @@ type Question struct {
 	ExplanationJa string    `json:"explanation_ja,omitempty"`
 	ExplanationEs string    `json:"explanation_es,omitempty"`
 	ExplanationVi string    `json:"explanation_vi,omitempty"`
+	ExplanationNe string    `json:"explanation_ne,omitempty"`
+	ExplanationMn string    `json:"explanation_mn,omitempty"`
+	ExplanationTh string    `json:"explanation_th,omitempty"`
 }
 
 type Practice struct {
@@ -84,7 +90,12 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 				return fail("missing question text")
 			}
 		}
-		for _, value := range []string{q.PromptRu, q.PromptUz, q.PromptKy, q.PromptZh, q.PromptJa, q.PromptEs, q.PromptVi, q.ExplanationRu, q.ExplanationUz, q.ExplanationKy, q.ExplanationZh, q.ExplanationJa, q.ExplanationEs, q.ExplanationVi} {
+		for _, value := range []string{
+			q.PromptRu, q.PromptUz, q.PromptKy, q.PromptZh, q.PromptJa,
+			q.PromptEs, q.PromptVi, q.PromptNe, q.PromptMn, q.PromptTh,
+			q.ExplanationRu, q.ExplanationUz, q.ExplanationKy, q.ExplanationZh, q.ExplanationJa,
+			q.ExplanationEs, q.ExplanationVi, q.ExplanationNe, q.ExplanationMn, q.ExplanationTh,
+		} {
 			if value != "" && (strings.TrimSpace(value) != value || strings.ContainsAny(value, "\r\n")) {
 				return fail("Translated question text must be a single nonempty line")
 			}

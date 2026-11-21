@@ -61,6 +61,9 @@ type WordResult struct {
 	ExampleJa  string      `json:"example_ja,omitempty"`
 	ExampleEs  string      `json:"example_es,omitempty"`
 	ExampleVi  string      `json:"example_vi,omitempty"`
+	ExampleNe  string      `json:"example_ne,omitempty"`
+	ExampleMn  string      `json:"example_mn,omitempty"`
+	ExampleTh  string      `json:"example_th,omitempty"`
 	Word       Word        `json:"word"`
 	Components []Component `json:"components"`
 }
@@ -135,7 +138,13 @@ func (g *Graph) FindWords(query string) []WordResult {
 	for _, index := range g.wordsByQuery[query] {
 		w := g.words[index]
 		example := g.examples[[2]string{w.Word, w.Hanja}]
-		result := WordResult{Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu, ExampleUz: example.ExampleUz, ExampleKy: example.ExampleKy, ExampleZh: example.ExampleZh, ExampleJa: example.ExampleJa, ExampleEs: example.ExampleEs, ExampleVi: example.ExampleVi, Word: w, Components: make([]Component, 0, len(w.Components))}
+		result := WordResult{
+			Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu,
+			ExampleUz: example.ExampleUz, ExampleKy: example.ExampleKy, ExampleZh: example.ExampleZh,
+			ExampleJa: example.ExampleJa, ExampleEs: example.ExampleEs, ExampleVi: example.ExampleVi,
+			ExampleNe: example.ExampleNe, ExampleMn: example.ExampleMn, ExampleTh: example.ExampleTh,
+			Word: w, Components: make([]Component, 0, len(w.Components)),
+		}
 		for _, hanja := range w.Components {
 			component := Component{Hanja: hanja, Readings: make([]Reading, 0)}
 			for _, c := range g.characters[hanja] {
@@ -199,7 +208,10 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	for _, exactPass := range []bool{true, false} {
 		for _, word := range g.words {
 			exact := query != "" && (strings.EqualFold(word.Word, query) || strings.EqualFold(word.Hanja, query))
-			if exact != exactPass || !matchesLevel(word, level) || !matches(word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu, word.MeaningUz, word.MeaningKy, word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi) {
+			if exact != exactPass || !matchesLevel(word, level) || !matches(
+				word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu, word.MeaningUz, word.MeaningKy,
+				word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi, word.MeaningNe, word.MeaningMn, word.MeaningTh,
+			) {
 				continue
 			}
 			result.WordCount++
@@ -210,7 +222,15 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)
-		if g.hasLevelWords(character.Hanja, level) && matches(character.Hanja, character.ID, reading.SoundKo, reading.SoundEn, strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "), strings.Join(character.MeaningRu, " "), strings.Join(character.MeaningUz, " "), strings.Join(character.MeaningKy, " "), strings.Join(character.MeaningZh, " "), strings.Join(character.MeaningJa, " "), strings.Join(character.MeaningEs, " "), strings.Join(character.MeaningVi, " ")) {
+		if g.hasLevelWords(character.Hanja, level) && matches(
+			character.Hanja, character.ID, reading.SoundKo, reading.SoundEn,
+			strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "),
+			strings.Join(character.MeaningRu, " "), strings.Join(character.MeaningUz, " "),
+			strings.Join(character.MeaningKy, " "), strings.Join(character.MeaningZh, " "),
+			strings.Join(character.MeaningJa, " "), strings.Join(character.MeaningEs, " "),
+			strings.Join(character.MeaningVi, " "), strings.Join(character.MeaningNe, " "),
+			strings.Join(character.MeaningMn, " "), strings.Join(character.MeaningTh, " "),
+		) {
 			result.CharacterCount++
 			if len(result.Characters) < limit {
 				result.Characters = append(result.Characters, reading)
@@ -272,7 +292,12 @@ func (g *Graph) SearchSoundByLevel(query string, limit int, level string) Search
 	return result
 }
 
-var searchApostrophes = strings.NewReplacer("ʻ", "'", "ʼ", "'", "‘", "'", "’", "'")
+// Thai keyboards and imported text may encode sara am as nikhahit and sara aa,
+// with a tone mark on either side of the nikhahit.
+var searchEquivalents = strings.NewReplacer(
+	"ʻ", "'", "ʼ", "'", "‘", "'", "’", "'",
+	"ํา", "ำ", "ํ่า", "่ำ", "ํ้า", "้ำ", "ํ๊า", "๊ำ", "ํ๋า", "๋ำ",
+)
 
 func foldSearch(value string) string {
 	// Compose input from keyboards that enter accents or kana voicing marks separately.
@@ -280,5 +305,5 @@ func foldSearch(value string) string {
 	if strings.IndexFunc(value, unicode.IsMark) >= 0 {
 		value = norm.NFC.String(value)
 	}
-	return strings.ToLower(searchApostrophes.Replace(value))
+	return strings.ToLower(searchEquivalents.Replace(value))
 }

@@ -1,4 +1,4 @@
-# 인쇄용 글꼴
+# 화면 및 인쇄용 글꼴
 
 단어장 PDF에는 **Noto Sans KR**을 사용합니다. 한국어 글꼴을 앱에서 함께 제공하므로 사용자 기기에 설치된 한자 글꼴에 의존하지 않습니다. 인쇄 전 두 글꼴을 불러오며, 본문과 한자는 보통 굵기로, 단어 제목은 굵게 표시합니다.
 
@@ -14,3 +14,7 @@
 
 - `NotoSansKR-Regular.woff2`: `25a372d8b35b3e2dcb818aca0a69cefb7130abce85561280644a9974f939d1ed`
 - `NotoSansKR-SemiBold.woff2`: `75333fb24c0c15fa3bb49ad01eab58bd9038c8cadc8e467a65531fa82707e7c9`
+- `NotoSansDevanagari-Regular.ttf`: `79a470365ccb210fa3c7d8d8ff2e005ef9d983cfd067f735a0caf7e15070ca9f`
+- `NotoSansThai-Regular.ttf`: `dfbd5ed0f1e68c3cbc51aa08f646d1ab0e68e7c4ceab70a69e465225ff701f93`
+
+네팔어와 태국어는 각각 Noto Sans Devanagari Regular 2.001과 Noto Sans Thai Regular 2.000을 사용합니다. 해당 문자가 표시될 때 기기에 같은 글꼴이 없으면 앱에 포함된 TTF를 불러옵니다. 두 파일은 `fonts-noto-core` 20201225-2에 포함된 원본이며 화면과 단어장 PDF에 함께 적용됩니다. [SIL Open Font License 1.1](LICENSE)

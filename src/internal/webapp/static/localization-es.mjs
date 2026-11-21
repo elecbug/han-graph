@@ -309,4 +309,10 @@ export const es = {
   wordFormExampleEs: "Traducción al español (opcional)",
   wordFormVi: "Significado en vietnamita (opcional)",
   wordFormExampleVi: "Traducción al vietnamita (opcional)",
+  wordFormNe: "Significado en nepalí (opcional)",
+  wordFormExampleNe: "Traducción al nepalí (opcional)",
+  wordFormMn: "Significado en mongol (opcional)",
+  wordFormExampleMn: "Traducción al mongol (opcional)",
+  wordFormTh: "Significado en tailandés (opcional)",
+  wordFormExampleTh: "Traducción al tailandés (opcional)",
 };

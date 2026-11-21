@@ -13,6 +13,9 @@ const additionalLocales={
   zh:['学习笔记本','记录学到的内容。','我记下了新词。','学习'],
   ja:['学習ノート','学んだことをまとめる。','新しい単語を書き留めました。','学ぶ'],
   es:['cuaderno de estudio','Sirve para organizar lo aprendido.','Anoté las palabras nuevas.','aprender'],
+  ne:['अध्ययन कापी','यसमा सिकेका कुरा टिपिन्छन्।','मैले नयाँ शब्द टिपेँ।','सिक्नु'],
+  mn:['сургалтын дэвтэр','Сурснаа бичихэд хэрэглэнэ.','Шинэ үгсээ тэмдэглэлээ.','сурах'],
+  th:['สมุดเรียน','ใช้จดสิ่งที่เรียนรู้','ฉันจดคำศัพท์ใหม่','เรียนรู้'],
   vi:['vở học tập','Dùng để ghi lại kiến thức đã học.','Tôi ghi lại các từ mới.','học'],
 };
 for(const [language,[meaning,hint,example,character]] of Object.entries(additionalLocales)) {

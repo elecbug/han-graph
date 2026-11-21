@@ -65,6 +65,27 @@ const copy = {
     easy:'Básico', normal:'General', hard:'Avanzado', classical:'Clásico',
     note:'El significado y la lectura de un carácter pueden variar según la palabra y el contexto.', footer:'Un nuevo aprendizaje empieza con una palabra.',
   },
+  ne: {
+    title:'मेरो शब्दसङ्ग्रह', subtitle:'अर्थ पढ्नुहोस्, बनोट हेर्नुहोस् र सम्बन्ध सम्झनुहोस्।',
+    count:count=>count.toLocaleString('ne')+' शब्द', missing:'हालको शब्दकोशमा विवरण छैन। सुरक्षित हिज्जे देखाइएको छ।',
+    example:'उदाहरण', meaning:'अर्थ', hint:'अर्थ बुझ्ने सङ्केत', characters:'शब्द बनाउने हान्जा',
+    easy:'सजिलो', normal:'सामान्य', hard:'उन्नत', classical:'शास्त्रीय',
+    note:'शब्द र प्रसङ्गअनुसार हान्जाको अर्थ र उच्चारण बदलिन सक्छ।', footer:'नयाँ बुझाइ एउटा शब्दबाट सुरु हुन्छ।',
+  },
+  mn: {
+    title:'Миний үгийн сан', subtitle:'Утгыг уншиж, бүтцийг ажиглан, холбоог тогтоогоорой.',
+    count:count=>count.toLocaleString('mn')+' үг', missing:'Одоогийн тольд тайлбар алга. Хадгалсан бичлэгийг харууллаа.',
+    example:'Жишээ', meaning:'Утга', hint:'Утгын тайлбар', characters:'Үгийг бүтээх ханз',
+    easy:'Хялбар', normal:'Ерөнхий', hard:'Ахисан', classical:'Сонгодог',
+    note:'Ханзны утга, дуудлага нь үг болон хам сэдвээс шалтгаална.', footer:'Шинэ ойлголт нэг үгээс эхэлнэ.',
+  },
+  th: {
+    title:'คลังคำของฉัน', subtitle:'อ่านความหมาย ดูอักษรที่ประกอบเป็นคำ แล้วจดจำความเชื่อมโยง',
+    count:count=>count.toLocaleString('th')+' คำ', missing:'ไม่มีคำอธิบายในพจนานุกรมปัจจุบัน จึงแสดงรูปคำที่เก็บไว้',
+    example:'ตัวอย่าง', meaning:'ความหมาย', hint:'คำใบ้ความหมาย', characters:'อักษรฮันจาที่ประกอบเป็นคำ',
+    easy:'พื้นฐาน', normal:'ทั่วไป', hard:'ขั้นสูง', classical:'คลาสสิก',
+    note:'ความหมายและเสียงอ่านของอักษรอาจเปลี่ยนไปตามคำและบริบท', footer:'ความเข้าใจใหม่เริ่มต้นจากคำหนึ่งคำ',
+  },
   vi: {
     title:'Sổ từ của tôi', subtitle:'Đọc nghĩa, xem các chữ cấu thành và ghi nhớ mối liên hệ.',
     count:count=>`${count} từ`, missing:'Từ điển hiện tại chưa có phần giải thích. Cách viết đã lưu vẫn được giữ lại.',

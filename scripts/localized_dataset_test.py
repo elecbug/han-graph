@@ -8,12 +8,27 @@ from localized_dataset import apply_batch, check_row, check_text
 
 
 class AdditionalLocales(unittest.TestCase):
+    def test_public_translations_keep_learning_contrasts_distinct(self):
+        dataset = Path(__file__).resolve().parents[1] / 'dataset'
+        with (dataset / 'word.jsonl').open() as file:
+            words = {(row['word'], row['hanja']): row for row in map(json.loads, file)}
+        pairs = [
+            (('금메달', '金메달'), ('동메달', '銅메달')),
+            (('장편소설', '長篇小說'), ('중편소설', '中篇小說')),
+            (('소화전', '消火栓'), ('화재경보기', '火災警報器')),
+        ]
+        for language in ('ne', 'mn', 'th'):
+            for first, second in pairs:
+                with self.subTest(language=language, first=first, second=second):
+                    key = f'meaning_{language}'
+                    self.assertNotEqual(words[first][key], words[second][key])
+
     def test_scripts_and_empty_translations_are_checked(self):
         check_text('oʻquv daftari', 200, 'uz')
         check_text('окуу дептери', 200, 'ky')
-        for language, text in [('zh', '词典'), ('ja', '辞書'), ('ja', 'まなぶ'), ('es', 'año'), ('vi', 'độ ẩm')]:
+        for language, text in [('zh', '词典'), ('ja', '辞書'), ('ja', 'まなぶ'), ('es', 'año'), ('vi', 'độ ẩm'), ('ne', 'अर्थ'), ('ne', 'आऊ'), ('mn', 'утга'), ('th', 'ความหมาย')]:
             check_text(text, 200, language)
-        for language, text in [('zh', 'price'), ('ja', '뜻'), ('es', 'precio ⁇'), ('vi', 'giá 98700')]:
+        for language, text in [('zh', 'price'), ('ja', '뜻'), ('es', 'precio ⁇'), ('vi', 'giá 98700'), ('ne', 'price'), ('mn', '98700'), ('th', 'ราคา ⁇')]:
             with self.assertRaises(ValueError):
                 check_text(text, 200, language)
         for value, language in [('китеп', 'uz'), ('kitob', 'ky'), (' ', 'uz'), ('баа\n', 'ky'), ('soʻz Қ', 'uz'), ('&amp; soʻz', 'uz'), ('soʻz ⁇', 'uz'), ('маани \ufffd', 'ky')]:

@@ -17,12 +17,12 @@ test('all languages have every UI message and the same interpolation variables',
 });
 
 test('language menus prioritize the browser language, Korean and English once, then use English-name order',()=>{
-  const remaining=['zh','ja','ky','ru','es','uz','vi'];
+  const remaining=['zh','ja','ky','mn','ne','ru','es','th','uz','vi'];
   for(const preferences of [[],['fr-CA'],['ko-KR','en']])assert.deepEqual(orderedLanguages(preferences),['ko','en',...remaining]);
   assert.deepEqual(orderedLanguages(['en-US','es']),['en','ko',...remaining]);
-  assert.deepEqual(orderedLanguages(['fr-CA','VI-vn','ru']),['vi','ko','en','zh','ja','ky','ru','es','uz']);
+  assert.deepEqual(orderedLanguages(['fr-CA','VI-vn','ru']),['vi','ko','en','zh','ja','ky','mn','ne','ru','es','th','uz']);
   assert.deepEqual(orderedLanguages(['zh-Hans-CN']).slice(0,3),['zh','ko','en']);
-  assert.deepEqual(remaining.map(languageLabel),['简体中文(Chinese)','日本語(Japanese)','Кыргызча(Kyrgyz)','Русский(Russian)','Español(Spanish)','Oʻzbekcha(Uzbek)','Tiếng Việt(Vietnamese)']);
+  assert.deepEqual(remaining.map(languageLabel),['简体中文(Chinese)','日本語(Japanese)','Кыргызча(Kyrgyz)','Монгол хэл(Mongolian)','नेपाली(Nepali)','Русский(Russian)','Español(Spanish)','ไทย(Thai)','Oʻzbekcha(Uzbek)','Tiếng Việt(Vietnamese)']);
 });
 
 test('Russian quantities use the correct singular, few and many forms',()=>{
@@ -35,6 +35,9 @@ test('Russian quantities use the correct singular, few and many forms',()=>{
 });
 
 test('new locales display counts in their own scripts and number forms',()=>{
+  assert.equal(countText(2,'questions','ne'),(2).toLocaleString('ne')+' प्रश्न');
+  assert.equal(countText(2,'words','mn'),'2 үг');
+  assert.equal(countText(2,'characters','th'),'2 ตัว');
   assert.equal(countText(2,'questions','zh'),'2道题');
   assert.equal(countText(2,'questions','ja'),'2問');
   assert.equal(countText(1,'words','es'),'1 palabra');
@@ -45,8 +48,8 @@ test('new locales display counts in their own scripts and number forms',()=>{
 test('meanings, hints, examples and private translation fallbacks never mix interface languages',()=>{
   const entry={meaning_ko:'한국어 뜻',meaning_en:'English meaning',meaning_ru:'Русское значение',meaning_uz:'Oʻzbekcha maʼno',meaning_ky:'Кыргызча маани',semantic_hint:'한국어 힌트',semantic_hint_en:'English hint',semantic_hint_ru:'Русская подсказка'};
   const examples={example:'한국어 예문',example_en:'English example',example_ru:'Русский пример',example_uz:'Oʻzbekcha misol',example_ky:'Кыргызча мисал'};
-  Object.assign(entry,{meaning_zh:'词义',meaning_ja:'意味',meaning_es:'significado',meaning_vi:'nghĩa'});
-  Object.assign(examples,{example_zh:'例句',example_ja:'例文',example_es:'Ejemplo',example_vi:'Ví dụ'});
+  Object.assign(entry,{meaning_zh:'词义',meaning_ja:'意味',meaning_es:'significado',meaning_vi:'nghĩa',meaning_ne:'अर्थ',meaning_mn:'утга',meaning_th:'ความหมาย'});
+  Object.assign(examples,{example_zh:'例句',example_ja:'例文',example_es:'Ejemplo',example_vi:'Ví dụ',example_ne:'उदाहरण',example_mn:'Жишээ',example_th:'ตัวอย่าง'});
   for(const language of LANGUAGES) {
     assert.equal(localized(entry,'meaning',language),entry[`meaning_${language}`]);
     assert.deepEqual(exampleLines(examples,language),[{text:examples[language==='ko'?'example':`example_${language}`],lang:language,secondary:false}]);

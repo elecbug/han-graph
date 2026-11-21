@@ -81,4 +81,26 @@ func TestPracticeHistoryAPI(t *testing.T) {
 	if round.Correct != 10 || round.Answers[0].Prompts["ko"] != first.PromptKo || round.Answers[0].Prompts["es"] != first.PromptEs {
 		t.Fatal("missing score or localized question")
 	}
+	oldRound := round
+	oldRound.ID = strings.Repeat("b", 32)
+	oldRound.Answers[0].Prompts = map[string]string{"ko": first.PromptKo, "en": first.PromptEn, "mn": "Хадгалсан асуулт"}
+	oldRound.Answers[1].Prompts = map[string]string{"ko": "이전 문항", "en": oldRound.Answers[1].Prompts["en"]}
+	if err := store.SavePractice(user.ID, oldRound); err != nil {
+		t.Fatal(err)
+	}
+	rec = request("GET", nil, user.ID, token, 200)
+	var pastPage account.PracticeHistory
+	if err := json.Unmarshal(rec.Body.Bytes(), &pastPage); err != nil {
+		t.Fatal(err)
+	}
+	for _, round := range pastPage.Rounds {
+		if round.ID == oldRound.ID {
+			p := round.Answers[0].Prompts
+			if p["ne"] == "" || p["ne"] != first.PromptNe || p["th"] != first.PromptTh || p["mn"] != "Хадгалсан асуулт" || round.Answers[1].Prompts["ne"] != "" {
+				t.Fatal("past questions must keep their original wording and only gain matching translations")
+			}
+			return
+		}
+	}
+	t.Fatal("past round missing from history")
 }

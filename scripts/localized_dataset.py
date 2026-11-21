@@ -14,13 +14,14 @@ import tempfile
 import unicodedata
 
 BATCH_SIZE = 10
-LANGUAGES = ('ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi')
+LANGUAGES = ('ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi', 'ne', 'mn', 'th')
 CYRILLIC = re.compile(r"[\u0400-\u052f]")
 LATIN = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḀ-ỿ]")
 HAN = re.compile(r"[㐀-䶿一-鿿豈-﫿\U00020000-\U000323af]")
 JAPANESE = re.compile(r"[ぁ-ゖァ-ヺー㐀-䶿一-鿿々]")
 SCRIPTS = {'ru': CYRILLIC, 'ky': CYRILLIC, 'uz': LATIN, 'zh': HAN,
-           'ja': JAPANESE, 'es': LATIN, 'vi': LATIN}
+           'ja': JAPANESE, 'es': LATIN, 'vi': LATIN, 'mn': CYRILLIC,
+           'ne': re.compile(r'[अ-ह]'), 'th': re.compile(r'[ก-ฮ]')}
 
 
 def fields_for(languages):

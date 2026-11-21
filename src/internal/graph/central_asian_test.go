@@ -15,21 +15,21 @@ func TestPublicTranslationsAreComplete(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, character := range g.characterOrder {
-		for _, values := range [][]string{character.MeaningRu, character.MeaningUz, character.MeaningKy, character.MeaningZh, character.MeaningJa, character.MeaningEs, character.MeaningVi} {
+		for _, values := range [][]string{character.MeaningRu, character.MeaningUz, character.MeaningKy, character.MeaningZh, character.MeaningJa, character.MeaningEs, character.MeaningVi, character.MeaningNe, character.MeaningMn, character.MeaningTh} {
 			if !meanings(values) {
 				t.Fatalf("%s: missing translated character meanings", character.ID)
 			}
 		}
 	}
 	for _, word := range g.words {
-		if !nonempty(word.MeaningRu, word.MeaningUz, word.MeaningKy, word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi) {
+		if !nonempty(word.MeaningRu, word.MeaningUz, word.MeaningKy, word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi, word.MeaningNe, word.MeaningMn, word.MeaningTh) {
 			t.Fatalf("%s/%s: missing translated word meaning", word.Word, word.Hanja)
 		}
-		if word.SemanticHint != "" && !nonempty(word.SemanticHintEn, word.SemanticHintRu, word.SemanticHintUz, word.SemanticHintKy, word.SemanticHintZh, word.SemanticHintJa, word.SemanticHintEs, word.SemanticHintVi) {
+		if word.SemanticHint != "" && !nonempty(word.SemanticHintEn, word.SemanticHintRu, word.SemanticHintUz, word.SemanticHintKy, word.SemanticHintZh, word.SemanticHintJa, word.SemanticHintEs, word.SemanticHintVi, word.SemanticHintNe, word.SemanticHintMn, word.SemanticHintTh) {
 			t.Fatalf("%s/%s: missing translated composition hint", word.Word, word.Hanja)
 		}
 		example := g.examples[[2]string{word.Word, word.Hanja}]
-		if !nonempty(example.ExampleEn, example.ExampleRu, example.ExampleUz, example.ExampleKy, example.ExampleZh, example.ExampleJa, example.ExampleEs, example.ExampleVi) {
+		if !nonempty(example.ExampleEn, example.ExampleRu, example.ExampleUz, example.ExampleKy, example.ExampleZh, example.ExampleJa, example.ExampleEs, example.ExampleVi, example.ExampleNe, example.ExampleMn, example.ExampleTh) {
 			t.Fatalf("%s/%s: missing translated example", word.Word, word.Hanja)
 		}
 	}
@@ -99,11 +99,12 @@ func TestPrivateCentralAsianTranslations(t *testing.T) {
 		Words: []Word{{
 			Level: "normal", Word: "수분", Hanja: "水分", Components: []string{"水", "分"},
 			MeaningKo: "물기", MeaningEn: "moisture", MeaningUz: "namlik", MeaningKy: "нымдуулук",
-			MeaningZh: "水分；湿气", MeaningJa: "水分・みずけ", MeaningEs: "humedad", MeaningVi: "độ ẩm",
+			MeaningZh: "水分；湿气", MeaningJa: "水分・みずけ", MeaningEs: "humedad", MeaningVi: "độ ẩm", MeaningNe: "चिस्यान", MeaningMn: "чийг", MeaningTh: "ความชื้น, น้ำ",
 		}},
 		Examples: []WordExample{{
 			Word: "수분", Hanja: "水分", ExampleKo: "수분을 보충해요.", ExampleUz: "Suv iching.", ExampleKy: "Суу ичиңиз.",
 			ExampleZh: "补充水分。", ExampleJa: "水分を補給します。", ExampleEs: "Me hidrato.", ExampleVi: "Tôi bổ sung nước.",
+			ExampleNe: "म पानी पिउँछु।", ExampleMn: "Би ус ууна.", ExampleTh: "ฉันดื่มน้ำ",
 		}},
 	}
 	view, err := g.WithAdditions(input)
@@ -113,25 +114,25 @@ func TestPrivateCentralAsianTranslations(t *testing.T) {
 	if view.Search("NYMLIK", 60).WordCount != 0 || view.Search("NAMLIK", 60).WordCount != 1 || view.Search("НЫМДУУЛУК", 60).WordCount != 1 || g.Search("namlik", 60).WordCount != 0 {
 		t.Fatal("private translations not isolated/searchable")
 	}
-	for _, query := range []string{"湿气", "みずけ", "HUMEDAD", norm.NFD.String("ĐỘ ẨM")} {
+	for _, query := range []string{"湿气", "みずけ", "HUMEDAD", norm.NFD.String("ĐỘ ẨM"), "चिस्यान", "ЧИЙГ", "ความชื้น", "น้ำ", "นํ้า", "น้ํา"} {
 		if view.Search(query, 60).WordCount != 1 || g.Search(query, 60).WordCount != 0 {
 			t.Fatalf("private translation search for %q", query)
 		}
 	}
 	result := view.FindWords("수분")[0]
-	if result.ExampleKy != "Суу ичиңиз." || result.ExampleZh != "补充水分。" || result.ExampleJa != "水分を補給します。" || result.ExampleEs != "Me hidrato." || result.ExampleVi != "Tôi bổ sung nước." {
+	if result.ExampleKy != "Суу ичиңиз." || result.ExampleZh != "补充水分。" || result.ExampleJa != "水分を補給します。" || result.ExampleEs != "Me hidrato." || result.ExampleVi != "Tôi bổ sung nước." || result.ExampleNe != "म पानी पिउँछु।" || result.ExampleMn != "Би ус ууна." || result.ExampleTh != "ฉันดื่มน้ำ" {
 		t.Fatal("private translated example lost")
 	}
 }
 
 func TestTranslatedCharacterSearch(t *testing.T) {
 	files := fixture(t)
-	files["character.jsonl"] = strings.Replace(files["character.jsonl"], `"meaning_en":["divide"]`, `"meaning_en":["divide"],"meaning_zh":["划分"],"meaning_ja":["分ける"],"meaning_es":["división"],"meaning_vi":["phân chia"]`, 1)
+	files["character.jsonl"] = strings.Replace(files["character.jsonl"], `"meaning_en":["divide"]`, `"meaning_en":["divide"],"meaning_zh":["划分"],"meaning_ja":["分ける"],"meaning_es":["división"],"meaning_vi":["phân chia"],"meaning_ne":["भाग लगाउनु"],"meaning_mn":["хуваах"],"meaning_th":["แบ่ง"]`, 1)
 	g, err := Load(writeFixture(t, files))
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, query := range []string{"划分", "分ける", norm.NFD.String("DIVISIÓN"), norm.NFD.String("PHÂN CHIA")} {
+	for _, query := range []string{"划分", "分ける", norm.NFD.String("DIVISIÓN"), norm.NFD.String("PHÂN CHIA"), "भाग लगाउनु", "ХУВААХ", "แบ่ง"} {
 		if result := g.Search(query, 60); result.CharacterCount != 1 {
 			t.Fatalf("expected one character for %q, got %d", query, result.CharacterCount)
 		}
