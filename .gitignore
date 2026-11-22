@@ -2,8 +2,17 @@
 /var/
 
 # Local server and Docker Compose settings.
-/.env
-/src/.env
+.env
+.env.*
+!.env.example
+
+# Local service account credentials and private keys.
+application_default_credentials.json
+google-credentials.json
+service-account*.json
+*.key
+*.pem
+*.p12
 
 # Python maintenance tools.
 __pycache__/

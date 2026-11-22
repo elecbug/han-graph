@@ -15,7 +15,7 @@ import (
 	"github.com/elecbug/han-graph/internal/graph"
 )
 
-//go:embed static/*
+//go:embed static/index.html static/app.js static/*.mjs static/*.css static/favicon.svg static/robots.txt static/fonts/*.woff2 static/fonts/*.ttf static/fonts/LICENSE
 var assets embed.FS
 
 func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
@@ -162,9 +162,9 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 			seed["/api/characters?q="+glyph] = g.FindCharacters(glyph)
 		}
 	}
-	files := make(map[string]staticAsset)
 	for path, contentType := range map[string]string{
 		"/":                                     "text/html; charset=utf-8",
+		"/robots.txt":                           "text/plain; charset=utf-8",
 		"/app.js":                               "text/javascript; charset=utf-8",
 		"/localization.mjs":                     "text/javascript; charset=utf-8",
 		"/localization-ru.mjs":                  "text/javascript; charset=utf-8",
@@ -210,24 +210,19 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		if err != nil {
 			panic(err)
 		}
+		pattern := "GET " + path
 		if path == "/" {
 			body = withBootstrap(body, seed)
+			pattern = "GET /{$}"
 		}
-		files[path] = staticAsset{body, contentType, fmt.Sprintf(`"%x"`, sha256.Sum256(body))}
+		etag := fmt.Sprintf(`"%x"`, sha256.Sum256(body))
+		mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", contentType)
+			w.Header().Set("Cache-Control", "no-cache")
+			w.Header().Set("ETag", etag)
+			http.ServeContent(w, r, path, time.Time{}, bytes.NewReader(body))
+		})
 	}
-	mux.HandleFunc("GET /", func(w http.ResponseWriter, r *http.Request) {
-		file, ok := files[r.URL.Path]
-		if !ok {
-			http.NotFound(w, r)
-			return
-		}
-		// An explicit MIME type also avoids Windows registry enumeration on
-		// the first request. Revalidate hashes so restarts never serve stale data.
-		w.Header().Set("Content-Type", file.contentType)
-		w.Header().Set("Cache-Control", "no-cache")
-		w.Header().Set("ETag", file.etag)
-		http.ServeContent(w, r, r.URL.Path, time.Time{}, bytes.NewReader(file.body))
-	})
 	protection := http.NewCrossOriginProtection()
 	protection.SetDenyHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accountJSON(w, 403, map[string]string{"error": "cross_origin"})
@@ -237,9 +232,19 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 	if options.GoogleClientID != "" {
 		policy = "default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self'; connect-src 'self' https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
 	}
+	// Forms submit through same-origin JSON requests. Native form submissions
+	// must not put private fields in a URL if a UI event handler fails.
+	policy += "; form-action 'none'"
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("Referrer-Policy", "no-referrer")
+		if options.SecureCookies || r.TLS != nil {
+			w.Header().Set("Strict-Transport-Security", "max-age=31536000")
+		}
+		if strings.HasPrefix(r.URL.Path, "/api/") {
+			w.Header().Set("Cache-Control", "no-store")
+			w.Header().Set("X-Robots-Tag", "noindex")
+		}
 		if options.GoogleClientID != "" {
 			w.Header().Set("Cross-Origin-Opener-Policy", "same-origin-allow-popups")
 			w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
@@ -247,11 +252,6 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		w.Header().Set("Content-Security-Policy", policy)
 		protected.ServeHTTP(w, r)
 	})
-}
-
-type staticAsset struct {
-	body              []byte
-	contentType, etag string
 }
 
 func withBootstrap(html []byte, seed map[string]any) []byte {

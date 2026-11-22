@@ -88,6 +88,7 @@ func serve(g *graph.Graph, dir, addr, accountPath string, secureCookies bool, st
 	}
 	server := &http.Server{
 		Handler:           webapp.New(g, practice, options),
+		MaxHeaderBytes:    32 << 10,
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      15 * time.Second,

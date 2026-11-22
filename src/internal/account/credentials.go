@@ -73,6 +73,10 @@ type credentialEdit struct {
 	recoveryStarted time.Time
 }
 
+func (change credentialEdit) revokesSessions(oldSubject string) bool {
+	return change.password != nil || (change.google != nil && oldSubject != "" && oldSubject != change.google.Subject)
+}
+
 const RecoveryLifetime = 10 * time.Minute
 
 var ErrRecoveryExpired = errors.New("Google recovery verification expired")
@@ -154,7 +158,7 @@ func (s *Store) ChangeCredentials(id, sessionToken string, input CredentialChang
 	}
 	return s.storage.updateCredentials(s.ctx, id, proof, change)
 }
-func (s *Store) ChangeGoogle(id, username, password string, identity GoogleIdentity) error {
+func (s *Store) ChangeGoogle(id, sessionToken, username, password string, identity GoogleIdentity) error {
 	if !identity.Valid() {
 		return ErrInvalid
 	}
@@ -162,7 +166,7 @@ func (s *Store) ChangeGoogle(id, username, password string, identity GoogleIdent
 	if err != nil {
 		return err
 	}
-	return s.storage.updateCredentials(s.ctx, id, proof, credentialEdit{google: &identity})
+	return s.storage.updateCredentials(s.ctx, id, proof, credentialEdit{google: &identity, keepSession: sessionToken})
 }
 
 func (b *fileBackend) updateCredentials(_ context.Context, id string, proof loginProof, change credentialEdit) error {
@@ -193,6 +197,7 @@ func (b *fileBackend) updateCredentials(_ context.Context, id string, proof logi
 			}
 			u.User.Username = change.username
 		}
+		revoke := change.revokesSessions(u.GoogleSubject)
 		if change.google != nil {
 			if err := bindFileGoogle(tx, id, GoogleIdentity{u.GoogleSubject, u.User.Email}, *change.google); err != nil {
 				return err
@@ -201,6 +206,8 @@ func (b *fileBackend) updateCredentials(_ context.Context, id string, proof logi
 		}
 		if change.password != nil {
 			u.Salt, u.Hash, u.Iterations = change.password.salt, change.password.hash, passwordIterations
+		}
+		if revoke {
 			if err := revokeFileSessions(tx, id, tokenKey(change.keepSession)); err != nil {
 				return err
 			}
@@ -281,6 +288,7 @@ func (b *firestoreBackend) updateCredentials(ctx context.Context, id string, pro
 			return nil
 		}
 		oldName := header.Username
+		revoke := change.revokesSessions(header.GoogleSubject)
 		var updates []firestore.Update
 		if change.google != nil || change.password != nil {
 			updates = append(updates, firestore.Update{Path: "RecoveryAfter", Value: max(header.RecoveryAfter, time.Now().UnixMicro())})
@@ -295,6 +303,8 @@ func (b *firestoreBackend) updateCredentials(ctx context.Context, id string, pro
 		}
 		if change.password != nil {
 			login.Salt, login.Hash, login.Iterations = change.password.salt, change.password.hash, passwordIterations
+		}
+		if revoke {
 			keep := sessionID(change.keepSession)
 			var retained []string
 			for _, key := range header.SessionKeys {

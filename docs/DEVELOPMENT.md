@@ -6,7 +6,7 @@
 
 ## 준비하기
 
-웹 브라우저와 Docker Engine·Docker Compose 또는 Go 1.26.2 이상이 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 기본 계정 저장소는 bbolt 파일이며 Firestore도 선택할 수 있습니다. Docker 명령은 저장소 루트에서, `go` 명령은 `src` 디렉터리에서 실행합니다.
+웹 브라우저와 Docker Engine·Docker Compose 또는 Go 1.26.11 이상이 필요합니다. 별도 데이터베이스 서버나 프런트엔드 빌드 도구는 필요하지 않습니다. 기본 계정 저장소는 bbolt 파일이며 Firestore도 선택할 수 있습니다. Docker 명령은 저장소 루트에서, `go` 명령은 `src` 디렉터리에서 실행합니다.
 
 ## Docker Compose로 실행
 
@@ -43,13 +43,13 @@ docker compose down
 docker compose exec han-graph han-graph -data /app/dataset validate
 ```
 
-HTTPS 프록시 뒤에서 운영한다면 `compose.override.yaml`의 명령을 다음과 같이 설정한 뒤 `docker compose up -d`로 적용하세요.
+HTTPS 프록시 뒤에서 운영한다면 `.env`에 `HAN_GRAPH_SECURE_COOKIES=true`를 설정하고 `docker compose up -d`로 적용하세요. 로그인·Google 인증 쿠키에 `Secure`가 붙고, 브라우저가 해당 호스트에 1년간 HTTPS를 사용하도록 HSTS 헤더를 보냅니다. Cloud Run 배포 스크립트는 이 모드를 기본으로 켭니다. 같은 호스트의 프록시만 앱으로 연결한다면 `HAN_GRAPH_HOST=127.0.0.1`로 백엔드 포트의 노출 범위를 줄일 수 있습니다.
 
-```yaml
-services:
-  han-graph:
-    command: ["-data", "/app/dataset", "-accounts", "/app/var/accounts.db", "-addr", "0.0.0.0:18080", "-secure-cookies", "serve"]
-```
+### 공개 서버의 크롤러 요청
+
+`GET /robots.txt`는 정상 요청으로 200을 반환합니다. 공개 학습 화면은 검색을 허용하고 크롤러에는 `/api/` 수집을 삼가도록 안내합니다. 앱은 등록한 화면·글꼴·API 경로만 제공하므로 로그에서 `/.env`, `/.git/config`, `/var/accounts.db` 같은 파일 요청은 404가 정상입니다. 이 경로가 운영 로그에 200으로 기록되면 어느 계층이 응답했는지 확인하세요. 프록시도 저장소나 데이터 디렉터리를 정적 파일 루트로 제공하지 않도록 구성합니다.
+
+Cloud Run 소스 업로드와 Docker 빌드는 필요한 파일만 포함합니다. 정적 리소스 종류나 공개 데이터 파일을 추가할 때는 `.dockerignore` 목록을 함께 확인하세요. 배포 전 `gcloud meta list-files-for-upload`로 업로드 대상을 미리 볼 수 있습니다.
 
 ## 웹 앱 실행
 

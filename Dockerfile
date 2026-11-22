@@ -1,4 +1,4 @@
-FROM golang:1.26.10-alpine3.24 AS build
+FROM golang:1.26.11-alpine3.24@sha256:ecb67f987aa1a57794c91d19ade7ae0209f2f0f5496aaef9e6ae85ddf92d02ab AS build
 
 WORKDIR /build
 COPY src/go.mod src/go.sum ./
@@ -6,7 +6,7 @@ RUN go mod download
 COPY src/ ./
 RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/han-graph ./cmd
 
-FROM alpine:3.24.3
+FROM alpine:3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
 
 RUN apk add --no-cache ca-certificates \
     && addgroup -S -g 1000 app \

@@ -90,7 +90,7 @@ func TestGooglePasswordRecovery(t *testing.T) {
 			t.Fatal("used proof predating password change", err)
 		}
 		start = time.Now()
-		if err := s.ChangeGoogle(user.ID, name, original, GoogleIdentity{Subject: name + "2", Email: name + "2@gmail.com"}); err != nil {
+		if err := s.ChangeGoogle(user.ID, "", name, original, GoogleIdentity{Subject: name + "2", Email: name + "2@gmail.com"}); err != nil {
 			t.Fatal(err)
 		}
 		if err := s.RecoverPassword("", identity.Subject, start, &winner); !errors.Is(err, ErrGoogleUnknown) {
@@ -128,7 +128,7 @@ func TestCredentialChanges(t *testing.T) {
 		}
 		keep, revoke1, revoke2, otherSession := session(user.ID), session(user.ID), session(user.ID), session(other.ID)
 		google := GoogleIdentity{name, name + "@gmail.com"}
-		if err := s.ChangeGoogle(user.ID, name, password, google); err != nil {
+		if err := s.ChangeGoogle(user.ID, keep, name, password, google); err != nil {
 			t.Fatal(err)
 		}
 		previous, err := s.verifyPassword(name, password)
@@ -200,11 +200,23 @@ func TestCredentialChanges(t *testing.T) {
 			t.Fatal("new login", err)
 		}
 		nextGoogle := GoogleIdentity{name + "2", name + "2@gmail.com"}
-		if err := s.ChangeGoogle(user.ID, nextName, password, nextGoogle); !errors.Is(err, ErrCredentials) {
+		_, oldGoogleSession, err := s.GoogleSession(google.Subject, "")
+		if err != nil {
+			t.Fatal(err)
+		}
+		if err := s.ChangeGoogle(user.ID, keep, nextName, password, nextGoogle); !errors.Is(err, ErrCredentials) {
 			t.Fatal("relink with old password", err)
 		}
-		if err := s.ChangeGoogle(user.ID, nextName, nextPassword, nextGoogle); err != nil {
+		if err := s.ChangeGoogle(user.ID, keep, nextName, nextPassword, nextGoogle); err != nil {
 			t.Fatal(err)
+		}
+		if _, err := s.Resolve(oldGoogleSession); !errors.Is(err, ErrUnauthorized) {
+			t.Fatal("previous Google account retained a session after replacement", err)
+		}
+		for token, want := range map[string]string{keep: user.ID, otherSession: other.ID} {
+			if id, err := s.Resolve(token); err != nil || id != want {
+				t.Fatal("relink invalidated an unrelated or reauthenticated session", err)
+			}
 		}
 		if _, _, err := s.GoogleSession(google.Subject, ""); !errors.Is(err, ErrGoogleUnknown) {
 			t.Fatal("old Google login", err)

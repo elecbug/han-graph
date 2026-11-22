@@ -36,6 +36,8 @@ func TestRoutes(t *testing.T) {
 		content      string
 	}{
 		{"GET", "/", 200, "text/html"},
+		{"GET", "/robots.txt", 200, "text/plain"},
+		{"HEAD", "/robots.txt", 200, "text/plain"},
 		{"GET", "/app.js", 200, "javascript"},
 		{"GET", "/localization.mjs", 200, "javascript"},
 		{"GET", "/localization-ru.mjs", 200, "javascript"},
@@ -88,6 +90,12 @@ func TestRoutes(t *testing.T) {
 		{"GET", "/api/search?q=" + strings.Repeat("a", 101), 400, "application/json"},
 		{"GET", "/api/missing", 404, "text/plain"},
 		{"GET", "/dataset/character.jsonl", 404, "text/plain"},
+		{"GET", "/.env", 404, "text/plain"},
+		{"POST", "/.env", 404, "text/plain"},
+		{"GET", "/.git/config", 404, "text/plain"},
+		{"HEAD", "/var/google-credentials.json", 404, "text/plain"},
+		{"GET", "/var/accounts.db", 404, "text/plain"},
+		{"GET", "/fonts/", 404, "text/plain"},
 		{"GET", "/unknown", 404, "text/plain"},
 		{"POST", "/api/words?q=abc", 405, "text/plain"},
 	} {
@@ -103,7 +111,39 @@ func TestRoutes(t *testing.T) {
 			if response.Header().Get("X-Content-Type-Options") != "nosniff" || response.Header().Get("Content-Security-Policy") == "" {
 				t.Fatal("missing response headers")
 			}
+			h := response.Result().Header
+			if strings.HasPrefix(tc.path, "/api/") && (h.Get("Cache-Control") != "no-store" || h.Get("X-Robots-Tag") != "noindex") {
+				t.Fatal("API responses, including errors, must carry the privacy headers")
+			}
+			if tc.path == "/robots.txt" && tc.method == "GET" && response.Body.String() != "User-agent: *\nDisallow: /api/\n" {
+				t.Fatal("unexpected crawler rules")
+			}
 		})
+	}
+}
+
+func TestTransportAndFormPolicies(t *testing.T) {
+	g, practice, local := testApp(t)
+	proxied := New(g, practice, Options{SecureCookies: true, GoogleClientID: "123-example.apps.googleusercontent.com"})
+	for _, tc := range []struct {
+		app   http.Handler
+		url   string
+		https bool
+	}{{local, "http://example.test/", false}, {local, "https://example.test/", true}, {proxied, "http://example.test/", true}} {
+		request := httptest.NewRequest("HEAD", tc.url, nil)
+		request.Header.Set("X-Forwarded-Proto", "https")
+		response := httptest.NewRecorder()
+		tc.app.ServeHTTP(response, request)
+		wantHSTS := ""
+		if tc.https {
+			wantHSTS = "max-age=31536000"
+		}
+		if got := response.Result().Header.Get("Strict-Transport-Security"); got != wantHSTS {
+			t.Errorf("%s: unexpected HSTS %q", tc.url, got)
+		}
+		if !strings.Contains(response.Result().Header.Get("Content-Security-Policy"), "form-action 'none'") {
+			t.Error("native form submission must be blocked even with Google Sign-In enabled")
+		}
 	}
 }
 

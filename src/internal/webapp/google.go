@@ -217,7 +217,7 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 			accountError(w, err)
 			return
 		}
-		if err := db.ChangeGoogle(id, body.Username, body.Password, identity.GoogleIdentity); err != nil {
+		if err := db.ChangeGoogle(id, cookieToken(r), body.Username, body.Password, identity.GoogleIdentity); err != nil {
 			accountError(w, err)
 			return
 		}

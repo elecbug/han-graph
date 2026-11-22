@@ -3,6 +3,10 @@ services:
     build: .
     restart: unless-stopped
     user: "${HAN_GRAPH_UID:-1000}:${HAN_GRAPH_GID:-1000}"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    command: ["-data", "/app/dataset", "-accounts", "/app/var/accounts.db", "-addr", "0.0.0.0:18080", "-secure-cookies=${HAN_GRAPH_SECURE_COOKIES:-false}", "serve"]
     environment:
       HAN_GRAPH_DB_BACKEND: ${HAN_GRAPH_DB_BACKEND:-file}
       HAN_GRAPH_GOOGLE_CLIENT_ID: ${HAN_GRAPH_GOOGLE_CLIENT_ID:-}

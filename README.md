@@ -38,7 +38,7 @@ docker compose up -d --build
 
 계정 저장소는 저장소 루트의 `.env`에서 선택합니다. `HAN_GRAPH_DB_BACKEND=file`이 기본값입니다. Firestore는 `HAN_GRAPH_DB_BACKEND=firestore`와 `GOOGLE_CLOUD_PROJECT`를 설정한 뒤 서버를 다시 시작하세요. [Firestore 연결과 인증](docs/DEVELOPMENT.md#계정-데이터-보관)
 
-Go 1.26.2 이상이 설치되어 있으면 직접 실행할 수도 있습니다.
+Go 1.26.11 이상이 설치되어 있으면 직접 실행할 수도 있습니다. 운영용 빌드에는 사용하는 Go 계열의 최신 보안 패치를 적용하세요.
 
 ```sh
 cd src

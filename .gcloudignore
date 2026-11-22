@@ -1,0 +1,12 @@
+#!include:.dockerignore
+# gcloud needs explicit permission to traverse the parents of allowed files.
+!/src/
+!/src/cmd/
+!/src/internal/
+!/src/internal/account/
+!/src/internal/graph/
+!/src/internal/webapp/
+!/src/internal/webapp/static/
+!/src/internal/webapp/static/fonts/
+!/dataset/
+!/dataset/sources/
