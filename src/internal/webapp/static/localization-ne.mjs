@@ -1,4 +1,5 @@
 export const ne = {
+  searchFilters: "खोजका फिल्टरहरू",
   personal: "मेरो प्रविष्टि",
   personalCharacter: "मेरो हान्जा",
   dictionaryTitle: "मेरो निजी शब्दकोश",

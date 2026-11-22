@@ -1,4 +1,5 @@
 export const uz = {
+  searchFilters: "Qidiruv filtrlari",
 
   personal:'Mening soʻzim', personalCharacter:'Mening iyeroglifim', dictionaryTitle:'Shaxsiy lugʻat',
   dictionaryHelp:'Qoʻshgan soʻz va iyerogliflaringiz faqat hisobingizga kirganingizda umumiy lugʻat bilan birga qidiriladi va bogʻlanadi. Ularni saqlashingiz va ularga qayd yozishingiz mumkin.',

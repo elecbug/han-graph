@@ -1,4 +1,5 @@
 export const mn = {
+  searchFilters: "Хайлтын шүүлтүүр",
   personal: "Миний үг",
   personalCharacter: "Миний ханз",
   dictionaryTitle: "Миний хувийн толь",

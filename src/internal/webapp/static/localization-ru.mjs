@@ -1,4 +1,5 @@
 export const ru = {
+  searchFilters: "Фильтры поиска",
   personal:'Моё слово', personalCharacter:'Мой иероглиф', dictionaryTitle:'Личный словарь',
   dictionaryHelp:'Добавленные вами слова и иероглифы участвуют в поиске и связях только в вашей учётной записи. Их можно сохранять в словарик и дополнять заметками.',
   dictionaryWords:'Слова: JSON', dictionaryCharacters:'Новые иероглифы: JSON (необязательно)', dictionaryMeta:'Новые чтения: JSON (необязательно)', dictionaryExamples:'Примеры: JSON (необязательно)',

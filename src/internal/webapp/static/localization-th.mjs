@@ -1,4 +1,5 @@
 export const th = {
+  searchFilters: "ตัวกรองการค้นหา",
   personal: "รายการของฉัน",
   personalCharacter: "อักษรฮันจาของฉัน",
   dictionaryTitle: "พจนานุกรมส่วนตัว",

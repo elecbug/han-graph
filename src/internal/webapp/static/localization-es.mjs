@@ -1,4 +1,5 @@
 export const es = {
+  searchFilters: "Filtros de búsqueda",
   personal: "Mi entrada",
   personalCharacter: "Mi carácter",
   dictionaryTitle: "Mi diccionario personal",

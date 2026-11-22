@@ -1,4 +1,5 @@
 export const ja = {
+  searchFilters: "検索フィルター",
   personal: "自分の項目",
   personalCharacter: "自分の漢字",
   dictionaryTitle: "個人辞書",

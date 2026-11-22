@@ -1,4 +1,5 @@
 export const vi = {
+  searchFilters: "Bộ lọc tìm kiếm",
   personal: "Mục từ của tôi",
   personalCharacter: "Chữ Hán của tôi",
   dictionaryTitle: "Từ điển cá nhân",

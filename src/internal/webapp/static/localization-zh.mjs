@@ -1,4 +1,5 @@
 export const zh = {
+  searchFilters: "搜索筛选",
   personal: "我的词条",
   personalCharacter: "我的汉字",
   dictionaryTitle: "我的个人词典",

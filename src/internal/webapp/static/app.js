@@ -29,7 +29,7 @@ const state = {
   practiceSettings:practiceSettings(storedPractice),
   lang: normalizeLanguage(readStorage('han-graph.language', 'ko')),
   saved: normalizeSaved(readStorage('han-graph.words.v1', [])),
-  page:'explore', query:'', searchMode:'all', tab:'words', search:null, stats:null, practice:null,
+  page:'explore', query:'', searchMode:'all', filtersOpen:false, tab:'words', search:null, stats:null, practice:null,
   selection:null, detail:null, glyph:null, session:null, index:0, translation:false,
   ready:false, importingWords:false, wordbookStatus:null,
   dictionary:{words:[],characters:[],meta:[],examples:[]}, dictionaryRevision:0, dictionaryNeedsRefresh:false, wordDraft:emptyWordDraft(), characterDrafts:[],
@@ -45,6 +45,7 @@ const searchPath = (mode,level=state.level) => {
   return '/api/search'+(params.size?'?'+params:'');
 };
 const levelLabel = level => t({all:'levelAll',easy:'levelEasy',normal:'levelNormal',hard:'levelHard',classical:'levelClassical'}[level]??'levelNormal');
+const filterSummary = () => `${t(state.searchMode==='sound'?'searchSound':'searchAll')} · ${levelLabel(state.level)}`;
 const personalBadge = word => state.dictionary.words.some(entry=>wordKey(entry)===wordKey(word))?`<span class="personal-badge">${t('personal')}</span>`:'';
 const personalCharacterBadge = character => state.dictionary.characters.some(entry=>entry.id===character.id)?`<span class="personal-badge">${t('personalCharacter')}</span>`:'';
 const levelBadge = word => `<span class="level-badge ${wordCategory(word)}">${levelLabel(word.level)}</span>`;
@@ -71,6 +72,11 @@ function refreshLanguageOptions() {
 }
 refreshLanguageOptions();
 window.addEventListener('languagechange',refreshLanguageOptions);
+// Translated labels can wrap to different heights in the fixed mobile menu.
+const mainNav = document.querySelector('.sidebar nav');
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--nav-height',mainNav.offsetHeight+'px');
+}).observe(mainNav);
 function updateShell() {
   document.documentElement.lang=state.lang;
   document.body.classList.toggle('wordbook-print-view',state.page==='print');
@@ -86,7 +92,7 @@ function updateShell() {
   const accountLabel=location.hash==='#account?view=dictionary'?'dictionaryTitle':location.hash==='#account?history=1'?'historyTitle':'personalSettings';
   $('#page-label').textContent=t(state.page==='account' && state.user?accountLabel:state.page);
   $('#account-link').textContent=state.user?.username??t('login');
-  $('#saved-count').textContent=state.saved.length;
+  $('#saved-count').textContent=state.saved.length||'';
   $('#language').value=state.lang;
   $('#language').setAttribute('aria-label',t('languageLabel'));
 }
@@ -94,11 +100,24 @@ const hero = (eye,title,sub,count='') => `<section class="page-hero"><div><div c
 const errorPanel = () => `<div class="empty-state" role="alert"><span class="empty-glyph">連</span><h2>${t('errorTitle')}</h2><p>${t('errorSub')}</p><button class="primary-button" data-action="retry">${t('retry')}</button></div>`;
 const wordAttrs = word => `data-word="${esc(word.word)}" data-hanja="${esc(word.hanja)}"`;
 const isSaved = word => state.saved.some(saved => wordKey(saved)===wordKey(word));
-function routeWord(word) { location.hash=`explore?${new URLSearchParams({word:word.word,hanja:word.hanja})}`; }
-function routeCharacter(glyph) { location.hash=`explore?${new URLSearchParams({character:glyph})}`; }
+function revealDetail() {
+  const detail=$('#detail');
+  if(!detail)return;
+  const heading=detail.querySelector('.word-title');
+  if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
+  detail.scrollIntoView({block:matchMedia('(max-width:640px)').matches?'start':'nearest'});
+}
+function openExplore(params) {
+  const hash='#explore?'+new URLSearchParams(params);
+  if(location.hash===hash)revealDetail();else location.hash=hash;
+}
+function routeWord(word) { openExplore({word:word.word,hanja:word.hanja}); }
+function routeCharacter(glyph) { openExplore({character:glyph}); }
 
 async function renderPage({revealSelection=false} = {}) {
   if (!state.ready) return;
+  const filters=$('.explore-filters');
+  if(filters)state.filtersOpen=filters.open;
   const epoch=++pageEpoch;
   detailEpoch++;
   if(state.dictionaryNeedsRefresh) {
@@ -125,21 +144,22 @@ async function renderPage({revealSelection=false} = {}) {
   else if(params.get('character')) state.selection={kind:'character',glyph:params.get('character')};
   else if(!state.selection) { const word=state.search.words.find(word=>word.word==='가정')??state.search.words[0]; if(word)state.selection={kind:'word',...word}; }
   $('#main').innerHTML=`${hero('exploreEye','exploreTitle','exploreSub',`<div class="hero-counter"><strong>${state.stats.words}</strong><span>${t('wordsReady')}</span></div>`)}
-    <div class="search-filters"><div class="search-modes" role="group" aria-label="${t('searchMode')}">${['all','sound'].map(mode=>`<button type="button" data-action="search-mode" data-mode="${mode}" class="${state.searchMode===mode?'active':''}" aria-pressed="${state.searchMode===mode}">${t(mode==='sound'?'searchSound':'searchAll')}</button>`).join('')}</div><p id="search-mode-hint">${t(state.searchMode==='sound'?'soundSearchHint':'allSearchHint')}</p></div>
-    <div class="vocabulary-filter-bar">${levelControls()}<p class="filter-help">${t('levelHint')}</p></div>
-    <div class="explore-tools"><form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-label="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-describedby="search-mode-hint" autocomplete="off"></form><button class="random-button" type="button" data-action="random-word" title="${t('randomHint')}">${icons.shuffle}<span>${t('randomWord')}</span></button></div>
-    <div class="section-bar"><span>${t('browseLabel')}</span><span>${countText(state.stats.characters,'characters',state.lang)} · ${countText(state.stats.words,'words',state.lang)}</span></div>
+    <div class="explore-controls">
+      <div class="explore-tools"><form class="search-form" role="search" id="search-form">${icons.search}<input id="search" type="search" maxlength="100" value="${esc(state.query)}" placeholder="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-label="${t(state.searchMode==='sound'?'soundPlaceholder':'search')}" aria-describedby="search-mode-hint" autocomplete="off" enterkeyhint="search"></form><button class="random-button" type="button" data-action="random-word" title="${t('randomHint')}">${icons.shuffle}<span>${t('randomWord')}</span></button></div>
+      <details class="explore-filters"${state.filtersOpen?' open':''}>
+        <summary><span>${t('searchFilters')}</span><span class="filter-summary">${filterSummary()}</span></summary>
+        <div class="search-filters"><div class="search-modes" role="group" aria-label="${t('searchMode')}">${['all','sound'].map(mode=>`<button type="button" data-action="search-mode" data-mode="${mode}" class="${state.searchMode===mode?'active':''}" aria-pressed="${state.searchMode===mode}">${t(mode==='sound'?'searchSound':'searchAll')}</button>`).join('')}</div><p id="search-mode-hint">${t(state.searchMode==='sound'?'soundSearchHint':'allSearchHint')}</p></div>
+        <div class="vocabulary-filter-bar">${levelControls()}<p class="filter-help">${t('levelHint')}</p></div>
+      </details>
+    </div>
+    <div class="section-bar"><span>${t('searchResults')}</span><span>${countText(state.stats.characters,'characters',state.lang)} · ${countText(state.stats.words,'words',state.lang)}</span></div>
     <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section><div class="network-panel" id="network"></div></div>`;
   $('#search-form').addEventListener('submit', event=>{event.preventDefault();state.query=$('#search').value;clearTimeout(searchTimer);performSearch();});
   $('#search').addEventListener('input', event=>{state.query=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(performSearch,180);});
   renderCatalog({scrollTop:catalogScrollTop});
   if(!revealSelection && previousPage==='explore' && state.detail && JSON.stringify(state.selection)===previousSelection)renderDetail(graphPosition);
   else if(state.selection) await loadDetail(state.selection); else $('#detail').innerHTML=`<div class="empty-state">${t('notFoundSub')}</div>`;
-  if(revealSelection && query && epoch===pageEpoch && state.page==='explore') {
-    const heading=$('#detail .word-title');
-    if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}
-    $('#detail').scrollIntoView({block:'nearest'});
-  }
+  if(revealSelection && query && epoch===pageEpoch && state.page==='explore')revealDetail();
 }
 
 function renderCatalog({scrollTop=$('.catalog-list')?.scrollTop??0} = {}) {
@@ -188,6 +208,7 @@ function changeWordLevel(level) {
   if(!WORD_LEVELS.includes(level) || level===state.level)return;
   const graphFocused=!!document.activeElement?.closest('#network');
   state.level=level;
+  $('.filter-summary').textContent=filterSummary();
   saveStorage('han-graph.word-level',level);
   clearTimeout(searchTimer);
   document.querySelectorAll('[data-action="word-level"]').forEach(button=>{
@@ -206,6 +227,7 @@ function changeWordLevel(level) {
 function changeSearchMode(mode) {
   if(!['all','sound'].includes(mode) || mode===state.searchMode)return;
   state.searchMode=mode;
+  $('.filter-summary').textContent=filterSummary();
   clearTimeout(searchTimer);
   document.querySelectorAll('[data-action="search-mode"]').forEach(button=>{
     const active=button.dataset.mode===mode;
@@ -281,7 +303,8 @@ function renderDetail(position=null) {
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span>${characters.map(personalCharacterBadge).join('')}</div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>localized(c, 'meaning', state.lang).join(', ')).join(' / '))}</p></div><span class="word-hanja" lang="ko">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(localized(c,'meaning',state.lang).join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
-  $('#detail').innerHTML=`<article class="word-card">${card}${wordResult&&state.level!=='all'&&wordResult.word.level!==state.level?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
+  const backToResults=location.hash.startsWith('#explore?')?`<button type="button" class="back-to-results" data-action="show-results"><span aria-hidden="true">↑</span> ${t('searchResults')}</button>`:'';
+  $('#detail').innerHTML=`${backToResults}<article class="word-card">${card}${wordResult&&state.level!=='all'&&wordResult.word.level!==state.level?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
   $('#network').innerHTML=renderNetwork();
   if(!$('.network-viewport'))return;
   bindNetworkFocus($('.network-canvas svg'),state.detail.layout);
@@ -475,6 +498,13 @@ function practiceSettingsControls() {
     return `<label class="practice-level-card"><input type="radio" name="practice-level" value="${level}" ${state.practiceSettings.level===level?'checked':''}><span>${levelBadge({level})}<small>${countText(count,'questions',state.lang)}</small></span></label>`;
   }).join('')}</div><p class="filter-help">${t(`practice${{easy:'Easy',normal:'Normal',hard:'Hard',classical:'Classical'}[state.practiceSettings.level]}Hint`)}</p><p class="filter-help">${t('practiceLevelHint')}</p></fieldset></div>`;
 }
+function focusPracticeStep(selector) {
+  const step=$(selector);
+  if(!step)return;
+  step.tabIndex=-1;
+  step.focus({preventScroll:true});
+  step.scrollIntoView({block:'nearest'});
+}
 function renderPractice() {
   const head=hero('practiceEye','practiceTitle','practiceSub');
   if(!state.session) {
@@ -482,7 +512,7 @@ function renderPractice() {
     const roundLabel=t('practiceRound').replace('{pool}',poolSize).replace('{count}',Math.min(poolSize,PRACTICE_SESSION_SIZE));
     const last=state.user?null:readStorage('han-graph.practice.v1',null);
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
-    $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="practice-art" aria-hidden="true"><span>文</span><i>＋</i><span>脈</span></div><h2>${t('introTitle')}</h2><p>${t('introSub')}</p>${practiceSettingsControls()}<p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="primary-button" data-action="start-practice" ${poolSize?'':'disabled'}>${t('startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</section></div>`;
+    $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="primary-button" data-action="start-practice" ${poolSize?'':'disabled'}>${t('startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
     return;
   }
   const result=sessionResult(state.session);
@@ -1070,6 +1100,11 @@ $('#main').addEventListener('click',event=>{
   const button=event.target.closest('[data-action]');if(!button)return;
   const {action,word,hanja,glyph,index}=button.dataset;
   if(action==='open-word')routeWord({word,hanja});
+  else if(action==='show-results'){
+    const result=$('.catalog-item.selected')??$('.catalog-tabs [aria-pressed="true"]');
+    result?.focus();
+    $('#catalog').scrollIntoView({block:'start'});
+  }
   else if(action==='random-word')showRandomWord(button);
   else if(action==='open-character')routeCharacter(glyph);
   else if(action==='component')changeComponent(glyph);
@@ -1114,16 +1149,16 @@ $('#main').addEventListener('click',event=>{
     session.owner=state.user?.id??null;
     if(session.owner)session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
     state.session=session;state.index=0;state.translation=false;renderPractice();
-    $('.question-prompt')?.scrollIntoView({block:'nearest'});
+    focusPracticeStep('.question-prompt');
   }
   else if(action==='retry-practice'){savePracticeRound(state.session);}
   else if(action==='practice-settings'){state.session=null;renderPractice();$('.practice-settings input:checked')?.focus({preventScroll:true});}
   else if(action==='translation'){state.translation=!state.translation;renderPractice();$('[data-action="translation"]')?.focus({preventScroll:true});}
   else if(action==='answer'){
     const question=state.session?.questions[state.index];
-    if(question&&answerQuestion(state.session,state.index,question.options[Number(index)])){if(state.session.owner && state.session.answers.size===state.session.questions.length)savePracticeRound(state.session);renderPractice();$('.answer-feedback')?.focus({preventScroll:true});}
+    if(question&&answerQuestion(state.session,state.index,question.options[Number(index)])){if(state.session.owner && state.session.answers.size===state.session.questions.length)savePracticeRound(state.session);renderPractice();focusPracticeStep('.answer-feedback');}
   }
-  else if(action==='next-question'&&state.session?.answers.has(state.session.questions[state.index]?.id)){state.index++;state.translation=false;renderPractice();$('.question-prompt, .result-number')?.scrollIntoView({block:'nearest'});}
+  else if(action==='next-question'&&state.session?.answers.has(state.session.questions[state.index]?.id)){state.index++;state.translation=false;renderPractice();focusPracticeStep('.question-prompt, .practice-intro h2');}
 });
 $('#main').addEventListener('change',event=>{
   const input=event.target;
