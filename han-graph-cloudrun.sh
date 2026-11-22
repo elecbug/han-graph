@@ -26,8 +26,6 @@ else
   REPO_DIR="$HOME/han-graph"
 fi
 
-FONT_DIR="$REPO_DIR/src/internal/webapp/static/fonts"
-
 info() { printf '\n[INFO] %s\n' "$*"; }
 warn() { printf '\n[WARN] %s\n' "$*" >&2; }
 die()  { printf '\n[ERROR] %s\n' "$*" >&2; exit 1; }
@@ -40,14 +38,13 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   bash han-graph-cloudrun.sh <명령> [옵션]
 
 자주 사용하는 명령:
-  deploy                 글꼴 확인 후 소스 빌드 및 Cloud Run 배포
+  deploy                 소스 빌드 및 Cloud Run 배포
   update                 GitHub 최신 소스 가져오기 (추적 파일 수정 시 중단)
   update-deploy          소스 업데이트 후 배포
   status                 Cloud Run 서비스 정보 및 주소 확인
   check                  홈페이지와 /api/stats의 HTTP 응답 검사
   logs [개수]            Cloud Run 최근 로그 조회 (기본 50개)
   url                    기본 Cloud Run 서비스 주소 출력
-  fonts                  저장소에 포함된 글꼴의 SHA-256 및 라이선스 파일 확인
 
 초기 설정·장애 복구:
   project                gcloud 기본 프로젝트 및 스크립트 대상 확인
@@ -61,7 +58,7 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   domain-check [주소]     예: han-graph.cloud.run 사용 가능 여부 검사
   domain [주소]           예: han-graph.cloud.run 사용자 지정 URL 연결
   domains                현재 사용자 지정 URL 목록 확인
-  source-status          Git 작업 폴더와 폰트 파일 상태 확인
+  source-status          Git 작업 폴더 상태 확인
   help                   이 도움말 출력
 
 현재 설정 (환경 변수로 변경 가능):
@@ -187,14 +184,6 @@ fix_iam() {
   info "추가로 serviceusage.services.use 오류가 나오면 배포자 본인의 Service Usage Consumer 권한도 확인하십시오."
 }
 
-fonts() {
-  require_repo
-  require_command sha256sum
-  [[ -s "$FONT_DIR/LICENSE" ]] || die "글꼴 라이선스 파일이 누락되었습니다: $FONT_DIR/LICENSE"
-  (cd -- "$FONT_DIR" && sha256sum --check SHA256SUMS) ||
-    die "글꼴 검증에 실패했습니다. $FONT_DIR 파일을 확인하십시오."
-}
-
 # Forward explicitly supported public deployment settings.
 deploy_setting() {
   local key="$1"
@@ -225,7 +214,7 @@ PY
 
 deploy() {
   require_cloud
-  fonts
+  require_repo
   local -a db_args=()
   local backend db_project database google_client_id
   local -a settings=()
@@ -366,11 +355,6 @@ source_status() {
   if command -v git >/dev/null 2>&1; then
     git -C "$REPO_DIR" status --short
   fi
-  if [[ -d "$FONT_DIR" ]]; then
-    ls -lh "$FONT_DIR" || true
-  else
-    warn "아직 폰트 디렉터리가 없습니다."
-  fi
 }
 
 main() {
@@ -383,7 +367,6 @@ main() {
     billing) billing ;;
     setup) setup ;;
     fix-iam) fix_iam ;;
-    fonts) fonts ;;
     deploy) deploy ;;
     update) update ;;
     update-deploy) update; deploy ;;

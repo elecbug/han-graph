@@ -1,6 +1,6 @@
 # 화면 및 인쇄용 글꼴
 
-글꼴 열 파일을 저작권 고지 및 SIL Open Font License 1.1 전문과 함께 소스에 포함합니다. Go 빌드가 글꼴을 실행 파일에 내장하므로 로컬 실행, Docker Compose, Cloud Run에서 같은 파일을 제공합니다. 저장소 루트에서 `bash han-graph-cloudrun.sh fonts`를 실행하면 라이선스 파일의 존재와 각 글꼴의 SHA-256을 확인할 수 있습니다. [글꼴 라이선스](LICENSE) · [체크섬 목록](SHA256SUMS)
+글꼴 열 파일을 저작권 고지 및 SIL Open Font License 1.1 전문과 함께 소스에 포함합니다. Go 빌드가 글꼴을 실행 파일에 내장하므로 로컬 실행, Docker Compose, Cloud Run에서 같은 파일을 제공합니다. [글꼴 라이선스](LICENSE) · [체크섬 목록](SHA256SUMS)
 
 | 용도 | 글꼴 | 배포 형식과 굵기 |
 | --- | --- | --- |
