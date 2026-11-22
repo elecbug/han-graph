@@ -187,6 +187,36 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 		}
 	}
 	registerPracticeHistory(mux, store, practice, resolve)
+	mux.HandleFunc("GET /api/account/statistics", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, false)
+		if !ok {
+			return
+		}
+		query := r.URL.Query()
+		days, err := store.WithContext(r.Context()).MonthlyStudy(id, query.Get("month"), query.Get("zone"))
+		if err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, http.StatusOK, days)
+	})
+	mux.HandleFunc("POST /api/account/activity", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, true)
+		if !ok {
+			return
+		}
+		var input struct {
+			Intervals []account.ActivityInterval `json:"intervals"`
+		}
+		if !accountBody(w, r, &input) {
+			return
+		}
+		if err := store.WithContext(r.Context()).SaveActivity(id, input.Intervals); err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, http.StatusOK, map[string]bool{"saved": true})
+	})
 	sessionResponse := func(w http.ResponseWriter, data account.Snapshot) {
 		accountJSON(w, http.StatusOK, struct {
 			account.Snapshot

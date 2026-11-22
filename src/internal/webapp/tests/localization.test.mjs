@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {copy, LANGUAGES, normalizeLanguage, localized, countText, languageLabel, orderedLanguages} from '../static/localization.mjs';
+import {copy, LANGUAGES, normalizeLanguage, localized, studyFormats, countText, languageLabel, orderedLanguages} from '../static/localization.mjs';
 import {exampleLines} from '../static/examples.mjs';
 import {renderPrintableWordbook} from '../static/wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG} from '../static/network.mjs';
@@ -82,4 +82,16 @@ test('Russian graph tooltips and category labels use Russian while preserving Ko
   const svg=renderNetworkSVG(layoutNetwork(graph,word),{lang:'ru',wordLabel:'Изучить слово',characterLabel:'Иероглиф',label:'Граф связей'});
   for(const text of ['вода','Базовая','Изучить слово','물','水','수'])assert(svg.includes(text),text);
   for(const text of ['한국어 뜻','English meaning','water','Easy'])assert(!svg.includes(text),text);
+});
+
+test('study calendar and duration keep localized names even with a partial browser ICU',()=>{
+  for(const [lang,month,days] of [
+    ['uz','Noyabr','3 kun'],['ky','Ноябрь','3 күн'],
+    ['ne','नोभेम्बर','३ दिन'],['mn','Арван нэгдүгээр сар','3 хоног'],
+  ]) {
+    const format=studyFormats(lang);
+    assert.equal(format.month(11),month);
+    assert.equal(format.unit(3,'day'),days);
+    assert(!/[A-Za-z]/.test(format.date('2026-11-23')));
+  }
 });

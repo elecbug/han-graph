@@ -84,6 +84,8 @@ type backend interface {
 	deleteAccount(ctx context.Context, id string, proof loginProof) error
 	savePractice(ctx context.Context, id string, round PracticeRound) error
 	practiceHistory(ctx context.Context, id, after string) ([]PracticeRound, error)
+	saveActivity(ctx context.Context, id string, days map[string][]ActivityInterval) error
+	studyDays(ctx context.Context, id string, month studyMonth) ([]StudyDay, error)
 	byName(ctx context.Context, name string) (record, error)
 	// A nil edit reads a snapshot. An edit commits atomically and may be retried.
 	access(ctx context.Context, id string, edit func(*record) error) (Snapshot, error)

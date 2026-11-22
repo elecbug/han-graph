@@ -1,5 +1,6 @@
+import {createActivityTracker, monthSummary} from './study-activity.mjs';
 import {WORD_FORM_FIELDS, emptyWordDraft, wordFormPayload, findMissingCharacters, addMissingCharacters} from './dictionary-form.mjs';
-import {copy, normalizeLanguage, localized, localizedDate, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
+import {copy, normalizeLanguage, localized, localizedDate, studyFormats, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
 import {parseDictionaryInput, DICTIONARY_FIELDS, DICTIONARY_SAMPLE} from './personal-dictionary.mjs';
 import {exampleLines} from './examples.mjs';
 import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
@@ -77,6 +78,14 @@ const mainNav = document.querySelector('.sidebar nav');
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--nav-height',mainNav.offsetHeight+'px');
 }).observe(mainNav);
+const accountViews={settings:'personalSettings',dictionary:'dictionaryTitle',history:'historyTitle',notes:'notesTitle',statistics:'studyStats'};
+function accountView() {
+  const params=new URLSearchParams(location.hash.split('?')[1]);
+  if(params.get('history')==='1')return 'history';
+  const view=params.get('view');
+  return Object.hasOwn(accountViews,view)?view:'settings';
+}
+
 function updateShell() {
   document.documentElement.lang=state.lang;
   document.body.classList.toggle('wordbook-print-view',state.page==='print');
@@ -89,7 +98,7 @@ function updateShell() {
     link.classList.toggle('active', active);
     if(active) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
   });
-  const accountLabel=location.hash==='#account?view=dictionary'?'dictionaryTitle':location.hash==='#account?history=1'?'historyTitle':'personalSettings';
+  const accountLabel=accountViews[accountView()];
   $('#page-label').textContent=t(state.page==='account' && state.user?accountLabel:state.page);
   $('#account-link').textContent=state.user?.username??t('login');
   $('#saved-count').textContent=state.saved.length||'';
@@ -573,7 +582,7 @@ function renderPractice() {
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
     const progress=draft?t('practiceAnswered').replace('{done}',draft.answers.size).replace('{total}',draft.questions.length):'';
     const resume=draft?`<section class="practice-resume"><div><strong>${levelLabel(draft.level)}</strong><p>${progress}</p></div><button class="primary-button" data-action="resume-practice">${t('resumePractice')} →</button></section>`:'';
-    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
+    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
     return;
   }
   const result=sessionResult(state.session);
@@ -591,7 +600,7 @@ function renderSummary(head,result) {
     state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});
     if(state.session.recorded)forgetPracticeDraft(state.session);
   }
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
 
@@ -611,7 +620,7 @@ async function savePracticeRound(session) {
 }
 function renderPracticeHistory() {
   const owner=state.user.id;
-  $('#main').innerHTML=`<section class="account-card"><h1>${t('historyTitle')}</h1><a href="#account" class="text-button">${t('account')}</a>
+  $('#main').innerHTML=`${accountNavigation('history')}<section class="account-card"><h1>${t('historyTitle')}</h1>
     <div id="history-rounds"></div><p class="form-status" role="status"></p><button class="secondary-button" id="history-more" hidden></button></section>`;
   const list=$('#history-rounds'),button=$('#history-more'),status=list.nextElementSibling;
   let next='';
@@ -642,6 +651,65 @@ function renderPracticeHistory() {
   }
   button.addEventListener('click',loadPage);
   loadPage();
+}
+
+function calendarMonth(date) {
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+}
+async function renderStatistics() {
+  const owner=state.user.id;
+  const current=calendarMonth(new Date(Date.now()+clockOffset));
+  const requested=new URLSearchParams(location.hash.split('?')[1]).get('month');
+  const month=/^\d{4}-(0[1-9]|1[0-2])$/.test(requested) && requested>='1970-01' && requested<=current?requested:current;
+  const zone=Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  const [year,monthNumber]=month.split('-').map(Number);
+  const [currentYear,currentMonth]=current.split('-').map(Number);
+  const format=studyFormats(state.lang);
+  const option=(value,selected,label)=>`<option value="${value}" ${selected?'selected':''}>${esc(label)}</option>`;
+  const years=Array.from({length:currentYear-1969},(_,i)=>currentYear-i).map(y=>option(y,y===year,format.year(y)));
+  const months=Array.from({length:year===currentYear?currentMonth:12},(_,i)=>i+1).map(m=>option(m,m===monthNumber,format.month(m)));
+  $('#main').innerHTML=accountNavigation('statistics')+`<section class="account-card study-stats"><header class="stats-heading">
+    <h1>${t('studyStats')}</h1><fieldset class="study-period"><legend>${t('studyMonth')}</legend>
+    <select id="study-year" aria-label="${esc(format.yearLabel)}">${years.join('')}</select>
+    <select id="study-month" aria-label="${t('studyMonth')}">${months.join('')}</select></fieldset>
+    <button type="button" class="text-button" id="study-refresh">${t('studyRefresh')}</button></header>
+    <div id="study-report" aria-live="polite">${t('loading')}</div></section>`;
+  const report=$('#study-report');
+  $('#study-refresh').addEventListener('click',renderStatistics);
+  $('.study-period').addEventListener('change',()=>{
+    const y=Number($('#study-year').value);
+    const m=Math.min(Number($('#study-month').value),y===currentYear?currentMonth:12);
+    location.hash='#account?view=statistics&month='+y+'-'+String(m).padStart(2,'0');
+  });
+  try {
+    activity.sample(foreground());
+    await activity.flush();
+    if(!report.isConnected || state.user?.id!==owner)return;
+    if(state.session?.saveState==='saving')await state.session.pending;
+    const days=await accountRequest('/api/account/statistics?'+new URLSearchParams({month,zone}));
+    if(!report.isConnected || state.user?.id!==owner)return;
+    const lang=state.lang, summary=monthSummary(days);
+    const number=new Intl.NumberFormat(lang);
+    const {unit}=format;
+    const duration=seconds=>seconds>0 && seconds<60?unit(seconds,'second'):unit(Math.floor(seconds/60),'minute');
+    const percent=(correct,total)=>total?new Intl.NumberFormat(lang,{style:'percent'}).format(correct/total):'—';
+    const score=(correct,total)=>total?`${percent(correct,total)} <small>(${number.format(correct)}/${number.format(total)})</small>`:'—';
+    const card=(label,value)=>`<div><dt>${t(label)}</dt><dd>${value}</dd></div>`;
+    const peak=Math.max(1,...days.map(day=>day.seconds));
+    report.innerHTML=`<dl class="stats-cards">${card('studyTime',duration(summary.seconds))}${card('studyAccuracy',score(summary.correct,summary.questions))}
+      ${card('studyDays',unit(summary.activeDays,'day'))}${card('studyStreak',unit(summary.longest,'day'))}</dl>
+      <p class="field-help">${t('studyTimeHelp')}</p>
+      <table class="study-table"><caption>${t('studyDaily')}</caption><thead><tr><th scope="col">${t('studyDate')}</th><th scope="col">${t('studyTime')}</th>
+      <th scope="col">${t('studyRounds')}</th><th scope="col">${t('studyAccuracy')}</th></tr></thead><tbody>
+      ${[...days].reverse().map(d=>`<tr><th scope="row"><time datetime="${esc(d.date)}">${format.date(d.date)}</time></th>
+        <td>${d.seconds?duration(d.seconds):'—'}<meter aria-hidden="true" max="${peak}" value="${d.seconds}"></meter></td>
+        <td>${number.format(d.rounds)}</td><td>${score(d.correct,d.questions)}</td></tr>`).join('')}</tbody></table>`;
+  } catch(error) {
+    if(report.isConnected && owner===state.user?.id) {
+      report.innerHTML=`<p role="alert">${accountMessage(error)}</p><button type="button" class="secondary-button">${t('retry')}</button>`;
+      report.querySelector('button').onclick=renderStatistics;
+    }
+  }
 }
 
 function wordRegistrationForm() {
@@ -772,15 +840,37 @@ function accountErrorKey(error) {
   return ({invalid:'accountInvalid',google_taken:'googleTaken',google_invalid:'googleInvalid',google_unknown:'googleUnknown',credentials:'accountCredentials',username_taken:'accountTaken',unauthorized:'accountExpired',rate_limit:'accountRate',limit:'accountLimit',conflict:'noteConflict',accounts_unavailable:'accountUnavailable'})[error.code]??'accountFailed';
 }
 const accountMessage=error=>t(accountErrorKey(error));
-async function accountRequest(path,method='GET',body,{keepalive=false}={}) {
+async function accountRequest(path,method='GET',body,{keepalive=false,owner=state.user?.id,signal}={}) {
   let response;
-  try {response=await fetch(path,{method,keepalive,credentials:'same-origin',cache:'no-store',headers:body===undefined?(state.user?{'X-Account-ID':state.user.id}:{}):{'Content-Type':'application/json','X-Account-ID':state.user?.id??''},...(body===undefined?{}:{body:JSON.stringify(body)})});}
+  try {response=await fetch(path,{method,keepalive,signal,credentials:'same-origin',cache:'no-store',headers:body===undefined?(state.user?{'X-Account-ID':state.user.id}:{}):{'Content-Type':'application/json','X-Account-ID':owner??''},...(body===undefined?{}:{body:JSON.stringify(body)})});}
   catch {throw Object.assign(new Error('network'),{account:true});}
+  if(path==='/api/auth/session' && response.ok) {
+    const stamp=Date.parse(response.headers.get('Date'));
+    if(Number.isFinite(stamp))clockOffset=stamp-Date.now();
+  }
   let data;
   try {data=await response.json();}catch {throw Object.assign(new Error('response'),{account:true});}
   if(!response.ok)throw Object.assign(new Error(data.error),{account:true,code:data.error,detail:data.detail});
   return data;
 }
+let clockOffset=0;
+const foreground=()=>document.visibilityState==='visible' && document.hasFocus();
+const activity=createActivityTracker({
+  now:()=>Math.floor((Date.now()+clockOffset)/1000),
+  send:(owner,intervals)=>accountRequest('/api/account/activity','POST',{intervals},{owner,keepalive:true,signal:globalThis.AbortSignal?.timeout?.(8000)}),
+});
+const engage=()=>activity.sample(foreground(),true);
+for(const event of ['pointerdown','keydown','scroll','wheel']) {
+  document.addEventListener(event,engage,{capture:true,passive:true});
+}
+function pauseActivity(){activity.sample(false);void activity.flush(true);}
+window.addEventListener('focus',engage);
+window.addEventListener('pageshow',engage);
+window.addEventListener('blur',pauseActivity);
+window.addEventListener('pagehide',pauseActivity);
+document.addEventListener('visibilitychange',()=>foreground()?engage():pauseActivity());
+setInterval(()=>{if(state.user){activity.sample(foreground());void activity.flush();}},60000);
+
 function applyAccount(data) {
   if('google_client_id' in data)state.googleClientID=data.google_client_id;
   if(state.accountMode==='recover' && (!state.googleClientID || (state.user?.id??null)!==(data.user?.id??null))){
@@ -789,6 +879,7 @@ function applyAccount(data) {
   if((state.user?.id??null)!==(data.user?.id??null)){state.session=null;state.googleProof=null;state.translationLanguages=[];}
   if(state.user?.id!==(data.user?.id??null)){state.noteDrafts.clear();state.wordbookStatus=null;state.wordDraft=emptyWordDraft();state.characterDrafts=[];}
   state.user=data.user??null;state.notes=data.notes??[];
+  activity.setOwner(state.user?.id??null,foreground());
   state.dictionary=state.user?(data.dictionary??{words:[],characters:[],meta:[],examples:[]}):{words:[],characters:[],meta:[],examples:[]};
   state.dictionaryRevision=data.dictionary_revision??0;
   if(getJSON.setScope(state.user?.id??'guest',state.dictionaryRevision)) {
@@ -825,8 +916,11 @@ function renderAccount() {
     $('#main').innerHTML=`${head}<section class="account-card"><p role="alert">${t(state.accountReady?'accountUnavailable':state.accountFailure??'accountFailed')}</p><button class="primary-button" data-action="account-refresh">${t('accountRefresh')}</button></section>`;
     return;
   }
-  if(state.user && location.hash==='#account?history=1'){renderPracticeHistory();return;}
-  if(state.user && location.hash==='#account?view=dictionary'){
+  const view=accountView();
+  if(state.user && view==='history'){renderPracticeHistory();return;}
+  if(state.user && view==='notes'){renderAccountNotes();return;}
+  if(state.user && view==='statistics'){renderStatistics();return;}
+  if(state.user && view==='dictionary'){
     $('#main').innerHTML=accountNavigation('dictionary')+personalDictionaryEditor();
     $('#personal-word-form').addEventListener('submit',addPersonalWord);
     $('#dictionary-import-form').addEventListener('submit',importPersonalDictionary);
@@ -835,9 +929,8 @@ function renderAccount() {
   }
   if(state.accountMode==='recover' && state.googleClientID){renderRecovery(head);return;}
   if(state.user) {
-    const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
     const guests=normalizeSaved(readStorage('han-graph.words.v1',[]));
-    $('#main').innerHTML=`${accountNavigation('settings')}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2>${state.user.email?`<p>${t('emailLabel')} · ${esc(state.user.email)}</p>`:''}</div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><a class="secondary-button" href="#account?history=1">${t('historyTitle')}</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div><div class="credential-settings">${credentialForm('username')}${credentialForm('password')}${emailSettingsForm()}${deleteAccountForm()}</div>${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section><section class="account-notes"><h2>${t('notesTitle')} · ${notes.length}</h2>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+    $('#main').innerHTML=`${accountNavigation('settings')}<section class="account-card"><div class="account-heading"><div><span class="tag">${t('account')}</span><h2>${esc(state.user.username)}</h2>${state.user.email?`<p>${t('emailLabel')} · ${esc(state.user.email)}</p>`:''}</div><button class="secondary-button" data-action="logout" ${state.privateBusy?'disabled':''}>${t('logout')}</button></div><p>${t('accountStorage')}</p><div class="account-actions"><a class="primary-button" href="#saved">${t('saved')} · ${state.saved.length} →</a><button class="text-button" data-action="account-refresh">${t('accountRefresh')}</button></div><div class="credential-settings">${credentialForm('username')}${credentialForm('password')}${emailSettingsForm()}${deleteAccountForm()}</div>${guests.length?`<div class="guest-import"><p>${t('guestImportHelp')}</p><button class="secondary-button" data-action="guest-import" ${state.privateBusy?'disabled':''}>${t('guestImport')} · ${guests.length}</button></div>`:''}</section>`;
     document.querySelectorAll('.credential-form').forEach(form=>form.addEventListener('submit',changeCredentials));
     $('#email-settings-form')?.addEventListener('submit',linkGoogle);
     $('#delete-account-form').addEventListener('submit',deleteAccount);
@@ -920,8 +1013,14 @@ function renderRecovery(head) {
   });
 }
 function accountNavigation(active) {
-  return `<nav class="account-tabs account-sections" aria-label="${t('account')}">${[['settings','#account','personalSettings'],['dictionary','#account?view=dictionary','dictionaryTitle']].map(([key,url,label])=>`<a class="${active===key?'primary-button':'secondary-button'}" href="${url}" ${active===key?'aria-current="page"':''}>${t(label)}</a>`).join('')}</nav>`;
+  return `<nav class="account-tabs account-sections" aria-label="${t('account')}">${Object.entries(accountViews).map(([key,label])=>
+    `<a class="${active===key?'primary-button':'secondary-button'}" href="${key==='settings'?'#account':'#account?view='+key}" ${active===key?'aria-current="page"':''}>${t(label)}</a>`).join('')}</nav>`;
 }
+function renderAccountNotes() {
+  const notes=state.notes.filter(note=>note.text).sort((a,b)=>b.updated_at.localeCompare(a.updated_at));
+  $('#main').innerHTML=accountNavigation('notes')+`<section class="account-notes"><h1>${t('notesTitle')} · ${notes.length}</h1>${notes.length?notes.map(note=>`<article class="account-note"><div><button class="text-button" data-action="open-word" ${wordAttrs(note)}>${esc(note.word)} · ${esc(note.hanja)} ↗</button><time datetime="${esc(note.updated_at)}">${localizedDate(new Date(note.updated_at),state.lang)}</time></div><p>${esc(note.text)}</p></article>`).join(''):`<p class="storage-note">${t('noteEmpty')}</p>`}</section>`;
+}
+
 function googleButton() {
   return `<div class="google-auth"><div id="google-button"></div><p class="field-help" role="status" id="google-status"></p></div>`;
 }
@@ -1089,8 +1188,8 @@ async function deleteAccount(event) {
 }
 async function logoutAccount() {
   if(state.privateBusy)return;state.privateBusy=true;
-  try {applyAccount(await accountRequest('/api/auth/logout','POST',{}));announceAccountChange();toast(t('accountSignedOut'));}
-  catch(error){toast(accountMessage(error));}
+  try {activity.sample(false);await activity.flush();applyAccount(await accountRequest('/api/auth/logout','POST',{}));announceAccountChange();toast(t('accountSignedOut'));}
+  catch(error){engage();toast(accountMessage(error));}
   finally {finishPrivateRequest();updateShell();await renderPage();}
 }
 async function importGuestWords() {

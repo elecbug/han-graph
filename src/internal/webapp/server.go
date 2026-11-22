@@ -179,6 +179,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		"/localization-th.mjs":                  "text/javascript; charset=utf-8",
 		"/examples.mjs":                         "text/javascript; charset=utf-8",
 		"/learning.mjs":                         "text/javascript; charset=utf-8",
+		"/study-activity.mjs":                   "text/javascript; charset=utf-8",
 		"/personal-dictionary.mjs":              "text/javascript; charset=utf-8",
 		"/dictionary-form.mjs":                  "text/javascript; charset=utf-8",
 		"/data-client.mjs":                      "text/javascript; charset=utf-8",

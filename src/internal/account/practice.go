@@ -20,11 +20,12 @@ type PracticeAnswer struct {
 	Answer   Ref               `json:"answer"`
 }
 type PracticeRound struct {
-	ID          string           `json:"id"`
-	Level       string           `json:"level"`
-	CompletedAt time.Time        `json:"completed_at"`
-	Correct     int              `json:"correct"`
-	Answers     []PracticeAnswer `json:"answers"`
+	ID            string           `json:"id"`
+	Level         string           `json:"level"`
+	CompletedAt   time.Time        `json:"completed_at"`
+	Correct       int              `json:"correct"`
+	QuestionCount int              `json:"-"` // Lightweight Firestore statistics projection.
+	Answers       []PracticeAnswer `json:"answers"`
 }
 type PracticeHistory struct {
 	Rounds []PracticeRound `json:"rounds"`
@@ -42,6 +43,7 @@ func (s *Store) SavePractice(id string, round PracticeRound) error {
 	}
 	round.CompletedAt = time.Now().UTC()
 	round.Correct = 0
+	round.QuestionCount = len(round.Answers)
 	for _, answer := range round.Answers {
 		if answer.Selected == answer.Answer {
 			round.Correct++

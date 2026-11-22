@@ -34,9 +34,11 @@ func (b *fileBackend) deleteAccount(_ context.Context, id string, proof loginPro
 		if err := bindFileGoogle(tx, id, GoogleIdentity{u.GoogleSubject, u.User.Email}, GoogleIdentity{}); err != nil {
 			return err
 		}
-		if root := tx.Bucket(historyBucket); root != nil && root.Bucket([]byte(id)) != nil {
-			if err := root.DeleteBucket([]byte(id)); err != nil {
-				return err
+		for _, bucket := range [][]byte{historyBucket, activityBucket} {
+			if root := tx.Bucket(bucket); root != nil && root.Bucket([]byte(id)) != nil {
+				if err := root.DeleteBucket([]byte(id)); err != nil {
+					return err
+				}
 			}
 		}
 		if err := tx.Bucket(namesBucket).Delete([]byte(u.User.Username)); err != nil {
@@ -109,7 +111,7 @@ func (b *firestoreBackend) deleteAccount(ctx context.Context, id string, proof l
 }
 
 func (b *firestoreBackend) purgeAccount(ctx context.Context, id string) error {
-	for _, name := range []string{"pages", "practiceRounds"} {
+	for _, name := range []string{"pages", "practiceRounds", "activityDays"} {
 		query := b.user(id).Collection(name).Select().Limit(16)
 		for {
 			docs, err := query.Documents(ctx).GetAll()

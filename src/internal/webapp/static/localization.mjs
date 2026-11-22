@@ -348,6 +348,51 @@ Object.assign(copy.ky, {
   wordFormTh: "Тай тилиндеги мааниси (милдеттүү эмес)",
   wordFormExampleTh: "Тай тилиндеги котормосу (милдеттүү эмес)",
 });
+Object.assign(copy.ko, {"studyRefresh": "통계 새로고침", "studyStats": "학습 통계", "studyMonth": "조회할 달", "studyTime": "이용 시간", "studyAccuracy": "정답률", "studyDays": "학습한 날", "studyStreak": "최장 연속 학습", "studyDaily": "날짜별 학습", "studyDate": "날짜", "studyRounds": "연습 횟수", "studyTimeHelp": "이용 시간은 로그인한 화면에서 마지막 조작 후 2분까지 기록합니다. 이전 연습도 점수와 학습일에 포함합니다."});
+Object.assign(copy.en, {"studyRefresh": "Refresh statistics", "studyStats": "Learning statistics", "studyMonth": "Month", "studyTime": "Active time", "studyAccuracy": "Accuracy", "studyDays": "Days studied", "studyStreak": "Longest streak", "studyDaily": "Daily learning activity", "studyDate": "Date", "studyRounds": "Rounds", "studyTimeHelp": "Time is tracked while the signed-in tab is in focus, for up to two minutes after your last interaction. Earlier practice counts toward scores and study days."});
+Object.assign(copy.ru, {"studyRefresh": "Обновить статистику", "studyStats": "Статистика обучения", "studyMonth": "Месяц", "studyTime": "Время занятий", "studyAccuracy": "Верные ответы", "studyDays": "Дни занятий", "studyStreak": "Самая длинная серия", "studyDaily": "Занятия по дням", "studyDate": "Дата", "studyRounds": "Раунды", "studyTimeHelp": "После входа время в активной вкладке учитывается до двух минут после последнего действия. Прошлые упражнения учитываются в результатах и днях занятий."});
+Object.assign(copy.uz, {"studyRefresh": "Statistikani yangilash", "studyStats": "Oʻqish statistikasi", "studyMonth": "Oy", "studyTime": "Oʻqish vaqti", "studyAccuracy": "Toʻgʻri javoblar ulushi", "studyDays": "Oʻqilgan kunlar", "studyStreak": "Eng uzun ketma-ketlik", "studyDaily": "Kunlik mashgʻulotlar", "studyDate": "Sana", "studyRounds": "Mashqlar soni", "studyTimeHelp": "Hisobga kirgach, faol varaqdagi vaqt oxirgi harakatdan keyin ikki daqiqagacha hisoblanadi. Avvalgi mashqlar ham natijalar va oʻqilgan kunlarga kiradi."});
+Object.assign(copy.ky, {"studyRefresh": "Статистиканы жаңыртуу", "studyStats": "Окуу статистикасы", "studyMonth": "Ай", "studyTime": "Окуу убактысы", "studyAccuracy": "Туура жооптордун үлүшү", "studyDays": "Окуган күндөр", "studyStreak": "Эң узак үзгүлтүксүз мезгил", "studyDaily": "Күнүмдүк окуу", "studyDate": "Күнү", "studyRounds": "Машыгуу саны", "studyTimeHelp": "Аккаунтка киргенде активдүү өтмөктөгү убакыт акыркы аракеттен кийин эки мүнөткө чейин эсептелет. Мурунку көнүгүүлөр да упайга жана окуган күндөргө кошулат."});
+Object.assign(copy.zh, {"studyRefresh": "刷新统计", "studyStats": "学习统计", "studyMonth": "月份", "studyTime": "使用时长", "studyAccuracy": "正确率", "studyDays": "学习天数", "studyStreak": "最长连续学习天数", "studyDaily": "每日学习记录", "studyDate": "日期", "studyRounds": "练习轮数", "studyTimeHelp": "登录后，仅在当前标签页有焦点时计时，最后一次操作后最多计时两分钟。以前的练习也计入成绩和学习天数。"});
+Object.assign(copy.ja, {"studyRefresh": "統計を更新", "studyStats": "学習統計", "studyMonth": "表示する月", "studyTime": "利用時間", "studyAccuracy": "正答率", "studyDays": "学習日数", "studyStreak": "最長連続学習日数", "studyDaily": "日ごとの学習記録", "studyDate": "日付", "studyRounds": "練習回数", "studyTimeHelp": "ログイン中のタブがアクティブな間、最後の操作から最長2分まで時間を記録します。過去の練習も成績と学習日数に含まれます。"});
+Object.assign(copy.es, {"studyRefresh": "Actualizar estadísticas", "studyStats": "Estadísticas de aprendizaje", "studyMonth": "Mes", "studyTime": "Tiempo de uso", "studyAccuracy": "Aciertos", "studyDays": "Días de estudio", "studyStreak": "Racha más larga", "studyDaily": "Actividad diaria", "studyDate": "Fecha", "studyRounds": "Rondas", "studyTimeHelp": "Con la sesión iniciada, se mide el tiempo en la pestaña activa hasta dos minutos después de la última interacción. Las prácticas anteriores también cuentan para los resultados y los días de estudio."});
+Object.assign(copy.vi, {"studyRefresh": "Làm mới thống kê", "studyStats": "Thống kê học tập", "studyMonth": "Tháng", "studyTime": "Thời gian học", "studyAccuracy": "Tỷ lệ đúng", "studyDays": "Số ngày học", "studyStreak": "Chuỗi ngày dài nhất", "studyDaily": "Hoạt động từng ngày", "studyDate": "Ngày", "studyRounds": "Số lượt luyện tập", "studyTimeHelp": "Khi đã đăng nhập, thời gian trên thẻ đang hoạt động được tính đến hai phút sau thao tác cuối. Các lượt luyện tập trước đây cũng được tính vào điểm và số ngày học."});
+Object.assign(copy.ne, {"studyRefresh": "तथ्याङ्क अद्यावधिक गर्नुहोस्", "studyStats": "अध्ययन तथ्याङ्क", "studyMonth": "महिना", "studyTime": "अध्ययन समय", "studyAccuracy": "सही उत्तरको प्रतिशत", "studyDays": "अध्ययन गरेका दिन", "studyStreak": "लगातार अध्ययनको लामो अवधि", "studyDaily": "दैनिक अध्ययन विवरण", "studyDate": "मिति", "studyRounds": "अभ्यास चरण", "studyTimeHelp": "लगइन गरेपछि सक्रिय ट्याबमा अन्तिम क्रियापछि दुई मिनेटसम्मको समय गणना हुन्छ। पहिलेका अभ्यास पनि नतिजा र अध्ययन गरेका दिनमा समावेश हुन्छन्।"});
+Object.assign(copy.mn, {"studyRefresh": "Статистик шинэчлэх", "studyStats": "Суралцсан статистик", "studyMonth": "Сар", "studyTime": "Суралцсан хугацаа", "studyAccuracy": "Зөв хариултын хувь", "studyDays": "Суралцсан өдөр", "studyStreak": "Хамгийн олон дараалсан өдөр", "studyDaily": "Өдөр бүрийн үзүүлэлт", "studyDate": "Огноо", "studyRounds": "Дасгалын тоо", "studyTimeHelp": "Нэвтэрсэн үед идэвхтэй хөтчийн таб дээрх хугацааг сүүлийн үйлдлээс хойш хоёр минут хүртэл тооцно. Өмнөх дасгалуудыг ч үр дүн болон суралцсан өдрийн тоонд оруулна."});
+Object.assign(copy.th, {"studyRefresh": "รีเฟรชสถิติ", "studyStats": "สถิติการเรียน", "studyMonth": "เดือน", "studyTime": "เวลาใช้งาน", "studyAccuracy": "อัตราการตอบถูก", "studyDays": "จำนวนวันที่เรียน", "studyStreak": "ช่วงที่เรียนติดต่อกันนานที่สุด", "studyDaily": "กิจกรรมรายวัน", "studyDate": "วันที่", "studyRounds": "จำนวนรอบ", "studyTimeHelp": "เมื่อลงชื่อเข้าใช้ ระบบจะนับเวลาขณะที่แท็บอยู่ด้านหน้าจนถึงสองนาทีหลังการโต้ตอบครั้งล่าสุด แบบฝึกหัดที่ผ่านมาใช้คำนวณคะแนนและจำนวนวันที่เรียนด้วย"});
+
+// Chromium distributions with partial locale data may render Uzbek November
+// as "M11", or fall back to English day and unit names for these locales.
+const studyCalendar = {
+  uz:{year:'Yil', months:'Yanvar|Fevral|Mart|Aprel|May|Iyun|Iyul|Avgust|Sentabr|Oktabr|Noyabr|Dekabr', minute:'daq.', second:'son.', day:'kun'},
+  ky:{year:'Жыл', months:'Январь|Февраль|Март|Апрель|Май|Июнь|Июль|Август|Сентябрь|Октябрь|Ноябрь|Декабрь', minute:'мүн', second:'сек', day:'күн'},
+  ne:{year:'वर्ष', months:'जनवरी|फेब्रुअरी|मार्च|अप्रिल|मे|जुन|जुलाई|अगस्ट|सेप्टेम्बर|अक्टोबर|नोभेम्बर|डिसेम्बर', minute:'मिनेट', second:'सेकेन्ड', day:'दिन'},
+  mn:{year:'Жил', months:'Нэгдүгээр сар|Хоёрдугаар сар|Гуравдугаар сар|Дөрөвдүгээр сар|Тавдугаар сар|Зургаадугаар сар|Долоодугаар сар|Наймдугаар сар|Есдүгээр сар|Аравдугаар сар|Арван нэгдүгээр сар|Арван хоёрдугаар сар', minute:'мин', second:'сек', day:'хоног'},
+};
+export function studyFormats(lang) {
+  const local=studyCalendar[lang];
+  if(local) {
+    const months=local.months.split('|');
+    const number=new Intl.NumberFormat(lang,{useGrouping:false,...(lang==='ne'?{numberingSystem:'deva'}:{})});
+    return {
+      yearLabel:local.year,
+      year:y=>number.format(y),
+      month:m=>months[m-1],
+      date:iso=>iso.split('-').map(s=>number.format(Number(s))).join('-'),
+      unit:(n,u)=>number.format(n)+' '+local[u],
+    };
+  }
+  const format=options=>new Intl.DateTimeFormat(lang,{...options,timeZone:'UTC'});
+  const year=format({year:'numeric'}),month=format({month:'long'}),day=format({month:'short',day:'numeric',weekday:'short'});
+  const units=Object.fromEntries(['minute','second','day'].map(u=>
+    [u,new Intl.NumberFormat(lang,{style:'unit',unit:u,unitDisplay:'short'})]));
+  return {
+    yearLabel:new Intl.DisplayNames([lang],{type:'dateTimeField'}).of('year'),
+    year:y=>year.format(Date.UTC(y,0,1)), month:m=>month.format(Date.UTC(2000,m-1,1)),
+    date:iso=>day.format(new Date(iso+'T12:00:00Z')), unit:(n,u)=>units[u].format(n),
+  };
+}
+
 const pluralRules=Object.fromEntries(LANGUAGES.map(language=>[language,new Intl.PluralRules(language)]));
 const nouns={
   en:{words:{one:'word',other:'words'},characters:{one:'character',other:'characters'},questions:{one:'question',other:'questions'}},
