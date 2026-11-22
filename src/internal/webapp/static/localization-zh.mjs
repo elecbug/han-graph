@@ -1,4 +1,8 @@
 export const zh = {
+  compareHomonyms: "同音词对比",
+  resumePractice: "继续练习",
+  practiceAnswered: "已答 {done} 题，共 {total} 题",
+  newPractice: "开始新一轮练习",
   searchFilters: "搜索筛选",
   personal: "我的词条",
   personalCharacter: "我的汉字",
@@ -248,7 +252,7 @@ export const zh = {
   next: "下一题",
   finish: "查看结果",
   exitPractice: "返回词汇探索",
-  practiceNote: "重新加载页面会重置尚未完成的练习。",
+  practiceNote: "回到此浏览器后，可以从第一道未作答的题目继续练习。",
   summaryTitle: "更懂这些词了",
   summarySub: "回顾句子里的线索，看看为什么这个词最合适。",
   restart: "再练一次",

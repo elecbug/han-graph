@@ -1,4 +1,8 @@
 export const th = {
+  compareHomonyms: "เปรียบเทียบคำพ้องเสียง",
+  resumePractice: "ทำแบบฝึกหัดต่อ",
+  practiceAnswered: "ตอบแล้ว {done} จาก {total} ข้อ",
+  newPractice: "เริ่มรอบใหม่",
   searchFilters: "ตัวกรองการค้นหา",
   personal: "รายการของฉัน",
   personalCharacter: "อักษรฮันจาของฉัน",
@@ -247,7 +251,7 @@ export const th = {
   next: "ข้อถัดไป",
   finish: "ดูผล",
   exitPractice: "กลับไปสำรวจคำ",
-  practiceNote: "หากโหลดหน้าใหม่ แบบฝึกหัดที่ยังทำไม่เสร็จจะเริ่มใหม่",
+  practiceNote: "กลับมาที่เบราว์เซอร์นี้เพื่อทำต่อจากข้อแรกที่ยังไม่ได้ตอบได้",
   summaryTitle: "คุณเข้าใจความหมายของคำมากขึ้นอีกขั้น",
   summarySub: "ทบทวนคำตอบแล้วลองอธิบายว่าทำไมแต่ละคำจึงเหมาะกับบริบท",
   restart: "ฝึกอีกครั้ง",

@@ -77,6 +77,41 @@ export function answerQuestion(session, index, selected) {
   return true;
 }
 
+// Keep only the identities and ordering. Prompts, translations and scores
+// always come from the current catalog when a round resumes.
+export function practiceDraft(session) {
+  return {
+    roundID:session.roundID, level:session.level,
+    items:session.questions.map(q=>({
+      id:q.id, options:q.options.map(wordKey), answer:wordKey(q.answer),
+      selected:session.answers.has(q.id)?wordKey(session.answers.get(q.id).selected):null,
+    })),
+  };
+}
+
+export function restorePracticeDraft(draft, questions, owner) {
+  if(typeof draft?.roundID!=='string' || !/^[0-9a-f]{32}$/.test(draft.roundID) || !PRACTICE_LEVELS.includes(draft.level) || !Array.isArray(draft.items))return null;
+  const pool=filterPracticeQuestions(questions,{level:draft.level});
+  if(!draft.items.length || draft.items.length!==Math.min(PRACTICE_SESSION_SIZE,pool.length))return null;
+  const available=new Map(pool.map(q=>[q.id,q]));
+  const session={owner,roundID:draft.roundID,level:draft.level,questions:[],answers:new Map(),recorded:false};
+  for(const item of draft.items) {
+    const question=available.get(item?.id);
+    if(!question || item.answer!==wordKey(question.answer) || !Array.isArray(item.options) || item.options.length!==question.options.length)return null;
+    available.delete(question.id);
+    const choices=new Map(question.options.map(option=>[wordKey(option),option]));
+    const options=item.options.map(key=>choices.get(key));
+    if(options.includes(undefined) || new Set(options).size!==options.length)return null;
+    const index=session.questions.length;
+    session.questions.push({...question,options});
+    if(item.selected!==null) {
+      const selected=choices.get(item.selected);
+      if(!selected || index!==session.answers.size || !answerQuestion(session,index,selected))return null;
+    }
+  }
+  return session;
+}
+
 export function sessionResult(session) {
   const answers = session.questions.map(question => ({question, answer: session.answers.get(question.id)}));
   return {

@@ -1,4 +1,8 @@
 export const es = {
+  compareHomonyms: "Comparar homónimos",
+  resumePractice: "Continuar la práctica",
+  practiceAnswered: "{done} de {total} preguntas respondidas",
+  newPractice: "Empezar otra ronda",
   searchFilters: "Filtros de búsqueda",
   personal: "Mi entrada",
   personalCharacter: "Mi carácter",
@@ -248,7 +252,7 @@ export const es = {
   next: "Siguiente pregunta",
   finish: "Ver resultados",
   exitPractice: "Volver a explorar",
-  practiceNote: "Si recargas la página, la práctica sin terminar volverá a empezar.",
+  practiceNote: "Puedes volver a este navegador y continuar desde la primera pregunta sin responder.",
   summaryTitle: "Un paso más en tu aprendizaje",
   summarySub: "Repasa las pistas para entender por qué encaja cada palabra.",
   restart: "Volver a practicar",

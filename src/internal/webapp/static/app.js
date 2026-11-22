@@ -2,7 +2,7 @@ import {WORD_FORM_FIELDS, emptyWordDraft, wordFormPayload, findMissingCharacters
 import {copy, normalizeLanguage, localized, localizedDate, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
 import {parseDictionaryInput, DICTIONARY_FIELDS, DICTIONARY_SAMPLE} from './personal-dictionary.mjs';
 import {exampleLines} from './examples.mjs';
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions} from './learning.mjs';
+import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
 import {loadPrintableWords, renderPrintableWordbook, wordbookPrintFilename, loadWordbookPrintFont} from './wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG, filterNetwork, componentNetwork, wordFormParts, isMixedWord} from './network.mjs';
@@ -153,6 +153,7 @@ async function renderPage({revealSelection=false} = {}) {
       </details>
     </div>
     <div class="section-bar"><span>${t('searchResults')}</span><span>${countText(state.stats.characters,'characters',state.lang)} · ${countText(state.stats.words,'words',state.lang)}</span></div>
+    <div id="search-homonyms"></div>
     <div class="explorer"><section class="catalog" aria-label="${t('searchResults')}"><div id="catalog"></div></section><section class="detail-panel" id="detail" aria-label="${t('openWord')}"></section><div class="network-panel" id="network"></div></div>`;
   $('#search-form').addEventListener('submit', event=>{event.preventDefault();state.query=$('#search').value;clearTimeout(searchTimer);performSearch();});
   $('#search').addEventListener('input', event=>{state.query=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(performSearch,180);});
@@ -177,6 +178,7 @@ function renderCatalog({scrollTop=$('.catalog-list')?.scrollTop??0} = {}) {
   $('#catalog').innerHTML=`<div class="catalog-tabs" role="group" aria-label="${t('searchResults')}"><button data-action="tab" data-tab="words" class="${state.tab==='words'?'active':''}" aria-pressed="${state.tab==='words'}">${t('words')}<span class="tab-count">${result.word_count}</span></button><button data-action="tab" data-tab="characters" class="${state.tab==='characters'?'active':''}" aria-pressed="${state.tab==='characters'}">${t('characters')}<span class="tab-count">${result.character_count}</span></button></div><div class="catalog-list">${items||`<div class="empty-state"><p>${t('noResults')}</p><p>${t(state.searchMode==='sound'?'soundEmptyHint':'searchHint')}</p></div>`}</div><div class="list-footnote" aria-live="polite">${count>list.length?t(state.searchMode==='sound'?'soundLimited':'limited'):`${t('searchResults')} · ${count} ${t('entries')}`}</div>`;
   // Selection redraws keep the reader's place; new result sets pass zero.
   $('.catalog-list').scrollTop=scrollTop;
+  renderComparisons();
 }
 async function showRandomWord(button) {
   if(button.disabled)return;
@@ -267,11 +269,12 @@ async function loadDetail(selection) {
   $('#detail').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
   $('#network').innerHTML='';
   try {
-    let wordResult=null, characters=[], network=null;
+    let wordResult=null, homonyms=[], characters=[], network=null;
     if(selection.kind==='word') {
       const results=await getJSON('/api/words',selection.word);
       wordResult=results.find(result=>selection.hanja==null || result.word.hanja===selection.hanja);
       if(!wordResult)throw new RangeError('missing');
+      homonyms=results.filter(row=>row.word.word===wordResult.word.word);
     } else {
       characters=await getJSON('/api/characters',selection.glyph);
       if(!characters.length)throw new RangeError('missing');
@@ -281,11 +284,30 @@ async function loadDetail(selection) {
     if(epoch!==detailEpoch || state.page!=='explore')return;
     state.glyph=network?.roots[0]??null;
     const visibleNetwork=network?filterNetwork(network,state.level):null;
-    state.detail={wordResult,characters,network,visibleNetwork,layout:visibleNetwork?layoutNetwork(visibleNetwork,wordResult?.word):null,zoom:null};
+    state.detail={wordResult,homonyms,characters,network,visibleNetwork,layout:visibleNetwork?layoutNetwork(visibleNetwork,wordResult?.word):null,zoom:null};
     renderDetail();
   } catch(error) {
     if(epoch!==detailEpoch || !$('#detail'))return;
     $('#detail').innerHTML=error instanceof RangeError?`<div class="empty-state"><h2>${t('notFound')}</h2><p>${t('notFoundSub')}</p></div>`:errorPanel();
+  }
+}
+function homonymComparison(rows) {
+  if(!rows || rows.length<2)return '';
+  const entries=rows.map(row=>{
+    const word=row.word;
+    const examples=exampleLines(row,state.lang).map(line=>`<p class="homonym-example" lang="${line.lang}">${esc(line.text)}</p>`).join('');
+    return `<li><button type="button" class="text-button" data-action="open-word" ${wordAttrs(word)} aria-label="${t('openWord')} · ${esc(word.word)} ${esc(word.hanja)}"><strong lang="ko">${esc(word.hanja||word.word)}</strong><span aria-hidden="true"> ↗</span></button>
+      <p>${esc(meaning(word))}</p>${examples}</li>`;
+  }).join('');
+  return `<section class="homonym-comparison"><h3><span lang="ko">${esc(rows[0].word.word)}</span> · ${t('compareHomonyms')}</h3><ul>${entries}</ul></section>`;
+}
+function renderComparisons() {
+  const search=$('#search-homonyms'),detail=$('#detail-homonyms');
+  const hits=state.tab==='words' && state.searchMode==='all'?state.search?.homonyms:null;
+  if(search)search.innerHTML=homonymComparison(hits);
+  if(detail) {
+    const rows=state.detail?.homonyms?.filter(row=>state.level==='all' || wordCategory(row.word)===state.level);
+    detail.innerHTML=hits?.length && hits[0].word.word===rows?.[0]?.word.word?'':homonymComparison(rows);
   }
 }
 function renderDetail(position=null) {
@@ -299,12 +321,14 @@ function renderDetail(position=null) {
     const word=wordResult.word;
     card=`<div class="word-heading"><div class="word-heading-top"><span class="word-tags"><span class="tag">${t('wordTag')}</span>${levelBadge(word)}${personalBadge(word)}</span><button class="save-button ${isSaved(word)?'saved':''}" data-action="save" ${wordAttrs(word)} aria-pressed="${isSaved(word)}">${icons.bookmark}${t(isSaved(word)?'savedButton':'save')}</button></div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(word.word)}</h2><p class="word-meaning">${esc(meaning(word))}</p></div><span class="word-hanja" lang="ko">${isMixedWord(word)?wordFormParts(word).map(part=>`<span class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</span>`).join(''):esc(word.hanja)}</span></div></div>
       ${exampleLines(wordResult,state.lang).length?`<section class="word-example"><h3>${t('example')}</h3>${exampleLines(wordResult,state.lang).map(line=>`<p lang="${line.lang}" class="${line.secondary?'example-translation':'example-primary'}">${esc(line.text)}</p>`).join('')}</section>`:''}
+      <div id="detail-homonyms"></div>
       <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>localized(reading, 'meaning', state.lang).join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${localized(word,'semantic_hint',state.lang)?`<p class="semantic-hint">${esc(localized(word, 'semantic_hint', state.lang))}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t(isMixedWord(word)?'mixedWordNote':word.components.length?'readingNote':'noHanja')}</p></div>${noteEditor(word)}`;
   } else {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span>${characters.map(personalCharacterBadge).join('')}</div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>localized(c, 'meaning', state.lang).join(', ')).join(' / '))}</p></div><span class="word-hanja" lang="ko">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(localized(c,'meaning',state.lang).join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
   const backToResults=location.hash.startsWith('#explore?')?`<button type="button" class="back-to-results" data-action="show-results"><span aria-hidden="true">↑</span> ${t('searchResults')}</button>`:'';
   $('#detail').innerHTML=`${backToResults}<article class="word-card">${card}${wordResult&&state.level!=='all'&&wordResult.word.level!==state.level?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
+  renderComparisons();
   $('#network').innerHTML=renderNetwork();
   if(!$('.network-viewport'))return;
   bindNetworkFocus($('.network-canvas svg'),state.detail.layout);
@@ -505,14 +529,51 @@ function focusPracticeStep(selector) {
   step.focus({preventScroll:true});
   step.scrollIntoView({block:'nearest'});
 }
+const draftKey = owner => 'han-graph.practice-draft.v1.'+(owner??'guest');
+
+function suspendedPractice() {
+  const owner=state.user?.id??null;
+  return restorePracticeDraft(readStorage(draftKey(owner),null),state.practice.questions,owner);
+}
+function forgetPracticeDraft(session) {
+  const key=draftKey(session.owner);
+  if(readStorage(key,null)?.roundID===session.roundID) {
+    try {localStorage.removeItem(key);} catch {toast(t('storageFailed'));}
+  }
+}
+function usePracticeDraft(session) {
+  state.session=session;
+  state.index=session?.answers.size??0;
+  state.translation=false;
+  if(session) {
+    session.persisted=true;
+    if(session.owner && state.index===session.questions.length)savePracticeRound(session);
+  }
+}
+// A stale tab must not replace another round or answer an old question again.
+function syncPracticeDraft() {
+  const session=state.session;
+  if(!session?.persisted || session.answers.size===session.questions.length)return false;
+  const latest=readStorage(draftKey(session.owner),null);
+  if(JSON.stringify(latest)===JSON.stringify(practiceDraft(session)))return false;
+  usePracticeDraft(latest?.roundID===session.roundID?restorePracticeDraft(latest,state.practice.questions,session.owner):null);
+  return true;
+}
+function writePracticeDraft(session) {
+  session.persisted=saveStorage(draftKey(session.owner),practiceDraft(session));
+}
 function renderPractice() {
   const head=hero('practiceEye','practiceTitle','practiceSub');
+  const draft=state.session?null:suspendedPractice();
+  if(draft && draft.answers.size===draft.questions.length)usePracticeDraft(draft);
   if(!state.session) {
     const poolSize=filterPracticeQuestions(state.practice.questions,state.practiceSettings).length;
     const roundLabel=t('practiceRound').replace('{pool}',poolSize).replace('{count}',Math.min(poolSize,PRACTICE_SESSION_SIZE));
     const last=state.user?null:readStorage('han-graph.practice.v1',null);
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
-    $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="primary-button" data-action="start-practice" ${poolSize?'':'disabled'}>${t('startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
+    const progress=draft?t('practiceAnswered').replace('{done}',draft.answers.size).replace('{total}',draft.questions.length):'';
+    const resume=draft?`<section class="practice-resume"><div><strong>${levelLabel(draft.level)}</strong><p>${progress}</p></div><button class="primary-button" data-action="resume-practice">${t('resumePractice')} →</button></section>`:'';
+    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
     return;
   }
   const result=sessionResult(state.session);
@@ -526,7 +587,10 @@ function renderPractice() {
 }
 function renderSummary(head,result) {
   const {level}=state.session;
-  if(!state.session.owner && !state.session.recorded && result.complete) {saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});state.session.recorded=true;}
+  if(!state.session.owner && !state.session.recorded && result.complete) {
+    state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});
+    if(state.session.recorded)forgetPracticeDraft(state.session);
+  }
   $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?history=1">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
@@ -539,6 +603,7 @@ async function savePracticeRound(session) {
     session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,level:session.level,answers},{keepalive:true});
     await session.pending;
     session.saveState='saved';
+    forgetPracticeDraft(session);
   } catch {
     session.saveState='error';
   }
@@ -751,7 +816,7 @@ async function refreshAccount(redraw=false) {
   }
 }
 function announceAccountChange() {
-  // No private content, credentials, or tokens go into browser storage.
+  // Notify other tabs without copying the account response into browser storage.
   try {localStorage.setItem('han-graph.account-event',String(Date.now()));}catch { /* Optional tab notification. */ }
 }
 function renderAccount() {
@@ -1013,7 +1078,10 @@ async function deleteAccount(event) {
   const body={username:state.user.username,current_password:form.elements.current_password.value,confirm:form.elements.confirm.checked};
   state.privateBusy=true;button.disabled=true;status.textContent=t('accountWorking');
   try {
-    applyAccount(await accountRequest('/api/account','DELETE',body));
+    const owner=state.user.id;
+    const data=await accountRequest('/api/account','DELETE',body);
+    try {localStorage.removeItem(draftKey(owner));} catch {toast(t('storageFailed'));}
+    applyAccount(data);
     state.accountMode='login';announceAccountChange();toast(t('accountDeleted'));
     updateShell();await renderPage();
   } catch(error){status.textContent=accountMessage(error);}
@@ -1083,7 +1151,13 @@ $('#main').addEventListener('input',event=>{
   $('#note-status').textContent=t('noteDraft');
 });
 window.addEventListener('beforeunload',event=>{if(state.noteDrafts.size||WORD_FORM_FIELDS.some(field=>field!=='level'&&state.wordDraft[field])){event.preventDefault();event.returnValue='';}});
-window.addEventListener('storage',event=>{if(event.key==='han-graph.account-event')refreshAccount(true);});
+window.addEventListener('storage',event=>{
+  if(event.key==='han-graph.account-event')refreshAccount(true);
+  if(event.key===draftKey(state.user?.id) && state.ready) {
+    syncPracticeDraft();
+    if(state.page==='practice')renderPractice();
+  }
+});
 
 async function boot() {
   updateShell();
@@ -1143,20 +1217,31 @@ $('#main').addEventListener('click',event=>{
   else if(action==='word-level')changeWordLevel(button.dataset.level);
   else if(action==='search-retry')performSearch();
   else if(action==='retry'){if(state.ready)renderPage();else boot();}
+  else if(action==='resume-practice'){
+    usePracticeDraft(suspendedPractice());
+    renderPractice();
+    focusPracticeStep('.question-prompt, .practice-intro h2');
+  }
   else if(action==='start-practice'){
     const session=createSession(state.practice.questions,Math.random,state.practiceSettings);
     if(!session.questions.length)return;
     session.owner=state.user?.id??null;
-    if(session.owner)session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
-    state.session=session;state.index=0;state.translation=false;renderPractice();
+    session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
+    state.session=session;state.index=0;state.translation=false;writePracticeDraft(session);renderPractice();
     focusPracticeStep('.question-prompt');
   }
   else if(action==='retry-practice'){savePracticeRound(state.session);}
-  else if(action==='practice-settings'){state.session=null;renderPractice();$('.practice-settings input:checked')?.focus({preventScroll:true});}
+  else if(action==='practice-settings'){if(state.session)forgetPracticeDraft(state.session);state.session=null;renderPractice();$('.practice-settings input:checked')?.focus({preventScroll:true});}
   else if(action==='translation'){state.translation=!state.translation;renderPractice();$('[data-action="translation"]')?.focus({preventScroll:true});}
   else if(action==='answer'){
-    const question=state.session?.questions[state.index];
-    if(question&&answerQuestion(state.session,state.index,question.options[Number(index)])){if(state.session.owner && state.session.answers.size===state.session.questions.length)savePracticeRound(state.session);renderPractice();focusPracticeStep('.answer-feedback');}
+    if(syncPracticeDraft()){renderPractice();return;}
+    const session=state.session, question=session?.questions[state.index];
+    if(question && answerQuestion(session,state.index,question.options[Number(index)])){
+      writePracticeDraft(session);
+      if(session.owner && session.answers.size===session.questions.length)savePracticeRound(session);
+      renderPractice();
+      focusPracticeStep('.answer-feedback');
+    }
   }
   else if(action==='next-question'&&state.session?.answers.has(state.session.questions[state.index]?.id)){state.index++;state.translation=false;renderPractice();focusPracticeStep('.question-prompt, .practice-intro h2');}
 });

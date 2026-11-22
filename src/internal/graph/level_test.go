@@ -52,7 +52,7 @@ func TestSearchCategoryBeforeLimit(t *testing.T) {
 	}
 	for _, level := range []string{"normal", "classical"} {
 		got := g.SearchByLevel("흡연", 60, level)
-		if got.WordCount != 1 || got.Words[0].Level != level {
+		if got.WordCount != 1 || got.Words[0].Level != level || len(got.Homonyms) != 0 {
 			t.Fatalf("homographs must be filtered independently: %+v", got)
 		}
 	}

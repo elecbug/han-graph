@@ -1,4 +1,8 @@
 export const ja = {
+  compareHomonyms: "同音異義語を比べる",
+  resumePractice: "続きから解く",
+  practiceAnswered: "{total}問中{done}問に回答済み",
+  newPractice: "新しい練習を始める",
   searchFilters: "検索フィルター",
   personal: "自分の項目",
   personalCharacter: "自分の漢字",
@@ -248,7 +252,7 @@ export const ja = {
   next: "次の問題",
   finish: "結果を見る",
   exitPractice: "単語の探索に戻る",
-  practiceNote: "ページを再読み込みすると、途中の練習はリセットされます。",
+  practiceNote: "このブラウザで、次の未回答の問題から再開できます。",
   summaryTitle: "単語への理解が深まりました",
   summarySub: "文中の手がかりを振り返り、なぜその単語が合うのか確かめましょう。",
   restart: "もう一度練習",

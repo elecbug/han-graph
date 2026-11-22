@@ -1,4 +1,8 @@
 export const vi = {
+  compareHomonyms: "So sánh từ đồng âm",
+  resumePractice: "Tiếp tục luyện tập",
+  practiceAnswered: "Đã trả lời {done}/{total} câu",
+  newPractice: "Bắt đầu lượt mới",
   searchFilters: "Bộ lọc tìm kiếm",
   personal: "Mục từ của tôi",
   personalCharacter: "Chữ Hán của tôi",
@@ -248,7 +252,7 @@ export const vi = {
   next: "Câu tiếp theo",
   finish: "Xem kết quả",
   exitPractice: "Quay lại khám phá",
-  practiceNote: "Nếu tải lại trang, bài luyện tập chưa hoàn tất sẽ bắt đầu lại.",
+  practiceNote: "Bạn có thể quay lại trình duyệt này và tiếp tục từ câu hỏi đầu tiên chưa trả lời.",
   summaryTitle: "Hiểu từ thêm một bước",
   summarySub: "Ôn lại gợi ý trong câu để hiểu vì sao từng từ phù hợp.",
   restart: "Luyện tập lại",

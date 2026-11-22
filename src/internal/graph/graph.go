@@ -51,20 +51,24 @@ type Component struct {
 	Readings []Reading `json:"readings"`
 }
 
+type WordSense struct {
+	Example   string `json:"example,omitempty"`
+	ExampleEn string `json:"example_en,omitempty"`
+	ExampleRu string `json:"example_ru,omitempty"`
+	ExampleUz string `json:"example_uz,omitempty"`
+	ExampleKy string `json:"example_ky,omitempty"`
+	ExampleZh string `json:"example_zh,omitempty"`
+	ExampleJa string `json:"example_ja,omitempty"`
+	ExampleEs string `json:"example_es,omitempty"`
+	ExampleVi string `json:"example_vi,omitempty"`
+	ExampleNe string `json:"example_ne,omitempty"`
+	ExampleMn string `json:"example_mn,omitempty"`
+	ExampleTh string `json:"example_th,omitempty"`
+	Word      Word   `json:"word"`
+}
+
 type WordResult struct {
-	Example    string      `json:"example,omitempty"`
-	ExampleEn  string      `json:"example_en,omitempty"`
-	ExampleRu  string      `json:"example_ru,omitempty"`
-	ExampleUz  string      `json:"example_uz,omitempty"`
-	ExampleKy  string      `json:"example_ky,omitempty"`
-	ExampleZh  string      `json:"example_zh,omitempty"`
-	ExampleJa  string      `json:"example_ja,omitempty"`
-	ExampleEs  string      `json:"example_es,omitempty"`
-	ExampleVi  string      `json:"example_vi,omitempty"`
-	ExampleNe  string      `json:"example_ne,omitempty"`
-	ExampleMn  string      `json:"example_mn,omitempty"`
-	ExampleTh  string      `json:"example_th,omitempty"`
-	Word       Word        `json:"word"`
+	WordSense
 	Components []Component `json:"components"`
 }
 
@@ -132,19 +136,22 @@ func (g *Graph) reading(c Character) Reading {
 	return Reading{c, m.SoundKo, m.SoundEn}
 }
 
+func (g *Graph) wordWithExample(w Word) WordSense {
+	example := g.examples[[2]string{w.Word, w.Hanja}]
+	return WordSense{
+		Word: w, Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu,
+		ExampleUz: example.ExampleUz, ExampleKy: example.ExampleKy, ExampleZh: example.ExampleZh,
+		ExampleJa: example.ExampleJa, ExampleEs: example.ExampleEs, ExampleVi: example.ExampleVi,
+		ExampleNe: example.ExampleNe, ExampleMn: example.ExampleMn, ExampleTh: example.ExampleTh,
+	}
+}
+
 // FindWords returns every exact Hangul or hanja match, preserving homographs.
 func (g *Graph) FindWords(query string) []WordResult {
 	results := make([]WordResult, 0)
 	for _, index := range g.wordsByQuery[query] {
 		w := g.words[index]
-		example := g.examples[[2]string{w.Word, w.Hanja}]
-		result := WordResult{
-			Example: example.ExampleKo, ExampleEn: example.ExampleEn, ExampleRu: example.ExampleRu,
-			ExampleUz: example.ExampleUz, ExampleKy: example.ExampleKy, ExampleZh: example.ExampleZh,
-			ExampleJa: example.ExampleJa, ExampleEs: example.ExampleEs, ExampleVi: example.ExampleVi,
-			ExampleNe: example.ExampleNe, ExampleMn: example.ExampleMn, ExampleTh: example.ExampleTh,
-			Word: w, Components: make([]Component, 0, len(w.Components)),
-		}
+		result := WordResult{WordSense: g.wordWithExample(w), Components: make([]Component, 0, len(w.Components))}
 		for _, hanja := range w.Components {
 			component := Component{Hanja: hanja, Readings: make([]Reading, 0)}
 			for _, c := range g.characters[hanja] {
@@ -176,10 +183,11 @@ func (g *Graph) FindCharacters(query string) []CharacterResult {
 }
 
 type SearchResult struct {
-	Words          []Word    `json:"words"`
-	Characters     []Reading `json:"characters"`
-	WordCount      int       `json:"word_count"`
-	CharacterCount int       `json:"character_count"`
+	Homonyms       []WordSense `json:"homonyms,omitempty"`
+	Words          []Word      `json:"words"`
+	Characters     []Reading   `json:"characters"`
+	WordCount      int         `json:"word_count"`
+	CharacterCount int         `json:"character_count"`
 }
 
 // Search matches written forms and meanings. Counts include results beyond limit.
@@ -215,10 +223,16 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 				continue
 			}
 			result.WordCount++
+			if word.Word == query && len(g.wordsByQuery[query]) > 1 {
+				result.Homonyms = append(result.Homonyms, g.wordWithExample(word))
+			}
 			if len(result.Words) < limit {
 				result.Words = append(result.Words, word)
 			}
 		}
+	}
+	if len(result.Homonyms) < 2 {
+		result.Homonyms = nil
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)

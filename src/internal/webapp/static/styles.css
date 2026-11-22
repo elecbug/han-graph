@@ -674,6 +674,28 @@ main:focus {
   align-self:stretch;
   min-width:0
 }
+.homonym-comparison {
+  margin:0 0 16px;
+  padding:clamp(14px,2vw,22px);
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--white);
+  overflow-wrap:anywhere;
+}
+#detail-homonyms:not(:empty) { margin:0 clamp(16px,3vw,28px) 20px }
+.homonym-comparison h3 { margin:0 0 10px;font-size:16px }
+.homonym-comparison ul {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));
+  gap:12px;
+  padding:0;
+  margin:0;
+  list-style:none;
+}
+.homonym-comparison li { min-width:0;padding:4px 14px 12px;border-radius:6px;background:var(--paper) }
+.homonym-comparison .text-button { min-height:44px;font-size:18px }
+.homonym-comparison p { margin:2px 0;font-size:14px;line-height:1.6 }
+.homonym-comparison .homonym-example { margin-top:8px;padding-inline-start:10px;border-inline-start:2px solid var(--green);font-size:13px }
 .detail-panel>.word-card {
   height:100%
 }
@@ -1980,6 +2002,22 @@ main:focus {
   stroke-width:3;
 }
 .practice-intro.practice-setup { text-align:start;padding:clamp(18px,3vw,32px) }
+.practice-resume {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:16px clamp(18px,3vw,32px);
+  margin-bottom:16px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--sage);
+}
+.practice-resume p { margin:4px 0 0;font-size:14px }
+@media(max-width:640px) {
+  .practice-resume .primary-button { width:100%;min-height:44px }
+}
 .practice-setup .practice-settings,.practice-setup fieldset { margin:0 }
 .practice-setup legend { font-size:17px }
 .practice-start {

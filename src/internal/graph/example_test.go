@@ -21,6 +21,20 @@ func TestWordExamplesKeepHomographIdentity(t *testing.T) {
 	if matches[0].ExampleEn != "I learned how to add fractions." || matches[1].ExampleEn != "Water rises from the fountain in the park." {
 		t.Fatalf("English examples mixed: %+v", matches)
 	}
+	limited := g.Search(" 분수 ", 1)
+	if len(limited.Words) != 1 || len(limited.Homonyms) != 2 {
+		t.Fatalf("the result limit must not hide senses in a comparison: %+v", limited)
+	}
+	for i, sense := range limited.Homonyms {
+		if sense.Word.Hanja != matches[i].Word.Hanja || sense.Example != matches[i].Example || sense.ExampleEn != matches[i].ExampleEn {
+			t.Errorf("comparison lost sense or example: %+v", sense)
+		}
+	}
+	for _, query := range []string{"", "분", "分數", "fraction", "반복테스트"} {
+		if len(g.Search(query, 60).Homonyms) != 0 {
+			t.Errorf("unexpected comparison for %q", query)
+		}
+	}
 	data, err := json.Marshal(matches)
 	if err != nil || !strings.Contains(string(data), `"example":`) || !strings.Contains(string(data), `"example_en":`) {
 		t.Fatalf("JSON example missing: %s %v", data, err)

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult} from '../static/learning.mjs';
+import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, practiceDraft, restorePracticeDraft} from '../static/learning.mjs';
 
 const fraction={word:'분수',hanja:'分數'}, mathematics={word:'수학',hanja:'數學'}, fountain={word:'분수',hanja:'噴水'};
 const questions=[{id:'first',word_level:'easy',answer:fraction,options:[fraction,mathematics]},{id:'second',word_level:'easy',answer:mathematics,options:[fraction,mathematics]}];
@@ -28,6 +28,43 @@ test('unrecognised answers and invalid question indexes do not change progress',
   assert.equal(answerQuestion(session,99,fraction),false);
   assert.equal(answerQuestion(session,0,{word:'missing',hanja:'水'}),false);
   assert.equal(sessionResult(session).answered,0);
+});
+
+test('a saved round keeps question order, shuffled options and locked answers across a catalog translation update',()=>{
+  const original=createSession(questions,()=>0.1);
+  original.roundID='0123456789abcdef'.repeat(2);
+  answerQuestion(original,0,original.questions[0].options[0]);
+  const draft=JSON.parse(JSON.stringify(practiceDraft(original)));
+  const updated=questions.map(q=>({...q,prompt_es:'Traducción actualizada',options:[...q.options].reverse()})).reverse();
+  const restored=restorePracticeDraft(draft,updated,'student');
+  assert.equal(restored.owner,'student');
+  assert.deepEqual(practiceDraft(restored),draft);
+  assert.equal(restored.questions[0].prompt_es,'Traducción actualizada');
+  assert.equal(sessionResult(restored).correct,sessionResult(original).correct);
+  assert.equal(answerQuestion(restored,0,restored.questions[0].answer),false);
+  assert.equal(answerQuestion(restored,1,restored.questions[1].answer),true);
+  assert.ok(sessionResult(restorePracticeDraft(practiceDraft(restored),updated,'student')).complete);
+  assert.equal(sessionResult(original).answered,1);
+});
+
+test('an invalid or obsolete draft never resumes with different questions, choices or answers',()=>{
+  const session=createSession(questions,()=>0.99);
+  session.roundID='a'.repeat(32);
+  const draft=practiceDraft(session);
+  assert.equal(restorePracticeDraft(draft,questions,null).answers.size,0);
+  for(const damage of [
+    d=>{d.roundID=[d.roundID]}, d=>{d.level='hard'}, d=>{d.items.pop()},
+    d=>{d.items[0]=null}, d=>{d.items[0].id='removed'}, d=>{d.items[1]=d.items[0]},
+    d=>{d.items[0].options.reverse();d.items[0].options[1]=d.items[0].options[0]},
+    d=>{d.items[0].answer=wordKey(fountain)}, d=>{d.items[0].selected=wordKey(fountain)},
+    d=>{d.items[1].selected=d.items[1].answer},
+  ]) {
+    const broken=structuredClone(draft);
+    damage(broken);
+    assert.equal(restorePracticeDraft(broken,questions,null),null);
+  }
+  const updated=questions.map(q=>q.id==='first'?{...q,answer:mathematics}:q);
+  assert.equal(restorePracticeDraft(draft,updated,null),null);
 });
 
 test('a restarted session has no previous answers and does not mutate question data',()=>{
