@@ -144,8 +144,8 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
   const counts=new Map();
   for(const {result} of entries)if(result)counts.set(wordCategory(result.word),(counts.get(wordCategory(result.word))??0)+1);
   const categories=['easy','normal','hard','classical'].filter(level=>counts.has(level));
-  return `<section class="print-sheet" aria-label="${labels.title}">
-    <header class="print-cover"><div class="print-masthead"><span>漢—GRAPH</span><span>${interfaceCopy[language].brandMotto}</span></div>
+  return `<section class="print-sheet" lang="${language}" aria-label="${labels.title}">
+    <header class="print-cover"><div class="print-masthead"><span lang="ko">漢—GRAPH</span><span>${interfaceCopy[language].brandMotto}</span></div>
       <p class="print-eyebrow">${interfaceCopy[language].savedEye}</p><h1>${labels.title}</h1><p class="print-subtitle">${labels.subtitle}</p>
       <div class="print-meta"><strong>${labels.count(entries.length)}</strong><span>${escape(dateLabel)}</span></div>
       ${categories.length?`<p class="print-categories">${categories.map(level=>`${labels[level]} ${counts.get(level)}`).join(' · ')}</p>`:''}
@@ -161,6 +161,6 @@ export function renderPrintableWordbook(entries, {lang='ko', date=new Date()} = 
           :`<p class="print-missing">${labels.missing}</p>`}</div>
       </article></li>`;
     }).join('')}</ol>
-    <footer class="print-colophon"><p>${labels.note}</p><div><strong>漢—GRAPH</strong><span>${labels.footer}</span></div></footer>
+    <footer class="print-colophon"><p>${labels.note}</p><div><strong lang="ko">漢—GRAPH</strong><span>${labels.footer}</span></div></footer>
   </section>`;
 }

@@ -1,4 +1,60 @@
 @font-face {
+  font-family:"HanGraph KR";
+  src:url("/fonts/NotoSansKR-Regular.woff2") format("woff2");
+  font-weight:400;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"HanGraph KR";
+  src:url("/fonts/NotoSansKR-SemiBold.woff2") format("woff2");
+  font-weight:600;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans";
+  src:url("/fonts/NotoSans-Regular.woff2") format("woff2");
+  font-weight:400;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans";
+  src:url("/fonts/NotoSans-Bold.woff2") format("woff2");
+  font-weight:700;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans JP";
+  src:url("/fonts/NotoSansJP-Regular.woff2") format("woff2");
+  font-weight:400;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans JP";
+  src:url("/fonts/NotoSansJP-Bold.woff2") format("woff2");
+  font-weight:700;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans SC";
+  src:url("/fonts/NotoSansSC-Regular.woff2") format("woff2");
+  font-weight:400;
+  font-display:swap;
+}
+
+@font-face {
+  font-family:"Noto Sans SC";
+  src:url("/fonts/NotoSansSC-Bold.woff2") format("woff2");
+  font-weight:700;
+  font-display:swap;
+}
+
+@font-face {
   font-family:"HanGraph Devanagari";
   src:local("Noto Sans Devanagari"),url("/fonts/NotoSansDevanagari-Regular.ttf") format("truetype");
   font-style:normal;
@@ -27,8 +83,29 @@
   --accent:#ac533c;
   --accent-light:#f5e8df;
   --sidebar-width:280px;
-  --font:Inter,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic","HanGraph Devanagari","HanGraph Thai",sans-serif;
-  --serif:"Noto Serif CJK KR","Batang","Songti SC","HanGraph Devanagari","HanGraph Thai",serif
+  --ui-font:Inter,"Segoe UI","Apple SD Gothic Neo","Malgun Gothic","Noto Sans","HanGraph Devanagari","HanGraph Thai","HanGraph KR",sans-serif;
+  --ui-serif:"Noto Serif CJK KR","Batang",Georgia,"HanGraph Devanagari","HanGraph Thai","Noto Sans","HanGraph KR",serif;
+  --print-base:"Noto Sans","HanGraph Devanagari","HanGraph Thai","HanGraph Print",sans-serif;
+}
+:where([lang]) {
+  --font:var(--ui-font);
+  --serif:var(--ui-serif);
+  --print-font:var(--print-base);
+  font-family:var(--font);
+}
+:where([lang]:lang(ko)) {
+  --font:"Apple SD Gothic Neo","Malgun Gothic","HanGraph KR",var(--ui-font);
+  --print-font:"HanGraph Print",var(--print-base);
+}
+:where([lang]:lang(zh)) {
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC",var(--ui-font);
+  --serif:"Noto Serif CJK SC","Songti SC","Noto Sans SC",var(--ui-serif);
+  --print-font:"Noto Sans SC",var(--print-base);
+}
+:where([lang]:lang(ja)) {
+  --font:"Hiragino Sans","Yu Gothic","Noto Sans JP","HanGraph KR","Noto Sans SC",var(--ui-font);
+  --serif:"Noto Serif CJK JP","Yu Mincho","Noto Sans JP",var(--ui-serif);
+  --print-font:"Noto Sans JP","HanGraph Print","Noto Sans SC",var(--print-base);
 }
 * {
   box-sizing:border-box
@@ -2040,6 +2117,7 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
 #personal-word-form,#dictionary-import-form { display:grid;gap:14px;min-width:0 }
 #personal-word-form label,#dictionary-import-form label { font-weight:600;font-size:14px }
 #personal-word-form input,#personal-word-form select,#dictionary-import-form input { width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--white);color:var(--ink);padding:12px;font:inherit }
+#personal-word-form input[lang] { font-family:var(--font) }
 .word-form-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px }
 .word-field { display:grid;gap:7px;min-width:0 }
 .new-character { min-width:0;display:grid;gap:14px;margin-top:18px;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--sage) }

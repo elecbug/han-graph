@@ -21,13 +21,13 @@
   color:#263b32;
   box-shadow:0 8px 40px #243b3110;
   border:1px solid #e0e4dc;
-  font-family:"HanGraph Print","HanGraph Devanagari","HanGraph Thai",sans-serif;
   font-synthesis:none;
   font-size:9.5pt;
   font-weight:400;
   line-height:1.45;
   overflow-wrap:anywhere;
 }
+.print-sheet,.print-sheet [lang] { font-family:var(--print-font); }
 .print-sheet p,.print-sheet h1,.print-sheet h2,.print-sheet h3 { margin:0; }
 .print-cover { border-bottom:2px solid #315e48; padding-bottom:4mm; margin-bottom:1mm; }
 .print-masthead { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:7pt; letter-spacing:.08em; }

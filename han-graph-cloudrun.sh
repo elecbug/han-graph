@@ -27,10 +27,6 @@ else
 fi
 
 FONT_DIR="$REPO_DIR/src/internal/webapp/static/fonts"
-SOURCE_GO="$REPO_DIR/src/internal/webapp/server.go"
-FONT_REGULAR="$FONT_DIR/NotoSansKR-Regular.woff2"
-FONT_SEMIBOLD="$FONT_DIR/NotoSansKR-SemiBold.woff2"
-FONT_LICENSE="$FONT_DIR/LICENSE"
 
 info() { printf '\n[INFO] %s\n' "$*"; }
 warn() { printf '\n[WARN] %s\n' "$*" >&2; }
@@ -44,14 +40,14 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   bash han-graph-cloudrun.sh <명령> [옵션]
 
 자주 사용하는 명령:
-  deploy                 소스 빌드 및 Cloud Run 배포 (폰트 누락 시 설치)
+  deploy                 글꼴 확인 후 소스 빌드 및 Cloud Run 배포
   update                 GitHub 최신 소스 가져오기 (추적 파일 수정 시 중단)
   update-deploy          소스 업데이트 후 배포
   status                 Cloud Run 서비스 정보 및 주소 확인
   check                  홈페이지와 /api/stats의 HTTP 응답 검사
   logs [개수]            Cloud Run 최근 로그 조회 (기본 50개)
   url                    기본 Cloud Run 서비스 주소 출력
-  fonts                  누락된 Noto Sans KR WOFF2 / LICENSE 설치
+  fonts                  저장소에 포함된 글꼴의 SHA-256 및 라이선스 파일 확인
 
 초기 설정·장애 복구:
   project                gcloud 기본 프로젝트 및 스크립트 대상 확인
@@ -88,7 +84,6 @@ HAN-Graph / Google Cloud Run 관리 스크립트
   2) 빌드·저장·전송에 비용이 발생할 수 있습니다.
   3) Cloud Run의 파일 DB는 휘발성입니다. Firestore는 미리 만든 데이터베이스와
      런타임 서비스 계정의 데이터 접근 권한을 사용합니다.
-  4) GitHub 원본의 정적 폰트 파일이 누락되면 fonts 명령으로 생성합니다.
 HELP
 }
 
@@ -194,72 +189,10 @@ fix_iam() {
 
 fonts() {
   require_repo
-  require_command curl
-  require_command python3
-  mkdir -p "$FONT_DIR"
-
-  if [[ -s "$FONT_REGULAR" && -s "$FONT_SEMIBOLD" ]]; then
-    info "두 WOFF2 폰트가 이미 존재합니다. 변환을 생략합니다."
-  else
-    info "Google Fonts 공식 Noto Sans KR 폰트를 내려받아 WOFF2로 변환합니다."
-    local tmpdir
-    tmpdir="$(mktemp -d)"
-    # 함수 종료 또는 오류 시 임시 파일 삭제
-    trap 'rm -rf -- "$tmpdir"' RETURN
-
-    curl --fail --location --retry 3 --silent --show-error \
-      'https://raw.githubusercontent.com/google/fonts/main/ofl/notosanskr/NotoSansKR%5Bwght%5D.ttf' \
-      --output "$tmpdir/NotoSansKR-variable.ttf"
-    [[ -s "$tmpdir/NotoSansKR-variable.ttf" ]] || die "원본 폰트 다운로드에 실패했습니다."
-
-    python3 -m venv "$tmpdir/venv" ||
-      die "Python 가상환경을 만들 수 없습니다. Cloud Shell의 python3-venv 설치 여부를 확인하십시오."
-    "$tmpdir/venv/bin/python" -m pip install --quiet 'fonttools[woff]'
-
-    FONT_INPUT="$tmpdir/NotoSansKR-variable.ttf" FONT_DEST="$FONT_DIR" \
-      "$tmpdir/venv/bin/python" - <<'PY'
-import os
-from pathlib import Path
-from fontTools.ttLib import TTFont
-from fontTools.varLib.instancer import instantiateVariableFont
-
-src = os.environ['FONT_INPUT']
-out = Path(os.environ['FONT_DEST'])
-for name, weight in [('Regular', 400), ('SemiBold', 600)]:
-    dst = out / f'NotoSansKR-{name}.woff2'
-    if dst.is_file() and dst.stat().st_size > 0:
-        print(f'SKIP {dst}')
-        continue
-    font = TTFont(src)
-    font = instantiateVariableFont(font, {'wght': weight}, updateFontNames=True)
-    font.flavor = 'woff2'
-    font.save(dst)
-    check = TTFont(dst)
-    check.close()
-    font.close()
-    print(f'OK   {dst} ({dst.stat().st_size:,} bytes)')
-PY
-    rm -rf -- "$tmpdir"
-    trap - RETURN
-  fi
-
-  if [[ ! -s "$FONT_LICENSE" ]]; then
-    info "OFL 라이선스 다운로드"
-    curl --fail --location --retry 3 --silent --show-error \
-      'https://raw.githubusercontent.com/google/fonts/main/ofl/notosanskr/OFL.txt' \
-      --output "$FONT_LICENSE"
-  fi
-
-  [[ -s "$FONT_REGULAR" && -s "$FONT_SEMIBOLD" && -s "$FONT_LICENSE" ]] ||
-    die "필요한 폰트 또는 라이선스 파일이 누락되었습니다."
-
-  ls -lh "$FONT_REGULAR" "$FONT_SEMIBOLD" "$FONT_LICENSE"
-
-  if [[ -f "$SOURCE_GO" ]] && ! grep -Fq '"/fonts/NotoSansKR-Regular.woff2"' "$SOURCE_GO"; then
-    warn "server.go에서 폰트 URL 참조가 보이지 않습니다. 과거 sed 명령으로 삭제했다면 해당 변경을 수동 복원하십시오."
-    warn "git diff -- src/internal/webapp/server.go 로 수정 내역을 확인하십시오."
-  fi
-  info "폰트 준비 완료"
+  require_command sha256sum
+  [[ -s "$FONT_DIR/LICENSE" ]] || die "글꼴 라이선스 파일이 누락되었습니다: $FONT_DIR/LICENSE"
+  (cd -- "$FONT_DIR" && sha256sum --check SHA256SUMS) ||
+    die "글꼴 검증에 실패했습니다. $FONT_DIR 파일을 확인하십시오."
 }
 
 # Forward explicitly supported public deployment settings.
@@ -292,7 +225,6 @@ PY
 
 deploy() {
   require_cloud
-  require_repo
   fonts
   local -a db_args=()
   local backend db_project database google_client_id
