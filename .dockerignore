@@ -29,5 +29,6 @@
 !/dataset/sources/README.md
 !/dataset/sources/nikl_2003_beginner.tsv
 !/dataset/sources/nikl_2003_beginner_coverage.jsonl
+!/dataset/sources/vocabulary_expansion.tsv
 **/.*
 !/.dockerignore
