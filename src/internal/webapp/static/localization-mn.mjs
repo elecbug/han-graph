@@ -179,7 +179,6 @@ export const mn = {
   browseLabel: "Нэг үгээс эхлээрэй",
   words: "Үгс",
   characters: "Ханз",
-  entries: "",
   searchResults: "Хайлтын үр дүн",
   limited: "Үр дүнгийн заримыг харууллаа. Илүүг олохын тулд хайлтаа нарийвчилна уу.",
   searchMode: "Хайлтын хүрээ",

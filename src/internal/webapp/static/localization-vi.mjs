@@ -180,7 +180,6 @@ export const vi = {
   browseLabel: "Bắt đầu từ một liên kết",
   words: "Từ",
   characters: "Chữ Hán",
-  entries: "",
   searchResults: "Kết quả tìm kiếm",
   limited: "Đang hiển thị một phần kết quả. Hãy thu hẹp truy vấn để tìm thêm.",
   searchMode: "Phạm vi tìm kiếm",

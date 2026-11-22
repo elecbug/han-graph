@@ -180,7 +180,6 @@ export const zh = {
   browseLabel: "从一组关联开始",
   words: "词语",
   characters: "汉字",
-  entries: "",
   searchResults: "搜索结果",
   limited: "当前只显示部分结果。可缩小搜索范围查看更多匹配项。",
   searchMode: "搜索范围",

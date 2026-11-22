@@ -4,10 +4,24 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from localized_dataset import apply_batch, check_row, check_text
+from localized_dataset import ALL_LANGUAGES, apply_batch, check_row, check_text
 
 
 class AdditionalLocales(unittest.TestCase):
+    def test_calendar_examples_identify_the_year_in_translation(self):
+        dataset = Path(__file__).resolve().parents[1] / 'dataset'
+        seen = {language: {} for language in ALL_LANGUAGES}
+        with (dataset / 'example.jsonl').open() as file:
+            for row in map(json.loads, file):
+                word = row['word']
+                if row['example_ko'] != f'옛 기록에 적힌 {word}년이 어느 해인지 연표와 대조했어요.':
+                    continue
+                for language, examples in seen.items():
+                    with self.subTest(word=word, language=language):
+                        text = row[f'example_{language}']
+                        self.assertNotIn(text, examples, f'{word} shares its translation with {examples.get(text)}')
+                        examples[text] = word
+
     def test_public_translations_keep_learning_contrasts_distinct(self):
         dataset = Path(__file__).resolve().parents[1] / 'dataset'
         with (dataset / 'word.jsonl').open() as file:
@@ -34,6 +48,17 @@ class AdditionalLocales(unittest.TestCase):
         for value, language in [('китеп', 'uz'), ('kitob', 'ky'), (' ', 'uz'), ('баа\n', 'ky'), ('soʻz Қ', 'uz'), ('&amp; soʻz', 'uz'), ('soʻz ⁇', 'uz'), ('маани \ufffd', 'ky')]:
             with self.assertRaises(ValueError):
                 check_text(value, 200, language)
+        for value, language in [('с пяти ⁇ семи утра', 'ru'), ('远远远远远远', 'zh'),
+                                ('oʻz navbatida, ' * 6 + 'hujjat', 'uz')]:
+            with self.subTest(language=language), self.assertRaises(ValueError):
+                check_text(value, 500, language)
+        check_text('It takes time…', 200, 'en')
+        with self.assertRaisesRegex(ValueError, 'semantic_hint_en'):
+            check_row('word.jsonl', {'meaning_ko': '귀 안의 얇은 막', 'semantic_hint': '鼓[고]는 북이에요. / 鼓[고] means drum.'}, ('ko',))
+        for row, language in [({'meaning_zh': '家庭，家庭'}, 'zh'), ({'meaning_vi': 'hóa đơn;'}, 'vi')]:
+            with self.subTest(language=language), self.assertRaises(ValueError):
+                check_row('word.jsonl', row, (language,))
+        check_row('word.jsonl', {'meaning_en': 'parentheses; brackets'}, ('en',))
         with self.assertRaises(ValueError):
             check_row('character.jsonl', {'meaning_uz': ['narx'], 'meaning_ky': []}, ('uz', 'ky'))
 

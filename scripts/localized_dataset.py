@@ -15,13 +15,17 @@ import unicodedata
 
 BATCH_SIZE = 10
 LANGUAGES = ('ru', 'uz', 'ky', 'zh', 'ja', 'es', 'vi', 'ne', 'mn', 'th')
+ALL_LANGUAGES = ('ko', 'en', *LANGUAGES)
 CYRILLIC = re.compile(r"[\u0400-\u052f]")
 LATIN = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿĀ-ɏḀ-ỿ]")
 HAN = re.compile(r"[㐀-䶿一-鿿豈-﫿\U00020000-\U000323af]")
 JAPANESE = re.compile(r"[ぁ-ゖァ-ヺー㐀-䶿一-鿿々]")
-SCRIPTS = {'ru': CYRILLIC, 'ky': CYRILLIC, 'uz': LATIN, 'zh': HAN,
+SCRIPTS = {'ko': re.compile('[가-힣]'), 'en': LATIN, 'ru': CYRILLIC, 'ky': CYRILLIC, 'uz': LATIN, 'zh': HAN,
            'ja': JAPANESE, 'es': LATIN, 'vi': LATIN, 'mn': CYRILLIC,
            'ne': re.compile(r'[अ-ह]'), 'th': re.compile(r'[ก-ฮ]')}
+# Five consecutive copies of a character, word or short phrase in learning text.
+# Start at a letter so punctuation such as an ellipsis cannot trigger the check.
+REPEATED_TEXT = re.compile(r'([^\W\d_].{0,35}?)\1{4}')
 
 
 def fields_for(languages):
@@ -33,6 +37,9 @@ def fields_for(languages):
     }
     if 'ru' in languages:
         fields['word.jsonl'].add('semantic_hint_en')
+    if 'ko' in languages:
+        fields['word.jsonl'].remove('semantic_hint_ko')
+        fields['word.jsonl'].add('semantic_hint')
     return fields
 FIELDS = fields_for(('ru',))
 
@@ -52,8 +59,10 @@ def check_text(text, maximum, language="ru"):
         raise ValueError("Translation text must be a nonempty trimmed string")
     if len(text) > maximum or any(unicodedata.category(c) == "Cc" for c in text):
         raise ValueError("Translation text has a control character or exceeds the field limit")
-    if language != 'ru' and any(token in text for token in ('⁇', '\ufffd')):
+    if any(token in text for token in ('⁇', '\ufffd')):
         raise ValueError(f'Unresolved {language} translation symbol: {text!r}')
+    if REPEATED_TEXT.search(text):
+        raise ValueError(f'Repeated {language} translation fragment: {text!r}')
     if not SCRIPTS[language].search(text) or (language in ('uz', 'es', 'vi') and CYRILLIC.search(text)) or "<unk>" in text or re.search(r"\b987\d{2}\b|&(?:amp;|#)", text):
         raise ValueError(f"Untranslated {language} text or unresolved placeholder: {text!r}")
 
@@ -68,9 +77,16 @@ def check_row(filename, row, languages=('ru',)):
             for meaning in meanings:
                 check_text(meaning, 200, language)
         elif filename == 'word.jsonl':
-            check_text(row.get(meaning_key), 2000, language)
+            meaning = row.get(meaning_key)
+            check_text(meaning, 2000, language)
+            senses = [part.strip().casefold() for part in re.split(r'[,;，；、]', meaning)]
+            if not senses[-1] or (len(senses) > 1 and len(set(senses)) == 1):
+                raise ValueError(f'Empty final sense or duplicated {meaning_key}: {meaning!r}')
             if row.get('semantic_hint'):
-                check_text(row.get(f'semantic_hint_{language}'), 2000, language)
+                hint = row['semantic_hint'] if language == 'ko' else row.get(f'semantic_hint_{language}')
+                check_text(hint, 2000, language)
+                if language == 'ko' and re.search(r' / .*?[A-Za-z]{2,}', hint):
+                    raise ValueError('English composition hint belongs in semantic_hint_en')
                 if not isinstance(row.get('semantic_hint_en'), str) or not row['semantic_hint_en'].strip():
                     raise ValueError('Missing English composition hint')
         elif filename == 'example.jsonl':
@@ -78,9 +94,10 @@ def check_row(filename, row, languages=('ru',)):
         elif filename == 'practice.json':
             check_text(row.get(f'prompt_{language}'), 10000, language)
             check_text(row.get(f'explanation_{language}'), 10000, language)
-            required = set(re.findall(r'[가-힣]+', row['explanation_en']))
-            if not required.issubset(set(re.findall(r'[가-힣]+', row[f'explanation_{language}']))):
-                raise ValueError(f'{language} explanation lost a Korean word or reading')
+            if language not in ('ko', 'en'):
+                required = set(re.findall(r'[가-힣]+', row['explanation_en']))
+                if not required.issubset(set(re.findall(r'[가-힣]+', row[f'explanation_{language}']))):
+                    raise ValueError(f'{language} explanation lost a Korean word or reading')
 
 
 def atomic_write(path, text):
@@ -150,15 +167,17 @@ def check_all(dataset, languages=("ru",)):
     return counts
 
 
-def main(default_languages=LANGUAGES):
+def main(default_languages=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=["check", "apply"])
     parser.add_argument("--dataset", type=Path, default=Path(__file__).resolve().parents[1] / "dataset")
     parser.add_argument("--patches", type=Path, help="JSONL with file, key and updates")
     parser.add_argument("--validator", type=Path, help="Built han-graph executable")
     parser.add_argument("--log", type=Path)
-    parser.add_argument("--languages", nargs="+", choices=LANGUAGES, default=default_languages)
+    parser.add_argument("--languages", nargs="+", choices=ALL_LANGUAGES)
     args = parser.parse_args()
+    if args.languages is None:
+        args.languages = default_languages or (ALL_LANGUAGES if args.command == 'check' else LANGUAGES)
     if args.command == "check":
         print(json.dumps(check_all(args.dataset, args.languages), ensure_ascii=False))
         return

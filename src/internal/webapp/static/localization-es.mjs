@@ -180,7 +180,6 @@ export const es = {
   browseLabel: "Empieza por una conexión",
   words: "Palabras",
   characters: "Caracteres",
-  entries: "",
   searchResults: "Resultados de la búsqueda",
   limited: "Se muestra una selección. Afina la búsqueda para encontrar más resultados.",
   searchMode: "Alcance de la búsqueda",

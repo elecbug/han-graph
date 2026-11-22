@@ -10,6 +10,7 @@ test('all languages have every UI message and the same interpolation variables',
   const variables=text=>[...text.matchAll(/\{\w+\}/g)].map(match=>match[0]).sort();
   for(const language of LANGUAGES) {
     assert.deepEqual(Object.keys(copy[language]).sort(),keys,language);
+    for(const key of keys)assert.ok(copy[language][key].trim(),`${language}.${key} is empty`);
     for(const key of keys)assert.deepEqual(variables(copy[language][key]),variables(copy.ko[key]),`${language}.${key}`);
     assert.equal(normalizeLanguage(language),language);
   }
@@ -35,6 +36,9 @@ test('Russian quantities use the correct singular, few and many forms',()=>{
 });
 
 test('new locales display counts in their own scripts and number forms',()=>{
+  assert.equal(countText(1,'words','ko'),'단어 1개');
+  assert.equal(countText(2,'characters','ko'),'한자 2자');
+  assert.equal(countText(10,'questions','ko'),'10문항');
   assert.equal(countText(2,'questions','ne'),(2).toLocaleString('ne')+' प्रश्न');
   assert.equal(countText(2,'words','mn'),'2 үг');
   assert.equal(countText(2,'characters','th'),'2 ตัว');

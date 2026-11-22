@@ -180,7 +180,6 @@ export const ja = {
   browseLabel: "つながりから探す",
   words: "単語",
   characters: "漢字",
-  entries: "",
   searchResults: "検索結果",
   limited: "結果の一部を表示しています。条件を絞って探してください。",
   searchMode: "検索範囲",

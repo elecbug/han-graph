@@ -179,7 +179,6 @@ export const ne = {
   browseLabel: "एउटा शब्दबाट सुरु गर्नुहोस्",
   words: "शब्द",
   characters: "हान्जा",
-  entries: "",
   searchResults: "खोज नतिजा",
   limited: "केही नतिजा मात्र देखाइएका छन्। थप भेट्न खोजलाई अझ स्पष्ट बनाउनुहोस्।",
   searchMode: "खोजको दायरा",

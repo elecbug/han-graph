@@ -179,7 +179,6 @@ export const th = {
   browseLabel: "เริ่มจากคำสักคำ",
   words: "คำศัพท์",
   characters: "อักษรฮันจา",
-  entries: "",
   searchResults: "ผลการค้นหา",
   limited: "แสดงผลบางส่วน ระบุคำค้นให้เจาะจงขึ้นเพื่อค้นหาเพิ่มเติม",
   searchMode: "ขอบเขตการค้นหา",
