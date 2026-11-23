@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, practiceDraft, restorePracticeDraft} from '../static/learning.mjs';
+import {wordKey, normalizeSaved, createSession, createReviewSession, answerQuestion, sessionResult, practiceDraft, restorePracticeDraft} from '../static/learning.mjs';
 
 const fraction={word:'분수',hanja:'分數'}, mathematics={word:'수학',hanja:'數學'}, fountain={word:'분수',hanja:'噴水'};
 const questions=[{id:'first',word_level:'easy',answer:fraction,options:[fraction,mathematics]},{id:'second',word_level:'easy',answer:mathematics,options:[fraction,mathematics]}];
@@ -164,4 +164,27 @@ test('answer variety never reduces round size when all general answers repeat',(
   const session=createSession(pool,()=>0.99999);
   assert.equal(session.questions.length,10);
   assert.equal(session.questions.filter(q=>!q.contrast_group).length,2);
+});
+
+
+test('review prefers another context for the exact word, includes short rounds and restores their sources',()=>{
+  const original={...questions[0],prompt_ko:'피자 한 판을 나눠요.'};
+  const alternate={...original,id:'different',prompt_ko:'분자와 분모를 써요.'};
+  const duplicatePrompt={...original,id:'same-text'};
+  const homonym={...original,id:'water',answer:fountain,options:[fountain,mathematics]};
+  const hard={...questions[1],word_level:'hard'};
+  const round='b'.repeat(32);
+  const targets=[{question:original.id,answer:fraction,round_id:round},{question:hard.id,answer:mathematics,round_id:round}];
+  const pool=[original,duplicatePrompt,homonym,alternate,hard];
+  const session=createReviewSession(pool,targets,()=>0);
+  assert.deepEqual(session.questions.map(q=>q.id).sort(),['different',hard.id].sort());
+  session.roundID='c'.repeat(32);
+  answerQuestion(session,0,session.questions[0].answer);
+  const draft=practiceDraft(session);
+  assert.deepEqual(practiceDraft(restorePracticeDraft(draft,pool,'student')),draft);
+  assert.equal(restorePracticeDraft({...draft,level:'easy'},pool,'student'),null);
+  assert.equal(restorePracticeDraft({...draft,tag:'gosaseongeo'},pool,'student'),null);
+  delete draft.items[0].source;
+  assert.equal(restorePracticeDraft(draft,pool,'student'),null);
+  assert.deepEqual(createReviewSession([original,homonym],[...targets,targets[0]]).questions.map(q=>q.id),[original.id]);
 });

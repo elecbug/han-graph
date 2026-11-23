@@ -1,9 +1,9 @@
 import {createActivityTracker, monthSummary} from './study-activity.mjs';
 import {WORD_FORM_FIELDS, emptyWordDraft, wordFormPayload, findMissingCharacters, addMissingCharacters} from './dictionary-form.mjs';
-import {copy, normalizeLanguage, localized, localizedDate, studyFormats, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
+import {copy, normalizeLanguage, localized, practiceLanguages, localizedDate, studyFormats, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
 import {parseDictionaryInput, DICTIONARY_FIELDS, DICTIONARY_SAMPLE} from './personal-dictionary.mjs';
 import {exampleLines} from './examples.mjs';
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, WORD_TAGS, matchesWordFilter, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
+import {wordKey, normalizeSaved, createSession, createReviewSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, WORD_TAGS, matchesWordFilter, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
 import {loadPrintableWords, renderPrintableWordbook, wordbookPrintFilename, loadWordbookPrintFont} from './wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG, filterNetwork, componentNetwork, wordFormParts, isMixedWord} from './network.mjs';
@@ -30,6 +30,8 @@ const state = {
   tag:WORD_TAGS.includes(storedTag)?storedTag:'',
   level:WORD_LEVELS.includes(storedLevel)?storedLevel:'all',
   practiceSettings:practiceSettings(storedPractice),
+  promptLanguage:LANGUAGES.includes(storedPractice?.promptLanguage)?storedPractice.promptLanguage:'',
+  reviewRequest:null,
   lang: normalizeLanguage(readStorage('han-graph.language', 'ko')),
   saved: normalizeSaved(readStorage('han-graph.words.v1', [])),
   page:'explore', query:'', searchMode:'all', filtersOpen:false, tab:'words', search:null, stats:null, practice:null,
@@ -48,7 +50,7 @@ const searchPath = (mode,level=state.level,tag=state.tag) => {
   if(level!=='all')params.set('level',level);
   return '/api/search'+(params.size?'?'+params:'');
 };
-const levelLabel = level => t({all:'levelAll',easy:'levelEasy',normal:'levelNormal',hard:'levelHard',classical:'levelClassical'}[level]??'levelNormal');
+const levelLabel = level => t({review:'reviewRound',all:'levelAll',easy:'levelEasy',normal:'levelNormal',hard:'levelHard',classical:'levelClassical'}[level]??'levelNormal');
 const tagSuffix = tag => WORD_TAGS.includes(tag)?` · ${t(tag)}`:'';
 const filterSummary = () => `${t(state.searchMode==='sound'?'searchSound':'searchAll')} · ${levelLabel(state.level)}${tagSuffix(state.tag)}`;
 const personalBadge = word => state.dictionary.words.some(entry=>wordKey(entry)===wordKey(word))?`<span class="personal-badge">${t('personal')}</span>`:'';
@@ -60,16 +62,18 @@ const tagControls = () => `<div class="vocabulary-filters" role="group" aria-lab
 const meaning = word => localized(word, 'meaning', state.lang);
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
-function languageOptions(excluded=[]) {
+function languageOptions(excluded=[],selected=null) {
   const preferences=navigator.languages?.length?navigator.languages:[navigator.language];
   return orderedLanguages(preferences).filter(lang=>!excluded.includes(lang)).map(lang=>
-    `<option value="${lang}" lang="${lang==='zh'?'zh-Hans':lang}">${languageLabel(lang)}</option>`
+    `<option value="${lang}" ${lang===selected?'selected':''} lang="${lang==='zh'?'zh-Hans':lang}">${languageLabel(lang)}</option>`
   ).join('');
 }
 function refreshLanguageOptions() {
   const language=$('#language');
   language.innerHTML=languageOptions();
   language.value=state.lang;
+  const prompt=$('[name="prompt-language"]');
+  if(prompt)prompt.innerHTML=promptLanguageOptions();
   const translation=$('#translation-language');
   if(translation) {
     const selected=translation.value;
@@ -151,7 +155,7 @@ async function renderPage({revealSelection=false} = {}) {
   if(previousPage!==state.page)window.scrollTo({top:0});
   updateShell();
   if (state.page==='account') { renderAccount(); return; }
-  if (state.page==='practice') { renderPractice(); return; }
+  if (state.page==='practice') { if(previousPage!=='practice')state.reviewRequest=null; renderPractice(); return; }
   if (state.page==='saved') { await renderSaved(epoch); return; }
   if (state.page==='print') { await renderWordbookPrint(epoch); return; }
   const params=new URLSearchParams(query);
@@ -535,8 +539,11 @@ async function importWordbook(file) {
   }
 }
 
+function promptLanguageOptions() {
+  return `<option value="">${t('followInterface')}</option>${languageOptions([],state.promptLanguage)}`;
+}
 function practiceSettingsControls() {
-  return `<div class="practice-settings"><label class="practice-tag-picker">${t('idiomTags')}<select name="practice-tag">${['',...WORD_TAGS].map(tag=>`<option value="${tag}" ${(state.practiceSettings.tag??'')===tag?'selected':''}>${t(tag||'allExpressions')}</option>`).join('')}</select></label><fieldset><legend>${t('wordLevel')}</legend><div class="practice-levels">${PRACTICE_LEVELS.map(level=>{
+  return `<div class="practice-settings"><div class="practice-selectors"><label class="practice-tag-picker">${t('promptLanguage')}<select name="prompt-language">${promptLanguageOptions()}</select></label><label class="practice-tag-picker">${t('idiomTags')}<select name="practice-tag">${['',...WORD_TAGS].map(tag=>`<option value="${tag}" ${(state.practiceSettings.tag??'')===tag?'selected':''}>${t(tag||'allExpressions')}</option>`).join('')}</select></label></div><fieldset><legend>${t('wordLevel')}</legend><div class="practice-levels">${PRACTICE_LEVELS.map(level=>{
     const count=filterPracticeQuestions(state.practice.questions,{...state.practiceSettings,level}).length;
     return `<label class="practice-level-card"><input type="radio" name="practice-level" value="${level}" ${state.practiceSettings.level===level?'checked':''}><span>${levelBadge({level})}<small>${countText(count,'questions',state.lang)}</small></span></label>`;
   }).join('')}</div><p class="filter-help">${t(`practice${{easy:'Easy',normal:'Normal',hard:'Hard',classical:'Classical'}[state.practiceSettings.level]}Hint`)}</p><p class="filter-help">${t('practiceLevelHint')}</p></fieldset></div>`;
@@ -581,6 +588,48 @@ function syncPracticeDraft() {
 function writePracticeDraft(session) {
   session.persisted=saveStorage(draftKey(session.owner),practiceDraft(session));
 }
+function startPracticeSession(session) {
+  if(!session.questions.length)return;
+  session.owner=state.user?.id??null;
+  session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
+  state.session=session;
+  state.index=0;
+  state.translation=false;
+  writePracticeDraft(session);
+  renderPractice();
+  focusPracticeStep('.question-prompt');
+}
+
+function missedTargets(session, mistakes) {
+  return mistakes.map(q=>({round_id:session.roundID,question:q.id,answer:q.answer}));
+}
+
+const reviewLabel = (key,count) => t(key).replace('{count}',countText(count,'questions',state.lang));
+
+async function showReviewEntry(slot, last) {
+  const owner=state.user?.id;
+  try {
+    const targets=owner ? await (state.reviewRequest??=accountRequest('/api/account/practice/review')) : last?.mistakes;
+    if(!slot.isConnected || state.user?.id!==owner || !Array.isArray(targets) || !targets.length)return;
+    const session=createReviewSession(state.practice.questions,targets);
+    if(!session.questions.length)return;
+    const button=document.createElement('button');
+    button.className='secondary-button';
+    button.dataset.action='daily-review';
+    button.textContent=reviewLabel(owner?'todayReview':'retryMistakes',session.questions.length);
+    button.onclick=()=>startPracticeSession(session);
+    slot.replaceChildren(button);
+  } catch {
+    if(!slot.isConnected || state.user?.id!==owner)return;
+    slot.innerHTML=`<span>${t('reviewLoadFailed')}</span> <button class="text-button" type="button">${t('retry')}</button>`;
+    slot.querySelector('button').onclick=()=>{
+      state.reviewRequest=null;
+      slot.replaceChildren();
+      showReviewEntry(slot,last);
+    };
+  }
+}
+
 function renderPractice() {
   const head=hero('practiceEye','practiceTitle','practiceSub');
   const draft=state.session?null:suspendedPractice();
@@ -592,13 +641,18 @@ function renderPractice() {
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
     const progress=draft?t('practiceAnswered').replace('{done}',draft.answers.size).replace('{total}',draft.questions.length):'';
     const resume=draft?`<section class="practice-resume"><div><strong>${levelLabel(draft.level)}${tagSuffix(draft.tag)}</strong><p>${progress}</p></div><button class="primary-button" data-action="resume-practice">${t('resumePractice')} →</button></section>`:'';
-    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}${tagSuffix(last.tag)}`:''}</p>`:''}</div></section></div>`;
+    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${draft?'':'<div class="practice-review-entry" aria-live="polite"></div>'}${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${(last.level==='review' || PRACTICE_LEVELS.includes(last.level))?` · ${levelLabel(last.level)}${tagSuffix(last.tag)}`:''}</p>`:''}</div></section></div>`;
+    if(!draft)showReviewEntry($('.practice-review-entry'),last);
     return;
   }
   const result=sessionResult(state.session);
   if(state.index>=state.session.questions.length){renderSummary(head,result);return;}
   const question=state.session.questions[state.index], answer=state.session.answers.get(question.id);
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><div class="practice-progress"><span>${String(state.index+1).padStart(2,'0')} / ${state.session.questions.length}</span><span>${levelLabel(state.session.level)}${tagSuffix(state.session.tag)}</span></div><div class="progress-track" role="progressbar" aria-label="${t('practice')}" aria-valuenow="${result.answered}" aria-valuemin="0" aria-valuemax="${result.total}"><div class="progress-fill" style="width:${result.answered/result.total*100}%"></div></div><section class="question-card"><div class="question-tags">${levelBadge({level:question.word_level})}${question.contrast_group?`<span class="tag">${t('meaningContrast')}</span>`:''}</div><div class="eyebrow">${t('chooseWord')}</div><h2 class="question-prompt" lang="${state.lang}">${esc(localized(question, 'prompt', state.lang))}</h2><div class="question-help"><span>${t('pickOnce')}</span><button class="text-button" data-action="translation" aria-expanded="${state.translation}">${t(state.translation?'hideTranslation':'showTranslation')}</button></div>${state.translation?`<p class="question-translation" lang="${state.lang==='ko'?'en':'ko'}">${esc(localized(question, 'prompt', state.lang==='ko'?'en':'ko'))}</p>`:''}<div class="options">${question.options.map((option,index)=>{
+  const {primary,support}=practiceLanguages(state.lang,state.promptLanguage);
+  const toggle=primary!==state.lang
+    ? (state.translation?'hideSupport':'showSupport')
+    : (state.translation?'hideTranslation':'showTranslation');
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><div class="practice-progress"><span>${String(state.index+1).padStart(2,'0')} / ${state.session.questions.length}</span><span>${levelLabel(state.session.level)}${tagSuffix(state.session.tag)}</span></div><div class="progress-track" role="progressbar" aria-label="${t('practice')}" aria-valuenow="${result.answered}" aria-valuemin="0" aria-valuemax="${result.total}"><div class="progress-fill" style="width:${result.answered/result.total*100}%"></div></div><section class="question-card"><div class="question-tags">${levelBadge({level:question.word_level})}${question.contrast_group?`<span class="tag">${t('meaningContrast')}</span>`:''}</div><div class="eyebrow">${t('chooseWord')}</div><h2 class="question-prompt" lang="${primary}">${esc(localized(question, 'prompt', primary))}</h2><div class="question-help"><span>${t('pickOnce')}</span><button class="text-button" data-action="translation" aria-expanded="${state.translation}">${t(toggle)}</button></div>${state.translation?`<p class="question-translation" lang="${support}">${esc(localized(question, 'prompt', support))}</p>`:''}<div class="options">${question.options.map((option,index)=>{
     const correct=answer&&wordKey(option)===wordKey(question.answer);
     const incorrect=answer&&!answer.correct&&wordKey(option)===wordKey(answer.selected);
     return `<button class="option ${correct?'correct':''} ${incorrect?'incorrect':''}" data-action="answer" data-index="${index}" ${answer?'disabled':''}><strong lang="ko">${esc(option.word)}</strong><small>${correct?`✓ ${t('answer')}`:incorrect?`× ${t('yourChoice')}`:String(index+1).padStart(2,'0')}</small></button>`;
@@ -606,22 +660,24 @@ function renderPractice() {
 }
 function renderSummary(head,result) {
   const {level}=state.session;
+  const waiting=state.session.owner && state.session.saveState!=='saved';
   if(!state.session.owner && !state.session.recorded && result.complete) {
-    state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,...practiceSettings(state.session),completedAt:new Date().toISOString()});
+    state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,tag:state.session.tag,mistakes:missedTargets(state.session,result.mistakes),completedAt:new Date().toISOString()});
     if(state.session.recorded)forgetPracticeDraft(state.session);
   }
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}${tagSuffix(state.session.tag)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}${tagSuffix(state.session.tag)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}<div class="result-actions">${result.mistakes.length?`<button class="primary-button" data-action="review-mistakes" ${waiting?'disabled':''}>${reviewLabel('retryMistakes',result.mistakes.length)}</button>`:''}<button class="${result.mistakes.length?'secondary-button':'primary-button'}" data-action="start-practice">${t(level==='review'?'newPractice':'restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
 
 async function savePracticeRound(session) {
   if(!session?.owner || session.owner!==state.user?.id || ['saving','saved'].includes(session.saveState))return;
   session.saveState='saving';
-  const answers=session.questions.map(q=>({question:q.id,selected:session.answers.get(q.id).selected}));
+  const answers=session.questions.map(q=>({question:q.id,selected:session.answers.get(q.id).selected,...(q.sourceRound?{source:q.sourceRound}:{})}));
   try {
-    session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,...practiceSettings(session),answers},{keepalive:true});
+    session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,level:session.level,tag:session.tag,answers},{keepalive:true});
     await session.pending;
     session.saveState='saved';
+    if(session.owner===state.user?.id)state.reviewRequest=null;
     forgetPracticeDraft(session);
   } catch {
     session.saveState='error';
@@ -644,9 +700,11 @@ function renderPracticeHistory() {
         const date=new Date(round.completed_at);
         const time=String(date.getHours()).padStart(2,'0')+':'+String(date.getMinutes()).padStart(2,'0');
         const row=answer=>{
-          const prompt=answer.prompts?.[state.lang], correct=wordKey(answer.selected)===wordKey(answer.answer);
+          const preferred=state.promptLanguage||state.lang;
+          const lang=answer.prompts?.[preferred]?preferred:state.lang;
+          const prompt=answer.prompts?.[lang], correct=wordKey(answer.selected)===wordKey(answer.answer);
           const label=ref=>`<span lang="ko">${esc(ref.word)}${ref.hanja?' · '+esc(ref.hanja):''}</span>`;
-          return `<li>${prompt?`<p>${esc(prompt)}</p>`:''}<strong>${t(correct?'correct':'incorrect')}</strong> · ${t('yourChoice')} · ${label(answer.selected)}${correct?'':`<br>${t('answer')} · ${label(answer.answer)}`}</li>`;
+          return `<li>${prompt?`<p lang="${lang}">${esc(prompt)}</p>`:''}<strong>${t(correct?'correct':'incorrect')}</strong> · ${t('yourChoice')} · ${label(answer.selected)}${correct?'':`<br>${t('answer')} · ${label(answer.answer)}`}</li>`;
         };
         list.insertAdjacentHTML('beforeend',`<details class="history-round"><summary><time datetime="${esc(round.completed_at)}">${localizedDate(date,state.lang)} ${time}</time> · ${levelLabel(round.level)}${tagSuffix(round.tag)} · ${round.correct} / ${round.answers.length}</summary>
           <ol>${round.answers.map(row).join('')}</ol></details>`);
@@ -917,7 +975,7 @@ function applyAccount(data) {
   if(state.accountMode==='recover' && (!state.googleClientID || (state.user?.id??null)!==(data.user?.id??null))){
     state.accountMode='login';state.googleProof=null;
   }
-  if((state.user?.id??null)!==(data.user?.id??null)){state.session=null;state.googleProof=null;state.translationLanguages=[];}
+  if((state.user?.id??null)!==(data.user?.id??null)){state.session=null;state.reviewRequest=null;state.googleProof=null;state.translationLanguages=[];}
   if(state.user?.id!==(data.user?.id??null)){state.noteDrafts.clear();state.wordbookStatus=null;state.wordDraft=emptyWordDraft();state.characterDrafts=[];}
   state.user=data.user??null;state.notes=data.notes??[];
   activity.setOwner(state.user?.id??null,foreground());
@@ -1293,7 +1351,8 @@ $('#main').addEventListener('input',event=>{
 window.addEventListener('beforeunload',event=>{if(state.noteDrafts.size||state.wordDraft.tags?.length||WORD_FORM_FIELDS.some(field=>field!=='level'&&state.wordDraft[field])){event.preventDefault();event.returnValue='';}});
 window.addEventListener('storage',event=>{
   if(event.key==='han-graph.account-event')refreshAccount(true);
-  if(event.key===draftKey(state.user?.id) && state.ready) {
+  if((event.key===draftKey(state.user?.id) || (!state.user && event.key==='han-graph.practice.v1')) && state.ready) {
+    state.reviewRequest=null;
     syncPracticeDraft();
     if(state.page==='practice')renderPractice();
   }
@@ -1309,7 +1368,7 @@ async function boot() {
     await renderPage();
   } catch {$('#main').innerHTML=errorPanel();}
 }
-$('#language').addEventListener('change',event=>{clearTimeout(toastTimer);$('#toast').classList.remove('show');$('#toast').textContent='';state.lang=normalizeLanguage(event.target.value);saveStorage('han-graph.language',state.lang);updateShell();if(state.ready)renderPage();else boot();});
+$('#language').addEventListener('change',event=>{clearTimeout(toastTimer);$('#toast').classList.remove('show');$('#toast').textContent='';state.lang=normalizeLanguage(event.target.value);state.translation=false;saveStorage('han-graph.language',state.lang);updateShell();if(state.ready)renderPage();else boot();});
 $('#main').addEventListener('click',event=>{
   const button=event.target.closest('[data-action]');if(!button)return;
   const {action,word,hanja,glyph,index}=button.dataset;
@@ -1364,12 +1423,11 @@ $('#main').addEventListener('click',event=>{
     focusPracticeStep('.question-prompt, .practice-intro h2');
   }
   else if(action==='start-practice'){
-    const session=createSession(state.practice.questions,Math.random,state.practiceSettings);
-    if(!session.questions.length)return;
-    session.owner=state.user?.id??null;
-    session.roundID=Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,'0')).join('');
-    state.session=session;state.index=0;state.translation=false;writePracticeDraft(session);renderPractice();
-    focusPracticeStep('.question-prompt');
+    startPracticeSession(createSession(state.practice.questions,Math.random,state.practiceSettings));
+  }
+  else if(action==='review-mistakes' && state.session) {
+    const targets=missedTargets(state.session,sessionResult(state.session).mistakes);
+    startPracticeSession(createReviewSession(state.practice.questions,targets));
   }
   else if(action==='retry-practice'){savePracticeRound(state.session);}
   else if(action==='practice-settings'){if(state.session)forgetPracticeDraft(state.session);state.session=null;renderPractice();$('.practice-settings input:checked')?.focus({preventScroll:true});}
@@ -1392,10 +1450,11 @@ $('#main').addEventListener('change',event=>{
   if(state.session)return;
   if(input.name==='practice-level' && PRACTICE_LEVELS.includes(input.value))state.practiceSettings={...state.practiceSettings,level:input.value};
   else if(input.name==='practice-tag' && ['',...WORD_TAGS].includes(input.value))state.practiceSettings=practiceSettings({...state.practiceSettings,tag:input.value});
+  else if(input.name==='prompt-language' && (input.value==='' || LANGUAGES.includes(input.value)))state.promptLanguage=input.value;
   else return;
-  saveStorage('han-graph.practice-settings.v1',state.practiceSettings);
+  saveStorage('han-graph.practice-settings.v1',{...state.practiceSettings,promptLanguage:state.promptLanguage});
   renderPractice();
-  $(input.name==='practice-tag'?'select[name="practice-tag"]':`input[name="${input.name}"][value="${input.value}"]`)?.focus({preventScroll:true});
+  $(input.tagName==='SELECT'?`select[name="${input.name}"]`:`input[name="${input.name}"][value="${input.value}"]`)?.focus({preventScroll:true});
 });
 window.addEventListener('hashchange' ,()=>renderPage({revealSelection:true}));
 window.addEventListener('resize',()=>{if(state.page==='explore'&&state.detail?.fit)sizeNetwork('network-fit');});

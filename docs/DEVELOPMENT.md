@@ -196,6 +196,8 @@ Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을
 | `DELETE /api/account` | `{username,current_password,confirm:true}`로 회원 탈퇴. 모든 세션, 로그인 정보, 개인 학습 데이터 삭제 |
 | `POST /api/account/practice` | 완료한 회차의 `{id,level,answers:[{question,selected:{word,hanja}}]}` 저장. 서버가 출제 자료에서 정답을 확인하며 같은 회차의 재시도는 한 번만 저장 |
 | `GET /api/account/practice` | 본인의 완료 기록을 최근 순으로 20회씩 조회. 응답의 `next`를 `after`로 보내면 다음 페이지 조회 |
+| `GET /api/account/practice/review` | 최근 풀이가 오답인 단어를 최대 10개 반환. 각 항목에는 원래 회차 ID, 문항 ID, 정답 단어·한자가 포함됨 |
+| `POST /api/account/practice`의 `level: "review"` | 복습 답안에는 `source`로 오답을 기록한 본인 회차 ID 지정. 서버가 원래 오답 단어, 새 문항과 선택지를 확인한 뒤 1–10문항의 복습 회차를 저장 |
 | `GET /api/account/statistics?month=2026-11&zone=Asia%2FSeoul` | 선택한 달의 날짜별 이용 초, 완료 회차, 정답 수와 전체 문항 수 조회. 이번 달은 오늘까지 반환 |
 | `POST /api/account/activity` | 로그인 상태에서 활동한 구간을 `{"intervals":[{"start":…,"end":…}]}`로 저장. 시작을 포함하고 끝을 제외하는 Unix 초 단위이며 중복 구간은 한 번만 집계 |
 | `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |

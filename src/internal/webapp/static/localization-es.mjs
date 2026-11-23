@@ -1,4 +1,12 @@
 export const es = {
+  reviewRound: "Repaso de errores",
+  retryMistakes: "Reintentar los errores · {count}",
+  todayReview: "Repaso de hoy · {count}",
+  reviewLoadFailed: "No se pudieron cargar las preguntas de repaso.",
+  promptLanguage: "Idioma de las preguntas",
+  followInterface: "Igual que el de la interfaz",
+  showSupport: "Ver traducción al español",
+  hideSupport: "Ocultar traducción al español",
   idiomTags: "Tipo de expresión",
   allExpressions: "Todas las expresiones",
   sajaseongeo: "Expresión de cuatro caracteres",

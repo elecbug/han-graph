@@ -28,6 +28,9 @@ type PracticeRound struct {
 	QuestionCount int              `json:"-"` // Lightweight Firestore statistics projection.
 	Answers       []PracticeAnswer `json:"answers"`
 }
+
+const ReviewLevel = "review"
+
 type PracticeHistory struct {
 	Rounds []PracticeRound `json:"rounds"`
 	Next   string          `json:"next,omitempty"`
@@ -67,6 +70,51 @@ func (s *Store) PracticeHistory(id, cursor string) (PracticeHistory, error) {
 	}
 	return page, nil
 }
+
+// PracticeRound reads a source round when checking which words a learner missed.
+func (s *Store) PracticeRound(id, key string) (PracticeRound, error) {
+	if !roundID.MatchString(key) {
+		return PracticeRound{}, ErrInvalid
+	}
+	return s.storage.practiceRound(s.ctx, id, key)
+}
+
+func (b *fileBackend) practiceRound(_ context.Context, id, key string) (PracticeRound, error) {
+	var round PracticeRound
+	err := b.db.View(func(tx *bolt.Tx) error {
+		if tx.Bucket(usersBucket).Get([]byte(id)) == nil {
+			return ErrUnauthorized
+		}
+		root := tx.Bucket(historyBucket)
+		if root == nil || root.Bucket([]byte(id)) == nil {
+			return ErrInvalid
+		}
+		data := root.Bucket([]byte(id)).Bucket([]byte("rounds")).Get([]byte(key))
+		if data == nil {
+			return ErrInvalid
+		}
+		return json.Unmarshal(data, &round)
+	})
+	return round, err
+}
+
+func (b *firestoreBackend) practiceRound(ctx context.Context, id, key string) (PracticeRound, error) {
+	user := b.user(id)
+	docs, err := b.client.GetAll(ctx, []*firestore.DocumentRef{user, user.Collection("practiceRounds").Doc(key)})
+	if err != nil {
+		return PracticeRound{}, err
+	}
+	if !docs[0].Exists() {
+		return PracticeRound{}, ErrUnauthorized
+	}
+	if !docs[1].Exists() {
+		return PracticeRound{}, ErrInvalid
+	}
+	var round PracticeRound
+	err = docs[1].DataTo(&round)
+	return round, err
+}
+
 func sameRound(old, next PracticeRound) error {
 	// A retry must preserve the exercise as originally saved, even after a catalog edit.
 	sameChoices := slices.EqualFunc(old.Answers, next.Answers, func(a, b PracticeAnswer) bool {

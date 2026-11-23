@@ -1,4 +1,12 @@
 export const uz = {
+  reviewRound: "Xatolarni takrorlash",
+  retryMistakes: "Xatolarni qayta ishlash · {count}",
+  todayReview: "Bugungi takrorlash · {count}",
+  reviewLoadFailed: "Takrorlash uchun savollarni yuklab bo‘lmadi.",
+  promptLanguage: "Savollar tili",
+  followInterface: "Interfeys tili bilan bir xil",
+  showSupport: "O‘zbekcha tarjimani ko‘rsatish",
+  hideSupport: "O‘zbekcha tarjimani yashirish",
   idiomTags: "Ibora turi",
   allExpressions: "Barcha iboralar",
   sajaseongeo: "Toʻrt iyeroglifli ibora",

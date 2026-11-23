@@ -1,4 +1,12 @@
 export const th = {
+  reviewRound: "ทบทวนข้อที่ตอบผิด",
+  retryMistakes: "ทำข้อที่ตอบผิดอีกครั้ง · {count}",
+  todayReview: "ทบทวนวันนี้ · {count}",
+  reviewLoadFailed: "โหลดคำถามสำหรับทบทวนไม่สำเร็จ",
+  promptLanguage: "ภาษาของโจทย์",
+  followInterface: "ตามภาษาที่แสดง",
+  showSupport: "ดูคำแปลภาษาไทย",
+  hideSupport: "ซ่อนคำแปลภาษาไทย",
   idiomTags: "ประเภทสำนวน",
   allExpressions: "ทุกคำและสำนวน",
   sajaseongeo: "สำนวนสี่อักษร",

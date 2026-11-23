@@ -1,4 +1,12 @@
 export const ky = {
+  reviewRound: "Каталар менен иштөө",
+  retryMistakes: "Ката кеткен суроолорду кайра чечүү · {count}",
+  todayReview: "Бүгүнкү кайталоо · {count}",
+  reviewLoadFailed: "Кайталоо үчүн суроолор жүктөлгөн жок.",
+  promptLanguage: "Суроолордун тили",
+  followInterface: "Интерфейстин тилиндей",
+  showSupport: "Кыргызча котормосун көрсөтүү",
+  hideSupport: "Кыргызча котормосун жашыруу",
   idiomTags: "Туюнтманын түрү",
   allExpressions: "Бардык туюнтмалар",
   sajaseongeo: "Төрт иероглифтүү туюнтма",

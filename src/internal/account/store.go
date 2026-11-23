@@ -83,6 +83,7 @@ type backend interface {
 	updateCredentials(ctx context.Context, id string, proof loginProof, change credentialEdit) error
 	deleteAccount(ctx context.Context, id string, proof loginProof) error
 	savePractice(ctx context.Context, id string, round PracticeRound) error
+	practiceRound(ctx context.Context, id, roundID string) (PracticeRound, error)
 	practiceHistory(ctx context.Context, id, after string) ([]PracticeRound, error)
 	saveActivity(ctx context.Context, id string, days map[string][]ActivityInterval) error
 	studyDays(ctx context.Context, id string, month studyMonth) ([]StudyDay, error)

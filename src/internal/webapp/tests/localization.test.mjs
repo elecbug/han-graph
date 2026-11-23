@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {copy, LANGUAGES, normalizeLanguage, localized, studyFormats, countText, languageLabel, orderedLanguages} from '../static/localization.mjs';
+import {practiceLanguages, copy, LANGUAGES, normalizeLanguage, localized, studyFormats, countText, languageLabel, orderedLanguages} from '../static/localization.mjs';
 import {exampleLines} from '../static/examples.mjs';
 import {renderPrintableWordbook} from '../static/wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG} from '../static/network.mjs';
@@ -93,5 +93,16 @@ test('study calendar and duration keep localized names even with a partial brows
     assert.equal(format.month(11),month);
     assert.equal(format.unit(3,'day'),days);
     assert(!/[A-Za-z]/.test(format.date('2026-11-23')));
+  }
+});
+
+
+test('the prompt follows the chosen language and translation help is in the interface language',()=>{
+  for(const ui of LANGUAGES) {
+    const legacy={primary:ui,support:ui==='ko'?'en':'ko'};
+    for(const pref of ['',undefined,'unknown',ui])assert.deepEqual(practiceLanguages(ui,pref),legacy);
+    for(const primary of LANGUAGES.filter(lang=>lang!==ui)) {
+      assert.deepEqual(practiceLanguages(ui,primary),{primary,support:ui});
+    }
   }
 });

@@ -1,4 +1,12 @@
 export const vi = {
+  reviewRound: "Ôn lại câu sai",
+  retryMistakes: "Làm lại câu sai · {count}",
+  todayReview: "Ôn tập hôm nay · {count}",
+  reviewLoadFailed: "Không tải được câu hỏi ôn tập.",
+  promptLanguage: "Ngôn ngữ câu hỏi",
+  followInterface: "Dùng ngôn ngữ giao diện",
+  showSupport: "Xem bản tiếng Việt",
+  hideSupport: "Ẩn bản tiếng Việt",
   idiomTags: "Loại thành ngữ",
   allExpressions: "Tất cả cách diễn đạt",
   sajaseongeo: "Thành ngữ bốn chữ",

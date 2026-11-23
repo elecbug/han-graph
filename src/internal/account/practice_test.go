@@ -35,6 +35,13 @@ func TestPrivatePracticeHistory(t *testing.T) {
 		if err != nil || len(page.Rounds) != 20 || page.Next == "" {
 			t.Fatalf("first page: %d %v", len(page.Rounds), err)
 		}
+		source, err := s.PracticeRound(user.ID, round.ID)
+		if err != nil || source.ID != round.ID || len(source.Answers) != 2 {
+			t.Fatal("source round missing", err)
+		}
+		if _, err := s.PracticeRound(other.ID, round.ID); !errors.Is(err, ErrInvalid) {
+			t.Fatal("source visible to wrong owner", err)
+		}
 		first := page.Rounds[0]
 		if first.ID != round.ID || first.Correct != 1 || first.Answers[1].Selected == correct || first.CompletedAt.IsZero() {
 			t.Fatal("incorrect saved round")

@@ -1,4 +1,12 @@
 export const ja = {
+  reviewRound: "間違えた問題の復習",
+  retryMistakes: "間違えた問題を解き直す（{count}）",
+  todayReview: "今日の復習（{count}）",
+  reviewLoadFailed: "復習する問題を読み込めませんでした。",
+  promptLanguage: "問題文の言語",
+  followInterface: "画面の言語に合わせる",
+  showSupport: "日本語訳を見る",
+  hideSupport: "日本語訳を閉じる",
   idiomTags: "成語の種類",
   allExpressions: "すべての表現",
   sajaseongeo: "四字熟語",

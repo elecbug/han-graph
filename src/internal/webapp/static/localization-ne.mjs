@@ -1,4 +1,12 @@
 export const ne = {
+  reviewRound: "गल्तीको पुनरभ्यास",
+  retryMistakes: "गल्ती भएका प्रश्न फेरि हल गर्नुहोस् · {count}",
+  todayReview: "आजको पुनरभ्यास · {count}",
+  reviewLoadFailed: "पुनरभ्यासका प्रश्नहरू लोड गर्न सकिएन।",
+  promptLanguage: "प्रश्नको भाषा",
+  followInterface: "इन्टरफेसकै भाषा",
+  showSupport: "नेपाली अनुवाद हेर्नुहोस्",
+  hideSupport: "नेपाली अनुवाद लुकाउनुहोस्",
   idiomTags: "उक्तिको प्रकार",
   allExpressions: "सबै अभिव्यक्ति",
   sajaseongeo: "चार हान्जा अक्षरको उक्ति",

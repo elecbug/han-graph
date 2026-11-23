@@ -1,4 +1,12 @@
 export const zh = {
+  reviewRound: "错题复习",
+  retryMistakes: "重做错题 · {count}",
+  todayReview: "今日复习 · {count}",
+  reviewLoadFailed: "未能加载复习题。",
+  promptLanguage: "题目语言",
+  followInterface: "与界面语言相同",
+  showSupport: "显示中文翻译",
+  hideSupport: "收起中文翻译",
   idiomTags: "成语分类",
   allExpressions: "全部表达",
   sajaseongeo: "四字成语",

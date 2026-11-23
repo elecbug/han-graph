@@ -1,4 +1,12 @@
 export const ru = {
+  reviewRound: "Работа над ошибками",
+  retryMistakes: "Повторить ошибки · {count}",
+  todayReview: "Повторение на сегодня · {count}",
+  reviewLoadFailed: "Не удалось загрузить задания для повторения.",
+  promptLanguage: "Язык заданий",
+  followInterface: "Как в интерфейсе",
+  showSupport: "Показать перевод на русский",
+  hideSupport: "Скрыть перевод на русский",
   idiomTags: "Тип выражения",
   allExpressions: "Все выражения",
   sajaseongeo: "Идиома из четырёх иероглифов",

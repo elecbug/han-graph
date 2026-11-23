@@ -1,4 +1,12 @@
 export const mn = {
+  reviewRound: "Алдаагаа давтах",
+  retryMistakes: "Алдсан асуултаа дахин бодох · {count}",
+  todayReview: "Өнөөдрийн давтлага · {count}",
+  reviewLoadFailed: "Давтах асуултуудыг ачаалж чадсангүй.",
+  promptLanguage: "Асуултын хэл",
+  followInterface: "Дэлгэцийн хэлээр",
+  showSupport: "Монгол орчуулгыг харах",
+  hideSupport: "Монгол орчуулгыг нуух",
   idiomTags: "Хэлцийн төрөл",
   allExpressions: "Бүх хэллэг",
   sajaseongeo: "Дөрвөн ханзтай хэлц",
