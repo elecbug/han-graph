@@ -9,6 +9,7 @@ import (
 
 func TestAccountStorageSelection(t *testing.T) {
 	t.Chdir(t.TempDir())
+	t.Setenv("K_SERVICE", "")
 	for _, mode := range []string{"", "file", "firestore", "typo"} {
 		t.Run("backend="+mode, func(t *testing.T) {
 			t.Setenv("HAN_GRAPH_DB_BACKEND", mode)
@@ -38,7 +39,24 @@ func TestAccountStorageSelection(t *testing.T) {
 	}
 }
 
+func TestCloudRunRequiresDurableStorage(t *testing.T) {
+	t.Chdir(t.TempDir())
+	t.Setenv("K_SERVICE", "han-graph-beta")
+	for _, mode := range []string{"", "file"} {
+		t.Setenv("HAN_GRAPH_DB_BACKEND", mode)
+		file := filepath.Join(t.TempDir(), "accounts.db")
+		if store, err := openAccounts(t.Context(), file); err == nil {
+			store.Close()
+			t.Fatalf("Cloud Run opened ephemeral storage for backend %q", mode)
+		}
+		if _, err := os.Stat(file); !os.IsNotExist(err) {
+			t.Fatalf("unexpected account file: %v", err)
+		}
+	}
+}
+
 func TestServeReadsDotEnvFromProjectRoot(t *testing.T) {
+	t.Setenv("K_SERVICE", "")
 	root := t.TempDir()
 	module := filepath.Join(root, "src")
 	if err := os.Mkdir(module, 0700); err != nil {

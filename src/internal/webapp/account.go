@@ -2,10 +2,13 @@ package webapp
 
 import (
 	"context"
+	"crypto/sha256"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"google.golang.org/api/idtoken"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"strings"
@@ -14,9 +17,12 @@ import (
 
 	"github.com/elecbug/han-graph/internal/account"
 	"github.com/elecbug/han-graph/internal/graph"
+	grpcstatus "google.golang.org/grpc/status"
 )
 
 type Options struct {
+	SignupMode     string
+	BetaInviteCode string
 	Audio          KoreanAudio
 	GoogleClientID string
 	verifyGoogle   func(context.Context, string, string) (*idtoken.Payload, error)
@@ -65,6 +71,9 @@ func accountError(w http.ResponseWriter, err error) {
 	case errors.Is(err, account.ErrLimit):
 		status, code = 422, "limit"
 	}
+	if status == http.StatusInternalServerError {
+		log.Printf("Storage request failed (type=%T, code=%s)", err, grpcstatus.Code(err))
+	}
 	accountJSON(w, status, map[string]string{"error": code})
 }
 func accountBody(w http.ResponseWriter, r *http.Request, value any) bool {
@@ -109,34 +118,61 @@ type loginAttempt struct {
 }
 type loginLimiter struct {
 	sync.Mutex
-	entries map[string]loginAttempt
+	entries     map[string]loginAttempt
+	maxAttempts int
+	expiryTimer *time.Timer
+}
+
+func (l *loginLimiter) expire() {
+	l.Lock()
+	defer l.Unlock()
+	now := time.Now()
+	var next time.Time
+	for key, attempt := range l.entries {
+		if !attempt.expires.After(now) {
+			delete(l.entries, key)
+		} else if next.IsZero() || attempt.expires.Before(next) {
+			next = attempt.expires
+		}
+	}
+	if next.IsZero() {
+		l.expiryTimer = nil
+	} else {
+		l.expiryTimer.Reset(time.Until(next))
+	}
 }
 
 func (l *loginLimiter) allow(r *http.Request) bool {
+	return l.allowKey(r, "")
+}
+func (l *loginLimiter) allowKey(r *http.Request, scope string) bool {
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
 		host = r.RemoteAddr
 	}
+	key := host + "\x00" + scope
 	now := time.Now()
 	l.Lock()
 	defer l.Unlock()
-	for key, attempt := range l.entries {
-		if !attempt.expires.After(now) {
-			delete(l.entries, key)
-		}
-	}
-	attempt, exists := l.entries[host]
-	if !exists {
-		if len(l.entries) >= 10000 {
+	attempt, exists := l.entries[key]
+	if !exists || !attempt.expires.After(now) {
+		if !exists && len(l.entries) >= 10000 {
 			return false
 		}
-		attempt.expires = now.Add(15 * time.Minute)
+		attempt = loginAttempt{expires: now.Add(15 * time.Minute)}
+		if l.expiryTimer == nil {
+			l.expiryTimer = time.AfterFunc(15*time.Minute, l.expire)
+		}
 	}
-	if attempt.count >= 30 {
+	limit := l.maxAttempts
+	if limit == 0 {
+		limit = 30
+	}
+	if attempt.count >= limit {
 		return false
 	}
 	attempt.count++
-	l.entries[host] = attempt
+	l.entries[key] = attempt
 	return true
 }
 
@@ -144,6 +180,9 @@ func (l *loginLimiter) allowAttempt(w http.ResponseWriter, r *http.Request) bool
 	if l.allow(r) {
 		return true
 	}
+	return denyAttempt(w)
+}
+func denyAttempt(w http.ResponseWriter) bool {
 	w.Header().Set("Retry-After", "900")
 	accountJSON(w, 429, map[string]string{"error": "rate_limit"})
 	return false
@@ -151,7 +190,13 @@ func (l *loginLimiter) allowAttempt(w http.ResponseWriter, r *http.Request) bool
 func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, options Options) {
 	store := options.Accounts
 	limiter := loginLimiter{entries: make(map[string]loginAttempt)}
+	schoolNetwork := loginLimiter{entries: make(map[string]loginAttempt), maxAttempts: 300}
+	perLogin := loginLimiter{entries: make(map[string]loginAttempt), maxAttempts: 10}
+	if options.SignupMode == "" {
+		options.SignupMode = "open"
+	}
 	hashing := make(chan struct{}, 2)
+	waiting := make(chan struct{}, 64)
 	available := func(w http.ResponseWriter) bool {
 		if store == nil {
 			accountJSON(w, 503, map[string]string{"error": "accounts_unavailable"})
@@ -177,17 +222,47 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 		return id, true
 	}
 
-	beginHash := func(w http.ResponseWriter) bool {
+	beginHash := func(w http.ResponseWriter, r *http.Request) bool {
+		select {
+		case waiting <- struct{}{}:
+			defer func() { <-waiting }()
+		default:
+			w.Header().Set("Retry-After", "2")
+			accountJSON(w, 429, map[string]string{"error": "rate_limit"})
+			return false
+		}
+		ctx, cancel := context.WithTimeout(r.Context(), 10*time.Second)
+		defer cancel()
 		select {
 		case hashing <- struct{}{}:
 			return true
-		default:
+		case <-ctx.Done():
 			w.Header().Set("Retry-After", "2")
 			accountJSON(w, 429, map[string]string{"error": "rate_limit"})
 			return false
 		}
 	}
 	registerPracticeHistory(mux, store, practice, resolve)
+	feedbackLimiter := loginLimiter{entries: make(map[string]loginAttempt), maxAttempts: 120}
+	mux.HandleFunc("POST /api/feedback", func(w http.ResponseWriter, r *http.Request) {
+		if !available(w) || !feedbackLimiter.allowAttempt(w, r) {
+			return
+		}
+		var body struct {
+			ID       string `json:"id"`
+			Message  string `json:"message"`
+			Language string `json:"language"`
+		}
+		r.Body = http.MaxBytesReader(w, r.Body, 32<<10)
+		if !accountBody(w, r, &body) {
+			return
+		}
+		if err := store.WithContext(r.Context()).SubmitFeedback(body.ID, body.Message, body.Language); err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, http.StatusCreated, map[string]bool{"received": true})
+	})
 	mux.HandleFunc("GET /api/account/statistics", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, false)
 		if !ok {
@@ -222,7 +297,9 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 		accountJSON(w, http.StatusOK, struct {
 			account.Snapshot
 			GoogleClientID string `json:"google_client_id"`
-		}{data, options.GoogleClientID})
+			SignupMode     string `json:"signup_mode"`
+			PrivacyVersion string `json:"privacy_version"`
+		}{data, options.GoogleClientID, options.SignupMode, account.PrivacyVersion})
 	}
 	mux.HandleFunc("GET /api/auth/session", func(w http.ResponseWriter, r *http.Request) {
 		if store == nil {
@@ -254,7 +331,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			return
 		}
 		var input account.CredentialChange
-		if !accountBody(w, r, &input) || !beginHash(w) {
+		if !accountBody(w, r, &input) || !beginHash(w, r) {
 			return
 		}
 		defer func() { <-hashing }()
@@ -287,7 +364,7 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			accountError(w, account.ErrInvalid)
 			return
 		}
-		if !beginHash(w) {
+		if !beginHash(w, r) {
 			return
 		}
 		defer func() { <-hashing }()
@@ -303,18 +380,48 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 			if !available(w) {
 				return
 			}
-			if !limiter.allowAttempt(w, r) {
+			if action == "register" && options.SignupMode == "closed" {
+				accountJSON(w, http.StatusForbidden, map[string]string{"error": "signup_closed"})
+				return
+			}
+			if !schoolNetwork.allowAttempt(w, r) {
 				return
 			}
 			var credentials struct {
-				Username   string `json:"username"`
-				Password   string `json:"password"`
-				Credential string `json:"credential"`
+				Username       string `json:"username"`
+				Password       string `json:"password"`
+				Credential     string `json:"credential"`
+				InviteCode     string `json:"invite_code"`
+				PrivacyVersion string `json:"privacy_version"`
 			}
 			if !accountBody(w, r, &credentials) {
 				return
 			}
-			if !beginHash(w) {
+			if action == "register" || credentials.Credential == "" {
+				name := account.NormalizeUsername(credentials.Username)
+				if len(name) > 32 {
+					accountError(w, account.ErrInvalid)
+					return
+				}
+				if !perLogin.allowKey(r, action+"/"+name) {
+					denyAttempt(w)
+					return
+				}
+			}
+			if action == "register" {
+				if credentials.PrivacyVersion != account.PrivacyVersion {
+					accountJSON(w, http.StatusBadRequest, map[string]string{"error": "privacy_required"})
+					return
+				}
+				if options.SignupMode == "invite" {
+					got, want := sha256.Sum256([]byte(credentials.InviteCode)), sha256.Sum256([]byte(options.BetaInviteCode))
+					if options.BetaInviteCode == "" || subtle.ConstantTimeCompare(got[:], want[:]) != 1 {
+						accountJSON(w, http.StatusForbidden, map[string]string{"error": "invite_invalid"})
+						return
+					}
+				}
+			}
+			if !beginHash(w, r) {
 				return
 			}
 			defer func() { <-hashing }()
@@ -330,12 +437,12 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 					return
 				}
 				if action == "register" {
-					user, err = db.RegisterGoogle(credentials.Username, credentials.Password, identity.GoogleIdentity)
+					user, err = db.RegisterWithNotice(credentials.Username, credentials.Password, identity.GoogleIdentity, credentials.PrivacyVersion)
 				} else {
 					user.ID, token, err = db.GoogleSession(identity.Subject, cookieToken(r))
 				}
 			} else if action == "register" {
-				user, err = db.Register(credentials.Username, credentials.Password)
+				user, err = db.RegisterWithNotice(credentials.Username, credentials.Password, account.GoogleIdentity{}, credentials.PrivacyVersion)
 			} else {
 				user.ID, token, err = db.PasswordSession(credentials.Username, credentials.Password, cookieToken(r))
 			}

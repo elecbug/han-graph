@@ -33,13 +33,13 @@ const state = {
   practiceSettings:practiceSettings(storedPractice),
   promptLanguage:LANGUAGES.includes(storedPractice?.promptLanguage)?storedPractice.promptLanguage:'',
   reviewRequest:null,
-  lang: normalizeLanguage(readStorage('han-graph.language', 'ko')),
+  lang: normalizeLanguage(new URLSearchParams(location.search).get('lang') || readStorage('han-graph.language', 'ko')),
   saved: normalizeSaved(readStorage('han-graph.words.v1', [])),
   page:'explore', query:'', searchMode:'all', filtersOpen:false, tab:'words', search:null, stats:null, practice:null,
   selection:null, detail:null, glyph:null, session:null, index:0, translation:false,
   ready:false, importingWords:false, wordbookStatus:null,
   dictionary:{words:[],characters:[],meta:[],examples:[]}, dictionaryRevision:0, dictionaryNeedsRefresh:false, wordDraft:emptyWordDraft(), characterDrafts:[],
-  googleClientID:'', googleProof:null, translationLanguages:[],
+  googleClientID:'', googleProof:null, signupMode:'open', privacyVersion:'', translationLanguages:[],
   user:null, notes:[], accountReady:false, accountEnabled:true, accountMode:'login', privateBusy:false, accountRefreshPending:false, accountFailure:null, noteDrafts:new Map(),
 };
 let pageEpoch=0, detailEpoch=0, componentEpoch=0, searchEpoch=0, searchTimer, toastTimer;
@@ -101,6 +101,8 @@ function updateShell() {
   document.documentElement.lang=state.lang;
   document.body.classList.toggle('wordbook-print-view',state.page==='print');
   document.title=`漢-GRAPH · ${t(state.page)}`;
+  $('#footer-privacy').href='/privacy?lang='+state.lang;
+  $('#campus-beta').hidden=state.signupMode==='open';
   document.querySelectorAll('[data-i18n]').forEach(element => element.innerHTML=t(element.dataset.i18n));
   document.querySelectorAll('[data-i18n-aria]').forEach(element=>element.setAttribute('aria-label',t(element.dataset.i18nAria)));
   document.querySelector('meta[name=description]').content=t('appDescription');
@@ -134,7 +136,60 @@ function openExplore(params) {
 function routeWord(word) { openExplore({word:word.word,hanja:word.hanja}); }
 function routeCharacter(glyph) { openExplore({character:glyph}); }
 
+const emptyFeedback=()=>({message:'',id:'',language:'',busy:false,status:'',receipt:''});
+let feedbackDraft=emptyFeedback();
+function renderFeedback() {
+  const draft=feedbackDraft;
+  $('#main').innerHTML=`<section class="account-card feedback-card"><h1>${t('feedback')}</h1>
+    <form id="feedback-form" method="post"><label for="feedback-body">${t('feedbackLabel')}</label>
+    <textarea id="feedback-body" name="message" rows="6" required maxlength="2000" aria-describedby="feedback-help" ${draft.busy?'readonly':''}></textarea>
+    <p class="field-help" id="feedback-help">${t('feedbackHelp')} <a href="/privacy?lang=${state.lang}" target="_blank" rel="noopener">${t('privacyTitle')}</a></p>
+    <button class="primary-button" type="submit" ${draft.busy?'disabled':''}>${t('feedbackSend')}</button>
+    <p role="status" aria-live="polite" id="feedback-status"></p></form></section>`;
+  const input=$('#feedback-body');
+  input.value=draft.message;
+  $('#feedback-status').textContent=draft.status?t(draft.status)+(draft.receipt?' · '+draft.receipt:''):'';
+  input.addEventListener('input',()=>{
+    Object.assign(draft,{message:input.value,id:'',language:'',status:'',receipt:''});
+    input.setCustomValidity('');
+    $('#feedback-status').textContent='';
+  });
+  $('#feedback-form').addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(draft.busy)return;
+    const message=input.value.trim();
+    if(!message){input.setCustomValidity(t('feedbackLabel'));input.reportValidity();return;}
+    if(!draft.id){
+      draft.id=Array.from(crypto.getRandomValues(new Uint8Array(16)),x=>x.toString(16).padStart(2,'0')).join('');
+      draft.language=state.lang;
+    }
+    draft.busy=true;
+    input.readOnly=true;
+    event.currentTarget.querySelector('button').disabled=true;
+    try {
+      const response=await fetch('/api/feedback',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id:draft.id,message,language:draft.language})});
+      if(response.ok){
+        Object.assign(draft,{status:'feedbackThanks',receipt:draft.id,id:'',language:'',message:''});
+      }else draft.status=response.status===429?'accountRate':'feedbackFailed';
+    }catch {draft.status='feedbackFailed';}
+    finally {
+      draft.busy=false;
+      if(state.page==='feedback' && draft===feedbackDraft){renderFeedback();$('#feedback-status').tabIndex=-1;$('#feedback-status').focus();}
+    }
+  });
+}
+
 async function renderPage({revealSelection=false} = {}) {
+  if(location.hash.split('?')[0]==='#feedback') {
+    if(state.page!=='feedback')window.scrollTo({top:0});
+    ++pageEpoch;
+    stopAudio();
+    state.page='feedback';
+    updateShell();
+    renderFeedback();
+    return;
+  }
   if (!state.ready) return;
   stopAudio();
   const filters=$('.explore-filters');
@@ -976,6 +1031,9 @@ $('#main').addEventListener('input',event=>{
 });
 
 function accountErrorKey(error) {
+  if(error.code==='signup_closed')return 'signupClosed';
+  if(error.code==='invite_invalid')return 'inviteInvalid';
+  if(error.code==='privacy_required')return 'privacyAgree';
   return ({invalid:'accountInvalid',google_taken:'googleTaken',google_invalid:'googleInvalid',google_unknown:'googleUnknown',credentials:'accountCredentials',username_taken:'accountTaken',unauthorized:'accountExpired',rate_limit:'accountRate',limit:'accountLimit',conflict:'noteConflict',accounts_unavailable:'accountUnavailable'})[error.code]??'accountFailed';
 }
 const accountMessage=error=>t(accountErrorKey(error));
@@ -1011,7 +1069,13 @@ document.addEventListener('visibilitychange',()=>foreground()?engage():pauseActi
 setInterval(()=>{if(state.user){activity.sample(foreground());void activity.flush();}},60000);
 
 function applyAccount(data) {
+  if(state.accountReady && (state.user?.id??null)!==(data.user?.id??null)){
+    feedbackDraft=emptyFeedback();
+    if(state.page==='feedback')renderFeedback();
+  }
   if('google_client_id' in data)state.googleClientID=data.google_client_id;
+  if('signup_mode' in data)state.signupMode=data.signup_mode;
+  if('privacy_version' in data)state.privacyVersion=data.privacy_version;
   if(state.accountMode==='recover' && (!state.googleClientID || (state.user?.id??null)!==(data.user?.id??null))){
     state.accountMode='login';state.googleProof=null;
   }
@@ -1080,16 +1144,20 @@ function renderAccount() {
     }
     return;
   }
+  if(state.signupMode==='closed' && state.accountMode==='register')state.accountMode='login';
   const registering=state.accountMode==='register';
-  const opening=`${head}<section class="account-card account-form-card${state.googleClientID?' google-enabled':''}"><div class="account-tabs" role="group" aria-label="${t('account')}">${['login','register'].map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div>`;
+  const opening=`${head}<section class="account-card account-form-card${state.googleClientID?' google-enabled':''}"><div class="account-tabs" role="group" aria-label="${t('account')}">${(state.signupMode==='closed'?['login']:['login','register']).map(mode=>`<button class="${state.accountMode===mode?'primary-button':'secondary-button'}" data-action="account-mode" data-mode="${mode}" aria-pressed="${state.accountMode===mode}">${t(mode)}</button>`).join('')}</div>`;
   const proof=registering?state.googleProof:null;
   const needsGoogle=registering && state.googleClientID && !proof;
   const googlePanel=state.googleClientID?(proof?`<p>${t('emailLabel')} · ${esc(proof.email)}</p><button class="text-button" type="button" data-action="google-again">${t('googleChoose')}</button>`:googleButton()):'';
-  $('#main').innerHTML=`${opening}${googlePanel}<form method="post" id="account-form" ${needsGoogle?'hidden':''}>
+  const privacyLink=`<a href="/privacy?lang=${state.lang}" target="_blank" rel="noopener">${t('privacyTitle')}</a>`;
+  $('#main').innerHTML=`${opening}${state.signupMode==='closed'?`<p>${t('signupClosed')}</p>`:''}${registering?privacyLink:''}${googlePanel}<form method="post" id="account-form" ${needsGoogle?'hidden':''}>
     <label for="account-username">${t('username')}</label><input id="account-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required minlength="3" maxlength="32" pattern="[a-zA-Z0-9](?:[a-zA-Z0-9_]|-){2,31}" aria-describedby="username-help">
     <p id="username-help" class="field-help">${t('usernameHelp')}</p>
     <label for="account-password">${t('password')}</label><input id="account-password" name="password" type="password" autocomplete="${registering?'new-password':'current-password'}" required minlength="${registering?10:1}" maxlength="256" ${registering?'aria-describedby="password-help"':''}>
     ${registering?`<p id="password-help" class="field-help">${t('passwordHelp')}</p><label for="account-confirm">${t('confirmPassword')}</label><input id="account-confirm" name="confirm" type="password" autocomplete="new-password" required maxlength="256">`:''}
+    ${registering && state.signupMode==='invite'?`<label for="beta-invite">${t('inviteCode')}</label><input id="beta-invite" name="invite" required type="password" maxlength="128" autocomplete="off">`:''}
+    ${registering?`<label class="privacy-accept"><input name="privacy" required type="checkbox"> ${t('privacyAgree')}</label>`:''}
     <p id="account-error" class="form-status" role="alert"></p><button class="primary-button" type="submit">${t(state.accountMode)}</button></form>
     ${!registering && state.googleClientID?recoveryButton():''}</section>`;
   if(state.googleClientID && !proof)mountGoogleButton(registering?'register':'login');
@@ -1101,7 +1169,8 @@ function renderAccount() {
     if(registering && password!==values.get('confirm')){error.textContent=t('passwordMismatch');return;}
     state.privateBusy=true;button.disabled=true;button.textContent=t('accountWorking');
     try {
-      applyAccount(await accountRequest(`/api/auth/${registering?'register':'login'}`,'POST',{username:values.get('username'),password,...(proof?{credential:proof.credential}:{})}));
+      applyAccount(await accountRequest(`/api/auth/${registering?'register':'login'}`,'POST',{username:values.get('username'),password,
+        ...(registering?{privacy_version:values.has('privacy')?state.privacyVersion:'',invite_code:values.get('invite')||''}:{}),...(proof?{credential:proof.credential}:{})}));
       state.googleProof=null;
       announceAccountChange();toast(t(registering?'accountCreated':'accountWelcome'));updateShell();
     } catch(failure){if(failure.code==='google_invalid'){state.googleProof=null;renderAccount();toast(accountMessage(failure));}else error.textContent=accountMessage(failure);}
@@ -1400,15 +1469,16 @@ window.addEventListener('storage',event=>{
 
 async function boot() {
   updateShell();
-  $('#main').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
+  if(location.hash.split('?')[0]==='#feedback')await renderPage();
+  else $('#main').innerHTML=`<div class="loading-panel" role="status">${t('loading')}</div>`;
   try {
     await refreshAccount();
     const [stats,practice,search]=await Promise.all([getJSON('/api/stats'),getJSON('/api/practice'),getJSON(searchPath(state.searchMode),state.query)]);
     Object.assign(state,{stats,practice,search,ready:true,dictionaryNeedsRefresh:false});
     await renderPage();
-  } catch {$('#main').innerHTML=errorPanel();}
+  } catch {if(state.page!=='feedback')$('#main').innerHTML=errorPanel();}
 }
-$('#language').addEventListener('change',event=>{clearTimeout(toastTimer);$('#toast').classList.remove('show');$('#toast').textContent='';state.lang=normalizeLanguage(event.target.value);state.translation=false;saveStorage('han-graph.language',state.lang);updateShell();if(state.ready)renderPage();else boot();});
+$('#language').addEventListener('change',event=>{clearTimeout(toastTimer);$('#toast').classList.remove('show');$('#toast').textContent='';state.lang=normalizeLanguage(event.target.value);const url=new URL(location.href);if(url.searchParams.has('lang')){url.searchParams.set('lang',state.lang);history.replaceState(null,'',url);}state.translation=false;saveStorage('han-graph.language',state.lang);updateShell();if(state.ready)renderPage();else boot();});
 $('#main').addEventListener('click',event=>{
   const button=event.target.closest('[data-action]');if(!button)return;
   const {action,word,hanja,glyph,index}=button.dataset;

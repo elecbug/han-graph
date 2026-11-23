@@ -9,6 +9,7 @@
 !/src/internal/account/*.go
 !/src/internal/graph/*.go
 !/src/internal/webapp/*.go
+!/src/internal/webapp/privacy.json
 **/*_test.go
 !/src/internal/webapp/static/index.html
 !/src/internal/webapp/static/app.js

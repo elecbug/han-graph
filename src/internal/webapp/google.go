@@ -88,7 +88,7 @@ func (o Options) googleIdentity(r *http.Request, intent, owner, credential strin
 	return result, nil
 }
 
-func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, resolve func(http.ResponseWriter, *http.Request, bool) (string, bool), limiter *loginLimiter, beginHash func(http.ResponseWriter) bool, endHash func(), respond func(http.ResponseWriter, account.Snapshot)) {
+func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, resolve func(http.ResponseWriter, *http.Request, bool) (string, bool), limiter *loginLimiter, beginHash func(http.ResponseWriter, *http.Request) bool, endHash func(), respond func(http.ResponseWriter, account.Snapshot)) {
 	recoveryOwner := func(w http.ResponseWriter, r *http.Request) (string, bool) {
 		if r.Header.Get("X-Account-ID") == "" {
 			return "", true
@@ -100,6 +100,10 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 			Intent string `json:"intent"`
 		}
 		if !accountBody(w, r, &body) {
+			return
+		}
+		if body.Intent == "register" && o.SignupMode == "closed" {
+			accountJSON(w, http.StatusForbidden, map[string]string{"error": "signup_closed"})
 			return
 		}
 		owner := ""
@@ -168,7 +172,7 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 			if !ok {
 				return
 			}
-			if !beginHash(w) {
+			if !beginHash(w, r) {
 				return
 			}
 			defer endHash()
@@ -207,7 +211,7 @@ func registerGoogleRoutes(mux *http.ServeMux, o Options, store *account.Store, r
 		if !accountBody(w, r, &body) {
 			return
 		}
-		if !beginHash(w) {
+		if !beginHash(w, r) {
 			return
 		}
 		defer endHash()

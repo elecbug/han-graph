@@ -42,7 +42,8 @@ HAN-GRAPH / Google Cloud Run 관리 스크립트
   update                 GitHub 최신 소스 가져오기 (추적 파일 수정 시 중단)
   update-deploy          소스 업데이트 후 배포
   status                 Cloud Run 서비스 정보 및 주소 확인
-  check                  홈페이지와 /api/stats의 HTTP 응답 검사
+  check                  홈페이지, 개인정보 처리방침, 통계·세션 API의 HTTP 응답 검사
+  beta-check             공개 주소의 가입 방식·방침 버전과 Firestore 설정 확인
   logs [개수]            Cloud Run 최근 로그 조회 (기본 50개)
   url                    기본 Cloud Run 서비스 주소 출력
 
@@ -68,7 +69,9 @@ HAN-GRAPH / Google Cloud Run 관리 스크립트
   MIN_INSTANCES=0              MAX_INSTANCES=1
   CONCURRENCY=20               HAN_GRAPH_DIR=~/han-graph
   HAN_GRAPH_GOOGLE_CLIENT_ID=Google 웹 클라이언트 ID (생략 시 서비스의 설정 유지)
-  HAN_GRAPH_DB_BACKEND=file 또는 firestore (생략 시 서비스의 설정 유지)
+  HAN_GRAPH_DB_BACKEND=firestore (첫 배포 시 지정, 생략 시 기존 설정 유지)
+  HAN_GRAPH_SIGNUP_MODE=open 또는 invite 또는 closed
+  HAN_GRAPH_BETA_INVITE_SECRET=Secret Manager의 초대 코드 시크릿명:버전
   GOOGLE_CLOUD_PROJECT=PROJECT_ID의 값   FIRESTORE_DATABASE_ID=(default)
 
 예시:
@@ -216,7 +219,7 @@ deploy() {
   require_cloud
   require_repo
   local -a db_args=()
-  local backend db_project database google_client_id
+  local backend db_project database google_client_id signup_mode invite_secret
   local -a settings=()
   backend="$(deploy_setting HAN_GRAPH_DB_BACKEND)"
   case "$backend" in
@@ -226,12 +229,22 @@ deploy() {
       settings+=("HAN_GRAPH_DB_BACKEND=firestore" "GOOGLE_CLOUD_PROJECT=${db_project:-$PROJECT_ID}" "FIRESTORE_DATABASE_ID=${database:-(default)}")
       ;;
     file)
-      settings+=("HAN_GRAPH_DB_BACKEND=file")
-      warn "Cloud Run 인스턴스의 파일 DB는 재배포 시 사라질 수 있습니다."
+      die "Cloud Run의 계정과 피드백에는 영구 저장소가 필요합니다. HAN_GRAPH_DB_BACKEND=firestore를 지정하세요."
       ;;
     "") ;;
-    *) die "HAN_GRAPH_DB_BACKEND에는 file 또는 firestore를 지정하세요." ;;
+    *) die "Cloud Run 배포에는 HAN_GRAPH_DB_BACKEND=firestore를 지정하세요." ;;
   esac
+  signup_mode="$(deploy_setting HAN_GRAPH_SIGNUP_MODE)"
+  case "$signup_mode" in
+    open|closed|invite) settings+=("HAN_GRAPH_SIGNUP_MODE=$signup_mode") ;;
+    "") ;;
+    *) die "HAN_GRAPH_SIGNUP_MODE에는 open, invite, closed 중 하나를 지정하세요." ;;
+  esac
+  invite_secret="$(deploy_setting HAN_GRAPH_BETA_INVITE_SECRET)"
+  if [[ -n "$invite_secret" ]]; then
+    [[ "$invite_secret" =~ ^[a-zA-Z0-9_-]+:([1-9][0-9]*|latest)$ ]] || die "초대 코드 시크릿을 이름:버전 형식으로 지정하세요."
+    db_args+=("--update-secrets=HAN_GRAPH_BETA_INVITE_CODE=$invite_secret")
+  fi
   google_client_id="$(deploy_setting HAN_GRAPH_GOOGLE_CLIENT_ID)"
   if [[ -n "$google_client_id" ]]; then
     [[ "$google_client_id" =~ ^[0-9]+-[a-zA-Z0-9_-]+\.apps\.googleusercontent\.com$ ]] || die "Google 웹 클라이언트 ID 형식을 확인하세요."
@@ -288,7 +301,7 @@ check() {
   local service_url path code failed=0
   service_url="$(url)"
   [[ "$service_url" == https://* ]] || die "배포된 서비스 URL을 읽지 못했습니다."
-  for path in '/' '/api/stats'; do
+  for path in '/' '/privacy' '/api/stats' '/api/auth/session'; do
     if code="$(curl --silent --show-error --location --max-time 60 \
       --output /dev/null --write-out '%{http_code}' "${service_url}${path}")"; then
       printf '%-13s HTTP %s   %s\n' "$path" "$code" "${service_url}${path}"
@@ -302,6 +315,27 @@ check() {
     warn "HTTP 오류가 있다면 'logs' 명령으로 원인을 확인하십시오."
     return 1
   fi
+}
+
+beta_check() {
+  require_cloud
+  require_command python3
+  check
+  local service_url settings backend db_project database
+  service_url="$(url)"
+  curl --fail --silent --show-error --max-time 20 "$service_url/api/auth/session" |
+    python3 -c 'import json, sys
+s = json.load(sys.stdin)
+if s.get("signup_mode") not in ("closed", "invite", "open") or not s.get("privacy_version"):
+    sys.exit("공개 리비전에서 베타 가입 설정과 방침 버전을 확인할 수 없습니다.")
+print("공개 가입 모드:", s["signup_mode"], "/ 개인정보 처리방침:", s["privacy_version"])'
+  settings="$(cloud run services describe "$SERVICE" --region="$REGION" --format=json |
+    python3 -c 'import json, sys
+env = {e["name"]: e.get("value", "") for e in json.load(sys.stdin)["spec"]["template"]["spec"]["containers"][0].get("env", [])}
+print(env.get("HAN_GRAPH_DB_BACKEND", "file"), env.get("GOOGLE_CLOUD_PROJECT") or sys.argv[1], env.get("FIRESTORE_DATABASE_ID") or "(default)")' "$PROJECT_ID")"
+  read -r backend db_project database <<< "$settings"
+  [[ "$backend" == firestore ]] || die "서비스 템플릿에 Firestore가 설정되지 않았습니다."
+  gcloud firestore databases describe --database="$database" --project="$db_project" --format='table(name,locationId,type)'
 }
 
 logs() {
@@ -372,6 +406,7 @@ main() {
     update-deploy) update; deploy ;;
     status) status ;;
     check) check ;;
+    beta-check) beta_check ;;
     logs) logs "$@" ;;
     url) url ;;
     public) public ;;

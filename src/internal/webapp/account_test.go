@@ -38,7 +38,7 @@ func TestPrivateAccountAPI(t *testing.T) {
 		return response
 	}
 	register := func(name string) (*http.Cookie, string) {
-		r := request("POST", "/api/auth/register", `{"username":"`+name+`","password":"a sufficiently long password"}`, nil, "", "https://example.test")
+		r := request("POST", "/api/auth/register", `{"privacy_version":"`+account.PrivacyVersion+`","username":"`+name+`","password":"a sufficiently long password"}`, nil, "", "https://example.test")
 		if r.Code != 200 {
 			t.Fatal(r.Code, r.Body.String())
 		}

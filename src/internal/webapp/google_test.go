@@ -147,7 +147,7 @@ func TestGoogleAccountFlow(t *testing.T) {
 	auth(token(nonce, "first", "reader@gmail.com", nil), 401)
 	auth(token(nonce, "replacement", "next@gmail.com", nil), 200)
 	request("auth/logout", map[string]string{}, user.ID, 200)
-	signup := map[string]string{"username": "new_user", "password": "1234567890"}
+	signup := map[string]string{"username": "new_user", "password": "1234567890", "privacy_version": account.PrivacyVersion}
 	request("auth/register", signup, "", 400)
 	signup["credential"] = token(challenge("register", ""), "second", "student@school.test", map[string]any{"hd": "school.test"})
 	signup["password"] = "123456789"

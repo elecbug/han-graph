@@ -13,6 +13,7 @@ import signal
 import subprocess
 import sys
 import tempfile
+from typing import NamedTuple
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -57,6 +58,15 @@ def clip_name(text):
     return hashlib.sha256(text.encode()).hexdigest() + ".mp3"
 
 
+class Clip(NamedTuple):
+    text: str
+    headword: bool
+
+
+def reading_revision(clip):
+    return b"word-pauses-1" if clip.headword else b""
+
+
 def batches(dataset):
     def rows(name):
         with (dataset / name).open(encoding="utf-8") as stream:
@@ -66,14 +76,16 @@ def batches(dataset):
 
     example_rows = rows("example.jsonl") if (dataset / "example.jsonl").exists() else ()
     examples = {(row["word"], row["hanja"]): row.get("example_ko") for row in example_rows}
-    words = rows("word.jsonl")
+    entries = [(row["word"], row["hanja"]) for row in rows("word.jsonl")]
+    headwords = {word for word, _ in entries}
+    words = iter(entries)
     seen = set()
     for index, group in enumerate(iter(lambda: list(islice(words, 10)), [])):
         clips = {}
-        for row in group:
-            for text in (row["word"], examples.get((row["word"], row["hanja"]))):
+        for word, hanja in group:
+            for text in (word, examples.get((word, hanja))):
                 if text and text not in seen:
-                    clips[clip_name(text)] = text
+                    clips[clip_name(text)] = Clip(text, text in headwords)
                     seen.add(text)
         yield dataset / "audio" / "ko" / f"{index:05d}.zip", clips
 
@@ -129,7 +141,59 @@ def load_models(model_dir):
     return model, bert, {s: i for i, s in enumerate(cfg["symbols"])}, cfg["data"]["sampling_rate"]
 
 
-def synthesize(text):
+def pause_between_syllables(wave, rate, phones, durations, marked):
+    """Keep the word's connected pronunciation and briefly separate its spoken syllables."""
+    import numpy as np
+
+    # The front end produces decomposed Hangul. Every pronounced syllable has
+    # one initial jamo, including silent ieung in a vowel-initial syllable.
+    onsets = [i for i, phone in enumerate(phones) if "ᄀ" <= phone <= "ᄒ"]
+    if len(onsets) < 2:
+        return wave
+    hop = rate // 200
+    frames = wave[:len(wave) // hop * hop].reshape(-1, hop)
+    rms = np.sqrt(np.mean(frames**2, axis=1))
+    active = np.flatnonzero(rms > max(0.001, rms.max() * 0.025))
+    if len(active) < 2:
+        raise ValueError("Missing speech in headword")
+    if marked:
+        # The explicitly punctuated reading has a true pause. Shorten only
+        # its quiet interior and leave 30 ms on either side of the cut.
+        gap = int(np.argmax(np.diff(active)))
+        left, right = (active[gap] + 1) * hop, active[gap + 1] * hop
+        keep = round(rate * 0.030)
+        if right - left < 4 * keep:
+            raise ValueError("Missing pause in the marked headword")
+        return np.concatenate((wave[:left + keep], wave[right - keep:]))
+
+    # The aligner includes blanks between phones and attributes some trailing
+    # silence to the final vowel. Map the relative timings to the audible span.
+    edges = np.cumsum(durations)
+    def midpoint(i):
+        return (edges[2 * i - 1] + edges[2 * i]) / 2
+
+    start = midpoint(onsets[0])
+    end = midpoint(len(phones) - 2)  # the sentence-final period
+    cuts = []
+    for onset in onsets[1:]:
+        fraction = (midpoint(onset) - start) / (end - start)
+        center = int(round(active[0] + fraction * (active[-1] - active[0])))
+        lo, hi = max(active[0], center - 3), min(active[-1], center + 3)
+        cuts.append((lo + int(np.argmin(rms[lo:hi + 1]))) * hop)
+    pieces = np.split(wave, cuts)
+    silence = np.zeros(round(rate * 0.055), dtype=wave.dtype)
+    result = [pieces[0]]
+    for previous, following in zip(pieces, pieces[1:]):
+        fade = min(round(rate * 0.006), len(previous) // 2, len(following) // 2)
+        if fade:
+            ramp = np.linspace(0, 1, fade, dtype=wave.dtype)
+            previous[-fade:] *= ramp[::-1]
+            following[:fade] *= ramp
+        result.extend((silence, following))
+    return np.concatenate(result)
+
+
+def synthesize(clip):
     import lameenc
     import numpy as np
     import torch
@@ -137,7 +201,13 @@ def synthesize(text):
     from melo.text import cleaned_text_to_sequence, korean
 
     model, bert, symbols, rate = models
-    transcript = korean.text_normalize(spoken_text(text))
+    text = clip.text
+    marked = clip.headword and text == "가의"
+    # 可矣 is a lexical entry. Its noninitial 의 admits [이] (표준 발음법 §5).
+    reading = text
+    if clip.headword:
+        reading = "가, 이." if marked else text + "."
+    transcript = korean.text_normalize(spoken_text(reading))
     if "[UNK]" in korean.tokenizer.tokenize(transcript):
         raise ValueError(f"Unpronounceable token in {text!r}")
     phones, tones, alignment = korean.g2p(transcript)
@@ -146,14 +216,18 @@ def synthesize(text):
     alignment = [n * 2 for n in alignment]
     alignment[0] += 1
     with torch.inference_mode():
-        torch.manual_seed(int(clip_name(text)[:15], 16))
+        torch.manual_seed(int(clip_name(reading)[:15], 16))
         inputs = korean.tokenizer(transcript, return_tensors="pt")
         features = bert(**inputs, output_hidden_states=True).hidden_states[-3][0]
         features = features.repeat_interleave(torch.tensor(alignment), dim=0).T.unsqueeze(0)
         length = x.size(1)
-        wave = model.infer(x, torch.tensor([length]), torch.tensor([0]), tone, lang,
-                           torch.zeros(1, 1024, length), features, sdp_ratio=0.2,
-                           noise_scale=0.6, noise_scale_w=0.8)[0][0, 0].float().numpy()
+        result = model.infer(x, torch.tensor([length]), torch.tensor([0]), tone, lang,
+                             torch.zeros(1, 1024, length), features, sdp_ratio=0.2,
+                             length_scale=1.16 if clip.headword else 1.0,
+                             noise_scale=0.35 if marked else 0.6, noise_scale_w=0.8)
+        wave = result[0][0, 0].float().numpy()
+        if clip.headword:
+            wave = pause_between_syllables(wave, rate, phones, result[1][0, 0].sum(0).numpy(), marked)
     if not np.isfinite(wave).all() or np.max(np.abs(wave)) < 0.01:
         raise ValueError(f"Invalid waveform for {text!r}")
     encoder = lameenc.Encoder()
@@ -178,14 +252,21 @@ def verify_clip(data, text):
             raise ValueError(f"Invalid MP3 for {text!r}")
 
 
+def read_member(archive, name, clip):
+    info = archive.getinfo(name)
+    if info.compress_type != zipfile.ZIP_STORED or info.comment != reading_revision(clip):
+        raise ValueError(f"Outdated or invalid recording for {clip.text!r}")
+    data = archive.read(info)
+    verify_clip(data, clip.text)
+    return data
+
+
 def verify(path, clips):
     with zipfile.ZipFile(path) as archive:
         if sorted(archive.namelist()) != sorted(clips):
             raise ValueError(f"Transcript list differs in {path}")
-        for name, text in clips.items():
-            if archive.getinfo(name).compress_type != zipfile.ZIP_STORED:
-                raise ValueError(f"Expected a stored MP3 in {path}: {name}")
-            verify_clip(archive.read(name), text)
+        for name, clip in clips.items():
+            read_member(archive, name, clip)
 
 
 def published(batch):
@@ -200,49 +281,73 @@ def prepare_clips(items, model_dir, pending, cpus):
     os.sched_setaffinity(0, cpus)
     os.environ["OMP_NUM_THREADS"] = os.environ["MKL_NUM_THREADS"] = str(len(cpus))
     global models
-    for name, text in items:
-        clip = pending / name
+    for name, clip in items:
+        cached = pending_path(pending, name, clip)
         try:
-            verify_clip(clip.read_bytes(), text)
+            verify_clip(cached.read_bytes(), clip.text)
             continue
         except (FileNotFoundError, ValueError, RuntimeError):
             pass
         if models is None:
             models = load_models(model_dir)
-        data = synthesize(text)
-        verify_clip(data, text)
-        chunk = clip.with_suffix(".part")
+        data = synthesize(clip)
+        verify_clip(data, clip.text)
+        chunk = cached.with_suffix(".part")
         chunk.write_bytes(data)
-        os.replace(chunk, clip)
+        os.replace(chunk, cached)
+
+
+def pending_path(pending, name, clip):
+    revision = reading_revision(clip)
+    return pending / (revision.hex() + "-" + name if revision else name)
+
+
+def reusable_clips(path, clips):
+    recordings = {}
+    try:
+        with zipfile.ZipFile(path) as archive:
+            for name, clip in clips.items():
+                try:
+                    recordings[name] = read_member(archive, name, clip)
+                except (KeyError, ValueError, RuntimeError, zipfile.BadZipFile):
+                    continue
+    except (FileNotFoundError, zipfile.BadZipFile):
+        pass
+    return recordings
 
 
 def build(batch, model_dir, pending, cpus):
     path, clips = batch
     path.parent.mkdir(parents=True, exist_ok=True)
     pending.mkdir(parents=True, exist_ok=True)
-    if len(cpus) == MAX_CPUS and len(clips) > 1:
+    recordings = reusable_clips(path, clips)
+    items = [(name, clip) for name, clip in clips.items() if name not in recordings]
+    if len(cpus) == MAX_CPUS and len(items) > 1:
         # Keep each model on its own eight cores. Interleave long examples
         # and short headwords so both workers finish at about the same time.
-        items = sorted(clips.items(), key=lambda item: len(item[1]), reverse=True)
+        items.sort(key=lambda item: len(item[1].text), reverse=True)
         with ProcessPoolExecutor(max_workers=2, mp_context=multiprocessing.get_context("spawn")) as pool:
             jobs = [pool.submit(prepare_clips, items[i::2], model_dir, pending, cores)
                     for i, cores in enumerate((cpus[:8], cpus[8:]))]
             for job in jobs:
                 job.result()
     else:
-        prepare_clips(clips.items(), model_dir, pending, cpus)
+        prepare_clips(items, model_dir, pending, cpus)
 
     with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".building-", delete=False) as tmp:
         staging = Path(tmp.name)
     try:
         with zipfile.ZipFile(staging, "w") as archive:
-            for name in clips:
-                archive.writestr(zipfile.ZipInfo(name), (pending / name).read_bytes())
+            for name, clip in clips.items():
+                info = zipfile.ZipInfo(name)
+                info.comment = reading_revision(clip)
+                data = recordings[name] if name in recordings else pending_path(pending, name, clip).read_bytes()
+                archive.writestr(info, data)
         verify(staging, clips)
         staging.chmod(0o644)
         os.replace(staging, path)
-        for name in clips:
-            (pending / name).unlink(missing_ok=True)
+        for name, clip in items:
+            pending_path(pending, name, clip).unlink(missing_ok=True)
     finally:
         staging.unlink(missing_ok=True)
 

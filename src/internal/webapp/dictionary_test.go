@@ -37,7 +37,7 @@ func TestPersonalDictionaryAPIVisibilityAndCacheInvalidation(t *testing.T) {
 		return w
 	}
 	register := func(name string) (*http.Cookie, string) {
-		r := request("POST", "/api/auth/register", `{"username":"`+name+`","password":"a sufficiently long password"}`, nil, "")
+		r := request("POST", "/api/auth/register", `{"privacy_version":"`+account.PrivacyVersion+`","username":"`+name+`","password":"a sufficiently long password"}`, nil, "")
 		if r.Code != 200 {
 			t.Fatal(r.Body.String())
 		}

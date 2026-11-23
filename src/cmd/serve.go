@@ -34,6 +34,9 @@ func openAccounts(ctx context.Context, filePath string) (*account.Store, error) 
 	}
 	switch mode := os.Getenv("HAN_GRAPH_DB_BACKEND"); mode {
 	case "", "file":
+		if os.Getenv("K_SERVICE") != "" {
+			return nil, errors.New("Cloud Run requires HAN_GRAPH_DB_BACKEND=firestore for durable account and feedback storage")
+		}
 		return account.Open(filePath)
 	case "firestore":
 		return account.OpenFirestore(ctx, os.Getenv("GOOGLE_CLOUD_PROJECT"), os.Getenv("FIRESTORE_DATABASE_ID"))
@@ -81,6 +84,19 @@ func serve(g *graph.Graph, dir, addr, accountPath string, secureCookies bool, st
 		return 1
 	}
 	options := webapp.Options{Accounts: accounts, SecureCookies: secureCookies, Audio: audio}
+	options.SignupMode = os.Getenv("HAN_GRAPH_SIGNUP_MODE")
+	options.BetaInviteCode = os.Getenv("HAN_GRAPH_BETA_INVITE_CODE")
+	switch options.SignupMode {
+	case "", "open", "closed":
+	case "invite":
+		if len(options.BetaInviteCode) < 8 || len(options.BetaInviteCode) > 128 {
+			fmt.Fprintln(stderr, "Invite mode requires HAN_GRAPH_BETA_INVITE_CODE (8–128 bytes)")
+			return 1
+		}
+	default:
+		fmt.Fprintln(stderr, "HAN_GRAPH_SIGNUP_MODE must be open, invite or closed")
+		return 1
+	}
 	options.GoogleClientID = os.Getenv("HAN_GRAPH_GOOGLE_CLIENT_ID")
 	if options.GoogleClientID != "" && !webapp.ValidGoogleClientID(options.GoogleClientID) {
 		fmt.Fprintln(stderr, "Invalid HAN_GRAPH_GOOGLE_CLIENT_ID (expected a Google web client ID)")

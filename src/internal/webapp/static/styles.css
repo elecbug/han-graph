@@ -1235,6 +1235,21 @@ main:focus {
   text-decoration:underline;
   text-underline-offset:4px
 }
+.footer-links { display:flex;flex-wrap:wrap;align-items:center;gap:4px 16px }
+.footer-links a { color:var(--ink);padding:8px 0;font-size:12px;text-decoration:underline;text-underline-offset:3px }
+.feedback-card h1,.privacy-document h1 { font-size:clamp(1.55rem,4vw,2.3rem);line-height:1.25 }
+#feedback-form { display:grid;gap:12px }
+#feedback-form textarea { width:100%;resize:vertical;min-height:8rem;padding:12px;border:1px solid var(--line);border-radius:8px;font:inherit }
+#feedback-form button { justify-self:start }
+#feedback-status { overflow-wrap:anywhere }
+#account-form .privacy-accept { display:flex;align-items:baseline;gap:8px;font-weight:400 }
+#account-form .privacy-accept input { width:auto;flex:none }
+.privacy-document { display:block }
+.privacy-document main { max-width:48rem;margin:0 auto;padding:clamp(20px,5vw,52px);line-height:1.75 }
+.privacy-document main > * + * { margin-top:1.1rem }
+.privacy-document nav { display:flex;flex-wrap:wrap;gap:.4rem 1rem;border-top:1px solid var(--line);padding-top:1rem }
+.privacy-document nav a,.account-form-card > a { text-decoration:underline;text-underline-offset:3px }
+.notice-byline { color:var(--muted) }
 .saved-grid {
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));

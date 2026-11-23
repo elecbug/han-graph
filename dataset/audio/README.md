@@ -4,6 +4,10 @@
 
 음원은 HAN-GRAPH 학습용 원문을 합성한 자료이며 원문의 [데이터 라이선스](../LICENSE)를 따릅니다. 원문 목록의 출처는 [데이터 출처](../sources/README.md)에 있습니다. 합성에는 MyShell.ai의 MIT 라이선스 [MeloTTS](https://github.com/myshell-ai/MeloTTS/tree/209145371cff8fc3bd60d7be902ea69cbdb7965a), [한국어 음성 모델](https://huggingface.co/myshell-ai/MeloTTS-Korean/tree/0207e5adfc90129a51b6b03d89be6d84360ed323), 모델이 사용하는 [한국어 BERT](https://huggingface.co/kykim/bert-kor-base/tree/1779cc0982ada0216dd6de0dd4e86fb78201926d)를 사용합니다. 배포 이미지에는 학습 음원만 포함합니다.
 
+**단어 듣기**는 표제어 전체에 마침표를 붙여 한 번에 발음을 계산하고 조금 느리게 읽습니다. 여러 음절인 단어에는 모델이 예측한 발음 경계의 가까운 지점에서 약 55밀리초씩 간격을 둡니다. 이 방식은 ‘국어’의 연음처럼 단어 전체에서 정해지는 발음을 살립니다. ‘가의(可矣)’는 둘째 음절의 허용 발음인 **[가이]**를 사용해 짧게 끊어 읽습니다. 예문 듣기는 문장 단위의 속도와 억양을 사용합니다. [국립국어원 표준 발음법 제5항](https://www.korean.go.kr/kornorms/regltn/regltnView.do?regltn_code=0002)
+
+생성기는 단독 단어 음원의 생성 방식을 ZIP 항목에 표시합니다. 이전 방식의 단어만 다시 합성하고, 이미 검증된 예문 MP3는 같은 바이트로 새 묶음에 넣습니다. 서버는 시작할 때 색인을 만들므로 운영에는 완성한 묶음과 새 서버를 함께 배포합니다.
+
 ## 생성과 검증
 
 저장소 루트에서 실행합니다. Linux의 systemd 사용자 서비스와 cgroup v2, Bash, Git, curl, util-linux, Python 3, uv가 필요합니다. 처음 실행하면 생성 도구와 모델을 `.audio-build/`에 받습니다.

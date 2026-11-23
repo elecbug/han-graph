@@ -107,7 +107,7 @@ Firestore 에뮬레이터가 실행 중이면 `src`에서 `FIRESTORE_EMULATOR_HO
 
 백업할 때는 서버를 정상 종료한 뒤 데이터베이스 파일을 복사합니다. 복원할 때도 서버가 정지한 상태에서 되돌려 놓으세요. 파일 권한은 소유자만 읽고 쓰도록 설정됩니다. 같은 파일을 두 서버 프로세스가 동시에 열 수 없습니다. 컨테이너나 임시 실행 환경을 사용한다면 `-accounts` 위치를 영구 볼륨에 두세요.
 
-외부에 서비스할 때는 HTTPS로 제공하고, HTTPS 리버스 프록시 뒤에서 `-secure-cookies`를 켜 로그인 쿠키를 HTTPS 연결로 제한하세요. 기본 로그인 시도 제한은 서버가 직접 보는 접속 주소에 적용하므로 프록시를 쓰는 경우 여러 이용자가 같은 제한을 공유할 수 있습니다.
+외부에 서비스할 때는 HTTPS로 제공하고, HTTPS 리버스 프록시 뒤에서 `-secure-cookies`를 켜 로그인 쿠키를 HTTPS 연결로 제한하세요. 가입과 로그인은 서버가 직접 보는 접속 주소에 넓은 한도를 두고 같은 주소·작업·아이디의 반복 요청에는 별도 한도를 적용합니다. 가입 단계 전환, 문의 DB 확인, 예산 알림과 복원 시험은 [교내 베타 운영](campus-beta.md)에 정리했습니다.
 
 ## 명령줄에서 조회하기
 
@@ -187,7 +187,8 @@ Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을
 | `POST /api/auth/google/challenge` | `{intent}`로 login, register, link 또는 recover 용도의 인증 요청 생성 |
 | `POST /api/auth/recovery/verify` | `{credential}`로 복구용 Google 인증과 기존 계정 연결을 확인하고 검증된 이메일 반환 |
 | `POST /api/auth/recovery/reset` | 같은 브라우저에서 `{credential,new_password}`로 10분 안에 비밀번호를 재설정하고 모든 세션 종료. 기존 Google 클라이언트 ID 설정만 사용 |
-| `POST /api/auth/register` | `{username,password}`로 가입하고 로그인. Google 연동 시 ID 토큰을 `credential`로 함께 전송 |
+| `POST /api/auth/register` | `{username,password,privacy_version}`로 가입하고 로그인. 동의한 버전은 `GET /api/auth/session`의 `privacy_version`으로 확인. 초대 가입은 `invite_code`, Google 연동 가입은 `credential`도 전송 |
+| `POST /api/feedback` | 비공개 의견 제출. `{id,message,language}`에서 `id`는 브라우저가 만든 32자리 소문자 16진수 접수 번호. 본문은 공백 제거 후 1~2,000자. 동일 번호·내용·언어로 재시도하면 중복 저장 없이 201 반환 |
 | `POST /api/auth/login` | `{username,password}` 또는 연결된 Google 계정의 `{credential}`로 로그인 |
 | `GET /api/auth/session` | 현재 사용자와 개인 사전·단어장·노트, Google 연동 설정(`google_client_id`) 조회. 비회원은 `user: null` |
 | `POST /api/auth/logout` | `{}`로 현재 로그인 종료 |

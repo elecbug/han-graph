@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // HAN-GRAPH clients use the web service. Its server SDK authenticates with IAM.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

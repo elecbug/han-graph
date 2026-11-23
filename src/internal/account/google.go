@@ -35,7 +35,7 @@ func (s *Store) RegisterGoogle(name, password string, identity GoogleIdentity) (
 	if !identity.Valid() {
 		return User{}, ErrInvalid
 	}
-	return s.register(name, password, identity)
+	return s.register(name, password, identity, "")
 }
 func (s *Store) LinkGoogle(id string, identity GoogleIdentity) error {
 	if !identity.Valid() {

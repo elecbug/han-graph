@@ -20,8 +20,10 @@ type firestoreBackend struct {
 }
 
 type accountDocument struct {
-	GoogleSubject      string `firestore:",omitempty"`
-	RecoveryAfter      int64  `firestore:",omitempty"`
+	PrivacyVersion     string     `firestore:",omitempty"`
+	PrivacyAcceptedAt  *time.Time `firestore:",omitempty"`
+	GoogleSubject      string     `firestore:",omitempty"`
+	RecoveryAfter      int64      `firestore:",omitempty"`
 	Username           string
 	Email              string `firestore:",omitempty"`
 	DictionaryRevision int64
@@ -91,7 +93,7 @@ func (b *firestoreBackend) create(ctx context.Context, u record) error {
 		if err := tx.Create(b.login(u.User.Username), loginDocument{UserID: u.User.ID, Salt: u.Salt, Hash: u.Hash, Iterations: u.Iterations, Email: u.User.Email}); err != nil {
 			return err
 		}
-		return tx.Create(b.user(u.User.ID), accountDocument{Username: u.User.Username, Email: u.User.Email, GoogleSubject: u.GoogleSubject, RecoveryAfter: u.RecoveryAfter})
+		return tx.Create(b.user(u.User.ID), accountDocument{Username: u.User.Username, Email: u.User.Email, GoogleSubject: u.GoogleSubject, RecoveryAfter: u.RecoveryAfter, PrivacyVersion: u.PrivacyVersion, PrivacyAcceptedAt: u.PrivacyAcceptedAt})
 	})
 	if status.Code(err) == codes.AlreadyExists {
 		return ErrExists

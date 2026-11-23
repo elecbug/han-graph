@@ -9,6 +9,8 @@ services:
     command: ["-data", "/app/dataset", "-accounts", "/app/var/accounts.db", "-addr", "0.0.0.0:18080", "-secure-cookies=${HAN_GRAPH_SECURE_COOKIES:-false}", "serve"]
     environment:
       HAN_GRAPH_DB_BACKEND: ${HAN_GRAPH_DB_BACKEND:-file}
+      HAN_GRAPH_SIGNUP_MODE: ${HAN_GRAPH_SIGNUP_MODE:-open}
+      HAN_GRAPH_BETA_INVITE_CODE: ${HAN_GRAPH_BETA_INVITE_CODE:-}
       HAN_GRAPH_GOOGLE_CLIENT_ID: ${HAN_GRAPH_GOOGLE_CLIENT_ID:-}
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
       FIRESTORE_DATABASE_ID: ${FIRESTORE_DATABASE_ID:-(default)}

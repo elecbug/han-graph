@@ -1,0 +1,194 @@
+[
+  {
+    "Code": "ko",
+    "Name": "한국어",
+    "Title": "개인정보 처리방침",
+    "Updated": "시행일",
+    "Contact": "운영팀에 비공개로 문의하기",
+    "Paragraphs": [
+      "HAN-GRAPH Team은 계정 생성과 인증을 위해 아이디, 솔트를 사용한 비밀번호 해시, 가입 시 동의한 방침 버전과 시각을 저장합니다. Google 인증을 사용하는 경우 Google이 확인한 이메일과 계정 식별자를 로그인·연결·비밀번호 복구에 사용합니다. Google 인증을 설정한 서비스에서는 가입 시 이 인증이 필요합니다. 가입에 동의하지 않아도 검색, 발음 듣기, 문맥 연습을 이용할 수 있습니다.",
+      "로그인하면 단어장, 노트, 개인 사전, 문맥 연습 답안·점수와 이용 시간 구간을 저장해 복습과 통계를 제공합니다. 계정과 학습 자료는 탈퇴할 때까지 보관합니다. 개인 설정에서 탈퇴하면 계정과 로그인 수단을 삭제하고 관련 학습 자료를 정리합니다. 중단된 Firestore 하위 자료 삭제는 재개됩니다.",
+      "세션 쿠키는 로그인 유지에 사용하며 유효기간은 30일입니다. 로그아웃하면 해당 세션은 무효화됩니다. 비회원 단어장과 화면 설정은 브라우저에 보관하며 사이트 데이터를 지우면 삭제됩니다. 서버는 요청 제한을 위해 접속 주소를 메모리에 최대 15분간 사용합니다. Google Cloud 배포에서는 Cloud Run이 요청을 처리하고 Firestore가 데이터를 보관하며, 인프라 로그와 백업은 운영 환경의 보존 설정을 따릅니다.",
+      "피드백에는 입력한 내용, 화면 언어, 접수 번호와 시각을 저장합니다. 계정 아이디와 이메일은 자동으로 첨부하지 않습니다. 운영팀은 문의 처리와 서비스 개선에 사용하고 처리가 끝나면 삭제합니다. 접수 번호를 보관하면 문의 내용을 찾는 데 도움이 됩니다.",
+      "내 계정에서 정보를 열람하고 개인 설정에서 아이디·비밀번호·Google 연결을 변경하거나 탈퇴할 수 있습니다. 열람·정정·삭제·처리정지 또는 동의 철회를 요청하려면 아래 비공개 문의 창을 이용해 주세요. 비밀번호를 적을 필요는 없습니다."
+    ],
+    "English": "Korean",
+    "LanguageMenu": "언어 선택"
+  },
+  {
+    "Code": "en",
+    "Name": "English",
+    "Title": "Privacy policy",
+    "Updated": "Effective",
+    "Contact": "Contact the team privately",
+    "Paragraphs": [
+      "HAN-GRAPH Team stores your username, a salted password hash, and the date and version of the notice you accepted to create and authenticate your account. When you use Google authentication, we use your verified email and Google account identifier for sign-in, linking and password recovery. Deployments with Google authentication enabled require it at signup. You can search, listen and practice without registering.",
+      "When you sign in, we store your wordbook, notes, personal dictionary, practice answers and scores, and periods of activity for review and statistics. We keep account and learning data until you delete your account in Settings. We then remove your account and sign-in methods and clear the associated learning records. Interrupted cleanup of Firestore subcollections resumes.",
+      "The session cookie keeps you signed in for up to 30 days. Signing out invalidates that session. Guest wordbooks and preferences stay in your browser until you clear site data. The server uses connection addresses in memory for rate limiting for up to 15 minutes. On Google Cloud, Cloud Run processes requests and Firestore stores data. Infrastructure logs and backups follow the deployment’s retention settings.",
+      "Feedback contains the text you enter, interface language, reference number and submission time. Your username and email are not attached automatically. The team uses feedback to handle inquiries and improve the service, then deletes it after handling it. Keep the reference number if you may need to identify a submission.",
+      "You can view your data in your account and change your username, password or Google connection in Settings. You can also delete your account there. Use the private feedback channel below to request access, correction, deletion, restriction of processing or withdrawal of consent. Please leave out passwords."
+    ],
+    "English": "English",
+    "LanguageMenu": "Language selection"
+  },
+  {
+    "Code": "ru",
+    "Name": "Русский",
+    "Title": "Политика конфиденциальности",
+    "Updated": "Действует с",
+    "Contact": "Написать команде конфиденциально",
+    "Paragraphs": [
+      "HAN-GRAPH Team хранит имя пользователя, хеш пароля с солью, версию принятой политики и время согласия для регистрации и входа. При использовании Google подтверждённый адрес электронной почты и идентификатор Google нужны для входа, привязки и восстановления пароля. Если проверка Google включена, она обязательна при регистрации. Поиск, прослушивание и упражнения доступны гостям.",
+      "Для повторения и статистики сохраняются словарь пользователя, заметки, личные статьи, ответы, баллы и периоды активности. Данные хранятся до удаления учётной записи в настройках. После этого удаляются учётная запись, средства входа и учебные записи. Прерванная очистка вложенных данных Firestore возобновляется.",
+      "Сеансовый файл cookie действует до 30 дней. Выход аннулирует сеанс. Гостевой словарь и настройки хранятся в браузере до очистки данных сайта. Сервер использует адрес подключения в памяти до 15 минут для ограничения частоты запросов. В Google Cloud запросы обрабатывает Cloud Run, данные хранит Firestore. Сроки хранения журналов и резервных копий задаются в среде размещения.",
+      "При отправке отзыва сохраняются текст, язык интерфейса, номер и время обращения. Имя пользователя и электронная почта автоматически не добавляются. Команда использует отзыв для ответа на обращение и улучшения сервиса, затем удаляет его. Сохраните номер обращения.",
+      "В учётной записи можно просмотреть данные, а в настройках — изменить имя, пароль или привязку Google либо удалить аккаунт. Для запроса доступа, исправления, удаления, ограничения обработки или отзыва согласия используйте закрытую форму ниже. Не указывайте пароль."
+    ],
+    "English": "Russian",
+    "LanguageMenu": "Выбор языка"
+  },
+  {
+    "Code": "uz",
+    "Name": "Oʻzbekcha",
+    "Title": "Maxfiylik siyosati",
+    "Updated": "Amal qilish sanasi",
+    "Contact": "Jamoaga shaxsiy murojaat yuborish",
+    "Paragraphs": [
+      "HAN-GRAPH Team hisob ochish va kirish uchun foydalanuvchi nomi, tasodifiy tuz bilan hisoblangan parol xeshi, rozilik vaqti va siyosat versiyasini saqlaydi. Google orqali tasdiqlangan elektron pochta va hisob identifikatori kirish, hisobni bogʻlash va parolni tiklash uchun ishlatiladi. Google tekshiruvi yoqilgan xizmatda u roʻyxatdan oʻtishda talab qilinadi. Qidirish, tinglash va mashqlar mehmonlarga ham ochiq.",
+      "Tizimga kirganda soʻzlar daftari, qaydlar, shaxsiy lugʻat, mashq javoblari, ballar va faollik vaqt oraligʻi takrorlash va statistika uchun saqlanadi. Hisobingizni sozlamalarda oʻchirsangiz, hisob, kirish vositalari va oʻquv yozuvlari oʻchiriladi. Firestore ichki yozuvlarini tozalash uzilib qolsa, davom ettiriladi.",
+      "Sessiya kukisi 30 kungacha amal qiladi. Hisobdan chiqish sessiyani bekor qiladi. Mehmon soʻzlari va sozlamalari sayt maʼlumotlari tozalanmaguncha brauzerda qoladi. Server soʻrovlarni cheklash uchun ulanish manzilini xotirada 15 daqiqagacha saqlaydi. Google Cloud muhitida soʻrovlarni Cloud Run qayta ishlaydi, maʼlumotlarni Firestore saqlaydi. Jurnallar va zaxira nusxalari joylashtirish sozlamalariga muvofiq saqlanadi.",
+      "Fikr bilan matn, interfeys tili, murojaat raqami va vaqt saqlanadi. Hisob nomi va elektron pochta avtomatik qoʻshilmaydi. Jamoa murojaatni koʻrib chiqish va xizmatni yaxshilash uchun foydalanadi, soʻng uni oʻchiradi. Murojaat raqamini saqlab qoʻying.",
+      "Hisobda maʼlumotlaringizni koʻrishingiz, sozlamalarda nom, parol va Google bogʻlanishini oʻzgartirishingiz yoki hisobni oʻchirishingiz mumkin. Koʻrish, tuzatish, oʻchirish, ishlov berishni cheklash yoki rozilikni qaytarib olish uchun quyidagi shaxsiy murojaat shaklidan foydalaning. Parolni yozmang."
+    ],
+    "English": "Uzbek",
+    "LanguageMenu": "Tilni tanlash"
+  },
+  {
+    "Code": "ky",
+    "Name": "Кыргызча",
+    "Title": "Купуялык саясаты",
+    "Updated": "Күчүнө кирген күнү",
+    "Contact": "Командага купуя кайрылуу",
+    "Paragraphs": [
+      "HAN-GRAPH Team каттоо жана кирүү үчүн колдонуучунун атын, туз менен эсептелген сырсөздүн хешин, макулдук берилген убакытты жана саясаттын версиясын сактайт. Google ырастаган электрондук дарек жана аккаунттун идентификатору кирүү, байланыштыруу жана сырсөздү калыбына келтирүү үчүн колдонулат. Google текшерүүсү күйгүзүлгөн кызматта ал каттоодо талап кылынат. Коноктор издеп, угуп, көнүгүү аткара алышат.",
+      "Киргенде сөз дептери, жазуулар, жеке сөздүк, көнүгүүнүн жооптору, упайлар жана активдүүлүк аралыктары кайталоо жана статистика үчүн сакталат. Булар аккаунтту жөндөөлөрдөн өчүргөнгө чейин сакталат. Андан соң аккаунт, кирүү каражаттары жана окуу жазуулары өчүрүлөт. Firestore ичиндеги жазууларды тазалоо үзгүлтүккө учураса, кайра уланат.",
+      "Сеанс кукиси 30 күнгө чейин жарактуу. Аккаунттан чыкканда сеанс токтойт. Коноктун сөздөрү жана жөндөөлөрү сайттын маалыматтарын тазалаганга чейин браузерде калат. Сурамдарды чектөө үчүн сервер туташуу дарегин эс тутумда 15 мүнөткө чейин колдонот. Google Cloud чөйрөсүндө сурамдарды Cloud Run иштетет, маалыматты Firestore сактайт. Журналдар менен камдык көчүрмөлөрдүн мөөнөттөрү жайгаштыруу жөндөөлөрүнө жараша болот.",
+      "Пикир менен кошо текст, интерфейстин тили, кайрылуунун номери жана убактысы сакталат. Аккаунттун аты жана электрондук дарек автоматтык түрдө кошулбайт. Команда кайрылууну карап, кызматты жакшыртуу үчүн колдонот жана карап бүткөн соң өчүрөт. Кайрылуунун номерин сактап коюңуз.",
+      "Аккаунттан маалыматты көрүүгө, жөндөөлөрдөн атты, сырсөздү же Google байланышын өзгөртүүгө жана аккаунтту өчүрүүгө болот. Маалыматты көрүү, оңдоо, өчүрүү, иштетүүнү чектөө же макулдукту кайтарып алуу үчүн төмөнкү купуя форма аркылуу кайрылыңыз. Сырсөзүңүздү жазбаңыз."
+    ],
+    "English": "Kyrgyz",
+    "LanguageMenu": "Тил тандоо"
+  },
+  {
+    "Code": "zh",
+    "Name": "简体中文",
+    "Title": "隐私政策",
+    "Updated": "生效日期",
+    "Contact": "私下联系运营团队",
+    "Paragraphs": [
+      "HAN-GRAPH Team 为注册和验证账户保存用户名、加盐密码哈希、同意时的政策版本和时间。使用 Google 验证时，经验证的邮箱和 Google 账户标识用于登录、关联及密码恢复。启用 Google 验证的服务要求注册时完成验证。访客也可以搜索、收听和练习。",
+      "登录后，系统保存单词本、笔记、个人词典、练习答案与分数、活跃时段，以便复习和统计。账户和学习数据保留至注销。在设置中注销后，账户、登录凭据及相关学习记录将被删除。Firestore 子集合清理若中断，会继续执行。",
+      "会话 Cookie 最长有效 30 天，退出登录后该会话失效。访客的单词本和设置保存在浏览器中，可通过清除网站数据删除。服务器在内存中使用连接地址实施请求频率限制，最长 15 分钟。在 Google Cloud 环境下，Cloud Run 处理请求，Firestore 存储数据。基础设施日志及备份按部署环境的设置保留。",
+      "反馈保存提交的文字、界面语言、受理编号及时间。用户名和邮箱不会自动附加。团队使用反馈处理咨询、改进服务，处理完毕后删除。请保留受理编号以便查找。",
+      "您可在账户中查看资料，在设置中更改用户名、密码、关联的 Google 账户或注销账户。如需查阅、更正、删除资料、限制处理或撤回同意，请使用下方的非公开反馈渠道。请勿填写密码。"
+    ],
+    "English": "Chinese",
+    "LanguageMenu": "选择语言"
+  },
+  {
+    "Code": "ja",
+    "Name": "日本語",
+    "Title": "プライバシーポリシー",
+    "Updated": "施行日",
+    "Contact": "運営チームに非公開で問い合わせる",
+    "Paragraphs": [
+      "HAN-GRAPH Team は登録と認証のため、ユーザー名、ソルト付きのパスワードハッシュ、同意した方針の版と日時を保存します。Google 認証を利用する場合は、確認済みのメールアドレスと Google アカウント識別子をログイン、連携、パスワードの再設定に使用します。Google 認証を有効にした環境では登録時に認証が必要です。検索、音声、練習は登録せずに利用できます。",
+      "ログインすると復習と統計のため、単語帳、ノート、個人辞書、練習の回答・得点、利用時間帯を保存します。設定から退会するまで保持し、退会後にアカウント、ログイン手段、学習記録を削除します。Firestore の下位データの削除が中断した場合は再開します。",
+      "セッション Cookie の有効期間は最長30日で、ログアウトするとそのセッションは無効になります。ゲストの単語帳と設定はブラウザーのサイトデータを消去すると削除されます。リクエスト回数制限のため、接続元アドレスをサーバーのメモリで最長15分間使用します。Google Cloud 環境では Cloud Run がリクエストを処理し、Firestore がデータを保存します。ログとバックアップの保存期間は運用環境の設定に従います。",
+      "フィードバックには入力文、表示言語、受付番号、受付時刻を保存します。ユーザー名とメールアドレスは自動で添付しません。運営チームは問い合わせ対応と改善に利用し、対応後に削除します。照会時のために受付番号を控えてください。",
+      "アカウントから情報を閲覧でき、設定でユーザー名・パスワード・Google 連携の変更や退会ができます。開示、訂正、削除、利用停止、同意の撤回は下記の非公開フォームからご連絡ください。パスワードは記入しないでください。"
+    ],
+    "English": "Japanese",
+    "LanguageMenu": "言語の選択"
+  },
+  {
+    "Code": "es",
+    "Name": "Español",
+    "Title": "Política de privacidad",
+    "Updated": "Vigente desde",
+    "Contact": "Contactar en privado con el equipo",
+    "Paragraphs": [
+      "HAN-GRAPH Team guarda el nombre de usuario, un hash de la contraseña con sal, la versión de la política aceptada y la fecha de aceptación para registrar y autenticar la cuenta. Si usas Google, el correo verificado y el identificador de la cuenta sirven para el acceso, la vinculación y la recuperación de contraseñas. Cuando el servicio tiene activada la verificación con Google, se requiere al registrarse. Puedes buscar, escuchar y practicar sin crear una cuenta.",
+      "Al iniciar sesión se guardan tu cuaderno de palabras, notas, diccionario personal, respuestas, puntuaciones e intervalos de actividad para el repaso y las estadísticas. Los datos se conservan hasta que eliminas la cuenta desde Ajustes. Se borran la cuenta, sus credenciales y los registros de aprendizaje. La limpieza de los datos subordinados de Firestore se reanuda si se interrumpe.",
+      "La cookie de sesión dura hasta 30 días. Cerrar sesión la invalida. El cuaderno de visitante y las preferencias permanecen en el navegador hasta que borras los datos del sitio. Para limitar las solicitudes, el servidor utiliza la dirección de conexión en memoria hasta 15 minutos. En Google Cloud, Cloud Run procesa las solicitudes y Firestore almacena los datos. Los registros de infraestructura y las copias de seguridad se conservan según la configuración del despliegue.",
+      "Los comentarios incluyen el texto que escribes, el idioma de la interfaz, la referencia y la hora de envío. El nombre de usuario y el correo no se adjuntan automáticamente. El equipo los usa para atender consultas y mejorar el servicio y los elimina una vez tramitados. Conserva el número de referencia.",
+      "Puedes consultar tus datos en tu cuenta y cambiar el nombre de usuario, la contraseña o la vinculación con Google en Ajustes, donde también puedes eliminar la cuenta. Usa el canal privado de abajo para solicitar acceso, rectificación, supresión, limitación del tratamiento o retirada del consentimiento. No incluyas contraseñas."
+    ],
+    "English": "Spanish",
+    "LanguageMenu": "Selección de idioma"
+  },
+  {
+    "Code": "vi",
+    "Name": "Tiếng Việt",
+    "Title": "Chính sách quyền riêng tư",
+    "Updated": "Ngày có hiệu lực",
+    "Contact": "Liên hệ riêng với nhóm vận hành",
+    "Paragraphs": [
+      "HAN-GRAPH Team lưu tên đăng nhập, giá trị băm mật khẩu có salt, phiên bản chính sách đã chấp thuận và thời điểm đồng ý để tạo và xác thực tài khoản. Khi dùng Google, email đã xác minh và mã định danh tài khoản Google được dùng để đăng nhập, liên kết và khôi phục mật khẩu. Dịch vụ có bật xác thực Google yêu cầu bước này khi đăng ký. Khách vẫn có thể tìm kiếm, nghe và luyện tập.",
+      "Khi bạn đăng nhập, sổ từ, ghi chú, từ điển cá nhân, câu trả lời, điểm và các khoảng thời gian hoạt động được lưu để ôn tập và thống kê. Dữ liệu được giữ đến khi bạn xóa tài khoản trong phần cài đặt. Sau đó tài khoản, thông tin đăng nhập và hồ sơ học tập được xóa. Việc xóa dữ liệu con trong Firestore sẽ tiếp tục nếu bị gián đoạn.",
+      "Cookie phiên có hiệu lực tối đa 30 ngày. Đăng xuất làm mất hiệu lực phiên đó. Sổ từ và tùy chọn của khách nằm trong trình duyệt cho đến khi xóa dữ liệu trang web. Máy chủ dùng địa chỉ kết nối trong bộ nhớ tối đa 15 phút để giới hạn tần suất yêu cầu. Khi triển khai trên Google Cloud, Cloud Run xử lý yêu cầu và Firestore lưu dữ liệu. Nhật ký hạ tầng và bản sao lưu tuân theo cấu hình lưu giữ của môi trường triển khai.",
+      "Phản hồi gồm nội dung bạn viết, ngôn ngữ giao diện, mã và thời điểm tiếp nhận. Tên đăng nhập và email không được đính kèm tự động. Nhóm dùng phản hồi để xử lý yêu cầu và cải thiện dịch vụ, sau đó xóa khi xử lý xong. Hãy lưu mã tiếp nhận.",
+      "Bạn có thể xem dữ liệu trong tài khoản, thay đổi tên, mật khẩu hoặc liên kết Google và xóa tài khoản trong phần cài đặt. Để yêu cầu truy cập, chỉnh sửa, xóa, hạn chế xử lý hoặc rút lại sự đồng ý, hãy dùng biểu mẫu riêng tư bên dưới. Đừng gửi mật khẩu."
+    ],
+    "English": "Vietnamese",
+    "LanguageMenu": "Chọn ngôn ngữ"
+  },
+  {
+    "Code": "ne",
+    "Name": "नेपाली",
+    "Title": "गोपनीयता नीति",
+    "Updated": "लागू हुने मिति",
+    "Contact": "टोलीलाई निजी सन्देश पठाउनुहोस्",
+    "Paragraphs": [
+      "HAN-GRAPH Team ले खाता खोल्न र प्रमाणीकरण गर्न प्रयोगकर्ता नाम, साल्टसहितको पासवर्ड ह्यास, सहमतिको समय र नीतिको संस्करण राख्छ। Google प्रमाणीकरण प्रयोग गर्दा प्रमाणित इमेल र Google खाता पहिचान सङ्केत प्रवेश, खाता जोड्न र पासवर्ड पुनःप्राप्त गर्न प्रयोग हुन्छन्। यो सुविधा सक्रिय भएको सेवामा दर्ताका लागि Google प्रमाणीकरण आवश्यक छ। अतिथिले पनि खोज्न, सुन्न र अभ्यास गर्न सक्छन्।",
+      "प्रवेश गरेपछि पुनरावृत्ति र तथ्याङ्कका लागि शब्दपुस्तिका, टिपोट, व्यक्तिगत शब्दकोश, अभ्यासका उत्तर, अङ्क र सक्रिय समयावधि राखिन्छ। सेटिङबाट खाता नमेटेसम्म यी तथ्याङ्क राखिन्छन्। खाता मेटाएपछि खाता, प्रवेशका माध्यम र सम्बन्धित सिकाइ अभिलेख मेटाइन्छ। Firestore का भित्री अभिलेख मेटाउने काम रोकिएमा पुनः सुरु हुन्छ।",
+      "सत्रको कुकी बढीमा ३० दिनसम्म मान्य हुन्छ। बाहिर निस्कँदा त्यो सत्र निष्क्रिय हुन्छ। अतिथिका शब्द र प्राथमिकता साइटको डेटा नमेटेसम्म ब्राउजरमै रहन्छन्। अनुरोधको दर सीमित गर्न सर्भरले जडान ठेगाना बढीमा १५ मिनेटसम्म मेमोरीमा प्रयोग गर्छ। Google Cloud मा Cloud Run ले अनुरोध प्रशोधन गर्छ र Firestore ले डेटा भण्डारण गर्छ। पूर्वाधारका लग र ब्याकअप राखिने अवधि प्रणालीको सेटिङअनुसार हुन्छ।",
+      "प्रतिक्रियामा लेखिएको पाठ, इन्टरफेसको भाषा, सन्दर्भ नम्बर र पठाएको समय राखिन्छ। प्रयोगकर्ता नाम र इमेल स्वतः जोडिँदैनन्। टोलीले अनुरोध सम्बोधन गर्न र सेवा सुधार्न प्रतिक्रिया प्रयोग गर्छ र काम सकिएपछि मेटाउँछ। सन्दर्भ नम्बर सुरक्षित राख्नुहोस्।",
+      "तपाईं खातामा आफ्नो जानकारी हेर्न र सेटिङमा नाम, पासवर्ड वा Google जडान बदल्न वा खाता मेटाउन सक्नुहुन्छ। जानकारी हेर्न, सच्याउन, मेटाउन, प्रशोधन रोक्न वा सहमति फिर्ता लिन तलको निजी फारम प्रयोग गर्नुहोस्। पासवर्ड नलेख्नुहोस्।"
+    ],
+    "English": "Nepali",
+    "LanguageMenu": "भाषा छान्नुहोस्"
+  },
+  {
+    "Code": "mn",
+    "Name": "Монгол хэл",
+    "Title": "Нууцлалын бодлого",
+    "Updated": "Хүчин төгөлдөр огноо",
+    "Contact": "Багт хувийн хүсэлт илгээх",
+    "Paragraphs": [
+      "HAN-GRAPH Team бүртгэх болон нэвтрэлтийг баталгаажуулахын тулд хэрэглэгчийн нэр, давстай хэшлэсэн нууц үг, зөвшөөрсөн бодлогын хувилбар, огноог хадгална. Google баталгаажуулалт ашиглахад баталгаажсан имэйл, Google бүртгэлийн таних дугаарыг нэвтрэх, холбох, нууц үг сэргээхэд ашиглана. Google баталгаажуулалт идэвхтэй үйлчилгээнд бүртгүүлэхэд энэ алхам шаардлагатай. Зочин хайлт хийх, сонсох, дасгал хийх боломжтой.",
+      "Нэвтэрсэн үед давтлага болон статистикт зориулан үгийн дэвтэр, тэмдэглэл, хувийн толь, дасгалын хариу, оноо, идэвхтэй байсан хугацааг хадгална. Тохиргооноос бүртгэлээ устгах хүртэл эдгээрийг хадгалж, дараа нь бүртгэл, нэвтрэх мэдээлэл, суралцах бүртгэлийг устгана. Firestore-ийн дэд өгөгдлийг цэвэрлэх ажил тасарвал үргэлжилнэ.",
+      "Сессийн күүки 30 хүртэл хоног хүчинтэй. Бүртгэлээс гарахад тухайн сесс хүчингүй болно. Зочны үгийн дэвтэр, тохиргоо нь сайтын өгөгдлийг цэвэрлэх хүртэл хөтөч дээр байна. Хүсэлтийн давтамжийг хязгаарлахад сервер холболтын хаягийг санах ойд 15 хүртэл минут ашиглана. Google Cloud орчинд Cloud Run хүсэлт боловсруулж, Firestore өгөгдөл хадгална. Дэд бүтцийн лог, нөөц хуулбарыг хадгалах хугацаа нь байршуулалтын тохиргооноос хамаарна.",
+      "Санал хүсэлтэд бичсэн текст, интерфэйсийн хэл, бүртгэлийн дугаар, илгээсэн цаг хадгалагдана. Хэрэглэгчийн нэр, имэйл автоматаар хавсаргагдахгүй. Баг хүсэлтийг шийдвэрлэх, үйлчилгээг сайжруулахад ашиглаад шийдвэрлэсний дараа устгана. Бүртгэлийн дугаараа хадгална уу.",
+      "Та бүртгэлээс мэдээллээ үзэж, тохиргооноос хэрэглэгчийн нэр, нууц үг, Google холбоосоо солих эсвэл бүртгэлээ устгах боломжтой. Өгөгдөл үзэх, засах, устгах, боловсруулалтыг хязгаарлах эсвэл зөвшөөрлөө цуцлах хүсэлтийг доорх хувийн маягтаар илгээнэ үү. Нууц үгээ бүү бичээрэй."
+    ],
+    "English": "Mongolian",
+    "LanguageMenu": "Хэл сонгох"
+  },
+  {
+    "Code": "th",
+    "Name": "ไทย",
+    "Title": "นโยบายความเป็นส่วนตัว",
+    "Updated": "วันที่มีผล",
+    "Contact": "ติดต่อทีมงานเป็นการส่วนตัว",
+    "Paragraphs": [
+      "HAN-GRAPH Team จัดเก็บชื่อผู้ใช้ ค่าแฮชของรหัสผ่านที่ใช้ซอลต์ รุ่นของนโยบายที่ยอมรับและเวลาที่ให้ความยินยอมเพื่อสร้างและยืนยันบัญชี เมื่อใช้การยืนยันกับ Google ระบบใช้อีเมลที่ยืนยันแล้วและตัวระบุบัญชี Google เพื่อเข้าสู่ระบบ เชื่อมบัญชี และกู้คืนรหัสผ่าน หากบริการเปิดใช้การยืนยันกับ Google ต้องยืนยันเมื่อลงทะเบียน ผู้เยี่ยมชมสามารถค้นหา ฟัง และฝึกได้โดยไม่ต้องสมัคร",
+      "เมื่อเข้าสู่ระบบ เราจัดเก็บสมุดคำศัพท์ บันทึก พจนานุกรมส่วนตัว คำตอบ คะแนน และช่วงเวลาที่ใช้งานเพื่อการทบทวนและสถิติ ข้อมูลจะเก็บไว้จนกว่าคุณจะลบบัญชีในการตั้งค่า จากนั้นระบบจะลบบัญชี วิธีเข้าสู่ระบบ และประวัติการเรียนที่เกี่ยวข้อง หากการลบข้อมูลย่อยใน Firestore หยุดชะงัก ระบบจะทำต่อ",
+      "คุกกี้เซสชันมีอายุไม่เกิน 30 วัน เมื่อออกจากระบบ เซสชันนั้นจะใช้ไม่ได้อีก สมุดคำศัพท์และการตั้งค่าของผู้เยี่ยมชมอยู่ในเบราว์เซอร์จนกว่าจะล้างข้อมูลเว็บไซต์ เซิร์ฟเวอร์ใช้ที่อยู่การเชื่อมต่อในหน่วยความจำไม่เกิน 15 นาทีเพื่อจำกัดอัตราคำขอ ในสภาพแวดล้อม Google Cloud นั้น Cloud Run ประมวลผลคำขอและ Firestore จัดเก็บข้อมูล ระยะเวลาเก็บบันทึกโครงสร้างพื้นฐานและข้อมูลสำรองเป็นไปตามการตั้งค่าของระบบที่ปรับใช้",
+      "ความคิดเห็นประกอบด้วยข้อความที่เขียน ภาษาหน้าจอ หมายเลขอ้างอิง และเวลาส่ง ระบบไม่แนบชื่อผู้ใช้หรืออีเมลโดยอัตโนมัติ ทีมงานใช้ข้อมูลเพื่อดำเนินการตามคำขอและปรับปรุงบริการ แล้วลบเมื่อดำเนินการเสร็จ โปรดเก็บหมายเลขอ้างอิงไว้",
+      "คุณสามารถดูข้อมูลในบัญชี เปลี่ยนชื่อผู้ใช้ รหัสผ่าน หรือบัญชี Google ที่เชื่อมไว้ รวมถึงลบบัญชีได้ในการตั้งค่า หากต้องการขอเข้าถึง แก้ไข ลบ ระงับการประมวลผล หรือถอนความยินยอม โปรดใช้แบบฟอร์มส่วนตัวด้านล่าง และอย่าระบุรหัสผ่าน"
+    ],
+    "English": "Thai",
+    "LanguageMenu": "เลือกภาษา"
+  }
+]

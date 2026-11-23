@@ -29,6 +29,7 @@ var (
 )
 
 const SessionLifetime = 30 * 24 * time.Hour
+const PrivacyVersion = "2026-11-23"
 const passwordIterations = 600000
 
 var usernamePattern = regexp.MustCompile(`^[a-z0-9][a-z0-9_-]{2,31}$`)
@@ -62,8 +63,10 @@ type Snapshot struct {
 	DictionaryRevision uint64          `json:"dictionary_revision"`
 }
 type record struct {
-	GoogleSubject      string `json:",omitempty"`
-	RecoveryAfter      int64  `json:",omitempty"` // Unix microseconds of the last credential change.
+	PrivacyVersion     string     `json:",omitempty"`
+	PrivacyAcceptedAt  *time.Time `json:",omitempty"`
+	GoogleSubject      string     `json:",omitempty"`
+	RecoveryAfter      int64      `json:",omitempty"` // Unix microseconds of the last credential change.
 	User               User
 	Salt               []byte
 	Hash               []byte
@@ -78,6 +81,9 @@ type session struct {
 	Expires time.Time
 }
 type backend interface {
+	saveFeedback(ctx context.Context, id string, entry Feedback) error
+	visitFeedback(ctx context.Context, visit func(string, Feedback) error) error
+	deleteFeedback(ctx context.Context, id string) error
 	create(ctx context.Context, user record) error
 	googleUser(ctx context.Context, subject string) (string, error)
 	updateCredentials(ctx context.Context, id string, proof loginProof, change credentialEdit) error
@@ -128,9 +134,15 @@ func snapshot(u record) Snapshot {
 	return Snapshot{User: &u.User, Words: u.Words, Notes: u.Notes, Dictionary: u.Dictionary.Arrays(), DictionaryRevision: u.DictionaryRevision}
 }
 func (s *Store) Register(name, password string) (User, error) {
-	return s.register(name, password, GoogleIdentity{})
+	return s.register(name, password, GoogleIdentity{}, "")
 }
-func (s *Store) register(name, password string, identity GoogleIdentity) (User, error) {
+func (s *Store) RegisterWithNotice(name, password string, identity GoogleIdentity, version string) (User, error) {
+	if version != PrivacyVersion || (identity != (GoogleIdentity{}) && !identity.Valid()) {
+		return User{}, ErrInvalid
+	}
+	return s.register(name, password, identity, version)
+}
+func (s *Store) register(name, password string, identity GoogleIdentity, version string) (User, error) {
 	name = NormalizeUsername(name)
 	if !usernamePattern.MatchString(name) || !validPassword(password) {
 		return User{}, ErrInvalid
@@ -145,6 +157,10 @@ func (s *Store) register(name, password string, identity GoogleIdentity) (User, 
 	}
 	u := record{User: User{ID: id, Username: name, Email: identity.Email}, GoogleSubject: identity.Subject, Salt: passwordKey.salt, Hash: passwordKey.hash, Iterations: passwordIterations}
 	u.RecoveryAfter = time.Now().UnixMicro()
+	if version != "" {
+		now := time.Now().UTC()
+		u.PrivacyVersion, u.PrivacyAcceptedAt = version, &now
+	}
 	err = s.storage.create(s.ctx, u)
 	return u.User, err
 }

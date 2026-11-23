@@ -24,6 +24,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		options = configs[0]
 	}
 	mux := http.NewServeMux()
+	registerPrivacy(mux)
 	mux.HandleFunc("GET /audio/ko/{clip}", options.Audio.serve)
 	dictionary := &dictionaryViews{base: g, store: options.Accounts, cache: make(map[dictionaryKey]*graph.Graph)}
 	registerAccounts(mux, g, practice, options)

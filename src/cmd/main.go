@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -8,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/elecbug/han-graph/internal/account"
 	"github.com/elecbug/han-graph/internal/graph"
 )
 
@@ -22,7 +24,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	accounts := flags.String("accounts", "../var/accounts.db", "private account database file")
 	secureCookies := flags.Bool("secure-cookies", false, "require HTTPS for login cookies (enable behind an HTTPS reverse proxy)")
 	flags.Usage = func() {
-		fmt.Fprintln(stderr, "Usage: han-graph [-data DIR] [-json] [-addr HOST:PORT] validate|word QUERY|character QUERY|serve")
+		fmt.Fprintln(stderr, "Usage: han-graph [flags] validate|word QUERY|character QUERY|serve|feedback-list|feedback-resolve ID")
 		flags.PrintDefaults()
 	}
 	if err := flags.Parse(args); err != nil {
@@ -34,6 +36,32 @@ func run(args []string, stdout, stderr io.Writer) int {
 	command := "validate"
 	if flags.NArg() > 0 {
 		command = flags.Arg(0)
+	}
+	if command == "feedback-list" || command == "feedback-resolve" {
+		if command == "feedback-list" && flags.NArg() != 1 || command == "feedback-resolve" && flags.NArg() != 2 {
+			flags.Usage()
+			return 2
+		}
+		db, err := openAccounts(context.Background(), *accounts)
+		if err == nil {
+			defer db.Close()
+			if command == "feedback-resolve" {
+				err = db.ResolveFeedback(flags.Arg(1))
+			} else {
+				enc := json.NewEncoder(stdout)
+				err = db.VisitFeedback(func(id string, entry account.Feedback) error {
+					return enc.Encode(struct {
+						ID string `json:"id"`
+						account.Feedback
+					}{id, entry})
+				})
+			}
+		}
+		if err != nil {
+			fmt.Fprintln(stderr, "Feedback:", err)
+			return 1
+		}
+		return 0
 	}
 	if ((command == "validate" || command == "serve") && flags.NArg() > 1) ||
 		(command == "serve" && *jsonOutput) ||
