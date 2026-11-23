@@ -1,9 +1,11 @@
 """Build the public Korean listening corpus in verified sets of ten dictionary entries."""
 import argparse
+from concurrent.futures import ProcessPoolExecutor
 import hashlib
 import io
 from itertools import islice
 import json
+import multiprocessing
 import os
 from pathlib import Path
 import re
@@ -194,29 +196,48 @@ def published(batch):
         return False
 
 
-def build(batch, model_dir, pending):
+def prepare_clips(items, model_dir, pending, cpus):
+    os.sched_setaffinity(0, cpus)
+    os.environ["OMP_NUM_THREADS"] = os.environ["MKL_NUM_THREADS"] = str(len(cpus))
+    global models
+    for name, text in items:
+        clip = pending / name
+        try:
+            verify_clip(clip.read_bytes(), text)
+            continue
+        except (FileNotFoundError, ValueError, RuntimeError):
+            pass
+        if models is None:
+            models = load_models(model_dir)
+        data = synthesize(text)
+        verify_clip(data, text)
+        chunk = clip.with_suffix(".part")
+        chunk.write_bytes(data)
+        os.replace(chunk, clip)
+
+
+def build(batch, model_dir, pending, cpus):
     path, clips = batch
     path.parent.mkdir(parents=True, exist_ok=True)
-    global models
     pending.mkdir(parents=True, exist_ok=True)
+    if len(cpus) == MAX_CPUS and len(clips) > 1:
+        # Keep each model on its own eight cores. Interleave long examples
+        # and short headwords so both workers finish at about the same time.
+        items = sorted(clips.items(), key=lambda item: len(item[1]), reverse=True)
+        with ProcessPoolExecutor(max_workers=2, mp_context=multiprocessing.get_context("spawn")) as pool:
+            jobs = [pool.submit(prepare_clips, items[i::2], model_dir, pending, cores)
+                    for i, cores in enumerate((cpus[:8], cpus[8:]))]
+            for job in jobs:
+                job.result()
+    else:
+        prepare_clips(clips.items(), model_dir, pending, cpus)
+
     with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".building-", delete=False) as tmp:
         staging = Path(tmp.name)
     try:
         with zipfile.ZipFile(staging, "w") as archive:
-            for name, text in clips.items():
-                clip = pending / name
-                try:
-                    data = clip.read_bytes()
-                    verify_clip(data, text)
-                except (FileNotFoundError, ValueError, RuntimeError):
-                    if models is None:
-                        models = load_models(model_dir)
-                    chunk = clip.with_suffix(".part")
-                    data = synthesize(text)
-                    verify_clip(data, text)
-                    chunk.write_bytes(data)
-                    os.replace(chunk, clip)
-                archive.writestr(zipfile.ZipInfo(name), data)
+            for name in clips:
+                archive.writestr(zipfile.ZipInfo(name), (pending / name).read_bytes())
         verify(staging, clips)
         staging.chmod(0o644)
         os.replace(staging, path)
@@ -267,7 +288,7 @@ def main():
                 subprocess.run([sys.executable, __file__, "--dataset", str(args.dataset),
                                 "--model-dir", str(args.model_dir), "--batch", str(count - 1)], check=True)
             else:
-                build(batch, args.model_dir, args.model_dir.parent / "pending")
+                build(batch, args.model_dir, args.model_dir.parent / "pending", cpus)
         print(f"{batch[0].name}: {count}/{len(work)} batches verified", flush=True)
     print(f"{sum(len(clips) for _, clips in work)} clips", flush=True)
 
