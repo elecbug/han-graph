@@ -2,9 +2,18 @@ FROM golang:1.26.11-alpine3.24@sha256:ecb67f987aa1a57794c91d19ade7ae0209f2f0f549
 
 WORKDIR /build
 COPY src/go.mod src/go.sum ./
-RUN go mod download
+# Keep completed downloads and retry interrupted proxy streams over HTTP/1.1.
+RUN go mod download || ( \
+      export GODEBUG=http2client=0; \
+      for delay in 2 4 8; do \
+        echo "Retrying Go module download over HTTP/1.1 in ${delay}s" >&2; \
+        sleep "$delay"; \
+        go mod download && exit 0; \
+      done; \
+      exit 1 \
+    )
 COPY src/ ./
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/han-graph ./cmd
+RUN GOPROXY=off CGO_ENABLED=0 go build -mod=readonly -trimpath -ldflags="-s -w" -o /out/han-graph ./cmd
 
 FROM alpine:3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
 
