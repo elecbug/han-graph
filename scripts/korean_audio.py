@@ -8,6 +8,8 @@ import os
 from pathlib import Path
 import re
 import signal
+import subprocess
+import sys
 import tempfile
 import zipfile
 
@@ -26,8 +28,26 @@ def check_limits():
     quota, period = (root / "cpu.max").read_text().split()
     memory = (root / "memory.max").read_text().strip()
     swap = (root / "memory.swap.max").read_text().strip()
-    if quota == "max" or int(quota) > int(period) or memory == "max" or int(memory) > 4 * 1024**3 or swap != "0":
-        raise RuntimeError("expected at most one CPU, 4 GiB RAM and zero swap")
+    requested = os.environ.get("HAN_AUDIO_CPUS", "8")
+    if requested not in tuple("12345678"):
+        raise RuntimeError("HAN_AUDIO_CPUS must be an integer from 1 to 8")
+    if quota == "max" or int(quota) > int(requested) * int(period):
+        raise RuntimeError(f"expected a CPU quota of at most {requested} cores")
+    if memory == "max" or int(memory) > 4 * 1024**3 or swap != "0":
+        raise RuntimeError("expected at most 4 GiB RAM and zero swap")
+    budget = max(1, int(quota) // int(period))
+    allowed = sorted(os.sched_getaffinity(0))
+    # Prefer distinct physical cores on one socket before using SMT siblings.
+    physical = {}
+    for cpu in allowed:
+        topology = Path(f"/sys/devices/system/cpu/cpu{cpu}/topology")
+        try:
+            key = (int((topology / "physical_package_id").read_text()), int((topology / "core_id").read_text()))
+        except (OSError, ValueError):
+            key = (0, cpu)
+        physical.setdefault(key, cpu)
+    primary = [physical[key] for key in sorted(physical)]
+    return (primary + [cpu for cpu in allowed if cpu not in primary])[:budget]
 
 
 def clip_name(text):
@@ -79,7 +99,7 @@ def load_models(model_dir):
     from melo.text import korean
     from transformers import AutoModel
 
-    torch.set_num_threads(1)
+    torch.set_num_threads(len(os.sched_getaffinity(0)))
     torch.set_num_interop_threads(1)
     checkpoint = model_dir / "checkpoint.pth"
     with checkpoint.open("rb") as stream:
@@ -165,14 +185,16 @@ def verify(path, clips):
             verify_clip(archive.read(name), text)
 
 
+def published(batch):
+    try:
+        verify(*batch)
+        return True
+    except (FileNotFoundError, ValueError, RuntimeError, zipfile.BadZipFile):
+        return False
+
+
 def build(batch, model_dir, pending):
     path, clips = batch
-    if path.exists():
-        try:
-            verify(path, clips)
-            return
-        except (ValueError, RuntimeError, zipfile.BadZipFile):
-            pass
     path.parent.mkdir(parents=True, exist_ok=True)
     global models
     pending.mkdir(parents=True, exist_ok=True)
@@ -212,11 +234,13 @@ def main():
     parser.add_argument("--batch", type=int, help="Process a single zero-based batch of ten entries")
     args = parser.parse_args()
     try:
-        check_limits()
+        cpus = check_limits()
     except (OSError, RuntimeError) as exc:
         parser.exit(1, f"CPU and memory limits unavailable. Run bash scripts/korean-audio.sh ({exc})\n")
     if args.check_limits:
+        print(",".join(map(str, cpus)))
         return
+    os.sched_setaffinity(0, cpus)
     if not args.check and not args.model_dir:
         parser.error("--model-dir is required to generate clips")
     def stop(signum, _frame):
@@ -230,14 +254,19 @@ def main():
         work = [work[args.batch]]
     if args.batch is None:
         expected = {path for path, _ in work}
-        published = set((args.dataset / "audio" / "ko").glob("*.zip"))
-        if published - expected or (args.check and expected - published):
+        published_paths = set((args.dataset / "audio" / "ko").glob("*.zip"))
+        if published_paths - expected or (args.check and expected - published_paths):
             raise ValueError("Missing or unexpected Korean audio batch")
     for count, batch in enumerate(work, 1):
         if args.check:
             verify(*batch)
-        else:
-            build(batch, args.model_dir, args.model_dir.parent / "pending")
+        elif not published(batch):
+            if args.batch is None:
+                # Exiting after ten entries releases model and convolution workspaces.
+                subprocess.run([sys.executable, __file__, "--dataset", str(args.dataset),
+                                "--model-dir", str(args.model_dir), "--batch", str(count - 1)], check=True)
+            else:
+                build(batch, args.model_dir, args.model_dir.parent / "pending")
         print(f"{batch[0].name}: {count}/{len(work)} batches verified", flush=True)
     print(f"{sum(len(clips) for _, clips in work)} clips", flush=True)
 

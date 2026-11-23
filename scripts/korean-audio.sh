@@ -3,6 +3,12 @@
 set -euo pipefail
 repo=$(cd "$(dirname "$0")/.." && pwd)
 cd "$repo"
+cpu_count=${HAN_AUDIO_CPUS:-8}
+if [[ ! $cpu_count =~ ^[1-8]$ ]]; then
+    echo "HAN_AUDIO_CPUS must be an integer from 1 to 8" >&2
+    exit 2
+fi
+export HAN_AUDIO_CPUS="$cpu_count"
 if [[ ${HAN_AUDIO_IN_UNIT:-} != 1 ]]; then
     mode=(--wait --pipe)
     if [[ ${1:-} == --background ]]; then
@@ -11,27 +17,28 @@ if [[ ${HAN_AUDIO_IN_UNIT:-} != 1 ]]; then
     fi
     exec systemd-run --user --service-type=exec --unit=han-graph-korean-audio \
         --collect "${mode[@]}" --working-directory="$repo" \
-        -p CPUQuota=100% -p MemoryHigh=3G -p MemoryMax=4G -p MemorySwapMax=0 \
+        -p "CPUQuota=${cpu_count}00%" -p MemoryHigh=3G -p MemoryMax=4G -p MemorySwapMax=0 \
         -p Restart=on-abnormal -p RestartSec=30s -p StartLimitIntervalSec=15min -p StartLimitBurst=2 \
-        -p Nice=15 -p CPUWeight=10 -p IOWeight=10 -p TasksMax=32 \
-        --setenv=HAN_AUDIO_IN_UNIT=1 --setenv=PATH="$PATH" /bin/bash "$repo/scripts/korean-audio.sh" "$@"
+        -p Nice=15 -p CPUWeight=10 -p IOWeight=10 -p TasksMax=96 \
+        --setenv=HAN_AUDIO_IN_UNIT=1 --setenv=HAN_AUDIO_CPUS="$cpu_count" --setenv=PATH="$PATH" /bin/bash "$repo/scripts/korean-audio.sh" "$@"
 fi
 
-# Some numerical libraries size auxiliary thread pools from CPU affinity.
-allowed=$(awk '/^Cpus_allowed_list:/{print $2}' /proc/self/status)
-taskset -pc "${allowed%%[-,]*}" "$$" >/dev/null
+# Size the numerical thread pools to this service's quota and available cores.
+cpu_list=$(python3 scripts/korean_audio.py --check-limits)
+taskset -pc "$cpu_list" "$$" >/dev/null
+IFS=, read -ra cpus <<< "$cpu_list"
 cache=$repo/.audio-build
 umask 022
 mkdir -p "$cache"
 exec 9>"$cache/job.lock"
 flock -n 9 || { echo "Another Korean audio job is running" >&2; exit 1; }
-export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMBA_NUM_THREADS=1
+export OMP_NUM_THREADS="${#cpus[@]}" MKL_NUM_THREADS="${#cpus[@]}"
+export OPENBLAS_NUM_THREADS=1 NUMBA_NUM_THREADS=1
 export TOKENIZERS_PARALLELISM=false ONEDNN_PRIMITIVE_CACHE_CAPACITY=64 MALLOC_ARENA_MAX=2
 # Return large, short-lived sample buffers to the OS after each clip.
 export MALLOC_MMAP_THRESHOLD_=262144
 export UV_CACHE_DIR="$cache/uv" UV_CONCURRENT_DOWNLOADS=1 UV_CONCURRENT_BUILDS=1 UV_CONCURRENT_INSTALLS=1
 export HF_HOME="$cache/hf" NLTK_DATA="$cache/nltk" PYTHONPATH="$cache/MeloTTS"
-python3 scripts/korean_audio.py --check-limits
 
 if [[ ! -x $cache/venv/bin/python ]]; then uv venv --python 3.11 "$cache/venv"; fi
 py=$cache/venv/bin/python
