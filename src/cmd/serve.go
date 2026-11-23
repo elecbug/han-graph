@@ -75,7 +75,12 @@ func serve(g *graph.Graph, dir, addr, accountPath string, secureCookies bool, st
 		return 1
 	}
 	defer accounts.Close()
-	options := webapp.Options{Accounts: accounts, SecureCookies: secureCookies}
+	audio, err := webapp.LoadKoreanAudio(dir)
+	if err != nil {
+		fmt.Fprintln(stderr, "Error loading audio:", err)
+		return 1
+	}
+	options := webapp.Options{Accounts: accounts, SecureCookies: secureCookies, Audio: audio}
 	options.GoogleClientID = os.Getenv("HAN_GRAPH_GOOGLE_CLIENT_ID")
 	if options.GoogleClientID != "" && !webapp.ValidGoogleClientID(options.GoogleClientID) {
 		fmt.Fprintln(stderr, "Invalid HAN_GRAPH_GOOGLE_CLIENT_ID (expected a Google web client ID)")

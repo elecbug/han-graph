@@ -1,4 +1,7 @@
 export const uz = {
+  listenWord: "Talaffuzni tinglash",
+  listenExample: "Koreyscha misolni tinglash",
+  audioFailed: "Audio ijro etilmadi. Qayta urinib ko‘ring.",
   reviewRound: "Xatolarni takrorlash",
   retryMistakes: "Xatolarni qayta ishlash · {count}",
   todayReview: "Bugungi takrorlash · {count}",

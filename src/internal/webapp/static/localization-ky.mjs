@@ -1,4 +1,7 @@
 export const ky = {
+  listenWord: "Айтылышын угуу",
+  listenExample: "Корейче мисалды угуу",
+  audioFailed: "Аудиону ойнотуу мүмкүн болгон жок. Кайра аракет кылыңыз.",
   reviewRound: "Каталар менен иштөө",
   retryMistakes: "Ката кеткен суроолорду кайра чечүү · {count}",
   todayReview: "Бүгүнкү кайталоо · {count}",

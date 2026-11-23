@@ -1,4 +1,7 @@
 export const mn = {
+  listenWord: "Дуудлагыг сонсох",
+  listenExample: "Солонгос жишээ өгүүлбэрийг сонсох",
+  audioFailed: "Аудиог тоглуулж чадсангүй. Дахин оролдоно уу.",
   reviewRound: "Алдаагаа давтах",
   retryMistakes: "Алдсан асуултаа дахин бодох · {count}",
   todayReview: "Өнөөдрийн давтлага · {count}",

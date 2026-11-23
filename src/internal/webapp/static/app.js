@@ -18,6 +18,7 @@ const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const icons = {
   search: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>',
+  speaker: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM16 9a5 5 0 0 1 0 6m3-9a9 9 0 0 1 0 12"/></svg>',
   bookmark: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>',
   shuffle: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h3c5 0 7 12 12 12h3m-4-4 4 4-4 4M3 18h3c2 0 3.5-2 5-5m2-2c1.5-3 3-5 5-5h3m-4-4 4 4-4 4"/></svg>',
 };
@@ -135,6 +136,7 @@ function routeCharacter(glyph) { openExplore({character:glyph}); }
 
 async function renderPage({revealSelection=false} = {}) {
   if (!state.ready) return;
+  stopAudio();
   const filters=$('.explore-filters');
   if(filters)state.filtersOpen=filters.open;
   const epoch=++pageEpoch;
@@ -283,6 +285,7 @@ async function performSearch() {
 }
 
 async function loadDetail(selection) {
+  stopAudio();
   const epoch=++detailEpoch;
   componentEpoch++;
   state.selection=selection;
@@ -333,6 +336,42 @@ function renderComparisons() {
     detail.innerHTML=hits?.length && hits[0].word.word===rows?.[0]?.word.word?'':homonymComparison(rows);
   }
 }
+let currentAudio = null;
+function audioButton(url, label) {
+  if (!url) return '';
+  const playing = currentAudio?.url === url;
+  return `<button type="button" class="listen-button" data-action="listen" data-clip="${esc(url)}" aria-pressed="${playing}">${icons.speaker}<span>${esc(t(label))}</span></button>`;
+}
+function stopAudio() {
+  if (!currentAudio) return;
+  const player = currentAudio.player;
+  currentAudio = null;
+  player.pause();
+  for (const button of document.querySelectorAll('.listen-button[aria-pressed="true"]')) {
+    button.setAttribute('aria-pressed','false');
+  }
+}
+function listen(button) {
+  const url = button.dataset.clip;
+  const wasPlaying = currentAudio?.url === url;
+  stopAudio();
+  if (wasPlaying) return;
+  const player = new Audio(url);
+  currentAudio = {url, player};
+  button.setAttribute('aria-pressed','true');
+  const transcript = button.closest('.word-example')?.querySelector('.audio-transcript');
+  if (transcript) transcript.hidden = false;
+  const finish = failed => {
+    if (currentAudio?.player !== player) return;
+    stopAudio();
+    if (failed) toast(t('audioFailed'));
+  };
+  player.onended = () => finish(false);
+  player.onerror = () => finish(true);
+  player.play().catch(() => finish(true));
+}
+window.addEventListener('pagehide',stopAudio);
+
 function renderDetail(position=null) {
   if(!$('#detail') || !state.detail)return;
   const viewport=$('.network-viewport');
@@ -342,8 +381,9 @@ function renderDetail(position=null) {
   let card;
   if(wordResult) {
     const word=wordResult.word;
-    card=`<div class="word-heading"><div class="word-heading-top"><span class="word-tags"><span class="tag">${t('wordTag')}</span>${levelBadge(word)}${personalBadge(word)}</span><button class="save-button ${isSaved(word)?'saved':''}" data-action="save" ${wordAttrs(word)} aria-pressed="${isSaved(word)}">${icons.bookmark}${t(isSaved(word)?'savedButton':'save')}</button></div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(word.word)}</h2><p class="word-meaning">${esc(meaning(word))}</p></div><span class="word-hanja" lang="ko">${isMixedWord(word)?wordFormParts(word).map(part=>`<span class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</span>`).join(''):esc(word.hanja)}</span></div></div>
-      ${exampleLines(wordResult,state.lang).length?`<section class="word-example"><h3>${t('example')}</h3>${exampleLines(wordResult,state.lang).map(line=>`<p lang="${line.lang}" class="${line.secondary?'example-translation':'example-primary'}">${esc(line.text)}</p>`).join('')}</section>`:''}
+    const examples=exampleLines(wordResult,state.lang);
+    card=`<div class="word-heading"><div class="word-heading-top"><span class="word-tags"><span class="tag">${t('wordTag')}</span>${levelBadge(word)}${personalBadge(word)}</span><button class="save-button ${isSaved(word)?'saved':''}" data-action="save" ${wordAttrs(word)} aria-pressed="${isSaved(word)}">${icons.bookmark}${t(isSaved(word)?'savedButton':'save')}</button></div><div class="word-title-row"><div><div class="word-pronunciation"><h2 class="word-title" lang="ko">${esc(word.word)}</h2>${audioButton(wordResult.word_audio,'listenWord')}</div><p class="word-meaning">${esc(meaning(word))}</p></div><span class="word-hanja" lang="ko">${isMixedWord(word)?wordFormParts(word).map(part=>`<span class="form-${part.hanja?'hanja':'hangul'}">${esc(part.text)}</span>`).join(''):esc(word.hanja)}</span></div></div>
+      ${examples.length || wordResult.example_audio?`<section class="word-example"><h3>${t('example')}</h3>${examples.map(line=>`<p lang="${line.lang}" class="${line.secondary?'example-translation':'example-primary'}">${esc(line.text)}</p>`).join('')}${wordResult.example_audio && state.lang!=='ko'?`<p class="audio-transcript" lang="ko" ${currentAudio?.url===wordResult.example_audio?'':'hidden'}>${esc(wordResult.example)}</p>`:''}${audioButton(wordResult.example_audio,'listenExample')}</section>`:''}
       <div id="detail-homonyms"></div>
       <div class="components-section"><div class="subheading"><h2>${t('breakDown')}</h2><span>${t('tapCharacter')}</span></div><div class="component-grid">${wordResult.components.map(component=>`<button class="component-card ${component.hanja===state.glyph?'active':''}" data-action="component" data-glyph="${esc(component.hanja)}" aria-pressed="${component.hanja===state.glyph}"><span class="glyph" lang="ko">${esc(component.hanja)}</span><span class="sound">${esc(component.readings.map(reading=>`${reading.sound_ko} · ${reading.sound_en}`).join(' / '))}</span><span class="meaning">${esc(component.readings.map(reading=>localized(reading, 'meaning', state.lang).join(', ')).join(' / '))}</span></button>`).join('<span class="component-plus" aria-hidden="true">+</span>')}</div>${localized(word,'semantic_hint',state.lang)?`<p class="semantic-hint">${esc(localized(word, 'semantic_hint', state.lang))}</p>`:''}<p class="learning-tip"><span aria-hidden="true">◇</span>${t(isMixedWord(word)?'mixedWordNote':word.components.length?'readingNote':'noHanja')}</p></div>${noteEditor(word)}`;
   } else {
@@ -1372,7 +1412,8 @@ $('#language').addEventListener('change',event=>{clearTimeout(toastTimer);$('#to
 $('#main').addEventListener('click',event=>{
   const button=event.target.closest('[data-action]');if(!button)return;
   const {action,word,hanja,glyph,index}=button.dataset;
-  if(action==='open-word')routeWord({word,hanja});
+  if(action==='listen')listen(button);
+  else if(action==='open-word')routeWord({word,hanja});
   else if(action==='show-results'){
     const result=$('.catalog-item.selected')??$('.catalog-tabs [aria-pressed="true"]');
     result?.focus();

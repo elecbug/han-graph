@@ -1,4 +1,7 @@
 export const ru = {
+  listenWord: "Послушать произношение",
+  listenExample: "Послушать пример на корейском",
+  audioFailed: "Не удалось воспроизвести запись. Попробуйте ещё раз.",
   reviewRound: "Работа над ошибками",
   retryMistakes: "Повторить ошибки · {count}",
   todayReview: "Повторение на сегодня · {count}",

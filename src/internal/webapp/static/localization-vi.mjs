@@ -1,4 +1,7 @@
 export const vi = {
+  listenWord: "Nghe phát âm",
+  listenExample: "Nghe câu ví dụ tiếng Hàn",
+  audioFailed: "Không phát được âm thanh. Vui lòng thử lại.",
   reviewRound: "Ôn lại câu sai",
   retryMistakes: "Làm lại câu sai · {count}",
   todayReview: "Ôn tập hôm nay · {count}",

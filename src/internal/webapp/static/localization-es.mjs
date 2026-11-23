@@ -1,4 +1,7 @@
 export const es = {
+  listenWord: "Escuchar la pronunciación",
+  listenExample: "Escuchar el ejemplo en coreano",
+  audioFailed: "No se pudo reproducir el audio. Inténtalo de nuevo.",
   reviewRound: "Repaso de errores",
   retryMistakes: "Reintentar los errores · {count}",
   todayReview: "Repaso de hoy · {count}",

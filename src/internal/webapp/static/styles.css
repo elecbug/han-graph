@@ -2281,3 +2281,10 @@ textarea:focus-visible { outline:3px solid #c58646;outline-offset:3px }
   .study-table th,.study-table td { padding:8px 3px }
   .study-table small { display:block }
 }
+
+.word-pronunciation { display:flex; align-items:center; gap:.4rem .75rem; flex-wrap:wrap }
+.listen-button { display:inline-flex; align-items:center; justify-content:center; gap:.4rem; min-height:44px; padding:.35rem .7rem; border:1px solid var(--green); border-radius:999px; background:transparent; color:var(--green); font:inherit; font-size:.8rem; cursor:pointer }
+.listen-button[aria-pressed="true"] { color:white; background:var(--green) }
+.listen-button svg { width:1.1rem; height:1.1rem; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linejoin:round; stroke-linecap:round; flex:none }
+.word-example .listen-button { margin-top:.5rem }
+.word-example .audio-transcript { color:var(--muted); font-size:.95rem; margin-top:.4rem }

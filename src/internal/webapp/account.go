@@ -17,6 +17,7 @@ import (
 )
 
 type Options struct {
+	Audio          KoreanAudio
 	GoogleClientID string
 	verifyGoogle   func(context.Context, string, string) (*idtoken.Payload, error)
 	Accounts       *account.Store

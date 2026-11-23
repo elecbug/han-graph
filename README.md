@@ -71,6 +71,8 @@ go run ./cmd -addr 127.0.0.1:18080 serve
 
 ## 라이선스
 
+공개 단어와 한국어 예문은 사전에서 바로 들을 수 있습니다. 음원 생성 및 검증 방법은 [한국어 듣기 음원](dataset/audio/README.md)에 있습니다.
+
 소스와 데이터에는 각각의 이용 조건이 적용됩니다. [저장소 라이선스](LICENSE), [소스 라이선스](src/LICENSE), [데이터 라이선스](dataset/LICENSE)를 확인하세요. 외부 목록을 발췌한 자료의 출처와 이용 조건은 [출처 안내](dataset/sources/README.md)에 별도로 표시합니다.
 
 *이 프로젝트는 나의 소중한 여자친구 I. I. K. Sobirova를 위해 시작되었습니다.*

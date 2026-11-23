@@ -1,4 +1,7 @@
 export const ja = {
+  listenWord: "発音を聞く",
+  listenExample: "韓国語の例文を聞く",
+  audioFailed: "音声を再生できませんでした。もう一度お試しください。",
   reviewRound: "間違えた問題の復習",
   retryMistakes: "間違えた問題を解き直す（{count}）",
   todayReview: "今日の復習（{count}）",

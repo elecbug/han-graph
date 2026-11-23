@@ -9,4 +9,6 @@
 !/src/internal/webapp/static/
 !/src/internal/webapp/static/fonts/
 !/dataset/
+!/dataset/audio/
+!/dataset/audio/ko/
 !/dataset/sources/

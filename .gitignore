@@ -15,5 +15,7 @@ service-account*.json
 *.p12
 
 # Python maintenance tools.
+/.audio-build/
+/dataset/audio/ko/.building-*
 __pycache__/
 *.py[cod]

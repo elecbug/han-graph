@@ -24,6 +24,8 @@
 !/dataset/meta.jsonl
 !/dataset/word.jsonl
 !/dataset/practice.json
+!/dataset/audio/ko/*.zip
+!/dataset/audio/README.md
 !/dataset/LICENSE
 !/dataset/TARGETS.md
 !/dataset/sources/README.md

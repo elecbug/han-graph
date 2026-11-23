@@ -1,4 +1,7 @@
 export const ne = {
+  listenWord: "उच्चारण सुन्नुहोस्",
+  listenExample: "कोरियाली उदाहरण सुन्नुहोस्",
+  audioFailed: "अडियो बजाउन सकिएन। फेरि प्रयास गर्नुहोस्।",
   reviewRound: "गल्तीको पुनरभ्यास",
   retryMistakes: "गल्ती भएका प्रश्न फेरि हल गर्नुहोस् · {count}",
   todayReview: "आजको पुनरभ्यास · {count}",

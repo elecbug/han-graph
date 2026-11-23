@@ -1,4 +1,7 @@
 export const zh = {
+  listenWord: "听发音",
+  listenExample: "听韩语例句",
+  audioFailed: "音频播放失败，请重试。",
   reviewRound: "错题复习",
   retryMistakes: "重做错题 · {count}",
   todayReview: "今日复习 · {count}",

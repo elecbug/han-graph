@@ -1,4 +1,7 @@
 export const th = {
+  listenWord: "ฟังเสียงอ่าน",
+  listenExample: "ฟังประโยคตัวอย่างภาษาเกาหลี",
+  audioFailed: "เล่นเสียงไม่ได้ กรุณาลองอีกครั้ง",
   reviewRound: "ทบทวนข้อที่ตอบผิด",
   retryMistakes: "ทำข้อที่ตอบผิดอีกครั้ง · {count}",
   todayReview: "ทบทวนวันนี้ · {count}",

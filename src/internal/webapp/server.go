@@ -24,6 +24,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		options = configs[0]
 	}
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /audio/ko/{clip}", options.Audio.serve)
 	dictionary := &dictionaryViews{base: g, store: options.Accounts, cache: make(map[dictionaryKey]*graph.Graph)}
 	registerAccounts(mux, g, practice, options)
 	jsonReply := func(w http.ResponseWriter, value any) {
@@ -95,7 +96,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 			return
 		}
 		if q, ok := query(w, r, true); ok {
-			jsonReply(w, current.FindWords(q))
+			jsonReply(w, options.Audio.words(current.FindWords(q)))
 		}
 	})
 	mux.HandleFunc("GET /api/random-word", func(w http.ResponseWriter, r *http.Request) {
@@ -159,7 +160,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 				break
 			}
 		}
-		seed["/api/words?q="+initial.Word] = g.FindWords(initial.Word)
+		seed["/api/words?q="+initial.Word] = options.Audio.words(g.FindWords(initial.Word))
 		seed["/api/neighborhood?q="+initial.Hanja] = g.Neighborhood(initial.Hanja)
 		for _, glyph := range initial.Components {
 			seed["/api/characters?q="+glyph] = g.FindCharacters(glyph)
