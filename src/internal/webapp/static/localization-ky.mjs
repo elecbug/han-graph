@@ -1,4 +1,9 @@
 export const ky = {
+  idiomTags: "Туюнтманын түрү",
+  allExpressions: "Бардык туюнтмалар",
+  sajaseongeo: "Төрт иероглифтүү туюнтма",
+  gosaseongeo: "Классикалык булактан алынган туюнтма",
+  fourHanjaRequired: "Бул туюнтма үчүн төрт ханча иероглифин киргизиңиз.",
   compareHomonyms: "Омонимдерди салыштыруу",
   resumePractice: "Көнүгүүнү улантуу",
   practiceAnswered: "{total} суроонун {done} суроосуна жооп берилди",

@@ -39,6 +39,35 @@ type DictionaryRemoval struct {
 	ID    string `json:"id,omitempty"`
 }
 
+// Each request changes a single membership so edits to independent tags can coexist.
+func (s *Store) SetDictionaryTag(id string, ref Ref, tag string, enabled bool) (Snapshot, error) {
+	if !ref.Valid() || !graph.ValidWordTag(tag) {
+		return Snapshot{}, ErrInvalid
+	}
+	return s.change(id, func(u *record) error {
+		for i := range u.Dictionary.Words {
+			word := &u.Dictionary.Words[i]
+			if word.Word != ref.Word || word.Hanja != ref.Hanja {
+				continue
+			}
+			if slices.Contains(word.Tags, tag) == enabled {
+				return nil
+			}
+			if enabled {
+				word.Tags = append(word.Tags, tag)
+			} else {
+				word.Tags = slices.DeleteFunc(word.Tags, func(t string) bool { return t == tag })
+			}
+			if err := word.ValidateTags(); err != nil {
+				return ErrInvalid
+			}
+			u.DictionaryRevision++
+			return nil
+		}
+		return ErrInvalid
+	})
+}
+
 func (s *Store) RemoveDictionary(id string, base *graph.Graph, removal DictionaryRemoval) (Snapshot, error) {
 	return s.change(id, func(u *record) error {
 		found := false

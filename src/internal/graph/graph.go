@@ -94,10 +94,14 @@ func (g *Graph) RandomWord(excludeWord, excludeHanja string) (Word, bool) {
 // RandomWordByLevel samples the selected category before excluding the current
 // entry. A singleton category still returns its only word.
 func (g *Graph) RandomWordByLevel(excludeWord, excludeHanja, level string) (Word, bool) {
+	return g.RandomWordFiltered(excludeWord, excludeHanja, WordFilter{Level: level})
+}
+
+func (g *Graph) RandomWordFiltered(excludeWord, excludeHanja string, filter WordFilter) (Word, bool) {
 	candidates := make([]int, 0)
 	excluded := -1
 	for index, word := range g.words {
-		if !matchesLevel(word, level) {
+		if !filter.matches(word) {
 			continue
 		}
 		if word.Word == excludeWord && word.Hanja == excludeHanja {
@@ -115,16 +119,18 @@ func (g *Graph) RandomWordByLevel(excludeWord, excludeHanja, level string) (Word
 	return Word{}, false
 }
 
-func matchesLevel(word Word, level string) bool {
-	return level == "" || level == "all" || word.Level == level
+type WordFilter struct{ Level, Tag string }
+
+func (f WordFilter) matches(w Word) bool {
+	return (f.Level == "" || f.Level == "all" || f.Level == w.Level) && (f.Tag == "" || slices.Contains(w.Tags, f.Tag))
 }
 
-func (g *Graph) hasLevelWords(glyph, level string) bool {
-	if level == "" || level == "all" {
+func (g *Graph) hasFilteredWords(glyph string, filter WordFilter) bool {
+	if (filter.Level == "" || filter.Level == "all") && filter.Tag == "" {
 		return true
 	}
 	for _, index := range g.wordsByCharacter[glyph] {
-		if matchesLevel(g.words[index], level) {
+		if filter.matches(g.words[index]) {
 			return true
 		}
 	}
@@ -198,6 +204,10 @@ func (g *Graph) Search(query string, limit int) SearchResult {
 // SearchByLevel filters before counting and limiting. Characters remain visible
 // when at least one connected word belongs to the selected category.
 func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResult {
+	return g.SearchFiltered(query, limit, WordFilter{Level: level})
+}
+
+func (g *Graph) SearchFiltered(query string, limit int, filter WordFilter) SearchResult {
 	result := SearchResult{Words: []Word{}, Characters: []Reading{}}
 	query = foldSearch(strings.TrimSpace(query))
 	if limit < 1 {
@@ -216,7 +226,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	for _, exactPass := range []bool{true, false} {
 		for _, word := range g.words {
 			exact := query != "" && (strings.EqualFold(word.Word, query) || strings.EqualFold(word.Hanja, query))
-			if exact != exactPass || !matchesLevel(word, level) || !matches(
+			if exact != exactPass || !filter.matches(word) || !matches(
 				word.Word, word.Hanja, word.MeaningKo, word.MeaningEn, word.MeaningRu, word.MeaningUz, word.MeaningKy,
 				word.MeaningZh, word.MeaningJa, word.MeaningEs, word.MeaningVi, word.MeaningNe, word.MeaningMn, word.MeaningTh,
 			) {
@@ -236,7 +246,7 @@ func (g *Graph) SearchByLevel(query string, limit int, level string) SearchResul
 	}
 	for _, character := range g.characterOrder {
 		reading := g.reading(character)
-		if g.hasLevelWords(character.Hanja, level) && matches(
+		if g.hasFilteredWords(character.Hanja, filter) && matches(
 			character.Hanja, character.ID, reading.SoundKo, reading.SoundEn,
 			strings.Join(character.MeaningKo, " "), strings.Join(character.MeaningEn, " "),
 			strings.Join(character.MeaningRu, " "), strings.Join(character.MeaningUz, " "),
@@ -262,9 +272,13 @@ func (g *Graph) SearchSound(query string, limit int) SearchResult {
 }
 
 func (g *Graph) SearchSoundByLevel(query string, limit int, level string) SearchResult {
+	return g.SearchSoundFiltered(query, limit, WordFilter{Level: level})
+}
+
+func (g *Graph) SearchSoundFiltered(query string, limit int, filter WordFilter) SearchResult {
 	query = strings.ToLower(strings.TrimSpace(query))
 	if query == "" {
-		return g.SearchByLevel("", limit, level)
+		return g.SearchFiltered("", limit, filter)
 	}
 	if limit < 1 {
 		limit = 60
@@ -279,7 +293,7 @@ func (g *Graph) SearchSoundByLevel(query string, limit int, level string) Search
 		for _, sound := range reading.SoundKo {
 			sounds[sound] = true
 		}
-		if !g.hasLevelWords(character.Hanja, level) {
+		if !g.hasFilteredWords(character.Hanja, filter) {
 			continue
 		}
 		result.CharacterCount++
@@ -288,7 +302,7 @@ func (g *Graph) SearchSoundByLevel(query string, limit int, level string) Search
 		}
 	}
 	for _, word := range g.words {
-		if !matchesLevel(word, level) {
+		if !filter.matches(word) {
 			continue
 		}
 		form := []rune(word.Hanja)

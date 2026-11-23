@@ -11,6 +11,11 @@ import {th} from './localization-th.mjs';
 
 export const copy = {
   ko: {
+    idiomTags: "성어 분류",
+    allExpressions: "모든 표현",
+    sajaseongeo: "사자성어",
+    gosaseongeo: "고사성어",
+    fourHanjaRequired: "사자성어의 한자 표기에 한자 네 글자를 입력해 주세요.",
     compareHomonyms: "동음이의어 비교",
     resumePractice: "이어서 풀기",
     practiceAnswered: "{total}문항 중 {done}문항 풀이",
@@ -76,6 +81,11 @@ passwordMismatch:'비밀번호가 서로 달라요.', accountStorage:'단어장�
     practiceTitle:'문맥에서 뜻을 발견해요.', practiceSub:'문장의 단서로 상황에 맞는 단어를 골라 보세요.', practiceEye:'A LITTLE PRACTICE', introTitle:'읽고, 추론하고, 이해하기', introSub:'짧은 상황을 읽고 한글 선택지에서 어울리는 단어를 골라 보세요. 답을 고른 뒤 뜻풀이와 한자 구성 해설로 이해를 넓힐 수 있어요.', step1:'상황 읽기', step2:'단어 선택', step3:'해설 확인', startPractice:'연습 시작하기', questions:'문항', practiceRound:'전체 {pool}문항 중 무작위 {count}문항', chooseWord:'이 상황에 어울리는 단어는 무엇일까요?', pickOnce:'답을 고르면 해설이 나타나요.', showTranslation:'영어 번역 보기', hideTranslation:'영어 번역 접기', correct:'잘 이해했어요!', incorrect:'이 단어의 뜻을 함께 살펴볼까요?', yourChoice:'내가 고른 답', answer:'정답', next:'다음 문항', finish:'결과 보기', exitPractice:'탐색으로 돌아가기', practiceNote:'이 브라우저에서 다음에 풀 문항부터 이어갈 수 있습니다.', summaryTitle:'연결을 한 걸음 더 이해했어요.', summarySub:'맞힌 개수보다, 단어의 뜻을 설명할 수 있는지가 중요해요.', restart:'다시 연습하기', review:'다시 살펴볼 단어', allCorrect:'모든 문항을 맞혔어요. 배운 단어에서 새로운 연결을 찾아보세요.', latest:'지난 연습', loading:'단어의 연결을 불러오고 있어요…', errorTitle:'연결을 불러오지 못했어요.', errorSub:'서버가 실행 중인지 확인하고 다시 시도해 주세요.', retry:'다시 시도', looking:'찾고 있어요…',
   },
   en: {
+    idiomTags: "Idiom type",
+    allExpressions: "All expressions",
+    sajaseongeo: "Four-character idiom",
+    gosaseongeo: "Classical allusion",
+    fourHanjaRequired: "Enter four Hanja characters for a four-character idiom.",
     compareHomonyms: "Compare homonyms",
     resumePractice: "Resume practice",
     practiceAnswered: "{done} of {total} answered",

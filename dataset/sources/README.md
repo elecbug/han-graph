@@ -38,6 +38,8 @@
 | 한국학중앙연구원 한국민족문화대백과사전: 생활·전통 어휘 | [근친과 귀녕](https://encykorea.aks.ac.kr/Article/E0007466), [이화주](https://encykorea.aks.ac.kr/Article/E0046614), [소풍](https://encykorea.aks.ac.kr/Article/E0030330)의 뜻과 사용 맥락 |
 | 국사편찬위원회 조선왕조실록 | [이혁의 용례](https://sillok.history.go.kr/id/kwa_10806030_002): 폐단을 고치는 문맥 |
 | 전통문화연구회 사이버서당 | [문전작라의 뜻과 용례](https://hm.cyberseodang.or.kr/verbaltrans/classic_view.asp?idx=13294&listLevel=2) |
+| 국립국어원 · 전통문화연구회 | 기존 항목의 성어 분류와 유래를 확인할 때 참고한 자료. 데이터에는 프로젝트에서 판정한 태그를 기록합니다. [새국어소식 「오비이락」](https://www.korean.go.kr/nkview/nknews/200201/42_1.html) · [「모순과 완벽」](https://www.korean.go.kr/nkview/nknews/200202/43_1.html) · [원주용 편역 『원문으로 읽는 고사성어』 목차](https://book.cyberseodang.or.kr/goods_detail.asp?goodsIdx=365) |
+| 김일환, 『한문고전연구』 16권 (2008) | 배수진·일거양득 등 일상에서 쓰는 성어의 분류를 대조했습니다. [「사자성어의 사회적 계도와 대중화에 관한 시론」](https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART001256775) |
 | 길벗 · 여양고등학교 | 사자성어 표제어와 한자 표기를 대조한 학습 자료. [길벗 시나공 한자·고사성어](https://www.sinagong.co.kr/pds/009005001/books/540/download-data/120) · [여양고등학교 고등학교 필수 사자성어](https://yeoyang.hs.jne.kr/data/attach_data/yeosu/yeoyang_hs/k2board/na/bbs_152187/ntt_1800443381/doc_07cevdda4%3D09v1d%3D46v42%3D99v21%3D53d5v2de4v6326_v339.pdf) |
 | 한국학중앙연구원 한국민족문화대백과사전: 역사·문학 | [여나산](https://encykorea.aks.ac.kr/Article/E0036297)의 가사 전승 여부, [도목정사](https://encykorea.aks.ac.kr/Article/E0015631)의 이조 인사 업무, [재정](https://encykorea.aks.ac.kr/Article/E0049047)의 호조 업무 |
 | 국립국어원 한국어기초사전: 생활 용례 | [지갑](https://krdict.korean.go.kr/kor/dicSearch/SearchView?ParaWordNo=31502)의 한자 표기와 돈·카드를 넣는 물건이라는 뜻 |

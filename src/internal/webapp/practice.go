@@ -18,6 +18,7 @@ type WordRef struct {
 }
 
 type Question struct {
+	WordTags      []string  `json:"word_tags,omitempty"`
 	ContrastGroup string    `json:"contrast_group,omitempty"`
 	WordLevel     string    `json:"word_level,omitempty"`
 	ID            string    `json:"id"`
@@ -122,6 +123,7 @@ func LoadPractice(filename string, g *graph.Graph) (Practice, error) {
 					found = true
 					if option == q.Answer {
 						q.WordLevel = word.Word.Level
+						q.WordTags = word.Word.Tags
 					}
 				}
 			}

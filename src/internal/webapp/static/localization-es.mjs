@@ -1,4 +1,9 @@
 export const es = {
+  idiomTags: "Tipo de expresión",
+  allExpressions: "Todas las expresiones",
+  sajaseongeo: "Expresión de cuatro caracteres",
+  gosaseongeo: "Alusión clásica",
+  fourHanjaRequired: "Escribe cuatro caracteres hanja para esta expresión.",
   compareHomonyms: "Comparar homónimos",
   resumePractice: "Continuar la práctica",
   practiceAnswered: "{done} de {total} preguntas respondidas",

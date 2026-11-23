@@ -1,4 +1,9 @@
 export const zh = {
+  idiomTags: "成语分类",
+  allExpressions: "全部表达",
+  sajaseongeo: "四字成语",
+  gosaseongeo: "典故成语",
+  fourHanjaRequired: "四字成语的汉字写法须包含四个汉字。",
   compareHomonyms: "同音词对比",
   resumePractice: "继续练习",
   practiceAnswered: "已答 {done} 题，共 {total} 题",

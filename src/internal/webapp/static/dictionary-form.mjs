@@ -1,4 +1,5 @@
 import {LANGUAGES} from './localization.mjs';
+import {WORD_TAGS} from './learning.mjs';
 const han = glyph => /\p{Script=Han}/u.test(glyph);
 export const WORD_FORM_FIELDS = ['word','hanja','level',...LANGUAGES.map(language=>`meaning_${language}`),...LANGUAGES.map(language=>`example_${language}`)];
 export const emptyWordDraft = () => Object.fromEntries(WORD_FORM_FIELDS.map(field=>[field,field==='level'?'normal':'']));
@@ -16,6 +17,11 @@ export function wordFormPayload(draft) {
   if(!['easy','normal','hard','classical'].includes(word.level))throw new WordFormError('wordFormInvalid','level');
   const spelling=[...word.word.replace(/\s/gu,'')], form=[...word.hanja];
   word.components=form.filter(han);
+  if(draft.tags?.length) {
+    if(!Array.isArray(draft.tags) || draft.tags.some(tag=>!WORD_TAGS.includes(tag)) || new Set(draft.tags).size!==draft.tags.length)throw new WordFormError('wordFormInvalid');
+    if(draft.tags.includes('sajaseongeo') && (form.length!==4 || word.components.length!==4))throw new WordFormError('fourHanjaRequired','hanja');
+    word.tags=[...draft.tags];
+  }
   if(word.hanja&&(!word.components.length||form.some((glyph,index)=>!han(glyph)&&(form.length!==spelling.length||glyph!==spelling[index]||!/[가-힣]/u.test(glyph)))))throw new WordFormError('wordFormSpelling','hanja');
   for(const language of LANGUAGES) {
     const field=`meaning_${language}`,value=text(draft[field],2000,language==='ko',field);

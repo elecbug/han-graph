@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/elecbug/han-graph/internal/account"
+	"github.com/elecbug/han-graph/internal/graph"
 )
 
 func TestPracticeHistoryAPI(t *testing.T) {
@@ -19,6 +20,17 @@ func TestPracticeHistoryAPI(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer store.Close()
+	// Keep a one-question tagged pool alongside the ordinary ten-question round.
+	taggedID := ""
+	for i := range practice.Questions {
+		q := &practice.Questions[i]
+		if q.WordLevel == "easy" {
+			q.WordTags = nil
+			if taggedID == "" {
+				taggedID, q.WordTags = q.ID, []string{graph.TagAllusion}
+			}
+		}
+	}
 	app := New(g, practice, Options{Accounts: store})
 	user, err := store.Register("student", "1234567890")
 	if err != nil {
@@ -80,6 +92,16 @@ func TestPracticeHistoryAPI(t *testing.T) {
 	round := page.Rounds[0]
 	if round.Correct != 10 || round.Answers[0].Prompts["ko"] != first.PromptKo || round.Answers[0].Prompts["es"] != first.PromptEs {
 		t.Fatal("missing score or localized question")
+	}
+	tagged := map[string]any{"id": strings.Repeat("c", 32), "level": "easy", "tag": graph.TagAllusion, "answers": answers[1:2]}
+	request("POST", tagged, user.ID, token, 400)
+	tagged["answers"] = answers[:1]
+	request("POST", tagged, user.ID, token, 200)
+	request("POST", tagged, user.ID, token, 200)
+	rec = request("GET", nil, user.ID, token, 200)
+	var taggedHistory account.PracticeHistory
+	if err := json.Unmarshal(rec.Body.Bytes(), &taggedHistory); err != nil || len(taggedHistory.Rounds) != 2 || taggedHistory.Rounds[0].Tag != graph.TagAllusion || taggedHistory.Rounds[0].Correct != 1 {
+		t.Fatalf("tagged round was not preserved: %v", err)
 	}
 	oldRound := round
 	oldRound.ID = strings.Repeat("b", 32)

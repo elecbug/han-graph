@@ -149,14 +149,16 @@ go build -o "$env:TEMP\han-graph.exe" ./cmd
 | --- | --- | --- |
 | `GET /api/stats` | 없음 | 어휘·한자·독음·연결 수 |
 | `GET /api/readings` | 없음 | 현재 공개·개인 사전의 독음 그룹 목록 |
-| `GET /api/search` | 선택적 `q`, `mode`, `level` | 단어·한자 목록과 전체 일치 수 |
+| `GET /api/search` | 선택적 `q`, `mode`, `level`, `tag` | 단어·한자 목록과 전체 일치 수 |
 | `GET /api/words` | 필수 `q` | 정확히 일치한 단어, 구성 한자와 `example` 예문 |
 | `GET /api/characters` | 필수 `q` | 글자·독음·ID에 일치한 한자와 연결 단어 |
 | `GET /api/neighborhood` | 필수 `q` | 시작 한자와 직접 연결된 단어·한자 |
-| `GET /api/random-word` | 선택적 `level`, `exclude_word`, `exclude_hanja` | 무작위 단어 하나 |
-| `GET /api/practice` | 없음 | 전체 문항, 정답 어휘 분류, 정답과 해설 |
+| `GET /api/random-word` | 선택적 `level`, `tag`, `exclude_word`, `exclude_hanja` | 무작위 단어 하나 |
+| `GET /api/practice` | 없음 | 전체 문항, 정답 어휘 분류(`word_level`), 성어 태그(`word_tags`, 선택), 정답과 해설 |
 
 검색 모드는 `all`(전체 검색)과 `sound`(소리 검색), 어휘 분류는 `all`, `easy`, `normal`, `hard`, `classical`입니다. 생략 시 모두 `all`을 사용합니다. 소리 검색은 한글 또는 로마자 독음의 정확한 일치를 찾고 혼합어의 한글 부분은 제외합니다.
+
+`tag`는 `sajaseongeo` 또는 `gosaseongeo`이며 생략하면 모든 표현을 포함합니다. 난이도와 성어 태그를 함께 지정할 수 있습니다. 예를 들어 `/api/search?level=normal&tag=gosaseongeo`는 일반 난이도의 고사성어와 그에 연결된 한자를 찾습니다.
 
 검색 결과는 단어·한자별 최대 60개이며 개수 필드는 제한 전 일치 수입니다. 어휘 필터를 먼저 적용하고, 전체 검색에서는 정확히 일치한 표제어를 먼저 표시합니다. 빈 검색어는 목록의 앞부분을 반환합니다.
 
@@ -199,6 +201,7 @@ Google Cloud 콘솔의 **Google Auth Platform**에서 앱 브랜딩과 대상을
 | `POST /api/account/words` | `{words:[{word,hanja}]}`를 기존 목록에 합치기 |
 | `DELETE /api/account/words` | `{word,hanja}`를 단어장에서 삭제 |
 | `GET /api/account/dictionary` | 본인의 개인 사전 항목 조회 |
+| `PUT /api/account/dictionary/tag` | `{word,hanja,tag,enabled}`로 등록한 개인 단어의 태그 하나를 추가하거나 해제 |
 | `POST /api/account/dictionary` | `{words,characters,meta,examples}` 배열로 개인 사전에 추가 |
 | `DELETE /api/account/dictionary` | `{kind:"word",word,hanja}` 또는 `{kind:"character"/"meta",id}`로 개인 항목 삭제 |
 | `PUT /api/account/note` | `{word,hanja,text,revision}`으로 노트 저장; 빈 내용은 삭제 |

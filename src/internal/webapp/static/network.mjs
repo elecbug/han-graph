@@ -1,5 +1,5 @@
 import {localized,copy,normalizeLanguage} from './localization.mjs';
-import {wordKey, WORD_LEVELS, wordCategory} from './learning.mjs';
+import {wordKey, WORD_LEVELS, WORD_TAGS, matchesWordFilter, wordCategory} from './learning.mjs';
 import {routeNetwork, roundedPath} from './network-routing.mjs';
 
 // Keep the written Korean portions of a mixed word visible without inventing
@@ -16,10 +16,10 @@ export function wordFormParts(word) {
 export const isMixedWord=word=>word.components.length>0 && /[가-힣]/u.test(word.hanja);
 
 // Preserve root characters for context, but prune unrelated leaves and words.
-export function filterNetwork(network, level='all') {
-  if (!WORD_LEVELS.includes(level)) throw new RangeError('Invalid word category');
-  if (level==='all') return network;
-  const words=network.words.filter(word=>word.level===level);
+export function filterNetwork(network, level='all', tag='') {
+  if (!WORD_LEVELS.includes(level) || (tag && !WORD_TAGS.includes(tag))) throw new RangeError('Invalid word category');
+  if (level==='all' && !tag) return network;
+  const words=network.words.filter(word=>matchesWordFilter(word,level,tag));
   const glyphs=new Set([...network.roots,...words.flatMap(word=>word.components)]);
   return {...network, words, characters:network.characters.filter(character=>glyphs.has(character.hanja))};
 }

@@ -3,6 +3,14 @@ import assert from 'node:assert/strict';
 import {wordFormPayload,findMissingCharacters,addMissingCharacters,emptyWordDraft} from '../static/dictionary-form.mjs';
 
 const draft={...emptyWordDraft(),word:'학습노트',hanja:'學習노트',meaning_ko:'배운 내용을 적는 노트',meaning_en:'study notebook',meaning_ru:'учебная тетрадь'};
+test('a private expression can have overlapping tags and a short allusion only needs its own tag',()=>{
+  const tags=['sajaseongeo','gosaseongeo'];
+  assert.deepEqual(wordFormPayload({...draft,word:'새옹지마',hanja:'塞翁之馬',tags}).words[0].tags,tags);
+  assert.deepEqual(wordFormPayload({...draft,word:'사족',hanja:'蛇足',tags:['gosaseongeo']}).words[0].tags,['gosaseongeo']);
+  assert.throws(()=>wordFormPayload({...draft,tags}),error=>error.code==='fourHanjaRequired' && error.field==='hanja');
+  assert.throws(()=>wordFormPayload({...draft,tags:['wrong']}),error=>error.code==='wordFormInvalid');
+  assert.equal(wordFormPayload(draft).words[0].tags,undefined);
+});
 test('a normal form builds exact mixed spellings and optional translated examples without raw JSON',()=>{
   const payload=wordFormPayload({...draft,example_ko:'학습노트를 썼어요.',example_ru:'Я сделал запись в учебной тетради.'});
   assert.deepEqual(payload.words[0].components,['學','習']);

@@ -110,6 +110,31 @@ func TestPersonalDictionaryAPIVisibilityAndCacheInvalidation(t *testing.T) {
 	if r := request("GET", "/", "", a, aid); strings.Contains(r.Body.String(), "PRIVATE OWNER A FLASH") {
 		t.Fatal("private content entered public HTML bootstrap")
 	}
+	tagPath := "/api/account/dictionary/tag"
+	tag := `{"word":"섬광","hanja":"閃光","tag":"gosaseongeo","enabled":true}`
+	if r := request("PUT", tagPath, tag, b, aid); r.Code != 401 {
+		t.Fatalf("tag edit accepted another account: %d", r.Code)
+	}
+	var tagged account.Snapshot
+	for range 2 {
+		response := request("PUT", tagPath, tag, a, aid)
+		if response.Code != 200 || json.Unmarshal(response.Body.Bytes(), &tagged) != nil || tagged.DictionaryRevision != 2 {
+			t.Fatalf("retry changed the tag revision: %d", response.Code)
+		}
+	}
+	filteredPath := "/api/search?tag=gosaseongeo&q=" + url.QueryEscape("섬광")
+	if !strings.Contains(request("GET", filteredPath, "", a, aid).Body.String(), "PRIVATE OWNER A FLASH") {
+		t.Fatal("new tag missing from merged graph")
+	}
+	if response := request("PUT", tagPath, strings.Replace(tag, "gosaseongeo", "sajaseongeo", 1), a, aid); response.Code != 400 {
+		t.Fatal("invalid four-character tag on a short word")
+	}
+	if response := request("PUT", tagPath, strings.Replace(tag, "true", "false", 1), a, aid); response.Code != 200 {
+		t.Fatal("failed to clear tag")
+	}
+	if strings.Contains(request("GET", filteredPath, "", a, aid).Body.String(), "PRIVATE OWNER A FLASH") {
+		t.Fatal("cleared tag remained in cached results")
+	}
 	for _, tc := range []struct {
 		method, path, body string
 		status             int

@@ -22,6 +22,7 @@ type PracticeAnswer struct {
 type PracticeRound struct {
 	ID            string           `json:"id"`
 	Level         string           `json:"level"`
+	Tag           string           `json:"tag,omitempty" firestore:",omitempty"`
 	CompletedAt   time.Time        `json:"completed_at"`
 	Correct       int              `json:"correct"`
 	QuestionCount int              `json:"-"` // Lightweight Firestore statistics projection.
@@ -71,7 +72,7 @@ func sameRound(old, next PracticeRound) error {
 	sameChoices := slices.EqualFunc(old.Answers, next.Answers, func(a, b PracticeAnswer) bool {
 		return a.Question == b.Question && a.Selected == b.Selected
 	})
-	if old.Level != next.Level || !sameChoices {
+	if old.Tag != next.Tag || old.Level != next.Level || !sameChoices {
 		return ErrConflict
 	}
 	return nil

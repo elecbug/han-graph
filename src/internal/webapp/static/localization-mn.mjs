@@ -1,4 +1,9 @@
 export const mn = {
+  idiomTags: "Хэлцийн төрөл",
+  allExpressions: "Бүх хэллэг",
+  sajaseongeo: "Дөрвөн ханзтай хэлц",
+  gosaseongeo: "Сонгодог эхээс үүдэлтэй хэлц",
+  fourHanjaRequired: "Энэ хэлцийн ханз бичлэгт дөрвөн ханз оруулна уу.",
   compareHomonyms: "Ижил дуудлагатай үгсийг харьцуулах",
   resumePractice: "Дасгалаа үргэлжлүүлэх",
   practiceAnswered: "{total} асуултаас {done}-д хариулсан",

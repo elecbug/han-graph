@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http/httptest"
 	"net/url"
+	"slices"
 	"strings"
 	"testing"
 
@@ -44,7 +45,7 @@ func TestVocabularyCategoryAPI(t *testing.T) {
 			}
 		}
 	}
-	for _, path := range []string{"/api/search?level=advanced", "/api/random-word?level=advanced", "/api/search?level=medium"} {
+	for _, path := range []string{"/api/search?level=advanced", "/api/random-word?level=advanced", "/api/search?level=medium", "/api/search?tag=invalid", "/api/random-word?tag=invalid"} {
 		response := httptest.NewRecorder()
 		app.ServeHTTP(response, httptest.NewRequest("GET", path, nil))
 		if response.Code != 400 {
@@ -76,7 +77,7 @@ func TestPracticeUsesAnswerWordCategory(t *testing.T) {
 		for _, word := range g.FindWords(q.Answer.Word) {
 			if word.Word.Hanja == q.Answer.Hanja {
 				found = true
-				if q.WordLevel != word.Word.Level {
+				if q.WordLevel != word.Word.Level || !slices.Equal(q.WordTags, word.Word.Tags) {
 					t.Fatalf("%s: category must come from exact answer identity", q.ID)
 				}
 			}
@@ -103,4 +104,57 @@ func TestPracticeUsesAnswerWordCategory(t *testing.T) {
 		t.Fatal("missing practice metadata")
 	}
 
+}
+
+func TestIdiomFilters(t *testing.T) {
+	g, _, app := testApp(t)
+	for _, tc := range []struct {
+		word, hanja string
+		tags        []string
+	}{
+		{"새옹지마", "塞翁之馬", []string{graph.TagFourCharacter, graph.TagAllusion}},
+		{"일석이조", "一石二鳥", []string{graph.TagFourCharacter}},
+		{"사족", "蛇足", []string{graph.TagAllusion}},
+		{"맹모삼천지교", "孟母三遷之敎", []string{graph.TagAllusion}},
+		{"백미", "白眉", []string{graph.TagAllusion}},
+		{"백미", "白米", nil},
+		{"행정소송", "行政訴訟", nil},
+	} {
+		if !slices.ContainsFunc(g.FindWords(tc.word), func(row graph.WordResult) bool {
+			return row.Word.Hanja == tc.hanja && slices.Equal(row.Word.Tags, tc.tags)
+		}) {
+			t.Errorf("wrong tags on %s/%s", tc.word, tc.hanja)
+		}
+	}
+	for _, mode := range []string{"sound", "all"} {
+		query := ""
+		if mode == "sound" {
+			query = "사"
+		}
+		params := url.Values{"q": {query}, "mode": {mode}, "level": {"hard"}, "tag": {graph.TagAllusion}}
+		response := httptest.NewRecorder()
+		app.ServeHTTP(response, httptest.NewRequest("GET", "/api/search?"+params.Encode(), nil))
+		var got graph.SearchResult
+		if err := json.Unmarshal(response.Body.Bytes(), &got); err != nil {
+			t.Fatal(err)
+		}
+		full := g.Search(query, 10000)
+		if mode == "sound" {
+			full = g.SearchSound(query, 10000)
+		}
+		count := 0
+		for _, word := range full.Words {
+			if word.Level == "hard" && slices.Contains(word.Tags, graph.TagAllusion) {
+				count++
+			}
+		}
+		if count == 0 || got.WordCount != count || len(got.Words) != min(count, 60) {
+			t.Fatalf("%s count %d, got %d (%d returned)", mode, count, got.WordCount, len(got.Words))
+		}
+		for _, word := range got.Words {
+			if word.Level != "hard" || !slices.Contains(word.Tags, graph.TagAllusion) {
+				t.Fatalf("unexpected search result: %s", word.Word)
+			}
+		}
+	}
 }

@@ -31,15 +31,18 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		w.Header().Set("Cache-Control", "no-store")
 		json.NewEncoder(w).Encode(value)
 	}
-	wordLevel := func(w http.ResponseWriter, r *http.Request) (string, bool) {
-		level := r.URL.Query().Get("level")
-		if level == "" || level == "all" || graph.ValidWordLevel(level) {
-			return level, true
+	wordFilter := func(w http.ResponseWriter, r *http.Request) (graph.WordFilter, bool) {
+		params := r.URL.Query()
+		f := graph.WordFilter{Level: params.Get("level"), Tag: params.Get("tag")}
+		if f.Level != "" && f.Level != "all" && !graph.ValidWordLevel(f.Level) {
+			accountJSON(w, http.StatusBadRequest, map[string]string{"error": "level must be all, easy, normal, hard or classical"})
+			return f, false
 		}
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(http.StatusBadRequest)
-		jsonReply(w, map[string]string{"error": "level must be all, easy, normal, hard or classical"})
-		return "", false
+		if f.Tag != "" && !graph.ValidWordTag(f.Tag) {
+			accountJSON(w, http.StatusBadRequest, map[string]string{"error": "unknown word tag"})
+			return f, false
+		}
+		return f, true
 	}
 	query := func(w http.ResponseWriter, r *http.Request, required bool) (string, bool) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))
@@ -63,16 +66,16 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		if !available {
 			return
 		}
-		level, valid := wordLevel(w, r)
+		filter, valid := wordFilter(w, r)
 		if !valid {
 			return
 		}
 		if q, ok := query(w, r, false); ok {
 			switch r.URL.Query().Get("mode") {
 			case "", "all":
-				jsonReply(w, current.SearchByLevel(q, 60, level))
+				jsonReply(w, current.SearchFiltered(q, 60, filter))
 			case "sound":
-				jsonReply(w, current.SearchSoundByLevel(q, 60, level))
+				jsonReply(w, current.SearchSoundFiltered(q, 60, filter))
 			default:
 				w.Header().Set("Content-Type", "application/json; charset=utf-8")
 				w.WriteHeader(http.StatusBadRequest)
@@ -100,7 +103,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 		if !available {
 			return
 		}
-		level, valid := wordLevel(w, r)
+		filter, valid := wordFilter(w, r)
 		if !valid {
 			return
 		}
@@ -113,7 +116,7 @@ func New(g *graph.Graph, practice Practice, configs ...Options) http.Handler {
 			jsonReply(w, map[string]string{"error": "excluded word and hanja must be at most 100 characters"})
 			return
 		}
-		selected, ok := current.RandomWordByLevel(word, hanja, level)
+		selected, ok := current.RandomWordFiltered(word, hanja, filter)
 		if !ok {
 			w.WriteHeader(http.StatusNotFound)
 			jsonReply(w, map[string]string{"error": "no words available"})

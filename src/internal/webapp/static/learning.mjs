@@ -14,14 +14,20 @@ export function normalizeSaved(value) {
 
 export const PRACTICE_SESSION_SIZE = 10;
 export const WORD_LEVELS = ['all', 'easy', 'normal', 'hard', 'classical'];
+export const WORD_TAGS = ['sajaseongeo', 'gosaseongeo'];
+export const matchesWordFilter = (word,level,tag) => (level==='all' || word.level===level) && (!tag || word.tags?.includes(tag));
 export const wordCategory = word => WORD_LEVELS.includes(word.level) && word.level!=='all' ? word.level : 'normal';
 export const PRACTICE_LEVELS = WORD_LEVELS.filter(level => level !== 'all');
-export const practiceSettings = value => ({level:PRACTICE_LEVELS.includes(value?.level) ? value.level : 'easy'});
+export const practiceSettings = value => ({
+  level:PRACTICE_LEVELS.includes(value?.level) ? value.level : 'easy',
+  ...(WORD_TAGS.includes(value?.tag) ? {tag:value.tag} : {}),
+});
 
-export function filterPracticeQuestions(questions, {level='easy'} = {}) {
-  if (!PRACTICE_LEVELS.includes(level)) throw new RangeError('Invalid practice settings');
+export function filterPracticeQuestions(questions, {level='easy',tag=''} = {}) {
+  if (!PRACTICE_LEVELS.includes(level) || (tag && !WORD_TAGS.includes(tag))) throw new RangeError('Invalid practice settings');
   return questions.filter(q => {
     if (q?.word_level!==level || !Array.isArray(q.options) || q.options.length<2 || q.options.length>4) return false;
+    if (tag && !q.word_tags?.includes(tag)) return false;
     if (typeof q.answer?.word!=='string' || typeof q.answer?.hanja!=='string') return false;
     if (!q.options.every(option=>typeof option?.word==='string' && option.word.trim() && typeof option.hanja==='string')) return false;
     const labels = q.options.map(option => option.word.normalize('NFC').replace(/\s+/g,''));
@@ -29,8 +35,8 @@ export function filterPracticeQuestions(questions, {level='easy'} = {}) {
   });
 }
 
-export function createSession(questions, random = Math.random, {level='easy'} = {}) {
-  const pool = filterPracticeQuestions(questions, {level});
+export function createSession(questions, random = Math.random, {level='easy',tag=''} = {}) {
+  const pool = filterPracticeQuestions(questions, {level,tag});
   const shuffled = values => {
     const result = [...values];
     for (let i = result.length - 1; i > 0; i--) {
@@ -67,7 +73,7 @@ export function createSession(questions, random = Math.random, {level='easy'} = 
   take(general, PRACTICE_SESSION_SIZE);
   take(contrasts, PRACTICE_SESSION_SIZE, freshAnswer);
   take(contrasts, PRACTICE_SESSION_SIZE);
-  return {level, questions: shuffled(chosen).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
+  return {...practiceSettings({level,tag}), questions: shuffled(chosen).map(q => ({...q, options: shuffled(q.options)})), answers: new Map(), recorded: false};
 }
 
 export function answerQuestion(session, index, selected) {
@@ -81,7 +87,7 @@ export function answerQuestion(session, index, selected) {
 // always come from the current catalog when a round resumes.
 export function practiceDraft(session) {
   return {
-    roundID:session.roundID, level:session.level,
+    roundID:session.roundID, ...practiceSettings(session),
     items:session.questions.map(q=>({
       id:q.id, options:q.options.map(wordKey), answer:wordKey(q.answer),
       selected:session.answers.has(q.id)?wordKey(session.answers.get(q.id).selected):null,
@@ -91,10 +97,11 @@ export function practiceDraft(session) {
 
 export function restorePracticeDraft(draft, questions, owner) {
   if(typeof draft?.roundID!=='string' || !/^[0-9a-f]{32}$/.test(draft.roundID) || !PRACTICE_LEVELS.includes(draft.level) || !Array.isArray(draft.items))return null;
-  const pool=filterPracticeQuestions(questions,{level:draft.level});
+  if(draft.tag!==undefined && !WORD_TAGS.includes(draft.tag))return null;
+  const pool=filterPracticeQuestions(questions,draft);
   if(!draft.items.length || draft.items.length!==Math.min(PRACTICE_SESSION_SIZE,pool.length))return null;
   const available=new Map(pool.map(q=>[q.id,q]));
-  const session={owner,roundID:draft.roundID,level:draft.level,questions:[],answers:new Map(),recorded:false};
+  const session={owner,roundID:draft.roundID,...practiceSettings(draft),questions:[],answers:new Map(),recorded:false};
   for(const item of draft.items) {
     const question=available.get(item?.id);
     if(!question || item.answer!==wordKey(question.answer) || !Array.isArray(item.options) || item.options.length!==question.options.length)return null;

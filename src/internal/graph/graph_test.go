@@ -109,6 +109,11 @@ func TestInvalidDataset(t *testing.T) {
 		{"missing meaning", "character.jsonl", "nonempty meaning arrays", func(s string) string { return strings.Replace(s, `["divide"]`, `[]`, 1) }},
 		{"wrong order", "word.jsonl", "components must reproduce", func(s string) string { return strings.Replace(s, `"分數"`, `"數分"`, 1) }},
 		{"unknown component", "word.jsonl", "unknown component", func(s string) string { return strings.ReplaceAll(s, "噴", "火") }},
+		{"unknown tag", "word.jsonl", "unknown or repeated", func(s string) string { return strings.Replace(s, `"level":`, `"tags":["unknown"],"level":`, 1) }},
+		{"duplicate tag", "word.jsonl", "unknown or repeated", func(s string) string {
+			return strings.Replace(s, `"level":`, `"tags":["gosaseongeo","gosaseongeo"],"level":`, 1)
+		}},
+		{"short four-character idiom", "word.jsonl", "four hanja", func(s string) string { return strings.Replace(s, `"level":`, `"tags":["sajaseongeo"],"level":`, 1) }},
 		{"duplicate word", "word.jsonl", "duplicate word/hanja", func(s string) string { return s + strings.Split(s, "\n")[0] }},
 		{"null record", "word.jsonl", "expected level", func(s string) string { return s + "null\n" }},
 	}

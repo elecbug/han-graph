@@ -1,4 +1,9 @@
 export const ru = {
+  idiomTags: "Тип выражения",
+  allExpressions: "Все выражения",
+  sajaseongeo: "Идиома из четырёх иероглифов",
+  gosaseongeo: "Выражение из классических источников",
+  fourHanjaRequired: "Для этой идиомы введите четыре иероглифа ханча.",
   compareHomonyms: "Сравнение омонимов",
   resumePractice: "Продолжить упражнение",
   practiceAnswered: "Выполнено заданий: {done} из {total}",

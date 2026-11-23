@@ -460,6 +460,30 @@ func registerAccounts(mux *http.ServeMux, g *graph.Graph, practice Practice, opt
 		}
 		accountJSON(w, 200, result)
 	})
+	mux.HandleFunc("PUT /api/account/dictionary/tag", func(w http.ResponseWriter, r *http.Request) {
+		id, ok := resolve(w, r, true)
+		if !ok {
+			return
+		}
+		var body struct {
+			account.Ref
+			Tag     string `json:"tag"`
+			Enabled *bool  `json:"enabled"`
+		}
+		if !accountBody(w, r, &body) {
+			return
+		}
+		if body.Enabled == nil {
+			accountError(w, account.ErrInvalid)
+			return
+		}
+		result, err := store.WithContext(r.Context()).SetDictionaryTag(id, body.Ref, body.Tag, *body.Enabled)
+		if err != nil {
+			accountError(w, err)
+			return
+		}
+		accountJSON(w, 200, result)
+	})
 	mux.HandleFunc("DELETE /api/account/dictionary", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, true)
 		if !ok {

@@ -5,6 +5,7 @@ import (
 	"slices"
 
 	"github.com/elecbug/han-graph/internal/account"
+	"github.com/elecbug/han-graph/internal/graph"
 )
 
 func (q Question) localizedPrompts() map[string]string {
@@ -17,10 +18,13 @@ func (q Question) localizedPrompts() map[string]string {
 
 func registerPracticeHistory(mux *http.ServeMux, store *account.Store, practice Practice, resolve func(http.ResponseWriter, *http.Request, bool) (string, bool)) {
 	questions := make(map[string]Question, len(practice.Questions))
-	counts := make(map[string]int)
+	counts := make(map[graph.WordFilter]int)
 	for _, q := range practice.Questions {
 		questions[q.ID] = q
-		counts[q.WordLevel]++
+		counts[graph.WordFilter{Level: q.WordLevel}]++
+		for _, tag := range q.WordTags {
+			counts[graph.WordFilter{Level: q.WordLevel, Tag: tag}]++
+		}
 	}
 	mux.HandleFunc("GET /api/account/practice", func(w http.ResponseWriter, r *http.Request) {
 		id, ok := resolve(w, r, false)
@@ -54,6 +58,7 @@ func registerPracticeHistory(mux *http.ServeMux, store *account.Store, practice 
 			return
 		}
 		var submission struct {
+			Tag     string `json:"tag"`
 			ID      string `json:"id"`
 			Level   string `json:"level"`
 			Answers []struct {
@@ -64,16 +69,16 @@ func registerPracticeHistory(mux *http.ServeMux, store *account.Store, practice 
 		if !accountBody(w, r, &submission) {
 			return
 		}
-		expected := min(10, counts[submission.Level])
+		expected := min(10, counts[graph.WordFilter{Level: submission.Level, Tag: submission.Tag}])
 		if expected == 0 || len(submission.Answers) != expected {
 			accountError(w, account.ErrInvalid)
 			return
 		}
-		round := account.PracticeRound{ID: submission.ID, Level: submission.Level}
+		round := account.PracticeRound{ID: submission.ID, Level: submission.Level, Tag: submission.Tag}
 		seen := make(map[string]bool)
 		for _, a := range submission.Answers {
 			q, exists := questions[a.Question]
-			if !exists || q.WordLevel != submission.Level || seen[q.ID] || !slices.Contains(q.Options, a.Selected) {
+			if !exists || q.WordLevel != submission.Level || (submission.Tag != "" && !slices.Contains(q.WordTags, submission.Tag)) || seen[q.ID] || !slices.Contains(q.Options, a.Selected) {
 				accountError(w, account.ErrInvalid)
 				return
 			}

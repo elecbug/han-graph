@@ -1,4 +1,9 @@
 export const th = {
+  idiomTags: "ประเภทสำนวน",
+  allExpressions: "ทุกคำและสำนวน",
+  sajaseongeo: "สำนวนสี่อักษร",
+  gosaseongeo: "สำนวนจากเรื่องเล่าหรือวรรณคดีโบราณ",
+  fourHanjaRequired: "กรุณากรอกอักษรฮันจาสี่ตัวสำหรับสำนวนสี่อักษร",
   compareHomonyms: "เปรียบเทียบคำพ้องเสียง",
   resumePractice: "ทำแบบฝึกหัดต่อ",
   practiceAnswered: "ตอบแล้ว {done} จาก {total} ข้อ",

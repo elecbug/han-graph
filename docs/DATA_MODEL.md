@@ -36,12 +36,15 @@ JSONL은 UTF-8 텍스트로, 한 줄에 하나의 JSON 객체를 저장합니다
 | 필드 | 의미 |
 | --- | --- |
 | `level` | `easy`: 기초, `normal`: 일반, `hard`: 심화, `classical`: 고전·문어 |
+| `tags` | 선택 배열. `sajaseongeo`는 사자성어, `gosaseongeo`는 고사성어이며 한 항목에 두 값을 함께 지정할 수 있습니다. |
 | `word`, `hanja` | 한글 표기와 한자·혼합 표기 |
 | `meaning_ko`, `meaning_en`, `meaning_ru`, `meaning_uz`, `meaning_ky`, `meaning_zh`, `meaning_ja`, `meaning_es`, `meaning_vi`, `meaning_ne`, `meaning_mn`, `meaning_th` | 한국어·영어·러시아어·우즈베크어·키르기스어·중국어(간체)·일본어·스페인어·베트남어·네팔어·몽골어·태국어 뜻. 추가 언어는 이전 자료와의 호환을 위해 선택 필드 |
 | `components` | 표기에 나타난 한자만 원래 순서로 담은 배열 |
 | `semantic_hint`, `semantic_hint_en`, `semantic_hint_ru`, `semantic_hint_uz`, `semantic_hint_ky`, `semantic_hint_zh`, `semantic_hint_ja`, `semantic_hint_es`, `semantic_hint_vi`, `semantic_hint_ne`, `semantic_hint_mn`, `semantic_hint_th` | 한국어·영어·러시아어·우즈베크어·키르기스어·중국어(간체)·일본어·스페인어·베트남어·네팔어·몽골어·태국어 구성 학습 힌트. 모두 선택 필드 |
 
 기초·일반·심화는 생활 친숙도, 의미의 추상성, 전문 배경지식의 필요성을 살펴 나눈 학습용 분류입니다. 고전·문어는 옛 호칭·제도·한문 구절이나 문어 중심의 쓰임을 우선하여 구분합니다. 같은 소리여도 의미와 쓰임이 다르면 `(word, hanja)`별로 분류합니다. 공식 빈도 순위나 TOPIK 등급을 나타내지는 않습니다. [기준과 예시](DATA_GUIDELINES.md#어휘를-나누는-기준)를 함께 확인하세요.
+
+성어 태그는 단어와 한자 표기의 조합에 붙입니다. 사자성어는 네 한자로 된 관용 표현이고, 고사성어는 옛이야기나 고전 구절에서 유래해 굳어진 표현입니다. `새옹지마(塞翁之馬)`에는 두 태그를, `맹모삼천지교(孟母三遷之敎)`에는 고사성어 태그를 붙입니다. `백미(白眉)`와 `백미(白米)`처럼 소리가 같은 말도 서로 독립적으로 분류합니다. 일반 단어는 `tags`를 생략합니다.
 
 ‘강’처럼 한 글자 한자어도 수록합니다. ‘검은색’의 `hanja`는 `검은色`, `components`는 `["色"]`입니다. 반복되는 한자는 배열에서 원래 순서를 유지합니다.
 

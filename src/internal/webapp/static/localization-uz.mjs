@@ -1,4 +1,9 @@
 export const uz = {
+  idiomTags: "Ibora turi",
+  allExpressions: "Barcha iboralar",
+  sajaseongeo: "Toʻrt iyeroglifli ibora",
+  gosaseongeo: "Mumtoz manbadan olingan ibora",
+  fourHanjaRequired: "Toʻrt iyeroglifli ibora uchun toʻrtta hanja belgisini kiriting.",
   compareHomonyms: "Shakldosh soʻzlarni taqqoslash",
   resumePractice: "Mashqni davom ettirish",
   practiceAnswered: "{total} ta savoldan {done} tasiga javob berildi",

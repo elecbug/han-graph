@@ -1,4 +1,9 @@
 export const vi = {
+  idiomTags: "Loại thành ngữ",
+  allExpressions: "Tất cả cách diễn đạt",
+  sajaseongeo: "Thành ngữ bốn chữ",
+  gosaseongeo: "Thành ngữ có điển tích",
+  fourHanjaRequired: "Hãy nhập bốn chữ Hán cho thành ngữ bốn chữ.",
   compareHomonyms: "So sánh từ đồng âm",
   resumePractice: "Tiếp tục luyện tập",
   practiceAnswered: "Đã trả lời {done}/{total} câu",

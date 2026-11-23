@@ -1,4 +1,9 @@
 export const ne = {
+  idiomTags: "उक्तिको प्रकार",
+  allExpressions: "सबै अभिव्यक्ति",
+  sajaseongeo: "चार हान्जा अक्षरको उक्ति",
+  gosaseongeo: "प्राचीन प्रसङ्गमा आधारित उक्ति",
+  fourHanjaRequired: "यो उक्तिको लागि चारवटा हान्जा अक्षर लेख्नुहोस्।",
   compareHomonyms: "उस्तै उच्चारण भएका शब्दहरूको तुलना",
   resumePractice: "अभ्यास जारी राख्नुहोस्",
   practiceAnswered: "{total} मध्ये {done} प्रश्नको उत्तर दिइयो",

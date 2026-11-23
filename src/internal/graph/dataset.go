@@ -58,8 +58,16 @@ type WordExample struct {
 	ExampleTh string `json:"example_th,omitempty"`
 }
 
+const (
+	TagFourCharacter = "sajaseongeo"
+	TagAllusion      = "gosaseongeo"
+)
+
+func ValidWordTag(tag string) bool { return tag == TagFourCharacter || tag == TagAllusion }
+
 type Word struct {
 	Level          string   `json:"level"`
+	Tags           []string `json:"tags,omitempty"`
 	Word           string   `json:"word"`
 	Hanja          string   `json:"hanja"`
 	MeaningKo      string   `json:"meaning_ko"`
@@ -227,9 +235,26 @@ func Load(dir string) (*Graph, error) {
 	return g, nil
 }
 
+func (w Word) ValidateTags() error {
+	seen := map[string]bool{}
+	for _, tag := range w.Tags {
+		if !ValidWordTag(tag) || seen[tag] {
+			return fmt.Errorf("unknown or repeated word tag %q", tag)
+		}
+		if tag == TagFourCharacter && (utf8.RuneCountInString(w.Hanja) != 4 || len(w.Components) != 4) {
+			return fmt.Errorf("sajaseongeo requires four hanja characters")
+		}
+		seen[tag] = true
+	}
+	return nil
+}
+
 // Hanja may contain literal Hangul in a mixed word, such as 工夫하다.
 // Only actual Han glyphs become graph components; an empty form has no edges.
 func validateWordForm(w Word) error {
+	if err := w.ValidateTags(); err != nil {
+		return err
+	}
 	if w.Hanja == "" {
 		if len(w.Components) != 0 {
 			return fmt.Errorf("empty hanja requires empty components")

@@ -2,7 +2,7 @@ import test from 'node:test';
 import {createDataClient} from '../static/data-client.mjs';
 import assert from 'node:assert/strict';
 import {filterNetwork,layoutNetwork,renderNetworkSVG} from '../static/network.mjs';
-import {filterPracticeQuestions,practiceSettings,PRACTICE_LEVELS,createSession,answerQuestion,sessionResult} from '../static/learning.mjs';
+import {filterPracticeQuestions,practiceSettings,PRACTICE_LEVELS,createSession,answerQuestion,sessionResult,practiceDraft,restorePracticeDraft} from '../static/learning.mjs';
 
 const normal={word:'흡연',hanja:'吸煙',level:'normal',components:['吸','煙'],meaning_ko:'담배 피움',meaning_en:'smoking'};
 const classical={word:'흡연',hanja:'恰然',level:'classical',components:['恰','然'],meaning_ko:'마음에 맞는 모양',meaning_en:'fitting'};
@@ -51,6 +51,26 @@ test('graph categories have visible text, distinct classes and accessible labels
 
 const quizWords=[{word:'가격',hanja:'價格'},{word:'보완',hanja:'補完'},{word:'개연성',hanja:'蓋然性'},{word:'자왈',hanja:'子曰'}];
 const questions=Array.from({length:72},(_,i)=>({id:`q-${i}`,word_level:['easy','normal','hard','classical'][Math.floor(i/18)],answer:quizWords[Math.floor(i/18)],options:quizWords}));
+test('tag filters combine with level and survive resuming a short practice round',()=>{
+  const tags=['sajaseongeo','gosaseongeo'];
+  const taggedWord={...classical,tags};
+  const source={...network,words:[easy,taggedWord]};
+  for(const tag of tags) {
+    assert.deepEqual(filterNetwork(source,'all',tag).words,[taggedWord]);
+    assert.deepEqual(filterNetwork(source,'easy',tag).words,[]);
+    const pool=questions.map((q,i)=>i%8===0?{...q,word_tags:tags}:q);
+    const session=createSession(pool,()=>0.5,{level:'normal',tag});
+    assert.equal(session.questions.length,2);
+    session.roundID='a'.repeat(32);
+    answerQuestion(session,0,session.questions[0].answer);
+    const draft=practiceDraft(session);
+    const restored=restorePracticeDraft(draft,pool,'student');
+    assert.deepEqual(practiceDraft(restored),draft);
+    assert.equal(restored.tag,tag);
+    assert.equal(restored.answers.size,1);
+    assert.equal(restorePracticeDraft({...draft,tag:'unknown'},pool,'student'),null);
+  }
+});
 test('practice samples only the chosen word category and retains it through grading',()=>{
   const before=JSON.stringify(questions);
   for(const level of PRACTICE_LEVELS) {

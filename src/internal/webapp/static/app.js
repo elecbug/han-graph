@@ -3,7 +3,7 @@ import {WORD_FORM_FIELDS, emptyWordDraft, wordFormPayload, findMissingCharacters
 import {copy, normalizeLanguage, localized, localizedDate, studyFormats, countText, LANGUAGES, languageLabel, orderedLanguages} from './localization.mjs';
 import {parseDictionaryInput, DICTIONARY_FIELDS, DICTIONARY_SAMPLE} from './personal-dictionary.mjs';
 import {exampleLines} from './examples.mjs';
-import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
+import {wordKey, normalizeSaved, createSession, answerQuestion, sessionResult, PRACTICE_SESSION_SIZE, WORD_LEVELS, WORD_TAGS, matchesWordFilter, wordCategory, PRACTICE_LEVELS, practiceSettings, filterPracticeQuestions, practiceDraft, restorePracticeDraft} from './learning.mjs';
 import {createDataClient} from './data-client.mjs';
 import {loadPrintableWords, renderPrintableWordbook, wordbookPrintFilename, loadWordbookPrintFont} from './wordbook-print.mjs';
 import {layoutNetwork, renderNetworkSVG, filterNetwork, componentNetwork, wordFormParts, isMixedWord} from './network.mjs';
@@ -25,7 +25,9 @@ const icons = {
 function readStorage(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } }
 const storedPractice=readStorage('han-graph.practice-settings.v1', {});
 const storedLevel=readStorage('han-graph.word-level', 'all');
+const storedTag=readStorage('han-graph.word-tag','');
 const state = {
+  tag:WORD_TAGS.includes(storedTag)?storedTag:'',
   level:WORD_LEVELS.includes(storedLevel)?storedLevel:'all',
   practiceSettings:practiceSettings(storedPractice),
   lang: normalizeLanguage(readStorage('han-graph.language', 'ko')),
@@ -39,18 +41,22 @@ const state = {
 };
 let pageEpoch=0, detailEpoch=0, componentEpoch=0, searchEpoch=0, searchTimer, toastTimer;
 const t = key => copy[state.lang][key] ?? key;
-const searchPath = (mode,level=state.level) => {
+const searchPath = (mode,level=state.level,tag=state.tag) => {
   const params=new URLSearchParams();
   if(mode==='sound')params.set('mode',mode);
+  if(tag)params.set('tag',tag);
   if(level!=='all')params.set('level',level);
   return '/api/search'+(params.size?'?'+params:'');
 };
 const levelLabel = level => t({all:'levelAll',easy:'levelEasy',normal:'levelNormal',hard:'levelHard',classical:'levelClassical'}[level]??'levelNormal');
-const filterSummary = () => `${t(state.searchMode==='sound'?'searchSound':'searchAll')} · ${levelLabel(state.level)}`;
+const tagSuffix = tag => WORD_TAGS.includes(tag)?` · ${t(tag)}`:'';
+const filterSummary = () => `${t(state.searchMode==='sound'?'searchSound':'searchAll')} · ${levelLabel(state.level)}${tagSuffix(state.tag)}`;
 const personalBadge = word => state.dictionary.words.some(entry=>wordKey(entry)===wordKey(word))?`<span class="personal-badge">${t('personal')}</span>`:'';
 const personalCharacterBadge = character => state.dictionary.characters.some(entry=>entry.id===character.id)?`<span class="personal-badge">${t('personalCharacter')}</span>`:'';
-const levelBadge = word => `<span class="level-badge ${wordCategory(word)}">${levelLabel(word.level)}</span>`;
+const tagBadges = tags => WORD_TAGS.filter(tag=>tags?.includes(tag)).map(tag=>`<span class="idiom-badge">${t(tag)}</span>`).join('');
+const levelBadge = word => `<span class="level-badge ${wordCategory(word)}">${levelLabel(word.level)}</span>${tagBadges(word.tags)}`;
 const levelControls = () => `<div class="vocabulary-filters" role="group" aria-label="${t('wordLevel')}"><span>${t('wordLevel')}</span>${WORD_LEVELS.map(level=>`<button type="button" data-action="word-level" data-level="${level}" aria-pressed="${state.level===level}" class="${state.level===level?'active':''}">${levelLabel(level)}</button>`).join('')}</div>`;
+const tagControls = () => `<div class="vocabulary-filters" role="group" aria-label="${t('idiomTags')}"><span>${t('idiomTags')}</span>${['',...WORD_TAGS].map(tag=>`<button type="button" data-action="word-tag" data-tag="${tag}" aria-pressed="${state.tag===tag}" class="${state.tag===tag?'active':''}">${t(tag||'allExpressions')}</button>`).join('')}</div>`;
 const meaning = word => localized(word, 'meaning', state.lang);
 function saveStorage(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast(t('storageFailed')); return false; } }
 function toast(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').classList.add('show'); toastTimer=setTimeout(()=>$('#toast').classList.remove('show'), 3500); }
@@ -158,7 +164,7 @@ async function renderPage({revealSelection=false} = {}) {
       <details class="explore-filters"${state.filtersOpen?' open':''}>
         <summary><span>${t('searchFilters')}</span><span class="filter-summary">${filterSummary()}</span></summary>
         <div class="search-filters"><div class="search-modes" role="group" aria-label="${t('searchMode')}">${['all','sound'].map(mode=>`<button type="button" data-action="search-mode" data-mode="${mode}" class="${state.searchMode===mode?'active':''}" aria-pressed="${state.searchMode===mode}">${t(mode==='sound'?'searchSound':'searchAll')}</button>`).join('')}</div><p id="search-mode-hint">${t(state.searchMode==='sound'?'soundSearchHint':'allSearchHint')}</p></div>
-        <div class="vocabulary-filter-bar">${levelControls()}<p class="filter-help">${t('levelHint')}</p></div>
+        <div class="vocabulary-filter-bar">${levelControls()}${tagControls()}<p class="filter-help">${t('levelHint')}</p></div>
       </details>
     </div>
     <div class="section-bar"><span>${t('searchResults')}</span><span>${countText(state.stats.characters,'characters',state.lang)} · ${countText(state.stats.words,'words',state.lang)}</span></div>
@@ -191,8 +197,9 @@ function renderCatalog({scrollTop=$('.catalog-list')?.scrollTop??0} = {}) {
 }
 async function showRandomWord(button) {
   if(button.disabled)return;
-  const epoch=pageEpoch, level=state.level;
+  const epoch=pageEpoch, level=state.level, tag=state.tag;
   const params=new URLSearchParams({level});
+  if(tag)params.set('tag',tag);
   if(state.selection?.kind==='word') {
     params.set('exclude_word',state.selection.word);
     params.set('exclude_hanja',state.selection.hanja??state.detail?.wordResult?.word.hanja??'');
@@ -203,9 +210,10 @@ async function showRandomWord(button) {
   try {
     // Random choices must bypass the reusable lookup cache.
     const response=await fetch(`/api/random-word?${params}`,{cache:'no-store',headers:{'X-Account-ID':state.user?.id??'guest'}});
+    if(response.status===404){if(epoch===pageEpoch && level===state.level && tag===state.tag)toast(t('noResults'));return;}
     if(!response.ok)throw new Error(`HTTP ${response.status}`);
     const word=await response.json();
-    if(epoch!==pageEpoch || state.page!=='explore' || level!==state.level)return;
+    if(epoch!==pageEpoch || state.page!=='explore' || level!==state.level || tag!==state.tag)return;
     routeWord(word);
   } catch {
     if(epoch===pageEpoch)toast(t('randomError'));
@@ -215,22 +223,24 @@ async function showRandomWord(button) {
     button.querySelector('span').textContent=t('randomWord');
   }
 }
-function changeWordLevel(level) {
-  if(!WORD_LEVELS.includes(level) || level===state.level)return;
+function changeWordFilter(kind,value) {
+  const allowed=kind==='level'?WORD_LEVELS:['',...WORD_TAGS];
+  if(!allowed.includes(value) || value===state[kind])return;
   const graphFocused=!!document.activeElement?.closest('#network');
-  state.level=level;
+  state[kind]=value;
   $('.filter-summary').textContent=filterSummary();
-  saveStorage('han-graph.word-level',level);
+  saveStorage(`han-graph.word-${kind}`,value);
   clearTimeout(searchTimer);
-  document.querySelectorAll('[data-action="word-level"]').forEach(button=>{
-    button.classList.toggle('active',button.dataset.level===level);
-    button.setAttribute('aria-pressed',String(button.dataset.level===level));
+  document.querySelectorAll(`[data-action="word-${kind}"]`).forEach(button=>{
+    const active=button.dataset[kind]===value;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-pressed',String(active));
   });
   if(state.detail?.network) {
-    const visibleNetwork=filterNetwork(state.detail.network,level);
+    const visibleNetwork=filterNetwork(state.detail.network,state.level,state.tag);
     Object.assign(state.detail,{visibleNetwork,layout:layoutNetwork(visibleNetwork,state.detail.wordResult?.word),zoom:null});
     renderDetail();
-    if(graphFocused)$(`#network [data-action="word-level"][data-level="${level}"]`)?.focus({preventScroll:true});
+    if(graphFocused)$(`#network [data-action="word-${kind}"][data-${kind}="${value}"]`)?.focus({preventScroll:true});
   }
   if(state.detail&&!state.detail.network)renderDetail();
   performSearch();
@@ -253,16 +263,16 @@ function changeSearchMode(mode) {
 }
 async function performSearch() {
   const epoch=++searchEpoch;
-  const query=state.query, mode=state.searchMode, level=state.level;
+  const query=state.query, mode=state.searchMode, level=state.level, tag=state.tag;
   $('#catalog')?.setAttribute('aria-busy','true');
   const note=$('.list-footnote'); if(note)note.textContent=t('looking');
   try {
-    const result=await getJSON(searchPath(mode,level),query);
-    if(epoch!==searchEpoch || query!==state.query || mode!==state.searchMode || level!==state.level)return;
+    const result=await getJSON(searchPath(mode,level,tag),query);
+    if(epoch!==searchEpoch || query!==state.query || mode!==state.searchMode || level!==state.level || tag!==state.tag)return;
     state.search=result;
     renderCatalog({scrollTop:0});
   } catch {
-    if(epoch===searchEpoch && query===state.query && mode===state.searchMode && level===state.level && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
+    if(epoch===searchEpoch && query===state.query && mode===state.searchMode && level===state.level && tag===state.tag && $('.list-footnote')) $('.list-footnote').innerHTML=`${t('errorTitle')} <button class="text-button" data-action="search-retry">${t('retry')}</button>`;
   } finally {
     if(epoch===searchEpoch)$('#catalog')?.removeAttribute('aria-busy');
   }
@@ -292,7 +302,7 @@ async function loadDetail(selection) {
     }
     if(epoch!==detailEpoch || state.page!=='explore')return;
     state.glyph=network?.roots[0]??null;
-    const visibleNetwork=network?filterNetwork(network,state.level):null;
+    const visibleNetwork=network?filterNetwork(network,state.level,state.tag):null;
     state.detail={wordResult,homonyms,characters,network,visibleNetwork,layout:visibleNetwork?layoutNetwork(visibleNetwork,wordResult?.word):null,zoom:null};
     renderDetail();
   } catch(error) {
@@ -315,7 +325,7 @@ function renderComparisons() {
   const hits=state.tab==='words' && state.searchMode==='all'?state.search?.homonyms:null;
   if(search)search.innerHTML=homonymComparison(hits);
   if(detail) {
-    const rows=state.detail?.homonyms?.filter(row=>state.level==='all' || wordCategory(row.word)===state.level);
+    const rows=state.detail?.homonyms?.filter(row=>matchesWordFilter(row.word,state.level,state.tag));
     detail.innerHTML=hits?.length && hits[0].word.word===rows?.[0]?.word.word?'':homonymComparison(rows);
   }
 }
@@ -336,7 +346,7 @@ function renderDetail(position=null) {
     card=`<div class="word-heading"><div class="word-heading-top"><span class="tag">${t('charTag')}</span>${characters.map(personalCharacterBadge).join('')}</div><div class="word-title-row"><div><h2 class="word-title" lang="ko">${esc(characters.map(c=>c.sound_ko).join(' / '))}</h2><p class="word-meaning">${esc(characters.map(c=>localized(c, 'meaning', state.lang).join(', ')).join(' / '))}</p></div><span class="word-hanja" lang="ko">${esc(character.hanja)}</span></div></div><div class="components-section"><h3>${t('readings')}</h3>${characters.map(c=>`<p class="word-meaning-en">${esc(c.sound_ko)} · ${esc(c.sound_en)} — ${esc(localized(c,'meaning',state.lang).join(', '))}</p>`).join('')}<p class="learning-tip"><span>◇</span>${t('readingNote')}</p></div>`;
   }
   const backToResults=location.hash.startsWith('#explore?')?`<button type="button" class="back-to-results" data-action="show-results"><span aria-hidden="true">↑</span> ${t('searchResults')}</button>`:'';
-  $('#detail').innerHTML=`${backToResults}<article class="word-card">${card}${wordResult&&state.level!=='all'&&wordResult.word.level!==state.level?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
+  $('#detail').innerHTML=`${backToResults}<article class="word-card">${card}${wordResult&&!matchesWordFilter(wordResult.word,state.level,state.tag)?`<p class="filter-notice">${t('selectedOutside')}</p>`:''}</article>`;
   renderComparisons();
   $('#network').innerHTML=renderNetwork();
   if(!$('.network-viewport'))return;
@@ -354,7 +364,7 @@ function renderNetwork() {
   if(!network)return '';
   if(state.detail.wordResult && !state.detail.wordResult.word.components.length)return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2></div><p class="network-scope">${t('noHanja')}</p></section>`;
   const svg=renderNetworkSVG(layout,{lang:state.lang,highlighted:state.glyph,wordLabel:t('openWord'),characterLabel:t('characters'),label:t('graphRegion')});
-  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p>${network.words.some(isMixedWord)?`<p class="network-scope mixed-word-note">${t('mixedWordNote')}</p>`:''}${levelControls()}<div class="category-legend" aria-label="${t('categoryLegend')}">${WORD_LEVELS.filter(level=>level!=='all').map(level=>`<span>${levelBadge({level})} ${network.words.filter(word=>word.level===level).length}</span>`).join('')}</div><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${esc(state.glyph)} · ${t('graphSelected')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t(state.level==='all'?'noConnectionsSub':'filteredEmpty')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
+  return `<section class="network-section"><div class="subheading"><h2>${t('connections')}</h2><span>${network.characters.length} ${t('characters')} · ${network.words.length} ${t('words')}</span></div><p class="network-scope">${t('graphScope')}</p>${network.words.some(isMixedWord)?`<p class="network-scope mixed-word-note">${t('mixedWordNote')}</p>`:''}${levelControls()}${tagControls()}<div class="category-legend" aria-label="${t('categoryLegend')}">${WORD_LEVELS.filter(level=>level!=='all').map(level=>`<span>${levelBadge({level})} ${network.words.filter(word=>word.level===level).length}</span>`).join('')}</div><div class="network-card"><div class="network-toolbar"><span class="network-key"><i></i>${esc(state.glyph)} · ${t('graphSelected')}</span><div class="network-controls"><button data-action="network-out" aria-label="${t('zoomOut')}" title="${t('zoomOut')}">−</button><output id="network-scale" aria-live="polite"></output><button data-action="network-in" aria-label="${t('zoomIn')}" title="${t('zoomIn')}">+</button><button data-action="network-fit">${t('fitGraph')}</button></div></div><div class="network-viewport" tabindex="0" role="region" aria-label="${t('graphRegion')}. ${t('graphPan')}"><div class="network-canvas">${svg}</div></div>${network.words.length?'':`<div class="empty-state"><h3>${t('noConnections')}</h3><p>${t(state.tag?'noResults':state.level==='all'?'noConnectionsSub':'filteredEmpty')}</p></div>`}<div class="network-caption"><span class="legend-dot"></span><span>${t('graphHint')}<br>${t('graphPan')}</span></div></div></section>`;
 }
 function networkCenter(viewport) {
   const {pan,zoom}=state.detail;
@@ -395,7 +405,7 @@ async function changeComponent(glyph) {
   try {
     const network=componentNetwork(await getJSON('/api/neighborhood',glyph),glyph);
     if(epoch!==componentEpoch || state.detail!==detail || state.page!=='explore')return;
-    const visibleNetwork=filterNetwork(network,state.level);
+    const visibleNetwork=filterNetwork(network,state.level,state.tag);
     Object.assign(detail,{network,visibleNetwork,layout:layoutNetwork(visibleNetwork,detail.wordResult.word),networkLoading:false});
   } catch {
     if(epoch!==componentEpoch || state.detail!==detail || state.page!=='explore')return;
@@ -526,8 +536,8 @@ async function importWordbook(file) {
 }
 
 function practiceSettingsControls() {
-  return `<div class="practice-settings"><fieldset><legend>${t('wordLevel')}</legend><div class="practice-levels">${PRACTICE_LEVELS.map(level=>{
-    const count=filterPracticeQuestions(state.practice.questions,{level}).length;
+  return `<div class="practice-settings"><label class="practice-tag-picker">${t('idiomTags')}<select name="practice-tag">${['',...WORD_TAGS].map(tag=>`<option value="${tag}" ${(state.practiceSettings.tag??'')===tag?'selected':''}>${t(tag||'allExpressions')}</option>`).join('')}</select></label><fieldset><legend>${t('wordLevel')}</legend><div class="practice-levels">${PRACTICE_LEVELS.map(level=>{
+    const count=filterPracticeQuestions(state.practice.questions,{...state.practiceSettings,level}).length;
     return `<label class="practice-level-card"><input type="radio" name="practice-level" value="${level}" ${state.practiceSettings.level===level?'checked':''}><span>${levelBadge({level})}<small>${countText(count,'questions',state.lang)}</small></span></label>`;
   }).join('')}</div><p class="filter-help">${t(`practice${{easy:'Easy',normal:'Normal',hard:'Hard',classical:'Classical'}[state.practiceSettings.level]}Hint`)}</p><p class="filter-help">${t('practiceLevelHint')}</p></fieldset></div>`;
 }
@@ -581,14 +591,14 @@ function renderPractice() {
     const last=state.user?null:readStorage('han-graph.practice.v1',null);
     const validLast=last&&Number.isInteger(last.correct)&&Number.isInteger(last.total)&&last.total>0&&last.correct>=0&&last.correct<=last.total;
     const progress=draft?t('practiceAnswered').replace('{done}',draft.answers.size).replace('{total}',draft.questions.length):'';
-    const resume=draft?`<section class="practice-resume"><div><strong>${levelLabel(draft.level)}</strong><p>${progress}</p></div><button class="primary-button" data-action="resume-practice">${t('resumePractice')} →</button></section>`:'';
-    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}`:''}</p>`:''}</div></section></div>`;
+    const resume=draft?`<section class="practice-resume"><div><strong>${levelLabel(draft.level)}${tagSuffix(draft.tag)}</strong><p>${progress}</p></div><button class="primary-button" data-action="resume-practice">${t('resumePractice')} →</button></section>`:'';
+    $('#main').innerHTML=`${head}<div class="practice-wrap">${resume}<section class="practice-intro practice-setup">${practiceSettingsControls()}<div class="practice-start"><p class="practice-pool" role="status">${poolSize?esc(roundLabel):t('noPractice')}</p><button class="${draft?'secondary-button':'primary-button'}" data-action="start-practice" ${poolSize?'':'disabled'}>${t(draft?'newPractice':'startPractice')} →</button>${state.user?`<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}${validLast?`<p class="practice-meta">${t('latest')}: ${last.correct} / ${last.total}${PRACTICE_LEVELS.includes(last.level)?` · ${levelLabel(last.level)}${tagSuffix(last.tag)}`:''}</p>`:''}</div></section></div>`;
     return;
   }
   const result=sessionResult(state.session);
   if(state.index>=state.session.questions.length){renderSummary(head,result);return;}
   const question=state.session.questions[state.index], answer=state.session.answers.get(question.id);
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><div class="practice-progress"><span>${String(state.index+1).padStart(2,'0')} / ${state.session.questions.length}</span><span>${levelLabel(state.session.level)}</span></div><div class="progress-track" role="progressbar" aria-label="${t('practice')}" aria-valuenow="${result.answered}" aria-valuemin="0" aria-valuemax="${result.total}"><div class="progress-fill" style="width:${result.answered/result.total*100}%"></div></div><section class="question-card"><div class="question-tags">${levelBadge({level:question.word_level})}${question.contrast_group?`<span class="tag">${t('meaningContrast')}</span>`:''}</div><div class="eyebrow">${t('chooseWord')}</div><h2 class="question-prompt" lang="${state.lang}">${esc(localized(question, 'prompt', state.lang))}</h2><div class="question-help"><span>${t('pickOnce')}</span><button class="text-button" data-action="translation" aria-expanded="${state.translation}">${t(state.translation?'hideTranslation':'showTranslation')}</button></div>${state.translation?`<p class="question-translation" lang="${state.lang==='ko'?'en':'ko'}">${esc(localized(question, 'prompt', state.lang==='ko'?'en':'ko'))}</p>`:''}<div class="options">${question.options.map((option,index)=>{
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><div class="practice-progress"><span>${String(state.index+1).padStart(2,'0')} / ${state.session.questions.length}</span><span>${levelLabel(state.session.level)}${tagSuffix(state.session.tag)}</span></div><div class="progress-track" role="progressbar" aria-label="${t('practice')}" aria-valuenow="${result.answered}" aria-valuemin="0" aria-valuemax="${result.total}"><div class="progress-fill" style="width:${result.answered/result.total*100}%"></div></div><section class="question-card"><div class="question-tags">${levelBadge({level:question.word_level})}${question.contrast_group?`<span class="tag">${t('meaningContrast')}</span>`:''}</div><div class="eyebrow">${t('chooseWord')}</div><h2 class="question-prompt" lang="${state.lang}">${esc(localized(question, 'prompt', state.lang))}</h2><div class="question-help"><span>${t('pickOnce')}</span><button class="text-button" data-action="translation" aria-expanded="${state.translation}">${t(state.translation?'hideTranslation':'showTranslation')}</button></div>${state.translation?`<p class="question-translation" lang="${state.lang==='ko'?'en':'ko'}">${esc(localized(question, 'prompt', state.lang==='ko'?'en':'ko'))}</p>`:''}<div class="options">${question.options.map((option,index)=>{
     const correct=answer&&wordKey(option)===wordKey(question.answer);
     const incorrect=answer&&!answer.correct&&wordKey(option)===wordKey(answer.selected);
     return `<button class="option ${correct?'correct':''} ${incorrect?'incorrect':''}" data-action="answer" data-index="${index}" ${answer?'disabled':''}><strong lang="ko">${esc(option.word)}</strong><small>${correct?`✓ ${t('answer')}`:incorrect?`× ${t('yourChoice')}`:String(index+1).padStart(2,'0')}</small></button>`;
@@ -597,10 +607,10 @@ function renderPractice() {
 function renderSummary(head,result) {
   const {level}=state.session;
   if(!state.session.owner && !state.session.recorded && result.complete) {
-    state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,level,completedAt:new Date().toISOString()});
+    state.session.recorded=saveStorage('han-graph.practice.v1',{correct:result.correct,total:result.total,...practiceSettings(state.session),completedAt:new Date().toISOString()});
     if(state.session.recorded)forgetPracticeDraft(state.session);
   }
-  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
+  $('#main').innerHTML=`${head}<div class="practice-wrap"><section class="practice-intro"><div class="eyebrow">${t('sessionComplete')}</div><p class="practice-meta">${levelLabel(level)}${tagSuffix(state.session.tag)}</p><div class="result-number">${result.correct}<small> / ${result.total}</small></div><h2>${t('summaryTitle')}</h2><p>${t('summarySub')}</p>${state.session.owner?`<p role="status">${t(state.session.saveState==='saved'?'historySaved':state.session.saveState==='error'?'historyFailed':'accountWorking')}</p>${state.session.saveState==='error'?`<button class="secondary-button" data-action="retry-practice">${t('retry')}</button>`:''}<a class="text-button" href="#account?view=history">${t('historyTitle')}</a>`:''}<div class="result-actions"><button class="primary-button" data-action="start-practice">${t('restart')} ↻</button><button class="secondary-button" data-action="practice-settings">${t('changeSettings')}</button><a href="#explore" class="text-button">${t('startExplore')} →</a></div>${result.mistakes.length?`<div class="review-list"><h3>${t('review')}</h3>${result.mistakes.map(question=>`<div class="review-item"><span>↗</span><strong lang="ko">${esc(question.answer.word)} · ${esc(question.answer.hanja)}</strong><button class="text-button" data-action="open-word" ${wordAttrs(question.answer)}>${t('openWord')}</button></div>`).join('')}</div>`:`<p class="practice-meta">${t('allCorrect')}</p>`}</section></div>`;
 }
 
 
@@ -609,7 +619,7 @@ async function savePracticeRound(session) {
   session.saveState='saving';
   const answers=session.questions.map(q=>({question:q.id,selected:session.answers.get(q.id).selected}));
   try {
-    session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,level:session.level,answers},{keepalive:true});
+    session.pending=accountRequest('/api/account/practice','POST',{id:session.roundID,...practiceSettings(session),answers},{keepalive:true});
     await session.pending;
     session.saveState='saved';
     forgetPracticeDraft(session);
@@ -638,7 +648,7 @@ function renderPracticeHistory() {
           const label=ref=>`<span lang="ko">${esc(ref.word)}${ref.hanja?' · '+esc(ref.hanja):''}</span>`;
           return `<li>${prompt?`<p>${esc(prompt)}</p>`:''}<strong>${t(correct?'correct':'incorrect')}</strong> · ${t('yourChoice')} · ${label(answer.selected)}${correct?'':`<br>${t('answer')} · ${label(answer.answer)}`}</li>`;
         };
-        list.insertAdjacentHTML('beforeend',`<details class="history-round"><summary><time datetime="${esc(round.completed_at)}">${localizedDate(date,state.lang)} ${time}</time> · ${levelLabel(round.level)} · ${round.correct} / ${round.answers.length}</summary>
+        list.insertAdjacentHTML('beforeend',`<details class="history-round"><summary><time datetime="${esc(round.completed_at)}">${localizedDate(date,state.lang)} ${time}</time> · ${levelLabel(round.level)}${tagSuffix(round.tag)} · ${round.correct} / ${round.answers.length}</summary>
           <ol>${round.answers.map(row).join('')}</ol></details>`);
       }
       next=data.next??'';
@@ -712,6 +722,13 @@ async function renderStatistics() {
   }
 }
 
+function wordTagInputs(name,tags,allowFour=true) {
+  return WORD_TAGS.map(tag=>{
+    const unavailable=tag==='sajaseongeo' && !allowFour;
+    return `<label${unavailable?` title="${t('fourHanjaRequired')}"`:''}><input type="checkbox" name="${name}" value="${tag}" ${tags?.includes(tag)?'checked':''} ${state.privateBusy||unavailable?'disabled':''}>${t(tag)}</label>`;
+  }).join('');
+}
+
 function wordRegistrationForm() {
   const fieldLanguage=name=>name.split('_')[1]??'ko';
   const field=(name,label,required=false,max=2000)=>`<div class="word-field"><label for="personal-${name}">${t(label)}${required?' *':''}</label><input id="personal-${name}" name="${name}" value="${esc(state.wordDraft[name])}" maxlength="${max}" ${required?'required':''} ${state.privateBusy?'readonly':''} lang="${fieldLanguage(name)}"></div>`;
@@ -720,13 +737,13 @@ function wordRegistrationForm() {
   const available=languageOptions(languages);
   const languagePicker=available?`<div class="translation-picker"><select id="translation-language" aria-label="${t('addLanguage')}">${available}</select>
     <button type="button" class="secondary-button" data-action="add-language" ${state.privateBusy?'disabled':''}>${t('addLanguage')}</button></div>`:'';
-  return `<form method="post" id="personal-word-form" novalidate><h3>${t('wordFormTitle')}</h3><p class="field-help">${t('wordFormHelp')}</p><div class="word-form-grid">${field('word','wordFormWord',true,100)}${field('hanja','wordFormHanja',false,100)}</div><p class="field-help">${t('wordFormHanjaHelp')}</p><label for="personal-level">${t('wordLevel')}</label><select id="personal-level" name="level" ${state.privateBusy?'disabled':''}>${['easy','normal','hard','classical'].map(level=>`<option value="${level}" ${state.wordDraft.level===level?'selected':''}>${levelLabel(level)}</option>`).join('')}</select>${languages.map(language=>field(`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko')).join('')}${languagePicker}<details class="dictionary-extra" ${LANGUAGES.some(language=>state.wordDraft[`example_${language}`])?'open':''}><summary>${t('wordFormExamples')}</summary><div>${languages.map(language=>field(`example_${language}`,`wordFormExample${language[0].toUpperCase()+language.slice(1)}`,false,500)).join('')}</div></details>${state.characterDrafts.length?`<section id="new-characters"><h3>${t('wordFormMissing')}</h3><p class="field-help">${t('wordFormMissingHelp')}</p>${state.characterDrafts.map((entry,index)=>`<fieldset class="new-character"><legend lang="ko">${esc(entry.glyph)}</legend><div class="word-form-grid">${newField(entry,index,'sound_ko','wordFormSound',true,1)}${newField(entry,index,'sound_en','wordFormRoman',false,32)}</div><p class="field-help">${t('wordFormRomanHelp')}</p>${languages.map(language=>newField(entry,index,`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko',200)).join('')}</fieldset>`).join('')}</section>`:''}<p id="word-form-status" class="form-status" role="alert"></p><div class="account-actions"><button class="primary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('wordFormAdd')}</button><button class="secondary-button" type="button" data-action="word-sample" ${state.privateBusy?'disabled':''}>${t('wordFormSample')}</button></div></form>`;
+  return `<form method="post" id="personal-word-form" novalidate><h3>${t('wordFormTitle')}</h3><p class="field-help">${t('wordFormHelp')}</p><div class="word-form-grid">${field('word','wordFormWord',true,100)}${field('hanja','wordFormHanja',false,100)}</div><p class="field-help">${t('wordFormHanjaHelp')}</p><label for="personal-level">${t('wordLevel')}</label><select id="personal-level" name="level" ${state.privateBusy?'disabled':''}>${['easy','normal','hard','classical'].map(level=>`<option value="${level}" ${state.wordDraft.level===level?'selected':''}>${levelLabel(level)}</option>`).join('')}</select><fieldset class="idiom-options"><legend>${t('idiomTags')}</legend>${wordTagInputs('word-tag',state.wordDraft.tags)}</fieldset>${languages.map(language=>field(`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko')).join('')}${languagePicker}<details class="dictionary-extra" ${LANGUAGES.some(language=>state.wordDraft[`example_${language}`])?'open':''}><summary>${t('wordFormExamples')}</summary><div>${languages.map(language=>field(`example_${language}`,`wordFormExample${language[0].toUpperCase()+language.slice(1)}`,false,500)).join('')}</div></details>${state.characterDrafts.length?`<section id="new-characters"><h3>${t('wordFormMissing')}</h3><p class="field-help">${t('wordFormMissingHelp')}</p>${state.characterDrafts.map((entry,index)=>`<fieldset class="new-character"><legend lang="ko">${esc(entry.glyph)}</legend><div class="word-form-grid">${newField(entry,index,'sound_ko','wordFormSound',true,1)}${newField(entry,index,'sound_en','wordFormRoman',false,32)}</div><p class="field-help">${t('wordFormRomanHelp')}</p>${languages.map(language=>newField(entry,index,`meaning_${language}`,`wordForm${language[0].toUpperCase()+language.slice(1)}`,language==='ko',200)).join('')}</fieldset>`).join('')}</section>`:''}<p id="word-form-status" class="form-status" role="alert"></p><div class="account-actions"><button class="primary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('wordFormAdd')}</button><button class="secondary-button" type="button" data-action="word-sample" ${state.privateBusy?'disabled':''}>${t('wordFormSample')}</button></div></form>`;
 }
 
 function personalDictionaryEditor() {
   const words=[...state.dictionary.words].sort((a,b)=>a.word.localeCompare(b.word,'ko'));
   const remove=(kind,entry)=>`<button type="button" class="text-button dictionary-delete" data-action="dictionary-delete" data-kind="${kind}" ${kind==='word'?wordAttrs(entry):`data-id="${esc(entry.id)}"`} ${state.privateBusy?'disabled':''}>${t('dictionaryDelete')}</button>`;
-  return `<section class="account-card personal-dictionary"><h2>${t('dictionaryTitle')}</h2><p>${t('dictionaryHelp')}</p>${wordRegistrationForm()}<details class="dictionary-extra"><summary>${t('dictionaryImport')}</summary><form method="post" id="dictionary-import-form"><p class="field-help">${t('dictionaryImportHelp')}</p><div class="dictionary-file-picker"><button type="button" class="secondary-button" data-action="choose-file" ${state.privateBusy?'disabled':''}>${t('chooseFile')}</button><span id="dictionary-filename" aria-live="polite"></span></div><input hidden id="dictionary-file" name="file" type="file" accept=".json,.jsonl,application/json,application/x-ndjson" ${state.privateBusy?'disabled':''}><p id="dictionary-status" class="form-status" role="alert"></p><button class="secondary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('dictionaryImportButton')}</button></form></details><div class="dictionary-list-heading"><h3>${t('dictionaryRegistered')} · ${words.length}</h3>${DICTIONARY_FIELDS.some(field=>state.dictionary[field].length)?`<button class="text-button" data-action="dictionary-download">${t('dictionaryDownload')}</button>`:''}</div>${words.length?`<div class="dictionary-list">${words.map(word=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-word" ${wordAttrs(word)}>${esc(word.word)} · ${esc(word.hanja)} ↗</button>${levelBadge(word)}<p>${esc(meaning(word))}</p></div>${remove('word',word)}</article>`).join('')}</div>`:`<p class="field-help">${t('dictionaryEmptyList')}</p>`}${state.dictionary.characters.length||state.dictionary.meta.length?`<details class="dictionary-extra"><summary>${t('dictionaryRegisteredCharacters')} · ${state.dictionary.characters.length} / ${state.dictionary.meta.length}</summary><div class="dictionary-list">${state.dictionary.characters.map(c=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-character" data-glyph="${esc(c.hanja)}">${esc(c.hanja)} ↗</button><p>${esc(localized(c, 'meaning', state.lang).join(', '))}</p></div>${remove('character',c)}</article>`).join('')}${state.dictionary.meta.map(m=>`<article class="dictionary-entry"><div>${esc(m.sound_ko)} · ${esc(m.sound_en)}</div>${remove('meta',m)}</article>`).join('')}</div></details>`:''}<p class="field-help">${t('dictionaryDeleteHelp')}</p></section>`;
+  return `<section class="account-card personal-dictionary"><h2>${t('dictionaryTitle')}</h2><p>${t('dictionaryHelp')}</p>${wordRegistrationForm()}<details class="dictionary-extra"><summary>${t('dictionaryImport')}</summary><form method="post" id="dictionary-import-form"><p class="field-help">${t('dictionaryImportHelp')}</p><div class="dictionary-file-picker"><button type="button" class="secondary-button" data-action="choose-file" ${state.privateBusy?'disabled':''}>${t('chooseFile')}</button><span id="dictionary-filename" aria-live="polite"></span></div><input hidden id="dictionary-file" name="file" type="file" accept=".json,.jsonl,application/json,application/x-ndjson" ${state.privateBusy?'disabled':''}><p id="dictionary-status" class="form-status" role="alert"></p><button class="secondary-button" type="submit" ${state.privateBusy?'disabled':''}>${t('dictionaryImportButton')}</button></form></details><div class="dictionary-list-heading"><h3>${t('dictionaryRegistered')} · ${words.length}</h3>${DICTIONARY_FIELDS.some(field=>state.dictionary[field].length)?`<button class="text-button" data-action="dictionary-download">${t('dictionaryDownload')}</button>`:''}</div>${words.length?`<div class="dictionary-list">${words.map(word=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-word" ${wordAttrs(word)}>${esc(word.word)} · ${esc(word.hanja)} ↗</button>${levelBadge(word)}<p>${esc(meaning(word))}</p><details class="entry-tag-editor" ${wordAttrs(word)}><summary>${t('idiomTags')}</summary><div class="idiom-options">${wordTagInputs('existing-word-tag',word.tags,word.components.length===4 && [...word.hanja].length===4)}</div></details></div>${remove('word',word)}</article>`).join('')}</div>`:`<p class="field-help">${t('dictionaryEmptyList')}</p>`}${state.dictionary.characters.length||state.dictionary.meta.length?`<details class="dictionary-extra"><summary>${t('dictionaryRegisteredCharacters')} · ${state.dictionary.characters.length} / ${state.dictionary.meta.length}</summary><div class="dictionary-list">${state.dictionary.characters.map(c=>`<article class="dictionary-entry"><div><button class="text-button" data-action="open-character" data-glyph="${esc(c.hanja)}">${esc(c.hanja)} ↗</button><p>${esc(localized(c, 'meaning', state.lang).join(', '))}</p></div>${remove('character',c)}</article>`).join('')}${state.dictionary.meta.map(m=>`<article class="dictionary-entry"><div>${esc(m.sound_ko)} · ${esc(m.sound_en)}</div>${remove('meta',m)}</article>`).join('')}</div></details>`:''}<p class="field-help">${t('dictionaryDeleteHelp')}</p></section>`;
 }
 function dictionaryMessage(error) {
   if(error.field)return t('dictionaryJSON').replace('{field}',t({words:'dictionaryWords',characters:'dictionaryCharacters',meta:'dictionaryMeta',examples:'dictionaryExamples'}[error.field])).replace('{line}',error.line);
@@ -746,7 +763,7 @@ async function addPersonalWord(event) {
   try {payload=wordFormPayload(state.wordDraft);}catch(error){wordFormFailure(form,error);return;}
   state.privateBusy=true;
   form.querySelectorAll('input').forEach(input=>input.readOnly=true);
-  form.querySelectorAll('button,select').forEach(input=>input.disabled=true);
+  form.querySelectorAll('button,select,input[type="checkbox"]').forEach(input=>input.disabled=true);
   form.querySelector('#word-form-status').textContent=t('wordFormChecking');
   let showCharacters=false, failure;
   try {
@@ -770,7 +787,7 @@ async function addPersonalWord(event) {
   } finally {
     finishPrivateRequest();
     form.querySelectorAll('input').forEach(input=>input.readOnly=false);
-    form.querySelectorAll('button,select').forEach(input=>input.disabled=false);
+    form.querySelectorAll('button,select,input[type="checkbox"]').forEach(input=>input.disabled=false);
     if(showCharacters&&state.user?.id===owner&&location.hash==='#account?view=dictionary') {
       renderAccount();$('#word-form-status').textContent=t('wordFormReady');$('#new-characters input')?.focus();
     } else if(state.dictionaryNeedsRefresh)await renderPage();
@@ -805,6 +822,28 @@ async function importPersonalDictionary(event) {
     }
   }
 }
+async function updatePersonalWordTag(input) {
+  const enabled=input.checked;
+  if(state.privateBusy || !state.user){input.checked=!enabled;return;}
+  const {word,hanja}=input.closest('.entry-tag-editor').dataset;
+  const owner=state.user.id, tag=input.value;
+  state.privateBusy=true;
+  input.disabled=true;
+  try {
+    const snapshot=await accountRequest('/api/account/dictionary/tag','PUT',{word,hanja,tag,enabled});
+    if(state.user?.id!==owner)return;
+    applyAccount(snapshot);announceAccountChange();
+  } catch(error) {input.checked=!enabled;toast(dictionaryMessage(error));}
+  finally {
+    finishPrivateRequest();
+    input.disabled=false;
+    if(state.dictionaryNeedsRefresh)await renderPage();
+    if(state.user?.id===owner && state.page==='account') {
+      const editor=$(`.entry-tag-editor[data-word="${CSS.escape(word)}"][data-hanja="${CSS.escape(hanja)}"]`);
+      if(editor){editor.open=true;editor.querySelector(`input[value="${tag}"]`).focus({preventScroll:true});}
+    }
+  }
+}
 async function removePersonalDictionary(button) {
   if(state.privateBusy||!state.user)return;
   const {kind,id,word,hanja}=button.dataset;
@@ -830,6 +869,8 @@ $('#main').addEventListener('input',event=>{
   if(input.dataset.characterField) {
     const draft=state.characterDrafts[Number(input.dataset.characterIndex)];
     if(draft)draft[input.dataset.characterField]=input.value;
+  } else if(input.name==='word-tag') {
+    state.wordDraft.tags=Array.from(input.form.querySelectorAll('[name="word-tag"]:checked'),box=>box.value);
   } else if(WORD_FORM_FIELDS.includes(input.name)) {
     state.wordDraft[input.name]=input.value;
     if(['word','hanja'].includes(input.name)){state.characterDrafts=[];$('#new-characters')?.remove();}
@@ -1249,7 +1290,7 @@ $('#main').addEventListener('input',event=>{
   state.noteDrafts.set(key,{text:event.target.value,revision:old?.revision??0});
   $('#note-status').textContent=t('noteDraft');
 });
-window.addEventListener('beforeunload',event=>{if(state.noteDrafts.size||WORD_FORM_FIELDS.some(field=>field!=='level'&&state.wordDraft[field])){event.preventDefault();event.returnValue='';}});
+window.addEventListener('beforeunload',event=>{if(state.noteDrafts.size||state.wordDraft.tags?.length||WORD_FORM_FIELDS.some(field=>field!=='level'&&state.wordDraft[field])){event.preventDefault();event.returnValue='';}});
 window.addEventListener('storage',event=>{
   if(event.key==='han-graph.account-event')refreshAccount(true);
   if(event.key===draftKey(state.user?.id) && state.ready) {
@@ -1313,7 +1354,8 @@ $('#main').addEventListener('click',event=>{
   else if(action==='upload-words')$('#wordbook-file')?.click();
   else if(action==='tab'){state.tab=button.dataset.tab;renderCatalog({scrollTop:0});$(`[data-tab="${state.tab}"]`)?.focus({preventScroll:true});}
   else if(action==='search-mode')changeSearchMode(button.dataset.mode);
-  else if(action==='word-level')changeWordLevel(button.dataset.level);
+  else if(action==='word-level')changeWordFilter('level',button.dataset.level);
+  else if(action==='word-tag')changeWordFilter('tag',button.dataset.tag);
   else if(action==='search-retry')performSearch();
   else if(action==='retry'){if(state.ready)renderPage();else boot();}
   else if(action==='resume-practice'){
@@ -1346,11 +1388,14 @@ $('#main').addEventListener('click',event=>{
 });
 $('#main').addEventListener('change',event=>{
   const input=event.target;
-  if(input.name!=='practice-level' || state.session || !PRACTICE_LEVELS.includes(input.value))return;
-  state.practiceSettings={level:input.value};
+  if(input.name==='existing-word-tag'){void updatePersonalWordTag(input);return;}
+  if(state.session)return;
+  if(input.name==='practice-level' && PRACTICE_LEVELS.includes(input.value))state.practiceSettings={...state.practiceSettings,level:input.value};
+  else if(input.name==='practice-tag' && ['',...WORD_TAGS].includes(input.value))state.practiceSettings=practiceSettings({...state.practiceSettings,tag:input.value});
+  else return;
   saveStorage('han-graph.practice-settings.v1',state.practiceSettings);
   renderPractice();
-  $(`input[name="${input.name}"][value="${input.value}"]`)?.focus({preventScroll:true});
+  $(input.name==='practice-tag'?'select[name="practice-tag"]':`input[name="${input.name}"][value="${input.value}"]`)?.focus({preventScroll:true});
 });
 window.addEventListener('hashchange' ,()=>renderPage({revealSelection:true}));
 window.addEventListener('resize',()=>{if(state.page==='explore'&&state.detail?.fit)sizeNetwork('network-fit');});

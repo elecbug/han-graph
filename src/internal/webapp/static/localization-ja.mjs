@@ -1,4 +1,9 @@
 export const ja = {
+  idiomTags: "成語の種類",
+  allExpressions: "すべての表現",
+  sajaseongeo: "四字熟語",
+  gosaseongeo: "故事成語",
+  fourHanjaRequired: "四字熟語の漢字表記には漢字を4文字入力してください。",
   compareHomonyms: "同音異義語を比べる",
   resumePractice: "続きから解く",
   practiceAnswered: "{total}問中{done}問に回答済み",
