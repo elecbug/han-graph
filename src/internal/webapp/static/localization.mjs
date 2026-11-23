@@ -299,7 +299,7 @@ const formCopy = {
 };
 for (const language of LANGUAGES) Object.assign(copy[language],formCopy[language]);
 
-Object.assign(copy.ko,{home:'漢-Graph 처음으로',mainNavigation:'주요 메뉴',brandMotto:'단어를 잇는 배움.',appDescription:'한자의 뜻을 따라 한국어 단어를 연결하고 문맥 속에서 이해해 보세요.'});
+Object.assign(copy.ko,{home:'漢-GRAPH 처음으로',mainNavigation:'주요 메뉴',brandMotto:'단어를 잇는 배움.',appDescription:'한자의 뜻을 따라 한국어 단어를 연결하고 문맥 속에서 이해해 보세요.'});
 Object.assign(copy.en,{home:'HAN-GRAPH home',mainNavigation:'Main navigation',brandMotto:'WORDS, CONNECTED.',appDescription:'Connect Korean words through Hanja meanings and understand them in context.'});
 Object.assign(copy.ru,{home:'На главную HAN-GRAPH',mainNavigation:'Главное меню',brandMotto:'СЛОВА И СВЯЗИ.',appDescription:'Находите связи между корейскими словами через значения иероглифов и контекст.'});
 

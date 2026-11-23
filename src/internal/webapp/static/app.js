@@ -100,7 +100,7 @@ function accountView() {
 function updateShell() {
   document.documentElement.lang=state.lang;
   document.body.classList.toggle('wordbook-print-view',state.page==='print');
-  document.title=`漢-Graph · ${t(state.page)}`;
+  document.title=`漢-GRAPH · ${t(state.page)}`;
   document.querySelectorAll('[data-i18n]').forEach(element => element.innerHTML=t(element.dataset.i18n));
   document.querySelectorAll('[data-i18n-aria]').forEach(element=>element.setAttribute('aria-label',t(element.dataset.i18nAria)));
   document.querySelector('meta[name=description]').content=t('appDescription');

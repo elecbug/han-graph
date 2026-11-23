@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# HAN-Graph: Google Cloud Run 운영 명령 모음
+# HAN-GRAPH: Google Cloud Run 운영 명령 모음
 # 사용 환경: Google Cloud Shell (bash, gcloud, curl, Python3)
 # 실행: bash han-graph-cloudrun.sh help
 #
@@ -32,7 +32,7 @@ die()  { printf '\n[ERROR] %s\n' "$*" >&2; exit 1; }
 
 usage() {
   cat <<'HELP'
-HAN-Graph / Google Cloud Run 관리 스크립트
+HAN-GRAPH / Google Cloud Run 관리 스크립트
 
 사용법:
   bash han-graph-cloudrun.sh <명령> [옵션]
@@ -111,15 +111,15 @@ clone_repo() {
     return 0
   fi
   if [[ -e "$REPO_DIR" ]]; then
-    die "대상 경로가 이미 존재하지만 HAN-Graph 저장소가 아닙니다: $REPO_DIR"
+    die "대상 경로가 이미 존재하지만 HAN-GRAPH 저장소가 아닙니다: $REPO_DIR"
   fi
-  info "HAN-Graph 저장소 다운로드: $REPO_DIR"
+  info "HAN-GRAPH 저장소 다운로드: $REPO_DIR"
   git clone 'https://github.com/elecbug/han-graph.git' "$REPO_DIR"
 }
 
 require_repo() {
   [[ -f "$REPO_DIR/Dockerfile" && -d "$REPO_DIR/src" && -d "$REPO_DIR/dataset" ]] ||
-    die "HAN-Graph 저장소를 찾지 못했습니다: $REPO_DIR\n먼저 git clone https://github.com/elecbug/han-graph.git 를 실행하거나 HAN_GRAPH_DIR을 지정하십시오."
+    die "HAN-GRAPH 저장소를 찾지 못했습니다: $REPO_DIR\n먼저 git clone https://github.com/elecbug/han-graph.git 를 실행하거나 HAN_GRAPH_DIR을 지정하십시오."
 }
 
 project_number() {
