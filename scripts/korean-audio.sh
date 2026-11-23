@@ -3,9 +3,9 @@
 set -euo pipefail
 repo=$(cd "$(dirname "$0")/.." && pwd)
 cd "$repo"
-cpu_count=${HAN_AUDIO_CPUS:-8}
-if [[ ! $cpu_count =~ ^[1-8]$ ]]; then
-    echo "HAN_AUDIO_CPUS must be an integer from 1 to 8" >&2
+cpu_count=${HAN_AUDIO_CPUS:-16}
+if [[ ! $cpu_count =~ ^([1-9]|1[0-6])$ ]]; then
+    echo "HAN_AUDIO_CPUS must be an integer from 1 to 16" >&2
     exit 2
 fi
 export HAN_AUDIO_CPUS="$cpu_count"

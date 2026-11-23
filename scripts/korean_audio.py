@@ -14,6 +14,7 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+MAX_CPUS = 16
 CHECKPOINT_SHA256 = "48e3ff3fd0b5348e095f0468e60ae727507564100f58142ef3a922ead6e0a4d0"
 
 
@@ -28,9 +29,9 @@ def check_limits():
     quota, period = (root / "cpu.max").read_text().split()
     memory = (root / "memory.max").read_text().strip()
     swap = (root / "memory.swap.max").read_text().strip()
-    requested = os.environ.get("HAN_AUDIO_CPUS", "8")
-    if requested not in tuple("12345678"):
-        raise RuntimeError("HAN_AUDIO_CPUS must be an integer from 1 to 8")
+    requested = os.environ.get("HAN_AUDIO_CPUS", str(MAX_CPUS))
+    if requested not in map(str, range(1, MAX_CPUS + 1)):
+        raise RuntimeError(f"HAN_AUDIO_CPUS must be an integer from 1 to {MAX_CPUS}")
     if quota == "max" or int(quota) > int(requested) * int(period):
         raise RuntimeError(f"expected a CPU quota of at most {requested} cores")
     if memory == "max" or int(memory) > 4 * 1024**3 or swap != "0":
