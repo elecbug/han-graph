@@ -1,5 +1,6 @@
 import io
 import json
+import re
 from pathlib import Path
 import tempfile
 import unittest
@@ -8,6 +9,18 @@ from localized_dataset import ALL_LANGUAGES, apply_batch, check_row, check_text
 
 
 class AdditionalLocales(unittest.TestCase):
+    def test_korean_examples_and_practice_use_polite_narration(self):
+        dataset = Path(__file__).resolve().parents[1] / 'dataset'
+        with (dataset / 'example.jsonl').open() as file:
+            examples = [((row['word'], row['hanja']), row['example_ko']) for row in map(json.loads, file)]
+        questions = json.loads((dataset / 'practice.json').read_text())['questions']
+        for key, text in examples + [(q['id'], q[field]) for q in questions for field in ('prompt_ko', 'explanation_ko')]:
+            with self.subTest(key=key, text=text):
+                # Dialogue and quoted passages retain their speaker's register.
+                narration = re.sub(r'“[^”]*”|‘[^’]*’|"[^"]*"', ' ', text).strip()
+                for word in re.findall(r'([가-힣]+)[.?!](?=\s|$)', narration):
+                    self.assertTrue(word.endswith('요'), word)
+
     def test_calendar_examples_identify_the_year_in_translation(self):
         dataset = Path(__file__).resolve().parents[1] / 'dataset'
         seen = {language: {} for language in ALL_LANGUAGES}

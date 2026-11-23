@@ -118,6 +118,10 @@ func TestIdiomFilters(t *testing.T) {
 		{"맹모삼천지교", "孟母三遷之敎", []string{graph.TagAllusion}},
 		{"백미", "白眉", []string{graph.TagAllusion}},
 		{"백미", "白米", nil},
+		{"비아부화", "飛蛾赴火", []string{graph.TagFourCharacter, graph.TagAllusion}},
+		{"도탄", "塗炭", []string{graph.TagAllusion}},
+		{"근검절약", "勤儉節約", []string{graph.TagFourCharacter}},
+		{"구구절절", "句句節節", nil},
 		{"행정소송", "行政訴訟", nil},
 	} {
 		if !slices.ContainsFunc(g.FindWords(tc.word), func(row graph.WordResult) bool {
